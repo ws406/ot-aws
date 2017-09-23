@@ -1,6 +1,6 @@
 class games_list:
 
-    def __int__(self):
+    def __init__(self):
         pass
 
     # Get games that are taking place in the next 'minutes' minutes
