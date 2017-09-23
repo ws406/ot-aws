@@ -1,0 +1,31 @@
+{
+  "game_id" : 12345678,
+  "competition_name": "EPL",
+  "kickoff_datetime": 1233920412,
+  "home_team_id": 123,
+  "away_team_id": 456,
+  "results": "X",
+  "hist_odds": {
+    "macau_slot": {
+      "original": [
+        {"datetime": 182998239, "1": 2.34, "X": 3.45, "2": 1.23},
+        {"datetime": 133298239, "1": 2.34, "X": 3.45, "2": 1.23},
+        {"datetime": 112123239, "1": 2.34, "X": 3.45, "2": 1.23}
+      ]
+    }
+  },
+  "odds": [
+    {"bookie_name": "macau_slot", "odds_type": "original", "1": 2.34, "X": 3.45, "2": 1.23},
+    {"bookie_name": "macau_slot", "odds_type": "final", "1": 2.56, "X": 3.76, "2": 1.13},
+    {"bookie_name": "will_hill", "odds_type": "original", "1": 2.34, "X": 3.45, "2": 1.23},
+    {"bookie_name": "will_hill", "odds_type": "final", "1": 2.56, "X": 3.76, "2": 1.13},
+    {"bookie_name": "ladbrokes", "odds_type": "original", "1": 2.34, "X": 3.45, "2": 1.23},
+    {"bookie_name": "ladbrokes", "odds_type": "final", "1": 2.56, "X": 3.76, "2": 1.13},
+    {"bookie_name": "bet365", "odds_type": "original", "1": 2.34, "X": 3.45, "2": 1.23},
+    {"bookie_name": "bet365", "odds_type": "final", "1": 2.56, "X": 3.76, "2": 1.13},
+    {"bookie_name": "pinnacle", "odds_type": "original", "1": 2.34, "X": 3.45, "2": 1.23},
+    {"bookie_name": "pinnacle", "odds_type": "final", "1": 2.56, "X": 3.76, "2": 1.13},
+    {"bookie_name": "interwetten", "odds_type": "original", "1": 2.34, "X": 3.45, "2": 1.23},
+    {"bookie_name": "interwetten", "odds_type": "final", "1": 2.56, "X": 3.76, "2": 1.13}
+  ]
+}

@@ -1,5 +1,6 @@
 from typing import List
 
+
 class GameMainBookiesOdds:
 
     bookies_odds = None
