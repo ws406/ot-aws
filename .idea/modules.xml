@@ -2,6 +2,8 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
+      <module fileurl="file://$PROJECT_DIR$/../odds-portal-scraper/.idea/odds-portal-scraper.iml" filepath="$PROJECT_DIR$/../odds-portal-scraper/.idea/odds-portal-scraper.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../oddsportal/.idea/oddsportal.iml" filepath="$PROJECT_DIR$/../oddsportal/.idea/oddsportal.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/ot.iml" filepath="$PROJECT_DIR$/.idea/ot.iml" />
     </modules>
   </component>
