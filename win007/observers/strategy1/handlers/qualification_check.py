@@ -20,7 +20,7 @@ class decision_maker:
 
         pass
 '''
-json_file = open("/home/wyao/Downloads/sunwangjia/data_example.json", "r").read()
+json_file = open("./data_example.json", "r").read()
 my_json_dict = json.loads(json_file)
 
 totalOdds = defaultdict(list)
@@ -79,8 +79,6 @@ if my_json_dict['home_team_rank'] > my_json_dict['away_team_rank'] and totalOdds
   prediction = 2
 elif my_json_dict['home_team_rank'] < my_json_dict['away_team_rank'] and totalOdds['macau2']['1'] < 1.9 and prediction == 1 :
   prediction = 1
-else
-  prediction = None
 
 print prediction
 
