@@ -3,7 +3,9 @@
   "competition_name": "EPL",
   "kickoff_datetime": 1233920412,
   "home_team_id": 123,
+  "home_team_rank": 2,
   "away_team_id": 456,
+  "away_team_rank": 5,
   "results": "X",
   "hist_odds": {
     "macau_slot": {
