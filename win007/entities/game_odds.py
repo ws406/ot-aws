@@ -4,6 +4,9 @@ from typing import List
 class GameMainBookiesOdds:
 
     bookies_odds = None
+    game_id = None
+    home_team_rank = None
+    away_team_rank = None
 
     def __init__(self, game_bookies_odds: List[GameBookieOdds]):
         self.bookies_odds = game_bookies_odds
