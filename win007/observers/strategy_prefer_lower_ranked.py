@@ -8,4 +8,5 @@ class Observer(ObserverInterface):
         pass
 
     def observer_run(self):
+
         pass

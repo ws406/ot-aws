@@ -58,29 +58,36 @@ for data in my_json_dict['odds'] :
       totalOdds['inter2'] = data
     
 prediction = None
-if totalOdds['macau1']['1'] < totalOdds['macau2']['1'] and totalOdds['macau1']['2'] > totalOdds['macau2']['2'] and \
-  totalOdds['wh1']['1'] < totalOdds['wh2']['1'] and totalOdds['wh1']['2'] > totalOdds['wh2']['2'] and \
-  totalOdds['ladbrokes1']['1'] < totalOdds['ladbrokes2']['1'] and totalOdds['ladbrokes1']['2'] > totalOdds['ladbrokes2']['2'] and \
-  totalOdds['bet3651']['1'] < totalOdds['bet3652']['1'] and totalOdds['bet3651']['2'] > totalOdds['bet3652']['2'] and \
-  totalOdds['pi1']['1'] < totalOdds['pi2']['1'] and totalOdds['pi1']['2'] > totalOdds['pi2']['2'] and \
-  totalOdds['inter1']['1'] < totalOdds['inter2']['1'] and totalOdds['inter1']['2'] > totalOdds['inter2']['2'] :
-  prediction = 2
-elif totalOdds['macau1']['1'] > totalOdds['macau2']['1'] and totalOdds['macau1']['2'] < totalOdds['macau2']['2'] and \
-  totalOdds['wh1']['1'] > totalOdds['wh2']['1'] and totalOdds['wh1']['2'] < totalOdds['wh2']['2'] and \
-  totalOdds['ladbrokes1']['1'] > totalOdds['ladbrokes2']['1'] and totalOdds['ladbrokes1']['2'] < totalOdds['ladbrokes2']['2'] and \
-  totalOdds['bet3651']['1'] > totalOdds['bet3652']['1'] and totalOdds['bet3651']['2'] < totalOdds['bet3652']['2'] and \
-  totalOdds['pi1']['1'] > totalOdds['pi2']['1'] and totalOdds['pi1']['2'] < totalOdds['pi2']['2'] and \
-  totalOdds['inter1']['1'] > totalOdds['inter2']['1'] and totalOdds['inter1']['2'] < totalOdds['inter2']['2'] :
-  prediction = 1
 
-print prediction
-
-if my_json_dict['home_team_rank'] > my_json_dict['away_team_rank'] and totalOdds['macau2']['2'] < 1.9 and prediction == 2 :
+# 1. check ranking condition: to qualify, the team that ranks higher needs to have winning odds that is lower than 1.9
+if my_json_dict['home_team_rank'] > my_json_dict['away_team_rank'] and totalOdds['macau2']['2'] < 1.9 :
   prediction = 2
 elif my_json_dict['home_team_rank'] < my_json_dict['away_team_rank'] and totalOdds['macau2']['1'] < 1.9 and prediction == 1 :
   prediction = 1
 
-print prediction
+# 2. Predict by odds trend. If all-final-odds is smaller than all-original-odds, predict that result.
+if prediction == 2 and \
+    totalOdds['macau1']['1'] < totalOdds['macau2']['1'] and totalOdds['macau1']['2'] > totalOdds['macau2']['2'] and \
+    totalOdds['wh1']['1'] < totalOdds['wh2']['1'] and totalOdds['wh1']['2'] > totalOdds['wh2']['2'] and \
+    totalOdds['ladbrokes1']['1'] < totalOdds['ladbrokes2']['1'] and totalOdds['ladbrokes1']['2'] > totalOdds['ladbrokes2']['2'] and \
+    totalOdds['bet3651']['1'] < totalOdds['bet3652']['1'] and totalOdds['bet3651']['2'] > totalOdds['bet3652']['2'] and \
+    totalOdds['pi1']['1'] < totalOdds['pi2']['1'] and totalOdds['pi1']['2'] > totalOdds['pi2']['2'] and \
+    totalOdds['inter1']['1'] < totalOdds['inter2']['1'] and totalOdds['inter1']['2'] > totalOdds['inter2']['2'] :
+
+    prediction = 2
+
+elif prediction == 1 and \
+    totalOdds['macau1']['1'] > totalOdds['macau2']['1'] and totalOdds['macau1']['2'] < totalOdds['macau2']['2'] and \
+    totalOdds['wh1']['1'] > totalOdds['wh2']['1'] and totalOdds['wh1']['2'] < totalOdds['wh2']['2'] and \
+    totalOdds['ladbrokes1']['1'] > totalOdds['ladbrokes2']['1'] and totalOdds['ladbrokes1']['2'] < totalOdds['ladbrokes2']['2'] and \
+    totalOdds['bet3651']['1'] > totalOdds['bet3652']['1'] and totalOdds['bet3651']['2'] < totalOdds['bet3652']['2'] and \
+    totalOdds['pi1']['1'] > totalOdds['pi2']['1'] and totalOdds['pi1']['2'] < totalOdds['pi2']['2'] and \
+    totalOdds['inter1']['1'] > totalOdds['inter2']['1'] and totalOdds['inter1']['2'] < totalOdds['inter2']['2'] :
+
+    prediction = 1
+
+#print prediction
+
 
 '''
 for data in totalOdds.items():
