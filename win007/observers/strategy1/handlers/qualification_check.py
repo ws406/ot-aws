@@ -36,11 +36,11 @@ for data in my_json_dict['odds'] :
       totalOdds['wh1'] = data
     if data['odds_type'] == "final":
       totalOdds['wh2'] = data
-  elif data['bookie_name'] == "ladbrokes":
-    if data['odds_type'] == "original":
-      totalOdds['ladbrokes1'] = data
-    if data['odds_type'] == "final":
-      totalOdds['ladbrokes2'] = data
+  #elif data['bookie_name'] == "ladbrokes":
+  #  if data['odds_type'] == "original":
+  #    totalOdds['ladbrokes1'] = data
+  #  if data['odds_type'] == "final":
+  #    totalOdds['ladbrokes2'] = data
   elif data['bookie_name'] == "bet365":
     if data['odds_type'] == "original":
       totalOdds['bet3651'] = data
@@ -51,33 +51,37 @@ for data in my_json_dict['odds'] :
       totalOdds['pi1'] = data
     if data['odds_type'] == "final":
       totalOdds['pi2'] = data
-  elif data['bookie_name'] == "interwetten":
-    if data['odds_type'] == "original":
-      totalOdds['inter1'] = data
-    if data['odds_type'] == "final":
-      totalOdds['inter2'] = data
+  #elif data['bookie_name'] == "interwetten":
+  #  if data['odds_type'] == "original":
+  #    totalOdds['inter1'] = data
+  #  if data['odds_type'] == "final":
+  #    totalOdds['inter2'] = data
     
 prediction = None
 if totalOdds['macau1']['1'] < totalOdds['macau2']['1'] and totalOdds['macau1']['2'] > totalOdds['macau2']['2'] and \
   totalOdds['wh1']['1'] < totalOdds['wh2']['1'] and totalOdds['wh1']['2'] > totalOdds['wh2']['2'] and \
-  totalOdds['ladbrokes1']['1'] < totalOdds['ladbrokes2']['1'] and totalOdds['ladbrokes1']['2'] > totalOdds['ladbrokes2']['2'] and \
+  #totalOdds['ladbrokes1']['1'] < totalOdds['ladbrokes2']['1'] and totalOdds['ladbrokes1']['2'] > totalOdds['ladbrokes2']['2'] and \
   totalOdds['bet3651']['1'] < totalOdds['bet3652']['1'] and totalOdds['bet3651']['2'] > totalOdds['bet3652']['2'] and \
   totalOdds['pi1']['1'] < totalOdds['pi2']['1'] and totalOdds['pi1']['2'] > totalOdds['pi2']['2'] and \
-  totalOdds['inter1']['1'] < totalOdds['inter2']['1'] and totalOdds['inter1']['2'] > totalOdds['inter2']['2'] :
+  #totalOdds['inter1']['1'] < totalOdds['inter2']['1'] and totalOdds['inter1']['2'] > totalOdds['inter2']['2'] :
   prediction = 2
 elif totalOdds['macau1']['1'] > totalOdds['macau2']['1'] and totalOdds['macau1']['2'] < totalOdds['macau2']['2'] and \
   totalOdds['wh1']['1'] > totalOdds['wh2']['1'] and totalOdds['wh1']['2'] < totalOdds['wh2']['2'] and \
-  totalOdds['ladbrokes1']['1'] > totalOdds['ladbrokes2']['1'] and totalOdds['ladbrokes1']['2'] < totalOdds['ladbrokes2']['2'] and \
+  #totalOdds['ladbrokes1']['1'] > totalOdds['ladbrokes2']['1'] and totalOdds['ladbrokes1']['2'] < totalOdds['ladbrokes2']['2'] and \
   totalOdds['bet3651']['1'] > totalOdds['bet3652']['1'] and totalOdds['bet3651']['2'] < totalOdds['bet3652']['2'] and \
   totalOdds['pi1']['1'] > totalOdds['pi2']['1'] and totalOdds['pi1']['2'] < totalOdds['pi2']['2'] and \
-  totalOdds['inter1']['1'] > totalOdds['inter2']['1'] and totalOdds['inter1']['2'] < totalOdds['inter2']['2'] :
+  #totalOdds['inter1']['1'] > totalOdds['inter2']['1'] and totalOdds['inter1']['2'] < totalOdds['inter2']['2'] :
   prediction = 1
 
 print prediction
 
-if my_json_dict['home_team_rank'] > my_json_dict['away_team_rank'] and totalOdds['macau2']['2'] < 1.9 and prediction == 2 :
+if my_json_dict['home_team_rank'] < my_json_dict['away_team_rank'] and totalOdds['macau2']['2'] <= 1.9 and prediction == 2 :
   prediction = 2
-elif my_json_dict['home_team_rank'] < my_json_dict['away_team_rank'] and totalOdds['macau2']['1'] < 1.9 and prediction == 1 :
+elif my_json_dict['home_team_rank'] > my_json_dict['away_team_rank'] and totalOdds['macau2']['1'] <= 1.9 and prediction == 1 :
+  prediction = 1
+elif my_json_dict['home_team_rank'] == my_json_dict['away_team_rank'] -1 and totalOdds['macau2']['2'] <= 2 and prediction == 2 :
+  prediction = 2
+elif my_json_dict['home_team_rank'] - 1 == my_json_dict['away_team_rank'] and totalOdds['macau2']['1'] <= 1.6 and prediction == 1 :
   prediction = 1
 
 print prediction
