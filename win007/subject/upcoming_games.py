@@ -12,7 +12,7 @@ class Subject(SubjectInterface):
 
     # Get games that are taking place in the next 'minutes' minutes
     def get(self, minutes):
-        games = self.games_fetcher.get_next_games()
+        games = self.games_fetcher.get_games()
         # Notify observers
         self.notify()
         return

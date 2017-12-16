@@ -51,11 +51,11 @@ prediction = None
 
 # 1. check ranking condition: to qualify, the team that ranks higher needs to have winning odds that is lower than 1.9
 # Away team ranks lower or only one position higher than home team. E.g. home ranks 3, away ranks 2 or 4 or lower.
-if (my_json_dict['away_team_rank'] - my_json_dict['home_team_rank'] > -1 ) and totalOdds['macau_f']['2'] < 1.9 :
+if (my_json_dict['away_team_rank'] - my_json_dict['home_team_rank'] > -1 ) and totalOdds['macau_o']['2'] < 1.9 :
     prediction = 2
 
 # Home team ranks lower or only one position higher than away team. E.g. away ranks 3, home ranks 2 or 4 or lower.
-elif (my_json_dict['home_team_rank'] - my_json_dict['away_team_rank'] > -1 ) and totalOdds['macau_f']['1'] < 1.9 :
+elif (my_json_dict['home_team_rank'] - my_json_dict['away_team_rank'] > -1 ) and totalOdds['macau_o']['1'] < 1.9 :
     prediction = 1
 
 
