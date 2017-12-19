@@ -9,5 +9,5 @@ class Observer(ObserverInterface):
 
     def observer_run(self, data):
         print("Running strategy: prefer much stronger team")
-        print(data)
+        # print(data)
         pass

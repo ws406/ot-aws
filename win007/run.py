@@ -6,14 +6,14 @@ from win007.subject.upcoming_games import Subject as UpcomingGamesProcessor
 from win007.modules.games_fetcher.open_final_odds_fetcher import OpenFinalOddsFetcher
 
 # These data is used for
-bid = [
-    80,   # 澳门
-    115,  # WH
-    281,  # Bet365
-    177,  # Pinnacle
-]
+bids = {
+    80: "macau_slot",   # 澳门
+    115: "will_hill",  # WH
+    281: "bet365",  # Bet365
+    177: "pinnacle",  # Pinnacle
+}
 
-processor = UpcomingGamesProcessor(OpenFinalOddsFetcher(bid))
+processor = UpcomingGamesProcessor(OpenFinalOddsFetcher(bids))
 
 # Register all observers which are strategy executors
 processor.register_observer(StrategyLowerRanked())
@@ -21,6 +21,7 @@ processor.register_observer(StrategyStrongerTeam())
 
 # Get required data from process
 games = processor.get_games(5)    # Get games starting in the next 5 mins.
+print(games)
 
 # Notify all observers to action using the games data
 processor.notify(games)  # Notify the strategy to handle these games.

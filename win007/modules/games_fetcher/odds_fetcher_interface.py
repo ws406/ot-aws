@@ -2,11 +2,11 @@ import abc
 
 
 class OddsFetcherInterface(abc.ABC):
-    bid = []
-    odds_url_pattern = 'http://www.nowgoal.com/1x2/old_$GAME_ID$.htm'
+    bids = []
+    odds_url_pattern = 'http://1x2.nowscore.com/$GAME_ID$.js'
 
-    def __init__(self, bid):
-        self.bid = bid
+    def __init__(self, bids):
+        self.bids = bids
         pass
 
     @abc.abstractmethod

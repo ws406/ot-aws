@@ -1,23 +1,268 @@
 {
-  "game_id" : 12345678,
-  "league_id": "EPL",
-  "league_name": 23292872734,
-  "kickoff_datetime": 1233920412,
-  "home_team_id": 123,
-  "home_team_name": "TeamA",
-  "home_team_rank": 2,
-  "away_team_id": 456,
-  "away_team_name": "TeamB",
-  "away_team_rank": 5,
-  "results": "X",
-  "odds": [
-    {"bookie_name": "macau_slot", "odds_type": "original", "1": 2.34, "X": 3.45, "2": 1.23},
-    {"bookie_name": "macau_slot", "odds_type": "final", "1": 2.56, "X": 3.76, "2": 1.13},
-    {"bookie_name": "will_hill", "odds_type": "original", "1": 2.34, "X": 3.45, "2": 1.23},
-    {"bookie_name": "will_hill", "odds_type": "final", "1": 2.56, "X": 3.76, "2": 1.13},
-    {"bookie_name": "bet365", "odds_type": "original", "1": 2.34, "X": 3.45, "2": 1.23},
-    {"bookie_name": "bet365", "odds_type": "final", "1": 2.56, "X": 3.76, "2": 1.13},
-    {"bookie_name": "pinnacle", "odds_type": "original", "1": 2.34, "X": 3.45, "2": 1.23},
-    {"bookie_name": "pinnacle", "odds_type": "final", "1": 2.56, "X": 3.76, "2": 1.13}
-  ]
+  "12345678" : {
+    "league_id": "EPL",
+    "league_name": 23292872734,
+    "kickoff_datetime": 1233920412,
+    "home_team_id": 123,
+    "home_team_name": "TeamA",
+    "home_team_rank": 2,
+    "away_team_id": 456,
+    "away_team_name": "TeamB",
+    "away_team_rank": 5,
+    "results": "X",
+    "odds":
+    {
+      "macau_slot": {
+        "open": {
+          "1": 2.34,
+          "X": 3.45,
+          "2": 1.23
+        },
+        "final": {
+          "1": 2.56,
+          "X": 3.76,
+          "2": 1.13
+        }
+      },
+      "will_hill": {
+        "open": {
+          "1": 2.34,
+          "X": 3.45,
+          "2": 1.23
+        },
+        "final": {
+          "1": 2.56,
+          "X": 3.76,
+          "2": 1.13
+        }
+      },
+      "bet365": {
+        "open": {
+          "1": 2.34,
+          "X": 3.45,
+          "2": 1.23
+        },
+        "final": {
+          "1": 2.56,
+          "X": 3.76,
+          "2": 1.13
+        }
+      },
+      "pinnacle": {
+        "open": {
+          "1": 2.34,
+          "X": 3.45,
+          "2": 1.23
+        },
+        "final": {
+          "1": 2.56,
+          "X": 3.76,
+          "2": 1.13
+        }
+      }
+    },
+    "probability":
+    {
+      "macau_slot": {
+        "open": {
+          "1": 66.5,
+          "X": 22.5,
+          "2": 11
+        },
+        "final": {
+          "1": 66.5,
+          "X": 22.5,
+          "2": 11
+        }
+      },
+      "will_hill": {
+        "open": {
+          "1": 66.5,
+          "X": 22.5,
+          "2": 11
+        },
+        "final": {
+          "1": 66.5,
+          "X": 22.5,
+          "2": 11
+        }
+      },
+      "bet365": {
+        "open": {
+          "1": 66.5,
+          "X": 22.5,
+          "2": 11
+        },
+        "final": {
+          "1": 66.5,
+          "X": 22.5,
+          "2": 11
+        }
+      },
+      "pinnacle": {
+        "open": {
+          "1": 66.5,
+          "X": 22.5,
+          "2": 11
+        },
+        "final": {
+          "1": 66.5,
+          "X": 22.5,
+          "2": 11
+        }
+      }
+    },
+    "kelly_rates":
+    {
+      "macau_slot": {
+        "open": 99.7,
+        "final": 98.6
+      },
+      "will_hill": {
+        "open": 99.7,
+        "final": 98.6
+      },
+      "bet365": {
+        "open": 99.7,
+        "final": 98.6
+      },
+      "pinnacle": {
+        "open": 99.7,
+        "final": 98.6
+      }
+    }
+  },
+    "123456892" : {
+    "league_id": "EPL",
+    "league_name": 23292872734,
+    "kickoff_datetime": 1233920412,
+    "home_team_id": 122,
+    "home_team_name": "TeamC",
+    "home_team_rank": 4,
+    "away_team_id": 454,
+    "away_team_name": "TeamD",
+    "away_team_rank": 15,
+    "results": "X",
+    "odds":
+    {
+      "macau_slot": {
+        "open": {
+          "1": 2.34,
+          "X": 3.45,
+          "2": 1.23
+        },
+        "final": {
+          "1": 2.56,
+          "X": 3.76,
+          "2": 1.13
+        }
+      },
+      "will_hill": {
+        "open": {
+          "1": 2.34,
+          "X": 3.45,
+          "2": 1.23
+        },
+        "final": {
+          "1": 2.56,
+          "X": 3.76,
+          "2": 1.13
+        }
+      },
+      "bet365": {
+        "open": {
+          "1": 2.34,
+          "X": 3.45,
+          "2": 1.23
+        },
+        "final": {
+          "1": 2.56,
+          "X": 3.76,
+          "2": 1.13
+        }
+      },
+      "pinnacle": {
+        "open": {
+          "1": 2.34,
+          "X": 3.45,
+          "2": 1.23
+        },
+        "final": {
+          "1": 2.56,
+          "X": 3.76,
+          "2": 1.13
+        }
+      }
+    },
+    "probability":
+    {
+      "macau_slot": {
+        "open": {
+          "1": 66.5,
+          "X": 22.5,
+          "2": 11
+        },
+        "final": {
+          "1": 66.5,
+          "X": 22.5,
+          "2": 11
+        }
+      },
+      "will_hill": {
+        "open": {
+          "1": 66.5,
+          "X": 22.5,
+          "2": 11
+        },
+        "final": {
+          "1": 66.5,
+          "X": 22.5,
+          "2": 11
+        }
+      },
+      "bet365": {
+        "open": {
+          "1": 66.5,
+          "X": 22.5,
+          "2": 11
+        },
+        "final": {
+          "1": 66.5,
+          "X": 22.5,
+          "2": 11
+        }
+      },
+      "pinnacle": {
+        "open": {
+          "1": 66.5,
+          "X": 22.5,
+          "2": 11
+        },
+        "final": {
+          "1": 66.5,
+          "X": 22.5,
+          "2": 11
+        }
+      }
+    },
+    "kelly_rates":
+    {
+      "macau_slot": {
+        "open": 99.7,
+        "final": 98.6
+      },
+      "will_hill": {
+        "open": 99.7,
+        "final": 98.6
+      },
+      "bet365": {
+        "open": 99.7,
+        "final": 98.6
+      },
+      "pinnacle": {
+        "open": 99.7,
+        "final": 98.6
+      }
+    }
+  }
 }
