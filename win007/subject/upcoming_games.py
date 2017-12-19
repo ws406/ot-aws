@@ -1,18 +1,17 @@
-from win007.models.games_fetcher import GamesFetcher
+from win007.modules.games_fetcher.games_fetcher import GamesFetcher
 from win007.subject.interface import SubjectInterface
+from win007.modules.games_fetcher.odds_fetcher_interface import OddsFetcherInterface
 
 
 class Subject(SubjectInterface):
 
     games_fetcher = None
 
-    def __init__(self):
-        self.games_fetcher = GamesFetcher()
+    def __init__(self, odds_fetcher: OddsFetcherInterface):
+        self.games_fetcher = GamesFetcher(odds_fetcher)
         pass
 
     # Get games that are taking place in the next 'minutes' minutes
-    def get(self, minutes):
+    def get_games(self, minutes):
         games = self.games_fetcher.get_games()
-        # Notify observers
-        self.notify()
-        return
+        return games

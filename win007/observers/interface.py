@@ -6,5 +6,5 @@ class ObserverInterface(abc.ABC):
         pass
 
     @abc.abstractmethod
-    def observer_run(self):
+    def observer_run(self, data):
         pass

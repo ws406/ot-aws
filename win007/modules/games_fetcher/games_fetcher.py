@@ -1,33 +1,39 @@
-# from urllib.request import urlopen
 from bs4 import BeautifulSoup
 import re
 import requests
 from datetime import datetime
 from pytz import timezone
 import sys
+from win007.modules.games_fetcher.odds_fetcher_interface import OddsFetcherInterface
 
 
 class GamesFetcher:
     url_games_list = 'http://op1.win007.com/index.aspx'
+    odds_fetcher = None
 
-    def __init__(self):
+    def __init__(self, odds_fetcher: OddsFetcherInterface):
+        self.odds_fetcher = odds_fetcher
         pass
 
     def get_games(self):
         response = requests.get(self.url_games_list)
         soup = BeautifulSoup(response.text, "lxml")
-        game_rows = soup.findAll("tr", {"id" : re.compile('tr\_[0-9]{1,2}')})
+        game_rows = soup.findAll("tr", {"id": re.compile('tr_[0-9]{1,2}')})
         games = []
         # TODO: remove [:4]
-        for row in game_rows[:4]:
+        for row in game_rows[:2]:
             tds = row.findAll("td")
+            gid = self._get_game_id(tds)
             game = {
-                "league_id": self._get_league_id(tds),
+                "league_id": gid,
                 "league_name": self._get_league_name(tds),
                 "kickoff": self._get_kickoff_time(tds),
                 "game_id": self._get_game_id(tds),
+                # "home_team_name": ,
+                # "away_team_name": ,
                 "home_team_rank": self._get_home_team_rank(tds),
                 "away_team_rank": self._get_away_team_rank(tds),
+                "odds": self.odds_fetcher.get_odds(gid)
             }
             games.append(game)
         return games

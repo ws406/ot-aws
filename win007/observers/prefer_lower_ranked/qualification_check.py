@@ -11,7 +11,7 @@ class decision_maker:
     # qualified or not based on our strategy.
     #
     # The input data structure is illustrated in data_example.json file
-    # The return is one of the three possibilites:
+    # The return is one of the three possibilities:
     # 1. None: nothing is qualified
     # 2. "1": home team is preferred
     # 3. "2": awa team is preferred
@@ -20,7 +20,7 @@ class decision_maker:
 
         pass
 '''
-json_file = open("./data_example.json", "r").read()
+json_file = open("../data_example.json", "r").read()
 my_json_dict = json.loads(json_file)
 
 totalOdds = defaultdict(list)

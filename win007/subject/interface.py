@@ -9,6 +9,6 @@ class SubjectInterface(abc.ABC):
     def register_observer(self, observer: ObserverInterface):
         self.__observers.append(observer)
 
-    def notify(self):
+    def notify(self, data):
         for o in self.__observers:
-            o.observer_run()
+            o.observer_run(data)
