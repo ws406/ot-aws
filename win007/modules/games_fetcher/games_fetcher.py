@@ -25,12 +25,12 @@ class GamesFetcher:
             tds = row.findAll("td")
             gid = self._get_game_id(tds)
             game = {
-                "league_id": gid,
+                "league_id": self._get_league_id(tds),
                 "league_name": self._get_league_name(tds),
                 "kickoff": self._get_kickoff_time(tds),
                 "game_id": self._get_game_id(tds),
-                # "home_team_name": ,
-                # "away_team_name": ,
+                "home_team_name": self._get_home_team_name(tds),
+                "away_team_name": self._get_away_team_name(tds),
                 "home_team_rank": self._get_home_team_rank(tds),
                 "away_team_rank": self._get_away_team_rank(tds),
                 "odds": self.odds_fetcher.get_odds(gid)
@@ -108,3 +108,29 @@ class GamesFetcher:
             away_team_rank = None
 
         return away_team_rank
+
+    def _get_home_team_name(self, tds):
+        a = tds[3].find("a")
+        if a:
+            try:
+                rtn = re.search('(.*?)(?=( |\[.+)|$)', a.text.strip()).group(1)
+            except AttributeError:
+                print("error while extracting 'home_team_name'")
+                sys.exit(1)
+        else:
+            rtn = None
+
+        return rtn
+
+    def _get_away_team_name(self, tds):
+        a = tds[11].find("a")
+        if a:
+            try:
+                rtn = re.search('(.*?)(?=( |\[.+)|$)', a.text.strip()).group(1)
+            except AttributeError:
+                print("error while extracting 'away_team_name'")
+                sys.exit(1)
+        else:
+            rtn = None
+
+        return rtn
