@@ -11,7 +11,7 @@ class OpenFinalOddsFetcher(OddsFetcherInterface):
         pass
 
     def get_odds(self, gid):
-        response = requests.get(str.replace(self.odds_url_pattern, '$GAME_ID$', gid))
+        response = requests.get(str.replace(self.odds_url_pattern, '$GAME_ID$', str(gid)))
         soup = BeautifulSoup(response.text, "lxml")
         raw_data = soup.text.split('game=Array(')[1].split(');')[0]
 
@@ -25,18 +25,6 @@ class OpenFinalOddsFetcher(OddsFetcherInterface):
 
         # Extract & parse odds data. Return a dictionary
         data_rows = re.finditer(regex_pattern, raw_data)
-        # "macau_slot": {
-        #     "open": {
-        #         "1": 2.34,
-        #         "X": 3.45,
-        #         "2": 1.23
-        #     },
-        #     "final": {
-        #         "1": 2.56,
-        #         "X": 3.76,
-        #         "2": 1.13
-        #     }
-        # }
         odds = {}
         probability = {}
         kelly_rates = {}
@@ -66,10 +54,8 @@ class OpenFinalOddsFetcher(OddsFetcherInterface):
             probability[bookie_name]["final"]["2"] = self._str_to_float(data_list[15])
 
             kelly_rates[bookie_name] = {}
-            kelly_rates[bookie_name]["open"] = {}
-            kelly_rates[bookie_name]["final"] = {}
-            kelly_rates[bookie_name]["open"]["return_rate"] = self._str_to_float(data_list[9])
-            kelly_rates[bookie_name]["final"]["return_rate"] = self._str_to_float(data_list[16])
+            kelly_rates[bookie_name]["open"] = self._str_to_float(data_list[9])
+            kelly_rates[bookie_name]["final"] = self._str_to_float(data_list[16])
 
         return odds, probability, kelly_rates
 
