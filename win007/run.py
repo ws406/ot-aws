@@ -4,7 +4,6 @@ from win007.observers.strategy_prefer_lower_ranked import Observer as StrategyLo
 from win007.observers.strategy_prefer_much_stronger_team import Observer as StrategyStrongerTeam
 from win007.subject.upcoming_games import Subject as UpcomingGamesProcessor
 from win007.modules.games_fetcher.open_final_odds_fetcher import OpenFinalOddsFetcher
-from pprint import pprint
 
 # These data is used for
 bids = {
@@ -58,7 +57,6 @@ league_ids = [
     50,  # CHN1
     15,  # KOR1
     273, # AUS
-    292, # TEST
 ]
 
 print("Start...")
