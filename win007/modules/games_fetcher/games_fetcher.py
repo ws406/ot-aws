@@ -19,7 +19,7 @@ class GamesFetcher:
         response = requests.get(self.url_games_list)
         soup = BeautifulSoup(response.text, "lxml")
         game_rows = soup.findAll("tr", {"id": re.compile('tr_[0-9]{1,2}')})
-        games = {}
+        games = dict()
         # Then time range
         time_slot_ends_at = (datetime.datetime.now() + datetime.timedelta(minutes=minutes)).timestamp()
 
@@ -38,9 +38,6 @@ class GamesFetcher:
 
             gid = self._get_game_id(tds)
             league_name = self._get_league_name(tds)
-
-            # TODO: add more logging
-            print(str(gid) + '  -  ' + league_name)
 
             game = dict()
             game["league_id"] = lid

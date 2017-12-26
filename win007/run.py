@@ -14,14 +14,7 @@ bids = {
     177: "pinnacle",  # Pinnacle
 }
 
-processor = UpcomingGamesProcessor(OpenFinalOddsFetcher(bids))
-
-# Register all observers which are strategy executors
-processor.register_observer(StrategyLowerRanked())
-processor.register_observer(StrategyStrongerTeam())
-
-# Get required data from process
-minutes = 55
+minutes = 1240
 league_ids = [
     34,  # IT1
     40,  # IT2
@@ -65,9 +58,22 @@ league_ids = [
     50,  # CHN1
     15,  # KOR1
     273, # AUS
+    292, # TEST
 ]
+
+print("Start...")
+processor = UpcomingGamesProcessor(OpenFinalOddsFetcher(bids))
+
+# Register all observers which are strategy executors
+processor.register_observer(StrategyLowerRanked())
+processor.register_observer(StrategyStrongerTeam())
+
+# Get required data from process
+print("Getting games that will start in the next " + str(minutes) + " mins and from "
+      + str(len(league_ids)) + " leagues..")
 games = processor.get_games(minutes, league_ids)    # Get games starting in the next 5 mins.
-pprint(games)
+# pprint(games)
+print(str(len(games)) + " games found")
 
 # Notify all observers to action using the games data
 processor.notify(games)  # Notify the strategy to handle these games.
