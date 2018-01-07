@@ -3,7 +3,7 @@ import re
 import requests
 from pytz import timezone
 import sys
-from win007.modules.games_fetcher.odds_fetcher_interface import OddsFetcherInterface
+from lib.win007.modules.games_fetcher.odds_fetcher_interface import OddsFetcherInterface
 import datetime
 
 

@@ -1,5 +1,5 @@
 import abc
-from win007.observers.interface import ObserverInterface
+from lib.win007.observers.interface import ObserverInterface
 
 
 class SubjectInterface(abc.ABC):

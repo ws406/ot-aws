@@ -1,5 +1,5 @@
-from win007.observers.interface import ObserverInterface
-from win007.observers.prefer_lower_ranked.qualification_check import QualificationCheck
+from lib.win007.observers.interface import ObserverInterface
+from lib.win007.observers.prefer_lower_ranked.qualification_check import QualificationCheck
 
 
 class Observer(ObserverInterface):

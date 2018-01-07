@@ -1,5 +1,6 @@
 import json
 import datetime
+from lib.win007.main import Main
 
 
 def handler(event, context):
@@ -7,6 +8,10 @@ def handler(event, context):
         'output': 'Hello World',
         'timestamp': datetime.datetime.utcnow().isoformat()
     }
-    return {'statusCode': 200,
-            'body': json.dumps(data),
-            'headers': {'Content-Type': 'application/json'}}
+    executor = Main()
+    executor.execute()
+    print('test')
+
+    # return {'statusCode': 200,
+    #         'body': json.dumps(data),
+    #         'headers': {'Content-Type': 'application/json'}}

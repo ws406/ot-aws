@@ -1,4 +1,4 @@
-from win007.modules.games_fetcher.odds_fetcher_interface import OddsFetcherInterface
+from lib.win007.modules.games_fetcher.odds_fetcher_interface import OddsFetcherInterface
 from bs4 import BeautifulSoup
 import re
 import requests
