@@ -24,29 +24,26 @@ class QualificationCheck:
 
     odds_comparison_check_home_ok = 'home-odds-comparison-check-ok'
     odds_comparison_check_away_ok = 'away-odds-comparison-check-ok'
+    odds_comparison_check_disqualified = 'odds-comparison-disqualified'
 
     def __init__(self):
         pass
 
     def is_qualified(self, game_data):
 
-        prediction = None
-        odds_comparison_check = None
-
-        # 1. Look at the comparison between HKJC and Macau
-        if np.log(game_data['probabilities']['hkjc']['open']['2'] / game_data['probabilities']['macau_slot']['open'][
-                    '2']) * 10000.0 >= 500.0:
-            odds_comparison_check = self.odds_comparison_check_away_ok
-
-        elif np.log(game_data['probabilities']['hkjc']['open']['1'] / game_data['probabilities']['macau_slot']['open'][
-                    '1']) * 10000.0 >= 500.0:
-            odds_comparison_check = self.odds_comparison_check_home_ok
-
-        else:
-            return self.disqualified
-
-        # 2. Predict by odds trend. If all-final-odds is smaller than all-original-odds, predict that result.
         try:
+            odds_comparison_check = self.odds_comparison_check_disqualified
+
+            # 1. Look at the comparison between HKJC and Macau
+            if np.log(game_data['probabilities']['hkjc']['open']['2'] / game_data['probabilities']['macau_slot']['open'][
+                        '2']) * 10000.0 >= 500.0:
+                odds_comparison_check = self.odds_comparison_check_away_ok
+
+            elif np.log(game_data['probabilities']['hkjc']['open']['1'] / game_data['probabilities']['macau_slot']['open'][
+                        '1']) * 10000.0 >= 500.0:
+                odds_comparison_check = self.odds_comparison_check_home_ok
+
+            # 2. Predict by odds trend. If all-final-odds is smaller than all-original-odds, predict that result.
             if odds_comparison_check == self.odds_comparison_check_away_ok and \
                 game_data['odds']['macau_slot']['open']['1'] < game_data['odds']['macau_slot']['final']['1'] and \
                 game_data['odds']['macau_slot']['open']['2'] > game_data['odds']['macau_slot']['final']['2'] and \
@@ -71,16 +68,10 @@ class QualificationCheck:
 
                 prediction = self.prediction_home_win
 
-            elif odds_comparison_check is not None:
-                # print(json.dumps(game_data, indent=4, sort_keys=True))
+            else:
                 prediction = self.disqualified + '(' + odds_comparison_check + ')'
-            else:
-                prediction = self.disqualified
-        except TypeError or KeyError:
-            if odds_comparison_check is not None:
-                # print(json.dumps(game_data, indent=4, sort_keys=True))
-                prediction = self.disqualified + '(' + odds_comparison_check + ' - missing required odds)'
-            else:
-                prediction = self.disqualified
+
+        except KeyError or TypeError:
+            prediction = self.disqualified + '(' + odds_comparison_check + ' - missing required odds)'
 
         return prediction

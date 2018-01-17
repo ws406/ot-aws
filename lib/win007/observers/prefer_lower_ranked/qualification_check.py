@@ -13,21 +13,20 @@ class QualificationCheck:
 
     def is_qualified(self, game_data):
 
-        open_odds_condition = None
-
-        # 1. check ranking condition: to qualify, the team that ranks lower needs to have winning odds that is lower than 1.9
-        # Away team ranks lower or only one position higher than home team. E.g. home ranks 3, away ranks 2 or 4 or lower.
-        if (game_data['away_team_rank'] - game_data['home_team_rank'] > -1) and \
-                        game_data['odds']['macau_slot']['open']['2'] <= 1.90:
-            open_odds_condition = self.condition_open_odds_ok_away
-
-        # Home team ranks lower or only one position higher than away team. E.g. away ranks 3, home ranks 2 or 4 or lower.
-        elif (game_data['home_team_rank'] - game_data['away_team_rank'] > -1 ) and \
-                        game_data['odds']['macau_slot']['open']['1'] <= 1.90:
-            open_odds_condition = self.condition_open_odds_ok_home
-
-        # 2. Predict by odds trend. If all-final-odds is smaller than all-original-odds, predict that result.
+        open_odds_condition = self.condition_open_odds_disqualify
         try:
+            # 1. check ranking condition: to qualify, the team that ranks lower needs to have winning odds that is lower than 1.9
+            # Away team ranks lower or only one position higher than home team. E.g. home ranks 3, away ranks 2 or 4 or lower.
+            if (game_data['away_team_rank'] - game_data['home_team_rank'] > -1) and \
+                            game_data['odds']['macau_slot']['open']['2'] <= 1.90:
+                open_odds_condition = self.condition_open_odds_ok_away
+
+            # Home team ranks lower or only one position higher than away team. E.g. away ranks 3, home ranks 2 or 4 or lower.
+            elif (game_data['home_team_rank'] - game_data['away_team_rank'] > -1 ) and \
+                            game_data['odds']['macau_slot']['open']['1'] <= 1.90:
+                open_odds_condition = self.condition_open_odds_ok_home
+
+            # 2. Predict by odds trend. If all-final-odds is smaller than all-original-odds, predict that result.
             if open_odds_condition == self.condition_open_odds_ok_away and \
                 game_data['odds']['macau_slot']['open']['1'] < game_data['odds']['macau_slot']['final']['1'] and \
                 game_data['odds']['macau_slot']['open']['2'] > game_data['odds']['macau_slot']['final']['2'] and \
@@ -52,16 +51,10 @@ class QualificationCheck:
 
                 prediction = self.prediction_home_win
 
-            elif open_odds_condition is not None:
-                # print(json.dumps(game_data, indent=4, sort_keys=True))
+            else:
                 prediction = self.disqualified + '(' + open_odds_condition + ')'
-            else:
-                prediction = self.disqualified
+
         except TypeError or KeyError:
-            if open_odds_condition is not None:
-                # print(json.dumps(game_data, indent=4, sort_keys=True))
-                prediction = self.disqualified + '(' + open_odds_condition + ' - missing required odds)'
-            else:
-                prediction = self.disqualified
+            prediction = self.disqualified + '(' + open_odds_condition + ' - missing required odds)'
 
         return prediction
