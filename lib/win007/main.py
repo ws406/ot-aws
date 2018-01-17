@@ -2,6 +2,7 @@ import sys
 sys.path.append('/Users/wangjiasun/Documents/GitHub/ot-aws')
 from lib.win007.observers.strategy_prefer_lower_ranked import Observer as StrategyLowerRanked
 from lib.win007.observers.strategy_prefer_much_stronger_team import Observer as StrategyStrongerTeam
+from lib.win007.observers.strategy_compare_macau_hkjc import Observer as StrategyMacauHKJCCompare
 from lib.win007.subject.upcoming_games import Subject as UpcomingGamesProcessor
 from lib.win007.modules.games_fetcher.open_final_odds_fetcher import OpenFinalOddsFetcher
 
@@ -13,8 +14,9 @@ class Main:
         115: "will_hill",  # WH
         281: "bet365",  # Bet365
         177: "pinnacle",  # Pinnacle
+        432: "hkjc",  # HKJC
     }
-    minutes = 1240
+    minutes = 10240
     league_ids = [
         34,  # IT1
         40,  # IT2
@@ -69,7 +71,8 @@ class Main:
 
         # Register all observers which are strategy executors
         processor.register_observer(StrategyLowerRanked())
-        processor.register_observer(StrategyStrongerTeam())
+        processor.register_observer(StrategyMacauHKJCCompare())
+        # processor.register_observer(StrategyStrongerTeam())
 
         # Get required data from process
         print("Getting games that will start in the next " + str(self.minutes) + " mins and from "
