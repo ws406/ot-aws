@@ -1,5 +1,7 @@
 import sys
-sys.path.append('/Users/wangjiasun/Documents/GitHub/ot-aws')
+sys.path.append("C:\\User\\wsun\\Documents\\projects\\ot-aws")
+print(sys.path)
+# sys.exit()
 from lib.win007.observers.strategy_prefer_lower_ranked import Observer as StrategyLowerRanked
 from lib.win007.observers.strategy_prefer_much_stronger_team import Observer as StrategyStrongerTeam
 from lib.win007.observers.strategy_compare_macau_hkjc import Observer as StrategyMacauHKJCCompare
