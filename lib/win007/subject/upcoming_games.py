@@ -13,5 +13,5 @@ class Subject(SubjectInterface):
 
     # Get games that are taking place in the next 'minutes' minutes
     def get_games(self, minutes, league_ids):
-        games = self.games_fetcher.get_games(minutes, league_ids)
+        games = self.games_fetcher.get_games_by_kickoff_and_league(minutes, league_ids)
         return games

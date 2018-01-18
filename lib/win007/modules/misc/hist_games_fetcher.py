@@ -7,7 +7,7 @@ from lib.win007.modules.games_fetcher.odds_fetcher_interface import OddsFetcherI
 import datetime
 
 
-class GamesFetcher:
+class HistGamesFetcher:
     url_games_list = 'http://op1.win007.com/index.aspx'
     odds_fetcher = None
 
@@ -15,7 +15,7 @@ class GamesFetcher:
         self.odds_fetcher = odds_fetcher
         pass
 
-    def get_games_by_kickoff_and_league(self, minutes, league_ids):
+    def get_hist_games_by_league(self, league_ids, num_of_seasons):
         response = requests.get(self.url_games_list)
         soup = BeautifulSoup(response.text, "lxml")
         game_rows = soup.findAll("tr", {"id": re.compile('tr_[0-9]{1,2}')})
