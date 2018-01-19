@@ -15,44 +15,52 @@ class HistGamesFetcher:
         self.odds_fetcher = odds_fetcher
         pass
 
-    def get_hist_games_by_league(self, league_ids, num_of_seasons):
-        response = requests.get(self.url_games_list)
-        soup = BeautifulSoup(response.text, "lxml")
-        game_rows = soup.findAll("tr", {"id": re.compile('tr_[0-9]{1,2}')})
-        games = dict()
-        # Then time range
-        time_slot_ends_at = (datetime.datetime.now() + datetime.timedelta(minutes=minutes)).timestamp()
+    def get_hist_games_by_league(self, league_id, num_of_seasons):
 
-        for row in game_rows:
-            tds = row.findAll("td")
+        # Get URLs
+        if (num_of_seasons == 1):
+            urls = [str.replace(self.url_games_list, '%league_id%', league_id)]
+        elif(num_of_seasons > 1):
+            urls = None
+        pass
 
-            # Grab kickoff time and check if continue.
-            kickoff = self._get_kickoff_time(tds)
-            if kickoff > time_slot_ends_at:
-                break
-
-            # Grab league ID and check if skip
-            lid = self._get_league_id(tds)
-            if lid not in league_ids:
-                continue
-
-            gid = self._get_game_id(tds)
-            league_name = self._get_league_name(tds)
-
-            game = dict()
-            game["league_id"] = lid
-            game["league_name"] = league_name
-            game["kickoff"] = kickoff
-            game["home_team_name"] = self._get_home_team_name(tds)
-            game["away_team_name"] = self._get_away_team_name(tds)
-            game["home_team_rank"] = self._get_home_team_rank(tds)
-            game["away_team_rank"] = self._get_away_team_rank(tds)
-            game["odds"], game["probabilities"], game["kelly_rates"] = self.odds_fetcher.get_odds(gid)
-
-            # Add game details to the games dict
-            games[gid] = game
-
-        return games
+        # response = requests.get(self.url_games_list)
+        # soup = BeautifulSoup(response.text, "lxml")
+        # game_rows = soup.findAll("tr", {"id": re.compile('tr_[0-9]{1,2}')})
+        # games = dict()
+        # # Then time range
+        # time_slot_ends_at = (datetime.datetime.now() + datetime.timedelta(minutes=minutes)).timestamp()
+        #
+        # for row in game_rows:
+        #     tds = row.findAll("td")
+        #
+        #     # Grab kickoff time and check if continue.
+        #     kickoff = self._get_kickoff_time(tds)
+        #     if kickoff > time_slot_ends_at:
+        #         break
+        #
+        #     # Grab league ID and check if skip
+        #     lid = self._get_league_id(tds)
+        #     if lid not in league_ids:
+        #         continue
+        #
+        #     gid = self._get_game_id(tds)
+        #     league_name = self._get_league_name(tds)
+        #
+        #     game = dict()
+        #     game["league_id"] = lid
+        #     game["league_name"] = league_name
+        #     game["kickoff"] = kickoff
+        #     game["home_team_name"] = self._get_home_team_name(tds)
+        #     game["away_team_name"] = self._get_away_team_name(tds)
+        #     game["home_team_rank"] = self._get_home_team_rank(tds)
+        #     game["away_team_rank"] = self._get_away_team_rank(tds)
+        #     game["odds"], game["probabilities"], game["kelly_rates"] = self.odds_fetcher.get_odds(gid)
+        #
+        #     # Add game details to the games dict
+        #     games[gid] = game
+        #
+        # return games
 
     def _get_league_id(self, tds):
         # Extract league_id
