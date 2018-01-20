@@ -54,7 +54,7 @@ class QualificationCheck:
             else:
                 prediction = self.disqualified + '(' + open_odds_condition + ')'
 
-        except TypeError or KeyError:
+        except (TypeError, KeyError):
             prediction = self.disqualified + '(' + open_odds_condition + ' - missing required odds)'
 
         return prediction

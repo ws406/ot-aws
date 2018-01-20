@@ -31,9 +31,9 @@ class QualificationCheck:
 
     def is_qualified(self, game_data):
 
-        try:
-            odds_comparison_check = self.odds_comparison_check_disqualified
+        odds_comparison_check = self.odds_comparison_check_disqualified
 
+        try:
             # 1. Look at the comparison between HKJC and Macau
             if np.log(game_data['probabilities']['hkjc']['open']['2'] / game_data['probabilities']['macau_slot']['open'][
                         '2']) * 10000.0 >= 500.0:
@@ -71,7 +71,7 @@ class QualificationCheck:
             else:
                 prediction = self.disqualified + '(' + odds_comparison_check + ')'
 
-        except KeyError or TypeError:
+        except (TypeError, KeyError):
             prediction = self.disqualified + '(' + odds_comparison_check + ' - missing required odds)'
 
         return prediction
