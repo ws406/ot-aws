@@ -22,8 +22,8 @@ class QualificationCheck:
     prediction_away_win = 'away-win'
     disqualified = 'disqualified'
 
-    odds_comparison_check_home_ok = 'home-odds-comparison-check-ok'
-    odds_comparison_check_away_ok = 'away-odds-comparison-check-ok'
+    odds_comparison_check_home_ok = '*** home-odds-comparison-check-ok ***'
+    odds_comparison_check_away_ok = '*** away-odds-comparison-check-ok ***'
     odds_comparison_check_disqualified = 'odds-comparison-disqualified'
 
     def __init__(self):
@@ -32,6 +32,8 @@ class QualificationCheck:
     def is_qualified(self, game_data):
 
         odds_comparison_check = self.odds_comparison_check_disqualified
+        exceptions = None
+        prediction = self.disqualified
 
         try:
             # 1. Look at the comparison between HKJC and Macau
@@ -68,10 +70,12 @@ class QualificationCheck:
 
                 prediction = self.prediction_home_win
 
-            else:
-                prediction = self.disqualified + '(' + odds_comparison_check + ')'
-
         except (TypeError, KeyError):
-            prediction = self.disqualified + '(' + odds_comparison_check + ' - missing required odds)'
+            exceptions = 'missing required odds'
+
+        if odds_comparison_check != self.odds_comparison_check_disqualified:
+            prediction += ' - ' + odds_comparison_check
+        if exceptions is not None:
+            prediction += ' - ' + exceptions
 
         return prediction

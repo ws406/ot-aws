@@ -4,8 +4,8 @@ class QualificationCheck:
     prediction_away_win = 'away-win'
     disqualified = 'disqualified'
 
-    condition_open_odds_ok_home = 'home-team-open-odds-qualify'
-    condition_open_odds_ok_away = 'away-team-open-odds-qualify'
+    condition_open_odds_ok_home = '*** home-team-open-odds-qualify ***'
+    condition_open_odds_ok_away = '*** away-team-open-odds-qualify ***'
     condition_open_odds_disqualify = 'open-odds-disqualify'
 
     def __init__(self):
@@ -14,6 +14,9 @@ class QualificationCheck:
     def is_qualified(self, game_data):
 
         open_odds_condition = self.condition_open_odds_disqualify
+        prediction = self.disqualified
+        exceptions = None
+
         try:
             # 1. check ranking condition: to qualify, the team that ranks lower needs to have winning odds that is lower than 1.9
             # Away team ranks lower or only one position higher than home team. E.g. home ranks 3, away ranks 2 or 4 or lower.
@@ -51,10 +54,14 @@ class QualificationCheck:
 
                 prediction = self.prediction_home_win
 
-            else:
-                prediction = self.disqualified + '(' + open_odds_condition + ')'
 
         except (TypeError, KeyError):
-            prediction = self.disqualified + '(' + open_odds_condition + ' - missing required odds)'
+            exceptions = 'missing required odds'
+
+        if open_odds_condition != self.condition_open_odds_disqualify:
+            prediction += ' - ' + open_odds_condition
+
+        if exceptions is not None:
+            prediction += ' - ' + exceptions
 
         return prediction
