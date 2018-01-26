@@ -1,3 +1,5 @@
+from datetime import datetime
+
 class QualificationCheck:
 
     prediction_home_win = 'home-win'
@@ -40,7 +42,7 @@ class QualificationCheck:
                 game_data['odds']['pinnacle']['open']['1'] < game_data['odds']['pinnacle']['final']['1'] and \
                     game_data['odds']['pinnacle']['open']['2'] > game_data['odds']['pinnacle']['final']['2']:
 
-                prediction = self.prediction_away_win
+                prediction = self.prediction_away_win + self._get_readable_kickoff_time(game_data['kickoff_datetime'])
 
             elif open_odds_condition == self.condition_open_odds_ok_home  and \
                 game_data['odds']['macau_slot']['open']['1'] > game_data['odds']['macau_slot']['final']['1'] and \
@@ -52,7 +54,7 @@ class QualificationCheck:
                 game_data['odds']['pinnacle']['open']['1'] > game_data['odds']['pinnacle']['final']['1'] and \
                     game_data['odds']['pinnacle']['open']['2'] < game_data['odds']['pinnacle']['final']['2']:
 
-                prediction = self.prediction_home_win
+                prediction = self.prediction_home_win + self._get_readable_kickoff_time(game_data['kickoff_datetime'])
 
 
         except (TypeError, KeyError):
@@ -65,3 +67,6 @@ class QualificationCheck:
             prediction += ' - ' + exceptions
 
         return prediction
+
+    def _get_readable_kickoff_time(self, kickoff_in_linux_ts):
+        return datetime.fromtimestamp(kickoff_in_linux_ts).strftime('%Y-%m-%d %H:%M:%S')

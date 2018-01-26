@@ -1,4 +1,5 @@
 import numpy as np
+from datetime import datetime
 
 '''
     # This function takes the input data and makes a decision about whether this game is
@@ -56,7 +57,7 @@ class QualificationCheck:
                 game_data['odds']['pinnacle']['open']['1'] < game_data['odds']['pinnacle']['final']['1'] and \
                 game_data['odds']['pinnacle']['open']['2'] > game_data['odds']['pinnacle']['final']['2']:
 
-                prediction = self.prediction_away_win
+                prediction = self.prediction_away_win + self._get_readable_kickoff_time(game_data['kickoff_datetime'])
 
             elif odds_comparison_check == self.odds_comparison_check_home_ok and \
                 game_data['odds']['macau_slot']['open']['1'] > game_data['odds']['macau_slot']['final']['1'] and \
@@ -68,7 +69,7 @@ class QualificationCheck:
                 game_data['odds']['pinnacle']['open']['1'] > game_data['odds']['pinnacle']['final']['1'] and \
                 game_data['odds']['pinnacle']['open']['2'] < game_data['odds']['pinnacle']['final']['2']:
 
-                prediction = self.prediction_home_win
+                prediction = self.prediction_home_win + self._get_readable_kickoff_time(game_data['kickoff_datetime'])
 
         except (TypeError, KeyError):
             exceptions = 'missing required odds'
@@ -79,3 +80,6 @@ class QualificationCheck:
             prediction += ' - ' + exceptions
 
         return prediction
+
+    def _get_readable_kickoff_time(self, kickoff_in_linux_ts):
+        return datetime.fromtimestamp(kickoff_in_linux_ts).strftime('%Y-%m-%d %H:%M:%S')
