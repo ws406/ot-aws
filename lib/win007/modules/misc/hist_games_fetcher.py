@@ -8,23 +8,92 @@ import datetime
 
 
 class HistGamesFetcher:
-    url_games_list = 'http://op1.win007.com/index.aspx'
+    url_season_ids = 'http://info.nowgoal.com/jsData/LeagueSeason/sea%league_id%.js'
+    url_league_info = 'http://info.nowgoal.com/jsData/matchResult/%season_id%/s%league_id%_en.js'
     odds_fetcher = None
 
     def __init__(self, odds_fetcher: OddsFetcherInterface):
         self.odds_fetcher = odds_fetcher
         pass
 
-    def get_hist_games_by_league(self, league_id, num_of_seasons):
+    def _get_season_page_contents(self, league_id, num_of_seasons):
+        league_page_contents = []
 
-        # Get URLs
-        if (num_of_seasons == 1):
-            urls = [str.replace(self.url_games_list, '%league_id%', league_id)]
-        elif(num_of_seasons > 1):
-            urls = None
+        season_ids_url = str.replace(self.url_season_ids, '%league_id%', str(league_id))
+        season_ids_soup = BeautifulSoup(requests.get(season_ids_url).text, "lxml")
+        league_ids = re.findall('\'([0-9\-]+)\'', season_ids_soup.text)
+
+        league_info_url = str.replace(self.url_league_info, '%league_id%', league_id)
+        if num_of_seasons >= 1:
+            for season_name_element in league_ids[:num_of_seasons]:
+                url = str.replace(league_info_url, '%season_id%', season_name_element)
+                print(url)
+                league_page_contents.append(
+                    BeautifulSoup(
+                        requests.get(url).text,
+                        "lxml"
+                    )
+                )
+        else:
+            print("num_of_seasons is expected to be a positive int instead of " + str(num_of_seasons))
+            sys.exit()
+
+        return league_page_contents
+
+    def _get_games_details(self, content_soup):
+
+        games = dict()
+        # vars = str.split(content_soup.text, '];')
+        # league_info = str.split(vars)
+
+        league_info = re.search('', content_soup.text.strip()).group(1)
+        game = dict()
+        game["league_id"] = int(league_info[0])
+        game["league_name"] = league_info[3]
+
+        # TODO: add these to game_fetcher
+        game["season"] = league_info[4]
+        game["total_rounds"] = int(league_info[7])
+        game["total_teams"] = int(league_info[8])
+        # TODO: end of todo!
+
+        # TODO: handle all rounds & all games in each round. TWO rounds splitting.
+        individual_game_details = str.split(
+            "1424600,31,-1,'2017-08-19 02:15',992,137,'1-0','1-0','17','9',0.25,0.25,'2','0.5/1',1,1,1,1,0,0,'','17','9'",
+            ','
+        )
+
+        gid = int(individual_game_details[0])
+        game['is_played'] = True if individual_game_details[2]=='-1' else False
+        game["kickoff"] = kickoff
+
+        game["home_team_name"] = self._get_home_team_name(tds)
+        game["away_team_name"] = self._get_away_team_name(tds)
+        game["home_team_rank"] = self._get_home_team_rank(tds)
+        game["away_team_rank"] = self._get_away_team_rank(tds)
+        game["odds"], game["probabilities"], game["kelly_rates"] = self.odds_fetcher.get_odds(gid)
+
+        # Add game details to the games dict
+        games[gid] = game
+
+
         pass
 
-        # response = requests.get(self.url_games_list)
+    def get_hist_games_by_league(self, league_id, num_of_seasons):
+
+        content_soups = self._get_season_page_contents(league_id, num_of_seasons)
+        games_details = dict()
+
+        print(content_soups)
+        sys.exit()
+
+
+        for content_soup in content_soups:
+            # TODO: replace fake data with request call to actual URL
+
+            pass
+
+        # response = requests.get(self.url_season_page)
         # soup = BeautifulSoup(response.text, "lxml")
         # game_rows = soup.findAll("tr", {"id": re.compile('tr_[0-9]{1,2}')})
         # games = dict()

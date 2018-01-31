@@ -2,7 +2,7 @@
   "12345678" : {
     "league_id": "EPL",
     "league_name": 23292872734,
-    "kickoff": 1233920412,
+    "kickoff_datetime": 1233920412,
     "home_team_id": 123,
     "home_team_name": "TeamA",
     "home_team_rank": 2,
