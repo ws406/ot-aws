@@ -69,7 +69,7 @@ class Main:
 
         # Fetch historical games data league by league
         # for lid in self.league_ids:
-        for lid in [33]:
+        for lid in [31]:
             game_datas = hist_game_fetcher.get_hist_games_by_league(lid, self.num_of_seasons)
             print(game_datas)
             # TODO: save data to AWS Dynamo DB

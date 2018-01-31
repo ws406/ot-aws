@@ -1,11 +1,13 @@
+from datetime import datetime
+
 class QualificationCheck:
 
     prediction_home_win = 'home-win'
     prediction_away_win = 'away-win'
     disqualified = 'disqualified'
 
-    condition_open_odds_ok_home = 'home-team-open-odds-qualify'
-    condition_open_odds_ok_away = 'away-team-open-odds-qualify'
+    condition_open_odds_ok_home = '*** home-team-open-odds-qualify ***'
+    condition_open_odds_ok_away = '*** away-team-open-odds-qualify ***'
     condition_open_odds_disqualify = 'open-odds-disqualify'
 
     def __init__(self):
@@ -14,6 +16,9 @@ class QualificationCheck:
     def is_qualified(self, game_data):
 
         open_odds_condition = self.condition_open_odds_disqualify
+        prediction = self.disqualified
+        exceptions = None
+
         try:
             # 1. check ranking condition: to qualify, the team that ranks lower needs to have winning odds that is lower than 1.9
             # Away team ranks lower or only one position higher than home team. E.g. home ranks 3, away ranks 2 or 4 or lower.
@@ -37,7 +42,8 @@ class QualificationCheck:
                 game_data['odds']['pinnacle']['open']['1'] < game_data['odds']['pinnacle']['final']['1'] and \
                     game_data['odds']['pinnacle']['open']['2'] > game_data['odds']['pinnacle']['final']['2']:
 
-                prediction = self.prediction_away_win
+                prediction = self.prediction_away_win + ' (' + \
+                             self._get_readable_kickoff_time(game_data['kickoff']) + ')'
 
             elif open_odds_condition == self.condition_open_odds_ok_home  and \
                 game_data['odds']['macau_slot']['open']['1'] > game_data['odds']['macau_slot']['final']['1'] and \
@@ -49,12 +55,20 @@ class QualificationCheck:
                 game_data['odds']['pinnacle']['open']['1'] > game_data['odds']['pinnacle']['final']['1'] and \
                     game_data['odds']['pinnacle']['open']['2'] < game_data['odds']['pinnacle']['final']['2']:
 
-                prediction = self.prediction_home_win
+                prediction = self.prediction_home_win + ' (' + \
+                             self._get_readable_kickoff_time(game_data['kickoff']) + ')'
 
-            else:
-                prediction = self.disqualified + '(' + open_odds_condition + ')'
 
-        except TypeError or KeyError:
-            prediction = self.disqualified + '(' + open_odds_condition + ' - missing required odds)'
+        except (TypeError, KeyError):
+            exceptions = 'missing required odds'
+
+        if open_odds_condition != self.condition_open_odds_disqualify:
+            prediction += ' - ' + open_odds_condition
+
+        if exceptions is not None:
+            prediction += ' - ' + exceptions
 
         return prediction
+
+    def _get_readable_kickoff_time(self, kickoff_in_linux_ts):
+        return datetime.fromtimestamp(kickoff_in_linux_ts).strftime('%Y-%m-%d %H:%M:%S')
