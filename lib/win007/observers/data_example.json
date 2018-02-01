@@ -2,6 +2,8 @@
   "12345678" : {
     "league_id": "EPL",
     "league_name": 23292872734,
+    "season": "2017-2018",
+    "league_size": 20,
     "kickoff": 1233920412,
     "home_team_id": 123,
     "home_team_name": "TeamA",
@@ -163,6 +165,8 @@
     "123456892" : {
     "league_id": "EPL",
     "league_name": 23292872734,
+    "season": "2017-2018",
+    "league_size": 20,
     "kickoff_datetime": 1233920412,
     "home_team_id": 122,
     "home_team_name": "TeamC",
