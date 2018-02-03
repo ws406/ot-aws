@@ -90,6 +90,15 @@ class HistGamesFetcher:
                 game.update(shared_game_info)
 
                 # 3. Get more game details and odds from games page
+                game['kickoff'], \
+                game['home_team_name'], \
+                game['away_team_name'], \
+                game['home_team_id'], \
+                game['away_team_id'], \
+                game['home_team_rank'], \
+                game['away_team_rank'] \
+                    = self.odds_fetcher.get_game_metadata(game['game_id'])
+
                 game['odds'], game['probability'], game['kelly_rates'] = self.odds_fetcher.get_odds(game['game_id'])
                 games.append(game)
                 pprint(game)

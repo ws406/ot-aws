@@ -43,11 +43,20 @@ class GamesFetcher:
             game["league_id"] = lid
             game["league_name"] = league_name
             game["kickoff"] = kickoff
-            game["home_team_name"] = self._get_home_team_name(tds)
-            game["away_team_name"] = self._get_away_team_name(tds)
-            game["home_team_rank"] = self._get_home_team_rank(tds)
-            game["away_team_rank"] = self._get_away_team_rank(tds)
-            game["odds"], game["probabilities"], game["kelly_rates"] = self.odds_fetcher.get_odds(gid)
+
+            no_use_kickoff_time, \
+            game["home_team_name"], \
+            game["away_team_name"], \
+            game["home_team_id"], \
+            game["away_team_id"], \
+            game["home_team_rank"], \
+            game["away_team_rank"] \
+                = self.odds_fetcher.get_game_metadata(gid)
+
+            game["odds"], \
+            game["probabilities"], \
+            game["kelly_rates"] \
+                = self.odds_fetcher.get_odds(gid)
 
             # Add game details to the games dict
             games[gid] = game
@@ -98,55 +107,3 @@ class GamesFetcher:
             sys.exit(1)
 
         return game_id
-
-    def _get_home_team_rank(self, tds):
-        font = tds[3].find("font")
-        if font:
-            try:
-                home_team_rank = int(re.search('.*?([0-9]+)', font.text).group(1))
-            except AttributeError:
-                print("error while extracting 'home_team_rank'")
-                sys.exit(1)
-        else:
-            home_team_rank = None
-
-        return home_team_rank
-
-    def _get_away_team_rank(self, tds):
-        font = tds[11].find("font")
-        if font:
-            try:
-                away_team_rank = int(re.search('.*?([0-9]+)', font.text).group(1))
-            except AttributeError:
-                print("error while extracting 'away_team_rank'")
-                sys.exit(1)
-        else:
-            away_team_rank = None
-
-        return away_team_rank
-
-    def _get_home_team_name(self, tds):
-        a = tds[3].find("a")
-        if a:
-            try:
-                rtn = re.search('(.*?)(?=( |\[.+)|$)', a.text.strip()).group(1)
-            except AttributeError:
-                print("error while extracting 'home_team_name'")
-                sys.exit(1)
-        else:
-            rtn = None
-
-        return rtn
-
-    def _get_away_team_name(self, tds):
-        a = tds[11].find("a")
-        if a:
-            try:
-                rtn = re.search('(.*?)(?=( |\[.+)|$)', a.text.strip()).group(1)
-            except AttributeError:
-                print("error while extracting 'away_team_name'")
-                sys.exit(1)
-        else:
-            rtn = None
-
-        return rtn

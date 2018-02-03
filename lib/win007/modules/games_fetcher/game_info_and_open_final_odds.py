@@ -2,18 +2,64 @@ from lib.win007.modules.games_fetcher.odds_fetcher_interface import OddsFetcherI
 from bs4 import BeautifulSoup
 import re
 from lib.crawler.browser_requests import BrowserRequests
-
+from datetime import datetime
+from pytz import timezone
+import sys
 
 class GameInfoAndOpenFinalOddsFetcher(OddsFetcherInterface):
+
+    game_page_data = dict()
+    lower_league_ranking_prefix = 100
 
     def __init__(self, bids):
         super().__init__(bids)
         pass
 
+    def get_game_metadata(self, gid):
+        raw_data = self._get_data_soup_by_gid(gid).text.split('game=Array(')[0].split('var ')
+
+        kick_off = self._get_kickoff(re.findall('MatchTime="(.+?)"', raw_data[6])[0])
+        home_team_name = re.findall('hometeam="(.+?)"', raw_data[7])[0]
+        away_team_name = re.findall('guestteam="(.+?)"', raw_data[8])[0]
+        home_team_id = int(re.findall('hometeamID=(.+?);', raw_data[17])[0])
+        away_team_id = int(re.findall('guestteamID=(.+?);', raw_data[18])[0])
+
+        home_ranking_tmp = re.findall('hOrder="((.+?)?([0-9]+))"', raw_data[19])[0]
+
+        print(home_ranking_tmp)
+        home_team_rank = int(home_ranking_tmp[2])
+        if home_ranking_tmp[1] is not None:
+            home_team_rank += self.lower_league_ranking_prefix
+
+        away_ranking_tmp = re.findall('gOrder="((.+?)?([0-9]+))"', raw_data[20])[0]
+        away_team_rank = int(away_ranking_tmp[2])
+        if home_ranking_tmp[1] is not None:
+            away_team_rank += self.lower_league_ranking_prefix
+
+        return kick_off, home_team_name, away_team_name, home_team_id, away_team_id, home_team_rank, away_team_rank
+
+    def _get_kickoff(self, kickoff_in_string):
+        try:
+            simplified_kickoff_in_string = str.replace(kickoff_in_string, '-1', '')
+            datetime_obj = datetime.strptime(simplified_kickoff_in_string, '%Y,%m,%d,%H,%M,%S')
+            kickoff = timezone('utc').localize(datetime_obj)
+            rtn = kickoff.timestamp()
+        except AttributeError:
+            print("error while extracting 'kickoff'")
+            sys.exit(1)
+
+        return rtn
+
+    def _get_data_soup_by_gid(self, gid):
+        if gid in self.game_page_data:
+            data = self.game_page_data[gid]
+        else:
+            data = BrowserRequests.get(str.replace(self.odds_url_pattern, '%game_id%', str(gid)))
+        return BeautifulSoup(data.text, "lxml")
+
+
     def get_odds(self, gid):
-        response = BrowserRequests.get(str.replace(self.odds_url_pattern, '$GAME_ID$', str(gid)))
-        soup = BeautifulSoup(response.text, "lxml")
-        raw_data = soup.text.split('game=Array(')[1].split(');')[0]
+        raw_data = self._get_data_soup_by_gid(gid).text.split('game=Array(')[1].split(');')[0]
 
         # Build the regex to extract odds from bids: "((?=80\||115\||281\||177\|)(.*?))"
         regex_pattern = '"((?='
@@ -32,15 +78,6 @@ class GameInfoAndOpenFinalOddsFetcher(OddsFetcherInterface):
             # Remove trailing and prefixing "
             data_list = data_row.group(1).split('|')
             # print(data_list)
-            # TODO: get these details from the page too
-            # "kickoff": 1233920412,
-            # "home_team_id": 123,
-            # "home_team_name": "TeamA",
-            # "home_team_rank": 2,
-            # "away_team_id": 456,
-            # "away_team_name": "TeamB",
-            # "away_team_rank": 5,
-
             bookie_name = self.bids[int(data_list[0])]
             odds[bookie_name] = {}
             odds[bookie_name]["open"] = {}
