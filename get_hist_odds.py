@@ -1,6 +1,6 @@
 import sys
 from lib.win007.modules.misc.hist_games_fetcher import HistGamesFetcher
-from lib.win007.modules.games_fetcher.open_final_odds_fetcher import OpenFinalOddsFetcher
+from lib.win007.modules.games_fetcher.game_info_and_open_final_odds_fetcher import GameInfoAndOpenFinalOddsFetcher
 from lib.win007.modules.dbc.db_connector import DBCOnnector
 
 class Main:
@@ -12,8 +12,7 @@ class Main:
         177: "pinnacle",  # Pinnacle
         432: "hkjc",  # HKJC
     }
-    # TODO: check with Yaowang to see if it is enough
-    num_of_seasons = 5
+
     league_ids = [
         34,  # IT1
         40,  # IT2
@@ -64,13 +63,15 @@ class Main:
 
     def execute(self):
         print("Start...")
-        odds_fetcher = OpenFinalOddsFetcher(self.bids)
+        odds_fetcher = GameInfoAndOpenFinalOddsFetcher(self.bids)
         hist_game_fetcher = HistGamesFetcher(odds_fetcher)
 
         # Fetch historical games data league by league
         # for lid in self.league_ids:
-        for lid in [31]:
-            game_datas = hist_game_fetcher.get_hist_games_by_league(lid, self.num_of_seasons)
+        # TODO: check with Yaowang to see if it is enough
+        num_of_seasons = 1
+        for lid in [29]:
+            game_datas = hist_game_fetcher.get_hist_games_by_league(lid, num_of_seasons)
             print(game_datas)
             # TODO: save data to AWS Dynamo DB
 

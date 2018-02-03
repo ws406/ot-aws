@@ -1,6 +1,6 @@
 from bs4 import BeautifulSoup
 import re
-import requests
+from lib.crawler.browser_requests import BrowserRequests
 from pytz import timezone
 import sys
 from lib.win007.modules.games_fetcher.odds_fetcher_interface import OddsFetcherInterface
@@ -16,7 +16,7 @@ class GamesFetcher:
         pass
 
     def get_games_by_kickoff_and_league(self, minutes, league_ids):
-        response = requests.get(self.url_games_list)
+        response = BrowserRequests.get(self.url_games_list)
         soup = BeautifulSoup(response.text, "lxml")
         game_rows = soup.findAll("tr", {"id": re.compile('tr_[0-9]{1,2}')})
         games = dict()

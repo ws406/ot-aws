@@ -1,17 +1,17 @@
 from lib.win007.modules.games_fetcher.odds_fetcher_interface import OddsFetcherInterface
 from bs4 import BeautifulSoup
 import re
-import requests
+from lib.crawler.browser_requests import BrowserRequests
 
 
-class OpenFinalOddsFetcher(OddsFetcherInterface):
+class GameInfoAndOpenFinalOddsFetcher(OddsFetcherInterface):
 
     def __init__(self, bids):
         super().__init__(bids)
         pass
 
     def get_odds(self, gid):
-        response = requests.get(str.replace(self.odds_url_pattern, '$GAME_ID$', str(gid)))
+        response = BrowserRequests.get(str.replace(self.odds_url_pattern, '$GAME_ID$', str(gid)))
         soup = BeautifulSoup(response.text, "lxml")
         raw_data = soup.text.split('game=Array(')[1].split(');')[0]
 
@@ -32,6 +32,15 @@ class OpenFinalOddsFetcher(OddsFetcherInterface):
             # Remove trailing and prefixing "
             data_list = data_row.group(1).split('|')
             # print(data_list)
+            # TODO: get these details from the page too
+            # "kickoff": 1233920412,
+            # "home_team_id": 123,
+            # "home_team_name": "TeamA",
+            # "home_team_rank": 2,
+            # "away_team_id": 456,
+            # "away_team_name": "TeamB",
+            # "away_team_rank": 5,
+
             bookie_name = self.bids[int(data_list[0])]
             odds[bookie_name] = {}
             odds[bookie_name]["open"] = {}
