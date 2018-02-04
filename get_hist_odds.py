@@ -2,6 +2,7 @@ import sys
 from lib.win007.modules.misc.hist_games_fetcher import HistGamesFetcher
 from lib.win007.modules.games_fetcher.game_info_and_open_final_odds import GameInfoAndOpenFinalOddsFetcher
 from lib.win007.modules.dbc.db_connector import DBCOnnector
+import pprint
 
 class Main:
     # These data is used for
@@ -58,11 +59,14 @@ class Main:
         273,  # AUS
     ]
 
+    sub_league_ids = {
+        40: 261
+    }
+
     def __init__(self):
         pass
 
     def execute(self):
-        print("Start...")
         odds_fetcher = GameInfoAndOpenFinalOddsFetcher(self.bids)
         hist_game_fetcher = HistGamesFetcher(odds_fetcher)
 
@@ -70,9 +74,16 @@ class Main:
         # for lid in self.league_ids:
         # TODO: check with Yaowang to see if it is enough
         num_of_seasons = 1
-        for lid in [29]:
-            game_datas = hist_game_fetcher.get_hist_games_by_league(lid, num_of_seasons)
-            print(game_datas)
+        # for lid in self.league_ids:
+        for lid in [40]:
+            print("Start extracting historical games from " + str(len(self.league_ids)) + " leagues and "
+                + str(num_of_seasons) + " seasons...")
+            print("Processing league - " + str(lid))
+            if lid in self.sub_league_ids:
+                game_datas = hist_game_fetcher.get_hist_games_by_league(lid, num_of_seasons, self.sub_league_ids[lid])
+            else:
+                game_datas = hist_game_fetcher.get_hist_games_by_league(lid, num_of_seasons)
+            pprint.pprint(game_datas)
             # TODO: save data to AWS Dynamo DB
 
 Main().execute()

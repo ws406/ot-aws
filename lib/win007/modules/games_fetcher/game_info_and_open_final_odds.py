@@ -24,16 +24,14 @@ class GameInfoAndOpenFinalOddsFetcher(OddsFetcherInterface):
         home_team_id = int(re.findall('hometeamID=(.+?);', raw_data[17])[0])
         away_team_id = int(re.findall('guestteamID=(.+?);', raw_data[18])[0])
 
-        home_ranking_tmp = re.findall('hOrder="((.+?)?([0-9]+))"', raw_data[19])[0]
-
-        print(home_ranking_tmp)
-        home_team_rank = int(home_ranking_tmp[2])
-        if home_ranking_tmp[1] is not None:
+        home_ranking_tmp = re.findall('hOrder="([\D]+)?(\d+)"', raw_data[19])[0]
+        home_team_rank = int(home_ranking_tmp[1])
+        if home_ranking_tmp[0]:
             home_team_rank += self.lower_league_ranking_prefix
 
-        away_ranking_tmp = re.findall('gOrder="((.+?)?([0-9]+))"', raw_data[20])[0]
-        away_team_rank = int(away_ranking_tmp[2])
-        if home_ranking_tmp[1] is not None:
+        away_ranking_tmp = re.findall('gOrder="([\D]+)?(\d+)"', raw_data[20])[0]
+        away_team_rank = int(away_ranking_tmp[1])
+        if away_ranking_tmp[0]:
             away_team_rank += self.lower_league_ranking_prefix
 
         return kick_off, home_team_name, away_team_name, home_team_id, away_team_id, home_team_rank, away_team_rank

@@ -30,12 +30,20 @@ class HistGamesFetcher:
             sys.exit()
 
 
-    def _get_all_games_from_a_season(self, season_id, league_id):
-
+    def _get_all_games_from_a_season(self, season_id, league_id, sub_league_id):
         games = []
-        tmp_url = str.replace(self.url_league_info, '%league_id%', str(league_id))
-        url = str.replace(tmp_url, '%season_id%', str(season_id))
+        if sub_league_id is not None:
+            league_id_string = str(league_id) + '_' + str(sub_league_id)
+        else:
+            league_id_string = str(league_id)
+        url = str.replace(
+            str.replace(self.url_league_info, '%league_id%', league_id_string),
+            '%season_id%',
+            str(season_id)
+        )
+        print(url)
         content = BeautifulSoup(BrowserRequests.get(url).text, "lxml").text
+        print(content)
         # Split the content by 'var ', so it breaks into smaller segments
         segments = content.split('var ')
 
@@ -58,6 +66,7 @@ class HistGamesFetcher:
         # Please do not try to understand it!!!
         for round_info in segments[2].split(';')[1:]:
             rounds = re.findall('jh\["R_([0-9]+)"\]', round_info)[0]
+            print("\t\tRound - " + str(rounds))
             tmp = re.findall('\[\[(.*)\]\]', round_info)
             # tmp is like
             #  "1394661,36,-1,'2017-08-12 02:45',19,59,'4-3','2-2','5','12',1.25,0.5,'3','1/1.5',1,1,1,1,0,0,'','5','12'"
@@ -101,15 +110,14 @@ class HistGamesFetcher:
 
                 game['odds'], game['probability'], game['kelly_rates'] = self.odds_fetcher.get_odds(game['game_id'])
                 games.append(game)
-                pprint(game)
-                sys.exit()
-
+            break
         return games
 
-    def get_hist_games_by_league(self, league_id, num_of_seasons):
+    def get_hist_games_by_league(self, league_id, num_of_seasons, sub_league_id=None):
         games = []
         season_ids = self._get_season_ids(league_id, num_of_seasons)
-        print(season_ids)
 
         for season_id in season_ids:
-            games.append(self._get_all_games_from_a_season(season_id, league_id))
+            print("\tSeason - " + str(season_id))
+            games.append(self._get_all_games_from_a_season(season_id, league_id, sub_league_id))
+        return games
