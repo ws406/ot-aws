@@ -43,9 +43,9 @@ class HistGamesFetcher:
         )
         print(url)
         content = BeautifulSoup(BrowserRequests.get(url).text, "lxml").text
-        print(content)
         # Split the content by 'var ', so it breaks into smaller segments
-        segments = content.split('var ')
+        # segments = re.findall('', content)
+
 
         # Step 1: get league details first - this data is sharable
         # Get:
@@ -58,19 +58,25 @@ class HistGamesFetcher:
         # league_info = str.split(vars)
         shared_game_info = dict()
         shared_game_info["league_id"] = league_id
-        shared_game_info["league_name"] = re.findall('\'(.+?)\',', segments[1])[2]
         shared_game_info["season"] = season_id
-        shared_game_info["size"] = len(re.findall('(\[.+?\])', segments[2].split(';')[0]))
+
+        league_name_segment = re.findall('arrLeague = \[(.+?)\];', content)[0]
+        shared_game_info["league_name"] = re.findall('\'(.+?)\',', league_name_segment)[2]
+
+        league_size_segment = re.findall('arrTeam = \[(.+?)\];', content)[0]
+        shared_game_info["size"] = len(re.findall('(\[.+?\])', league_size_segment.split(';')[0]))
+
+        print(shared_game_info)
 
         # 2: get individual game details from games page
         # Please do not try to understand it!!!
-        for round_info in segments[2].split(';')[1:]:
-            rounds = re.findall('jh\["R_([0-9]+)"\]', round_info)[0]
+        rounds_segment = re.findall('jh\["R_(\d+)"\] = \[(.+?)\];', content)
+        for round_info in rounds_segment:
+            rounds = round_info[0]
             print("\t\tRound - " + str(rounds))
-            tmp = re.findall('\[\[(.*)\]\]', round_info)
             # tmp is like
             #  "1394661,36,-1,'2017-08-12 02:45',19,59,'4-3','2-2','5','12',1.25,0.5,'3','1/1.5',1,1,1,1,0,0,'','5','12'"
-            tmp_list = tmp[0].split('],[')
+            tmp_list = round_info[1].split('],[')
             for tmp in tmp_list:
                 game = dict()
                 game_details = re.findall("([0-9]*),.+?,(-1|0),.+?,.+?,.+?,'([0-9])-([0-9])','([0-9])-([0-9])'", tmp)[0]
