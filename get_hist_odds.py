@@ -12,6 +12,7 @@ class Main:
         281: "bet365",  # Bet365
         177: "pinnacle",  # Pinnacle
         432: "hkjc",  # HKJC
+        104: "interwetten" # Interwetten
     }
 
     league_ids = [
@@ -60,7 +61,15 @@ class Main:
     ]
 
     sub_league_ids = {
-        40: 261
+        40: 261,
+        37: 87,
+        39: 135,
+        35: 139,
+        33: 546,
+        9:  132,
+        12: 1778,
+        17: 94,
+        284:808
     }
 
     def __init__(self):
@@ -75,15 +84,14 @@ class Main:
         # TODO: check with Yaowang to see if it is enough
         num_of_seasons = 1
         # for lid in self.league_ids:
-        for lid in [40]:
+        for lid in self.league_ids:
             print("Start extracting historical games from " + str(len(self.league_ids)) + " leagues and "
                 + str(num_of_seasons) + " seasons...")
             print("Processing league - " + str(lid))
             if lid in self.sub_league_ids:
-                game_datas = hist_game_fetcher.get_hist_games_by_league(lid, num_of_seasons, self.sub_league_ids[lid])
+                hist_game_fetcher.get_hist_games_by_league(lid, num_of_seasons, self.sub_league_ids[lid])
             else:
-                game_datas = hist_game_fetcher.get_hist_games_by_league(lid, num_of_seasons)
-            pprint.pprint(game_datas)
+                hist_game_fetcher.get_hist_games_by_league(lid, num_of_seasons)
             # TODO: save data to AWS Dynamo DB
 
 Main().execute()

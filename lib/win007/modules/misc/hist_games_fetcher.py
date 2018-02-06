@@ -4,6 +4,7 @@ from lib.crawler.browser_requests import BrowserRequests
 import sys
 from lib.win007.modules.games_fetcher.odds_fetcher_interface import OddsFetcherInterface
 from pprint import pprint
+import json
 
 
 class HistGamesFetcher:
@@ -41,7 +42,6 @@ class HistGamesFetcher:
             '%season_id%',
             str(season_id)
         )
-        print(url)
         content = BeautifulSoup(BrowserRequests.get(url).text, "lxml").text
         # Split the content by 'var ', so it breaks into smaller segments
         # segments = re.findall('', content)
@@ -66,8 +66,6 @@ class HistGamesFetcher:
         league_size_segment = re.findall('arrTeam = \[(.+?)\];', content)[0]
         shared_game_info["size"] = len(re.findall('(\[.+?\])', league_size_segment.split(';')[0]))
 
-        print(shared_game_info)
-
         # 2: get individual game details from games page
         # Please do not try to understand it!!!
         rounds_segment = re.findall('jh\["R_(\d+)"\] = \[(.+?)\];', content)
@@ -76,10 +74,12 @@ class HistGamesFetcher:
             print("\t\tRound - " + str(rounds))
             # tmp is like
             #  "1394661,36,-1,'2017-08-12 02:45',19,59,'4-3','2-2','5','12',1.25,0.5,'3','1/1.5',1,1,1,1,0,0,'','5','12'"
-            tmp_list = round_info[1].split('],[')
-            for tmp in tmp_list:
+            round_games_list = round_info[1].split('],[')
+            for tmp in round_games_list:
+                print(tmp)
                 game = dict()
-                game_details = re.findall("([0-9]*),.+?,(-1|0),.+?,.+?,.+?,'([0-9])-([0-9])','([0-9])-([0-9])'", tmp)[0]
+                game_details = re.findall(
+                    "([0-9]*),.+?,(-1|0),.+?,.+?,.+?,'(?:([0-9])-([0-9]))?','(?:([0-9])-([0-9]))?'", tmp)[0]
 
                 game['is_played'] = 1 if game_details[1] == '-1' else 0
                 if game['is_played'] == 0:
@@ -114,16 +114,22 @@ class HistGamesFetcher:
                 game['away_team_rank'] \
                     = self.odds_fetcher.get_game_metadata(game['game_id'])
 
-                game['odds'], game['probability'], game['kelly_rates'] = self.odds_fetcher.get_odds(game['game_id'])
+                game['odds'], game['probabilities'], game['kelly_rates'] = self.odds_fetcher.get_odds(game['game_id'])
                 games.append(game)
-            break
         return games
 
     def get_hist_games_by_league(self, league_id, num_of_seasons, sub_league_id=None):
-        games = []
         season_ids = self._get_season_ids(league_id, num_of_seasons)
-
+        games = []
         for season_id in season_ids:
             print("\tSeason - " + str(season_id))
-            games.append(self._get_all_games_from_a_season(season_id, league_id, sub_league_id))
-        return games
+            data = self._get_all_games_from_a_season(season_id, league_id, sub_league_id)
+            file_name = 'data\\' + data[0]['league_name'] + '-' + season_id + '.json'
+            self._write_to_file(file_name, data)
+            print(str(len(data)) + ' games saved to ' + file_name)
+            games.append(data)
+
+    def _write_to_file(self, file_name, data):
+        file = open(file_name, 'w+')
+        file.write(json.dumps(data))
+        file.close()
