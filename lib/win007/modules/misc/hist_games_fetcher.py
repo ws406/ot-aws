@@ -3,7 +3,7 @@ import re
 from lib.crawler.browser_requests import BrowserRequests
 import sys
 from lib.win007.modules.games_fetcher.odds_fetcher_interface import OddsFetcherInterface
-from pprint import pprint
+import time
 import json
 
 
@@ -76,7 +76,7 @@ class HistGamesFetcher:
             #  "1394661,36,-1,'2017-08-12 02:45',19,59,'4-3','2-2','5','12',1.25,0.5,'3','1/1.5',1,1,1,1,0,0,'','5','12'"
             round_games_list = round_info[1].split('],[')
             for tmp in round_games_list:
-                print(tmp)
+                print('\t\t\t' + tmp)
                 game = dict()
                 game_details = re.findall(
                     "([0-9]*),.+?,(-1|0),.+?,.+?,.+?,'(?:([0-9])-([0-9]))?','(?:([0-9])-([0-9]))?'", tmp)[0]
@@ -116,6 +116,8 @@ class HistGamesFetcher:
 
                 game['odds'], game['probabilities'], game['kelly_rates'] = self.odds_fetcher.get_odds(game['game_id'])
                 games.append(game)
+            # Sleep 10 seconds after grabbing data from each round
+            time.sleep(5)
         return games
 
     def get_hist_games_by_league(self, league_id, num_of_seasons, sub_league_id=None):
