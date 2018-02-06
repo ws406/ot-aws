@@ -83,7 +83,7 @@ class HistGamesFetcher:
 
                 game['is_played'] = 1 if game_details[1] == '-1' else 0
                 if game['is_played'] == 0:
-                    print('Game has not been played yet.')
+                    print('\t\t\tGame has not been played yet.')
                     continue
 
                 game['game_id'] = int(game_details[0])
