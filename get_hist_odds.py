@@ -16,11 +16,11 @@ class Main:
     }
 
     league_ids = [
-        34,  # IT1
-        40,  # IT2
+        # 34,  # IT1
+        #40,  # IT2
 
-        36,  # EPL
-        37,  # ENC
+        #36,  # EPL
+        #37,  # ENC
         39,  # EFL1
         35,  # EFL2
 
@@ -82,16 +82,17 @@ class Main:
         # Fetch historical games data league by league
         # for lid in self.league_ids:
         # TODO: check with Yaowang to see if it is enough
-        num_of_seasons = 5
+        num_of_seasons = 2
+        start_season_offset = 2
         # for lid in self.league_ids:
-        for lid in self.league_ids:
+        for lid in [34]:
             print("Start extracting historical games from " + str(len(self.league_ids)) + " leagues and "
                 + str(num_of_seasons) + " seasons...")
             print("Processing league - " + str(lid))
             if lid in self.sub_league_ids:
-                hist_game_fetcher.get_hist_games_by_league(lid, num_of_seasons, self.sub_league_ids[lid])
+                hist_game_fetcher.get_hist_games_by_league(lid, num_of_seasons, start_season_offset, self.sub_league_ids[lid])
             else:
-                hist_game_fetcher.get_hist_games_by_league(lid, num_of_seasons)
+                hist_game_fetcher.get_hist_games_by_league(lid, num_of_seasons, start_season_offset)
             # TODO: save data to AWS Dynamo DB
 
 Main().execute()

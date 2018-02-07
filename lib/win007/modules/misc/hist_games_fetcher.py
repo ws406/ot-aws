@@ -17,15 +17,12 @@ class HistGamesFetcher:
         self.odds_fetcher = odds_fetcher
         pass
 
-    def _get_season_ids(self, league_id, num_of_seasons):
+    def _get_season_ids(self, league_id, num_of_seasons, start_season_offset):
         season_ids_url = str.replace(self.url_season_ids, '%league_id%', str(league_id))
-
-
         season_ids_soup = BeautifulSoup(BrowserRequests.get(season_ids_url).text, "lxml")
         league_ids = re.findall('\'([0-9\-]+)\'', season_ids_soup.text)
-
         if num_of_seasons >= 1:
-            return league_ids[:num_of_seasons]
+            return league_ids[start_season_offset:num_of_seasons+start_season_offset]
         else:
             print("num_of_seasons is expected to be a positive int instead of " + str(num_of_seasons))
             sys.exit()
@@ -69,7 +66,7 @@ class HistGamesFetcher:
         # 2: get individual game details from games page
         # Please do not try to understand it!!!
         rounds_segment = re.findall('jh\["R_(\d+)"\] = \[(.+?)\];', content)
-        for round_info in rounds_segment:
+        for round_info in rounds_segment[16:]:
             rounds = round_info[0]
             print("\t\tRound - " + str(rounds))
             # tmp is like
@@ -78,13 +75,13 @@ class HistGamesFetcher:
             for tmp in round_games_list:
                 print('\t\t\t' + tmp)
                 game = dict()
-                game_details = re.findall(
-                    "([0-9]*),.+?,(-1|0),.+?,.+?,.+?,'(?:([0-9])-([0-9]))?','(?:([0-9])-([0-9]))?'", tmp)[0]
-
-                game['is_played'] = 1 if game_details[1] == '-1' else 0
+                game['is_played'] = 1 if re.findall(",(-1|0|-14),", tmp)[0] == '-1' else 0
                 if game['is_played'] == 0:
                     print('\t\t\tGame has not been played yet.')
                     continue
+
+                game_details = re.findall(
+                    "([0-9]*),.+?,(-1|0|-14),.+?,.+?,.+?,'(?:([0-9])-([0-9]))?','(?:([0-9])-([0-9]))?'", tmp)[0]
 
                 game['game_id'] = int(game_details[0])
                 game['home_score'] = int(game_details[2])
@@ -120,8 +117,8 @@ class HistGamesFetcher:
             time.sleep(5)
         return games
 
-    def get_hist_games_by_league(self, league_id, num_of_seasons, sub_league_id=None):
-        season_ids = self._get_season_ids(league_id, num_of_seasons)
+    def get_hist_games_by_league(self, league_id, num_of_seasons, start_season_offset, sub_league_id=None):
+        season_ids = self._get_season_ids(league_id, num_of_seasons, start_season_offset)
         games = []
         for season_id in season_ids:
             print("\tSeason - " + str(season_id))

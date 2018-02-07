@@ -16,16 +16,17 @@ class GameInfoAndOpenFinalOddsFetcher(OddsFetcherInterface):
         pass
 
     def get_game_metadata(self, gid):
-        raw_data = self._get_data_soup_by_gid(gid).text.split('game=Array(')[0].split('var ')
+        # raw_data = self._get_data_soup_by_gid(gid).text.split('game=Array(')[0].split('var ')
+        raw_data = self._get_data_soup_by_gid(gid).text
 
-        kick_off = self._get_kickoff(re.findall('MatchTime="(.+?)"', raw_data[6])[0])
-        home_team_name = re.findall('hometeam="(.+?)"', raw_data[7])[0]
-        away_team_name = re.findall('guestteam="(.+?)"', raw_data[8])[0]
-        home_team_id = int(re.findall('hometeamID=(.+?);', raw_data[17])[0])
-        away_team_id = int(re.findall('guestteamID=(.+?);', raw_data[18])[0])
+        kick_off = self._get_kickoff(re.findall('MatchTime="(.+?)"', raw_data)[0])
+        home_team_name = re.findall('hometeam="(.+?)"', raw_data)[0]
+        away_team_name = re.findall('guestteam="(.+?)"', raw_data)[0]
+        home_team_id = int(re.findall('hometeamID=(.+?);', raw_data)[0])
+        away_team_id = int(re.findall('guestteamID=(.+?);', raw_data)[0])
 
-        home_team_rank = self._get_team_ranking(raw_data[19])
-        away_team_rank = self._get_team_ranking(raw_data[20])
+        home_team_rank = self._get_team_ranking(raw_data)
+        away_team_rank = self._get_team_ranking(raw_data)
 
         return kick_off, home_team_name, away_team_name, home_team_id, away_team_id, home_team_rank, away_team_rank
 
