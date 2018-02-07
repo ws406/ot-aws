@@ -33,7 +33,10 @@ class GameInfoAndOpenFinalOddsFetcher(OddsFetcherInterface):
     def _get_team_ranking(self, ranking_string):
         # Handle the number only ranking_string. e.g. hOrder="12"
         tmp = re.findall('(hOrder|gOrder)="([0-9]+)"', ranking_string)
-        if len(tmp) == 1:
+        # If no match, return None.
+        if not tmp:
+            return None
+        elif len(tmp) == 1:
             return int(tmp[0][1])
         # When there is prefix and a number in the ranking_string
         else:
