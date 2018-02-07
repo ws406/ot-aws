@@ -7,12 +7,13 @@ from lib.win007.observers.compare_macau_hkjc.qualification_check import Qualific
 file_name = "/home/wyao/Downloads/Odds/Italian_SerieA-2017-2018.json"
 #file_name = "/home/wyao/Downloads/Odds/Italian_SerieB-2017-2018.json"
 
-def Calculate_odds(odds, prediction, result, goal_diff):
+def calculate_pre_commission_pnl(odds, prediction, result, goal_diff):
     if odds < 1.6:
         if result == prediction:
             return odds - 1
         else:
             return -1
+    # Place DNB bet.
     elif odds >= 1.6 and odds < 3:
         if result == prediction:
             return odds * 0.8 - 1
@@ -40,10 +41,10 @@ with open(file_name) as json_file:
             continue
         elif "home-win" in predict:
             print("Game: ", game_id, "predicted home win, odds is ", match['odds']['bet365']['final']['1'], ", result is ", match['result'], ", goal diff is ", match['home_score'] - match['away_score'])
-            profit = profit + Calculate_odds(match['odds']['bet365']['final']['1'], '1', match['result'], match['home_score'] - match['away_score'])
+            profit = profit + calculate_pre_commission_pnl(match['odds']['bet365']['final']['1'], '1', match['result'], match['home_score'] - match['away_score'])
         elif "away-win" in predict:
             print("Game: ", game_id, "predicted away win, odds is ", match['odds']['bet365']['final']['2'], ", result is ", match['result'], ", goal diff is ", match['away_score'] - match['home_score'])
-            profit = profit + Calculate_odds(match['odds']['bet365']['final']['2'], '2', match['result'], match['away_score'] - match['home_score'])
+            profit = profit + calculate_pre_commission_pnl(match['odds']['bet365']['final']['2'], '2', match['result'], match['away_score'] - match['home_score'])
         #print("Adding match:", league_id, game_id, season, QualificationCheck().is_qualified(match))
     print("Profit: ", profit)
 
@@ -60,8 +61,8 @@ with open(file_name) as json_file:
             continue
         elif "home-win" in predict:
             print("Game: ", game_id, "predicted home win, odds is ", match['odds']['bet365']['final']['1'], ", result is ", match['result'], ", goal diff is ", match['home_score'] - match['away_score'])
-            profit = profit + Calculate_odds(match['odds']['bet365']['final']['1'], '1', match['result'], match['home_score'] - match['away_score'])
+            profit = profit + calculate_pre_commission_pnl(match['odds']['bet365']['final']['1'], '1', match['result'], match['home_score'] - match['away_score'])
         elif "away-win" in predict:
             print("Game: ", game_id, "predicted away win, odds is ", match['odds']['bet365']['final']['2'], ", result is ", match['result'], ", goal diff is ", match['away_score'] - match['home_score'])
-            profit = profit + Calculate_odds(match['odds']['bet365']['final']['2'], '2', match['result'], match['away_score'] - match['home_score'])
+            profit = profit + calculate_pre_commission_pnl(match['odds']['bet365']['final']['2'], '2', match['result'], match['away_score'] - match['home_score'])
     print("Profit: ", profit)
