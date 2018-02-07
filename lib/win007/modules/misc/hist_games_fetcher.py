@@ -66,7 +66,7 @@ class HistGamesFetcher:
         # 2: get individual game details from games page
         # Please do not try to understand it!!!
         rounds_segment = re.findall('jh\["R_(\d+)"\] = \[(.+?)\];', content)
-        for round_info in rounds_segment[16:]:
+        for round_info in rounds_segment:
             rounds = round_info[0]
             print("\t\tRound - " + str(rounds))
             # tmp is like
