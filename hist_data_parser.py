@@ -3,18 +3,22 @@ from lib.win007.observers.compare_macau_hkjc.qualification_check import Qualific
 #import decimal
 
 #file_name = "/home/wyao/Downloads/Odds/England_Championship-2017-2018.json"
+#file_name = "/home/wyao/Downloads/Odds/England_Championship-2016-2017.json"
 #file_name = "/home/wyao/Downloads/Odds/English_Premier_League-2017-2018.json"
-file_name = "/home/wyao/Downloads/Odds/Italian_SerieA-2017-2018.json"
+#file_name = "/home/wyao/Downloads/Odds/English_Premier_League-2016-2017.json"
+#file_name = "/home/wyao/Downloads/Odds/Italian_SerieA-2017-2018.json"
+#file_name = "/home/wyao/Downloads/Odds/Italian_SerieA-2016-2017.json"
 #file_name = "/home/wyao/Downloads/Odds/Italian_SerieB-2017-2018.json"
+file_name = "/home/wyao/Downloads/Odds/Italian_SerieB-2016-2017.json"
 
 def calculate_pre_commission_pnl(odds, prediction, result, goal_diff):
-    if odds < 1.6:
+    if odds <= 1.9:
         if result == prediction:
             return odds - 1
         else:
             return -1
     # Place DNB bet.
-    elif odds >= 1.6 and odds < 3:
+    elif odds > 1.9 and odds < 3:
         if result == prediction:
             return odds * 0.8 - 1
         elif result == 'x':
@@ -35,7 +39,7 @@ with open(file_name) as json_file:
         game_id = match['game_id']
         league_id = match['league_id']
         season = match['season']
-        match['probabilities'] = match['probability']
+        #match['probabilities'] = match['probability']
         predict = QualificationCheck().is_qualified(match)
         if "disqualified" in predict:
             continue
@@ -55,7 +59,7 @@ wrong = 0
 profit = 0
 with open(file_name) as json_file:
     for match in matches:
-        match['probabilities'] = match['probability']
+        #match['probabilities'] = match['probability']
         predict = QualificationCheck().is_qualified(match)
         if "disqualified" in predict:
             continue
