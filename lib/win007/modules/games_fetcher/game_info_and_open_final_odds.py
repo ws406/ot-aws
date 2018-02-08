@@ -25,23 +25,23 @@ class GameInfoAndOpenFinalOddsFetcher(OddsFetcherInterface):
         home_team_id = int(re.findall('hometeamID=(.+?);', raw_data)[0])
         away_team_id = int(re.findall('guestteamID=(.+?);', raw_data)[0])
 
-        home_team_rank = self._get_team_ranking(raw_data)
-        away_team_rank = self._get_team_ranking(raw_data)
+        home_team_rank = self._get_team_ranking(re.findall('hOrder="(.+?)"', raw_data))
+        away_team_rank = self._get_team_ranking(re.findall('gOrder="(.+?)"', raw_data))
 
         return kick_off, home_team_name, away_team_name, home_team_id, away_team_id, home_team_rank, away_team_rank
 
     def _get_team_ranking(self, ranking_string):
-        # Handle the number only ranking_string. e.g. hOrder="12"
-        tmp = re.findall('(hOrder|gOrder)="([0-9]+)"', ranking_string)
         # If no match, return None.
-        if not tmp:
+        if not ranking_string:
             return None
-        elif len(tmp) == 1:
-            return int(tmp[0][1])
+
+        tmp = re.findall('^([0-9]+)$', ranking_string[0])
+        if len(tmp) == 1:
+            return int(tmp[0])
         # When there is prefix and a number in the ranking_string
         else:
-            tmp = re.findall('(hOrder|gOrder)="(.+?)?([0-9]+)"', ranking_string)
-            return (int(tmp[0][2])) + self.lower_league_ranking_prefix
+            tmp = re.findall('^(.+?)([0-9]+)$', ranking_string[0])
+            return int(tmp[0][1]) + self.lower_league_ranking_prefix
 
     def _get_kickoff(self, kickoff_in_string):
         try:
