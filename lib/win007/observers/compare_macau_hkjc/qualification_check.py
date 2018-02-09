@@ -34,7 +34,7 @@ class QualificationCheck:
         odds_comparison_check = self.odds_comparison_check_disqualified
         exceptions = None
         prediction = self.disqualified
-        benmark = 400.0
+        benmark = 500.0
 
         try:
             #1. Look at the comparison between HKJC and Macau
