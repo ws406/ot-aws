@@ -81,7 +81,7 @@ class HistGamesFetcher:
                     continue
 
                 game_details = re.findall(
-                    "([0-9]*),.+?,(-1|0|-14),.+?,.+?,.+?,'(?:([0-9])-([0-9]))?','(?:([0-9])-([0-9]))?'", tmp)[0]
+                    "([0-9]*),.+?,(-1|0|-14),.+?,.+?,.+?,'(?:([0-9]+)-([0-9]+))?','(?:([0-9]+)-([0-9]+))?'", tmp)[0]
 
                 game['game_id'] = int(game_details[0])
                 game['home_score'] = int(game_details[2])
