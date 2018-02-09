@@ -37,7 +37,7 @@ class QualificationCheck:
         prediction = self.disqualified
 
         try:
-            # 1. Look at the comparison between HKJC and Macau
+            #1. Look at the comparison between HKJC and Macau
             if np.log(game_data['probabilities']['hkjc']['open']['2'] / game_data['probabilities']['macau_slot']['open'][
                         '2']) * 10000.0 >= 500.0:
                 odds_comparison_check = self.odds_comparison_check_away_ok
@@ -45,6 +45,25 @@ class QualificationCheck:
             elif np.log(game_data['probabilities']['hkjc']['open']['1'] / game_data['probabilities']['macau_slot']['open'][
                         '1']) * 10000.0 >= 500.0:
                 odds_comparison_check = self.odds_comparison_check_home_ok
+
+            #odds_comparison2_check = self.odds_comparison_check_disqualified
+            #if np.log(game_data['probabilities']['bet365']['open']['2'] / game_data['probabilities']['will_hill']['open'][
+                        #'2']) * 10000.0 >= 500.0:
+                #odds_comparison_check = self.odds_comparison_check_away_ok
+
+            #elif np.log(game_data['probabilities']['bet365']['open']['1'] / game_data['probabilities']['will_hill']['open'][
+                        #'1']) * 10000.0 >= 500.0:
+                #odds_comparison_check = self.odds_comparison_check_home_ok
+
+            #if odds_comparison_check == self.odds_comparison_check_disqualified and odds_comparison2_check != self.odds_comparison_check_disqualified:
+               #odds_comparison_check = odds_comparison2_check
+            #elif odds_comparison_check == self.odds_comparison_check_away_ok and odds_comparison2_check == self.odds_comparison_check_home_ok:
+               #odds_comparison_check = self.odds_comparison_check_disqualified
+            #elif odds_comparison_check == self.odds_comparison_check_home_ok and odds_comparison2_check == self.odds_comparison_check_away_ok:
+               #odds_comparison_check = self.odds_comparison_check_disqualified
+
+            #if odds_comparison_check != odds_comparison2_check:
+               #odds_comparison_check = self.odds_comparison_check_disqualified
 
             # 2. Predict by odds trend. If all-final-odds is smaller than all-original-odds, predict that result.
             if odds_comparison_check == self.odds_comparison_check_away_ok and \
