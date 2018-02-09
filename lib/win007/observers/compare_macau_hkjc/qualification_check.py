@@ -38,29 +38,31 @@ class QualificationCheck:
 
         try:
             #1. Look at the comparison between HKJC and Macau
-            if np.log(game_data['probabilities']['hkjc']['open']['2'] / game_data['probabilities']['macau_slot']['open'][
-                        '2']) * 10000.0 >= benmark:
+            if np.log(game_data['probabilities']['hkjc']['open']['2'] / game_data['probabilities']['macau_slot']['open']['2']) * 10000.0 >= benmark\
+                and np.log(game_data['probabilities']['macau_slot']['open']['1'] / game_data['probabilities']['hkjc']['open']['1']) * 10000.0 >= benmark:
                 odds_comparison_check = self.odds_comparison_check_away_ok
 
-            elif np.log(game_data['probabilities']['hkjc']['open']['1'] / game_data['probabilities']['macau_slot']['open'][
-                        '1']) * 10000.0 >= benmark:
+            elif np.log(game_data['probabilities']['hkjc']['open']['1'] / game_data['probabilities']['macau_slot']['open']['1']) * 10000.0 >= benmark\
+                and np.log(game_data['probabilities']['macau_slot']['open']['2'] / game_data['probabilities']['hkjc']['open']['2']) * 10000.0 >= benmark:
                 odds_comparison_check = self.odds_comparison_check_home_ok
 
             #odds_comparison2_check = self.odds_comparison_check_disqualified
-            #if np.log(game_data['probabilities']['bet365']['open']['2'] / game_data['probabilities']['will_hill']['open'][
-                        #'2']) * 10000.0 >= 500.0:
-                #odds_comparison_check = self.odds_comparison_check_away_ok
+            #if game_data['probabilities']['interwetten']['open']['1'] > game_data['probabilities']['will_hill']['open']['1'] and \
+                #game_data['probabilities']['interwetten']['open']['2'] < game_data['probabilities']['will_hill']['open']['2']:
 
-            #elif np.log(game_data['probabilities']['bet365']['open']['1'] / game_data['probabilities']['will_hill']['open'][
-                        #'1']) * 10000.0 >= 500.0:
-                #odds_comparison_check = self.odds_comparison_check_home_ok
+                #odds_comparison2_check = self.odds_comparison_check_home_ok
 
-            #if odds_comparison_check == self.odds_comparison_check_disqualified and odds_comparison2_check != self.odds_comparison_check_disqualified:
-               #odds_comparison_check = odds_comparison2_check
-            #elif odds_comparison_check == self.odds_comparison_check_away_ok and odds_comparison2_check == self.odds_comparison_check_home_ok:
-               #odds_comparison_check = self.odds_comparison_check_disqualified
-            #elif odds_comparison_check == self.odds_comparison_check_home_ok and odds_comparison2_check == self.odds_comparison_check_away_ok:
-               #odds_comparison_check = self.odds_comparison_check_disqualified
+            #elif game_data['probabilities']['interwetten']['open']['1'] < game_data['probabilities']['will_hill']['open']['1'] and \
+                #game_data['probabilities']['interwetten']['open']['2'] > game_data['probabilities']['will_hill']['open']['2']:
+
+                #odds_comparison2_check = self.odds_comparison_check_away_ok
+
+            ##if odds_comparison_check == self.odds_comparison_check_disqualified and odds_comparison2_check != self.odds_comparison_check_disqualified:
+               ##odds_comparison_check = odds_comparison2_check
+            ##elif odds_comparison_check == self.odds_comparison_check_away_ok and odds_comparison2_check == self.odds_comparison_check_home_ok:
+               ##odds_comparison_check = self.odds_comparison_check_disqualified
+            ##elif odds_comparison_check == self.odds_comparison_check_home_ok and odds_comparison2_check == self.odds_comparison_check_away_ok:
+               ##odds_comparison_check = self.odds_comparison_check_disqualified
 
             #if odds_comparison_check != odds_comparison2_check:
                #odds_comparison_check = self.odds_comparison_check_disqualified
@@ -95,10 +97,10 @@ class QualificationCheck:
         except (TypeError, KeyError):
             exceptions = 'missing required odds'
 
-        #if odds_comparison_check != self.odds_comparison_check_disqualified:
-            #prediction += ' - ' + odds_comparison_check
-        #if exceptions is not None:
-            #prediction += ' - ' + exceptions
+        if odds_comparison_check != self.odds_comparison_check_disqualified:
+            prediction += ' - ' + odds_comparison_check
+        if exceptions is not None:
+            prediction += ' - ' + exceptions
 
         return prediction
 
