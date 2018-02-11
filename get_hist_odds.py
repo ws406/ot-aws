@@ -16,25 +16,25 @@ class Main:
     }
 
     league_ids = [
-        # 34,  # IT1
-        # 40,  # IT2
+        34,  # IT1
+        40,  # IT2
 
-        # 36,  # EPL
-        # 37,  # ENC
-        # 39,  # EFL1
-        # 35,  # EFL2
-        #
-        # 31,  # ES1
-        # 33,  # ES2
-        #
-        # 8,  # GE1
-        # 9,  # GE2
-        #
-        # 11,  # FR1
-        # 12,  # FR2
+        36,  # EPL
+        37,  # ENC
+        39,  # EFL1
+        35,  # EFL2
 
-        # 16,  # HO1
-        # 17,  # HO2
+        31,  # ES1
+        33,  # ES2
+
+        8,  # GE1
+        9,  # GE2
+
+        11,  # FR1
+        12,  # FR2
+
+        16,  # HO1
+        17,  # HO2
 
         25,  # JAP1
         284,  # JAP2
@@ -48,13 +48,14 @@ class Main:
         5,  # BEL1
         26,  # SWE1
         22,  # NOR1
-        27,  # SW1
+        27,  # SWl1
         10,  # RUS1
         2,  # ARG1
         21,  # USA1
         415,  # CHILE1
         140,  # MEX1
-        50,  # CHN1
+
+        60,  # CHN1
         15,  # KOR1
         273,  # AUS
     ]
@@ -78,10 +79,10 @@ class Main:
         10: 591,
         2:  1232,
         21: 165,
-        415: 28,
-        140: 44,
+        415:28,
+        140:44,
         15: 313,
-        273: 462,
+        273:462,
     }
 
     def __init__(self):
@@ -97,7 +98,7 @@ class Main:
         num_of_seasons = 4
         start_season_offset = 0
         for lid in self.league_ids:
-        # for lid in [33]:
+        # for lid in [25]:
             print("Start extracting historical games from " + str(len(self.league_ids)) + " leagues and "
                 + str(num_of_seasons) + " seasons...")
             print("Processing league - " + str(lid))
