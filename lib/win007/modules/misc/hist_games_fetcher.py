@@ -75,13 +75,13 @@ class HistGamesFetcher:
             for tmp in round_games_list:
                 print('\t\t\t' + tmp)
                 game = dict()
-                game['is_played'] = 1 if re.findall(",(-1|0|-14),", tmp)[0] == '-1' else 0
+                game['is_played'] = 1 if re.findall(",(-1|0|-14|2),", tmp)[0] == '-1' else 0
                 if game['is_played'] == 0:
                     print('\t\t\tGame has not been played yet.')
                     continue
 
                 game_details = re.findall(
-                    "([0-9]*),.+?,(-1|0|-14),.+?,.+?,.+?,'(?:([0-9]+)-([0-9]+))?','(?:([0-9]+)-([0-9]+))?'", tmp)[0]
+                    "([0-9]*),.+?,(-1|0|-14|2),.+?,.+?,.+?,'(?:([0-9]+)-([0-9]+))?','(?:([0-9]+)-([0-9]+))?'", tmp)[0]
 
                 game['game_id'] = int(game_details[0])
                 game['home_score'] = int(game_details[2])
