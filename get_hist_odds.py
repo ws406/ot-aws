@@ -17,24 +17,24 @@ class Main:
 
     league_ids = [
         # 34,  # IT1
-        #40,  # IT2
+        # 40,  # IT2
 
-        #36,  # EPL
-        #37,  # ENC
-        39,  # EFL1
-        35,  # EFL2
+        # 36,  # EPL
+        # 37,  # ENC
+        # 39,  # EFL1
+        # 35,  # EFL2
+        #
+        # 31,  # ES1
+        # 33,  # ES2
+        #
+        # 8,  # GE1
+        # 9,  # GE2
+        #
+        # 11,  # FR1
+        # 12,  # FR2
 
-        31,  # ES1
-        33,  # ES2
-
-        8,  # GE1
-        9,  # GE2
-
-        11,  # FR1
-        12,  # FR2
-
-        16,  # HO1
-        17,  # HO2
+        # 16,  # HO1
+        # 17,  # HO2
 
         25,  # JAP1
         284,  # JAP2
@@ -50,7 +50,6 @@ class Main:
         22,  # NOR1
         27,  # SW1
         10,  # RUS1
-        30,  # TUR1
         2,  # ARG1
         21,  # USA1
         415,  # CHILE1
@@ -68,8 +67,21 @@ class Main:
         33: 546,
         9:  132,
         12: 1778,
+        16: 98,
         17: 94,
-        284:808
+        284:808,
+        25: 943,
+        23: 1123,
+        30: 690,
+        5:  114,
+        26: 431,
+        10: 591,
+        2:  1232,
+        21: 165,
+        415: 28,
+        140: 44,
+        15: 313,
+        273: 462,
     }
 
     def __init__(self):
@@ -82,10 +94,10 @@ class Main:
         # Fetch historical games data league by league
         # for lid in self.league_ids:
         # TODO: check with Yaowang to see if it is enough
-        num_of_seasons = 2
-        start_season_offset = 2
-        # for lid in self.league_ids:
-        for lid in [34]:
+        num_of_seasons = 4
+        start_season_offset = 0
+        for lid in self.league_ids:
+        # for lid in [33]:
             print("Start extracting historical games from " + str(len(self.league_ids)) + " leagues and "
                 + str(num_of_seasons) + " seasons...")
             print("Processing league - " + str(lid))
