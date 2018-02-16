@@ -12,9 +12,9 @@ import json
 #file_name = "/home/wyao/Downloads/Odds/Italian_SerieB-2016-2017.json"
 #file_header = "/home/wyao/Downloads/Odds/Italian_SerieA-"
 #file_header = "/home/wyao/Downloads/Odds/Spanish_La_Liga-"
-file_header = "/home/wyao/Downloads/Odds/German_Bundesliga-"
-#file_header = "/home/wyao/Downloads/Odds/England_Championship-"
-#file_header = "/home/wyao/Downloads/Odds/English_Premier_League-"
+#file_header = "/home/wyao/Downloads/Odds/German Bundesliga-"
+#file_header = "/home/wyao/Downloads/Odds/England Championship-"
+file_header = "/home/wyao/Downloads/Odds/English Premier League-"
 
 betOneSide = 1.5
 betDnb = 1.8
@@ -57,6 +57,13 @@ def calculate_pre_commission_pnl(favTeamOdds, predict, result, goalDiff, dnbOdds
             return favTeamOdds - 1
         else:
             return -1
+    elif dnbOdds < 1.5: # bet 0/0.5
+        if goalDiff > 0:
+            return (favTeamOdds - 1) / 2 + (dnbOdds - 1) / 2
+        elif goalDiff == 0:
+            return -0.5
+        else:
+            return -1
     elif dcOdds < 1.5:
         if predict == result:
             return dnbOdds - 1
@@ -72,6 +79,8 @@ def calculate_pre_commission_pnl(favTeamOdds, predict, result, goalDiff, dnbOdds
     else:
         if goalDiff >= 0:
             return 0.3
+        elif goalDiff == -1:
+            return 0
         else:
             return -1
 
