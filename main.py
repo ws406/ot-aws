@@ -15,51 +15,55 @@ class Main:
         177: "pinnacle",  # Pinnacle
         432: "hkjc",  # HKJC
     }
-    minutes = 380
-    league_ids = [
-        34,  # IT1
-        40,  # IT2
+    minutes = 360
+    # league_ids = [
+    #     34,  # IT1
+    #     40,  # IT2
+    #
+    #     36,  # EPL
+    #     37,  # ENC
+    #     39,  # EFL1
+    #     35,  # EFL2
+    #
+    #     31,  # ES1
+    #     33,  # ES2
+    #
+    #     8,  # GE1
+    #     9,  # GE2
+    #
+    #     11,  # FR1
+    #     12,  # FR2
+    #
+    #     16,  # HO1
+    #     17,  # HO2
+    #
+    #     25,  # JAP1
+    #     284,  # JAP2
+    #
+    #     4,  # BRA1
+    #     358,  # BRA2
+    #
+    #     23,  # POTG1
+    #     29,  # SCOT1
+    #     30,  # TUR1
+    #     5,  # BEL1
+    #     26,  # SWE1
+    #     22,  # NOR1
+    #     27,  # SW1
+    #     10,  # RUS1
+    #     30,  # TUR1
+    #     2,  # ARG1
+    #     21,  # USA1
+    #     415,  # CHILE1
+    #     140,  # MEX1
+    #     50,  # CHN1
+    #     15,  # KOR1
+    #     273,  # AUS
+    #
+    #     113, # Euroba league
+    # ]
 
-        36,  # EPL
-        37,  # ENC
-        39,  # EFL1
-        35,  # EFL2
-
-        31,  # ES1
-        33,  # ES2
-
-        8,  # GE1
-        9,  # GE2
-
-        11,  # FR1
-        12,  # FR2
-
-        16,  # HO1
-        17,  # HO2
-
-        25,  # JAP1
-        284,  # JAP2
-
-        4,  # BRA1
-        358,  # BRA2
-
-        23,  # POTG1
-        29,  # SCOT1
-        30,  # TUR1
-        5,  # BEL1
-        26,  # SWE1
-        22,  # NOR1
-        27,  # SW1
-        10,  # RUS1
-        30,  # TUR1
-        2,  # ARG1
-        21,  # USA1
-        415,  # CHILE1
-        140,  # MEX1
-        50,  # CHN1
-        15,  # KOR1
-        273,  # AUS
-    ]
+    league_ids = None
 
     def __init__(self):
         pass
@@ -74,8 +78,10 @@ class Main:
         # processor.register_observer(StrategyStrongerTeam())
 
         # Get required data from process
-        print("Getting games that will start in the next " + str(self.minutes) + " mins and from "
-              + str(len(self.league_ids)) + " leagues..")
+        msg = "Getting games that will start in the next " + str(self.minutes) + " mins"
+        if self.league_ids is not None:
+            msg += " and from "+ str(len(self.league_ids)) + " leagues.."
+        print(msg)
         games = processor.get_games(self.minutes, self.league_ids)    # Get games starting in the next 5 mins.
         # pprint(games)
         print(str(len(games)) + " games found")

@@ -15,7 +15,13 @@ class GamesFetcher:
         self.odds_fetcher = odds_fetcher
         pass
 
+    def get_games_by_kickoff(self, minutes):
+        return self._get_games_with_conditions(minutes)
+
     def get_games_by_kickoff_and_league(self, minutes, league_ids):
+        return self._get_games_with_conditions(minutes, league_ids)
+
+    def _get_games_with_conditions(self, minutes, league_ids=None):
         response = BrowserRequests.get(self.url_games_list)
         soup = BeautifulSoup(response.text, "lxml")
         game_rows = soup.findAll("tr", {"id": re.compile('tr_[0-9]{1,2}')})
@@ -33,7 +39,7 @@ class GamesFetcher:
 
             # Grab league ID and check if skip
             lid = self._get_league_id(tds)
-            if lid not in league_ids:
+            if league_ids is not None and lid not in league_ids:
                 continue
 
             gid = self._get_game_id(tds)
