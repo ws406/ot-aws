@@ -8,5 +8,5 @@ class FeatureBuilderInterface(abc.ABC):
 
     # Use algorithm to calculate PNL
     @abc.abstractmethod
-    def get_features(self, sample_data: dict):
+    def get_features(self, labelled_data: list):
         pass

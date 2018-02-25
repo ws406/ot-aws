@@ -15,7 +15,7 @@ file_header = "/home/wyao/Downloads/Odds/"
 
 from lib.win007.observers.same_direction.qualification_check import QualificationCheck
 
-def IsPredictRight(favTeamOdds, dnbOdds, dcOdds, predict, result, goalDiff):
+def data_labelling(favTeamOdds, dnbOdds, dcOdds, predict, result, goalDiff):
     if favTeamOdds <= 1.83:
         if predict == result:
             return favTeamOdds - 1
@@ -59,13 +59,13 @@ def CalculateOdds(file_names, game_id):
                     if predict == '1':
                         home_dnb_odds = match['odds']['bet365']['final']['1'] * (match['odds']['bet365']['final']['x'] - 1) / match['odds']['bet365']['final']['x']
                         home_dc_odds = match['odds']['bet365']['final']['1'] * match['odds']['bet365']['final']['x'] / (match['odds']['bet365']['final']['1'] + match['odds']['bet365']['final']['x'])
-                        returns = IsPredictRight(match['odds']['bet365']['final']['1'], home_dnb_odds * coefficient, home_dc_odds * coefficient, '1', match['result'], match['home_score'] - match['away_score'])
+                        returns = data_labelling(match['odds']['bet365']['final']['1'], home_dnb_odds * coefficient, home_dc_odds * coefficient, '1', match['result'], match['home_score'] - match['away_score'])
                         print("Game ", int(game_id), ", predict home win, result is ", match['result'], "return is ", returns, " score is ", match['home_score'], ":", match['away_score'])
                         return returns
                     elif predict == '2':
                         away_dnb_odds = match['odds']['bet365']['final']['2'] * (match['odds']['bet365']['final']['x'] - 1) / match['odds']['bet365']['final']['x']
                         away_dc_odds = match['odds']['bet365']['final']['2'] * match['odds']['bet365']['final']['x'] / (match['odds']['bet365']['final']['2'] + match['odds']['bet365']['final']['x'])
-                        returns = IsPredictRight(match['odds']['bet365']['final']['2'], away_dnb_odds * coefficient, away_dc_odds * coefficient, '2', match['result'], match['away_score'] - match['home_score'])
+                        returns = data_labelling(match['odds']['bet365']['final']['2'], away_dnb_odds * coefficient, away_dc_odds * coefficient, '2', match['result'], match['away_score'] - match['home_score'])
                         print("Game ", int(game_id), ", predict away win, result is ", match['result'], "return is ", returns, " score is ", match['home_score'], ":", match['away_score'])
                         return returns
 
@@ -342,240 +342,10 @@ def GenFeatures(index, side, data, match):
     index = index + 1
     data[index] = match['odds']['bet365']['final'][oppoSide] / 100.0
 
-def IsGameQualified(file_name, correct_result, wrong_result):
-    with open(file_name) as json_file:
-        matches = json.load(json_file)
-        for match in matches:
-            predict = QualificationCheck().is_qualified(match)
-            if(predict == 'x' or match['odds']['bet365']['final']['1'] < 1.5 or match['odds']['bet365']['final']['2'] < 1.5):
-                continue
-            data = [0 for x in range(number_of_features)]
-            if predict == '1':
-                home_dnb_odds = match['odds']['bet365']['final']['1'] * (match['odds']['bet365']['final']['x'] - 1) / match['odds']['bet365']['final']['x']
-                home_dc_odds = match['odds']['bet365']['final']['1'] * match['odds']['bet365']['final']['x'] / (match['odds']['bet365']['final']['1'] + match['odds']['bet365']['final']['x'])
-                result = IsPredictRight(match['odds']['bet365']['final']['1'], home_dnb_odds * coefficient, home_dc_odds * coefficient, '1', match['result'], match['home_score'] - match['away_score'])
-                index = 0
-                if result > 0:
-                    correct_result.append(data)
-                    data[index] = 1
-                elif result <= 0:
-                    wrong_result.append(data)
-                    data[index] = 0
-                GenFeatures(index, '1', data, match)
-            elif predict == '2':
-                away_dnb_odds = match['odds']['bet365']['final']['2'] * (match['odds']['bet365']['final']['x'] - 1) / match['odds']['bet365']['final']['x']
-                away_dc_odds = match['odds']['bet365']['final']['2'] * match['odds']['bet365']['final']['x'] / (match['odds']['bet365']['final']['2'] + match['odds']['bet365']['final']['x'])
-                result = IsPredictRight(match['odds']['bet365']['final']['2'], away_dnb_odds * coefficient, away_dc_odds * coefficient, '2', match['result'], match['away_score'] - match['home_score'])
-                index = 0
-                if result > 0:
-                    correct_result.append(data)
-                    data[index] = 1
-                elif result <= 0:
-                    wrong_result.append(data)
-                    data[index] = 0
-                GenFeatures(index, '2', data, match)
+
 
 correct_predict_result = []
 wrong_predict_result = []
-file_name = file_header + "English Premier League-2016-2017.json"
-IsGameQualified(file_name, correct_predict_result, wrong_predict_result)
-file_name = file_header + "England Championship-2016-2017.json"
-IsGameQualified(file_name, correct_predict_result, wrong_predict_result)
-file_name = file_header + "England League 1-2016-2017.json"
-IsGameQualified(file_name, correct_predict_result, wrong_predict_result)
-file_name = file_header + "England League 2-2016-2017.json"
-IsGameQualified(file_name, correct_predict_result, wrong_predict_result)
-#file_name = file_header + "Italian Serie A-2016-2017.json"
-#IsGameQualified(file_name, correct_predict_result, wrong_predict_result)
-#file_name = file_header + "France Ligue 1-2016-2017.json"
-#IsGameQualified(file_name, correct_predict_result, wrong_predict_result)
-#file_name = file_header + "German Bundesliga-2016-2017.json"
-#IsGameQualified(file_name, correct_predict_result, wrong_predict_result)
-#file_name = file_header + "German Bundesliga 2-2016-2017.json"
-#IsGameQualified(file_name, correct_predict_result, wrong_predict_result)
-#file_name = file_header + "Spanish La Liga-2016-2017.json"
-#IsGameQualified(file_name, correct_predict_result, wrong_predict_result)
-#file_name = file_header + "Holland Eredivisie-2016-2017.json"
-#IsGameQualified(file_name, correct_predict_result, wrong_predict_result)
-#file_name = file_header + "Belgian Pro League-2016-2017.json"
-#IsGameQualified(file_name, correct_predict_result, wrong_predict_result)
-#file_name = file_header + "France Ligue 2-2016-2017.json"
-#IsGameQualified(file_name, correct_predict_result, wrong_predict_result)
-#file_name = file_header + "Holland Jupiler League-2016-2017.json"
-#IsGameQualified(file_name, correct_predict_result, wrong_predict_result)
-#file_name = file_header + "Italian Serie B-2016-2017.json"
-#IsGameQualified(file_name, correct_predict_result, wrong_predict_result)
-#file_name = file_header + "Norwegian Tippeligaen-2017.json"
-#IsGameQualified(file_name, correct_predict_result, wrong_predict_result)
-#file_name = file_header + "Portugal Primera Liga-2016-2017.json"
-#IsGameQualified(file_name, correct_predict_result, wrong_predict_result)
-#file_name = file_header + "Russia Premier League-2016-2017.json"
-#IsGameQualified(file_name, correct_predict_result, wrong_predict_result)
-#file_name = file_header + "Scottish Premier League-2016-2017.json"
-#IsGameQualified(file_name, correct_predict_result, wrong_predict_result)
-#file_name = file_header + "Spanish Segunda Division-2016-2017.json"
-#IsGameQualified(file_name, correct_predict_result, wrong_predict_result)
-#file_name = file_header + "Swedish Allsvenskan-2017.json"
-#IsGameQualified(file_name, correct_predict_result, wrong_predict_result)
-#file_name = file_header + "Swiss Super League-2016-2017.json"
-#IsGameQualified(file_name, correct_predict_result, wrong_predict_result)
-#file_name = file_header + "Turkish Super Liga-2016-2017.json"
-#IsGameQualified(file_name, correct_predict_result, wrong_predict_result)
-#file_name = file_header + "USA Major League Soccer-2017.json"
-#IsGameQualified(file_name, correct_predict_result, wrong_predict_result)
-##file_name = file_header + "Argentine Division 1-2017.json"
-##IsGameQualified(file_name, correct_predict_result, wrong_predict_result)
-#file_name = file_header + "Australia A-League-2016-2017.json"
-#IsGameQualified(file_name, correct_predict_result, wrong_predict_result)
-#file_name = file_header + "Brazil Serie A-2017.json"
-#IsGameQualified(file_name, correct_predict_result, wrong_predict_result)
-#file_name = file_header + "Brazil Serie B-2017.json"
-#IsGameQualified(file_name, correct_predict_result, wrong_predict_result)
-#file_name = file_header + "Chinese Super League-2017.json"
-#IsGameQualified(file_name, correct_predict_result, wrong_predict_result)
-#file_name = file_header + "J-League Division 2-2017.json"
-#IsGameQualified(file_name, correct_predict_result, wrong_predict_result)
-#file_name = file_header + "Korea League-2017.json"
-#IsGameQualified(file_name, correct_predict_result, wrong_predict_result)
-#file_name = file_header + "Primera Division de Chile-2016-2017.json"
-#IsGameQualified(file_name, correct_predict_result, wrong_predict_result)
-#file_name = file_header + "Primera Division de Mexico-2016-2017.json"
-#IsGameQualified(file_name, correct_predict_result, wrong_predict_result)
-
-file_name = file_header + "English Premier League-2015-2016.json"
-IsGameQualified(file_name, correct_predict_result, wrong_predict_result)
-file_name = file_header + "England Championship-2015-2016.json"
-IsGameQualified(file_name, correct_predict_result, wrong_predict_result)
-file_name = file_header + "England League 1-2015-2016.json"
-IsGameQualified(file_name, correct_predict_result, wrong_predict_result)
-file_name = file_header + "England League 2-2015-2016.json"
-IsGameQualified(file_name, correct_predict_result, wrong_predict_result)
-#file_name = file_header + "Italian Serie A-2015-2016.json"
-#IsGameQualified(file_name, correct_predict_result, wrong_predict_result)
-#file_name = file_header + "France Ligue 1-2015-2016.json"
-#IsGameQualified(file_name, correct_predict_result, wrong_predict_result)
-#file_name = file_header + "German Bundesliga-2015-2016.json"
-#IsGameQualified(file_name, correct_predict_result, wrong_predict_result)
-#file_name = file_header + "German Bundesliga 2-2015-2016.json"
-#IsGameQualified(file_name, correct_predict_result, wrong_predict_result)
-#file_name = file_header + "Spanish La Liga-2015-2016.json"
-#IsGameQualified(file_name, correct_predict_result, wrong_predict_result)
-#file_name = file_header + "Holland Eredivisie-2015-2016.json"
-#IsGameQualified(file_name, correct_predict_result, wrong_predict_result)
-#file_name = file_header + "Belgian Pro League-2015-2016.json"
-#IsGameQualified(file_name, correct_predict_result, wrong_predict_result)
-#file_name = file_header + "France Ligue 2-2015-2016.json"
-#IsGameQualified(file_name, correct_predict_result, wrong_predict_result)
-#file_name = file_header + "Holland Jupiler League-2015-2016.json"
-#IsGameQualified(file_name, correct_predict_result, wrong_predict_result)
-#file_name = file_header + "Italian Serie B-2015-2016.json"
-#IsGameQualified(file_name, correct_predict_result, wrong_predict_result)
-#file_name = file_header + "Norwegian Tippeligaen-2016.json"
-#IsGameQualified(file_name, correct_predict_result, wrong_predict_result)
-#file_name = file_header + "Portugal Primera Liga-2015-2016.json"
-#IsGameQualified(file_name, correct_predict_result, wrong_predict_result)
-#file_name = file_header + "Russia Premier League-2015-2016.json"
-#IsGameQualified(file_name, correct_predict_result, wrong_predict_result)
-#file_name = file_header + "Scottish Premier League-2015-2016.json"
-#IsGameQualified(file_name, correct_predict_result, wrong_predict_result)
-#file_name = file_header + "Spanish Segunda Division-2015-2016.json"
-#IsGameQualified(file_name, correct_predict_result, wrong_predict_result)
-#file_name = file_header + "Swedish Allsvenskan-2016.json"
-#IsGameQualified(file_name, correct_predict_result, wrong_predict_result)
-#file_name = file_header + "Swiss Super League-2015-2016.json"
-#IsGameQualified(file_name, correct_predict_result, wrong_predict_result)
-#file_name = file_header + "Turkish Super Liga-2015-2016.json"
-#IsGameQualified(file_name, correct_predict_result, wrong_predict_result)
-#file_name = file_header + "USA Major League Soccer-2016.json"
-#IsGameQualified(file_name, correct_predict_result, wrong_predict_result)
-#file_name = file_header + "Argentine Division 1-2016.json"
-#IsGameQualified(file_name, correct_predict_result, wrong_predict_result)
-#file_name = file_header + "Australia A-League-2015-2016.json"
-#IsGameQualified(file_name, correct_predict_result, wrong_predict_result)
-#file_name = file_header + "Brazil Serie A-2016.json"
-#IsGameQualified(file_name, correct_predict_result, wrong_predict_result)
-#file_name = file_header + "Brazil Serie B-2016.json"
-#IsGameQualified(file_name, correct_predict_result, wrong_predict_result)
-#file_name = file_header + "Chinese Super League-2016.json"
-#IsGameQualified(file_name, correct_predict_result, wrong_predict_result)
-#file_name = file_header + "J-League Division 2-2016.json"
-#IsGameQualified(file_name, correct_predict_result, wrong_predict_result)
-#file_name = file_header + "Korea League-2016.json"
-#IsGameQualified(file_name, correct_predict_result, wrong_predict_result)
-#file_name = file_header + "Primera Division de Chile-2015-2016.json"
-#IsGameQualified(file_name, correct_predict_result, wrong_predict_result)
-#file_name = file_header + "Primera Division de Mexico-2016.json"
-#IsGameQualified(file_name, correct_predict_result, wrong_predict_result)
-
-file_name = file_header + "English Premier League-2014-2015.json"
-IsGameQualified(file_name, correct_predict_result, wrong_predict_result)
-file_name = file_header + "England Championship-2014-2015.json"
-IsGameQualified(file_name, correct_predict_result, wrong_predict_result)
-file_name = file_header + "England League 1-2014-2015.json"
-IsGameQualified(file_name, correct_predict_result, wrong_predict_result)
-file_name = file_header + "England League 2-2014-2015.json"
-IsGameQualified(file_name, correct_predict_result, wrong_predict_result)
-#file_name = file_header + "Italian Serie A-2014-2015.json"
-#IsGameQualified(file_name, correct_predict_result, wrong_predict_result)
-#file_name = file_header + "France Ligue 1-2014-2015.json"
-#IsGameQualified(file_name, correct_predict_result, wrong_predict_result)
-#file_name = file_header + "German Bundesliga-2014-2015.json"
-#IsGameQualified(file_name, correct_predict_result, wrong_predict_result)
-#file_name = file_header + "German Bundesliga 2-2014-2015.json"
-#IsGameQualified(file_name, correct_predict_result, wrong_predict_result)
-#file_name = file_header + "Spanish La Liga-2014-2015.json"
-#IsGameQualified(file_name, correct_predict_result, wrong_predict_result)
-#file_name = file_header + "Holland Eredivisie-2014-2015.json"
-#IsGameQualified(file_name, correct_predict_result, wrong_predict_result)
-#file_name = file_header + "Belgian Pro League-2014-2015.json"
-#IsGameQualified(file_name, correct_predict_result, wrong_predict_result)
-#file_name = file_header + "France Ligue 2-2015-2016.json"
-#IsGameQualified(file_name, correct_predict_result, wrong_predict_result)
-#file_name = file_header + "Holland Jupiler League-2014-2015.json"
-#IsGameQualified(file_name, correct_predict_result, wrong_predict_result)
-#file_name = file_header + "Italian Serie B-2014-2015.json"
-#IsGameQualified(file_name, correct_predict_result, wrong_predict_result)
-#file_name = file_header + "Norwegian Tippeligaen-2015.json"
-#IsGameQualified(file_name, correct_predict_result, wrong_predict_result)
-#file_name = file_header + "Portugal Primera Liga-2014-2015.json"
-#IsGameQualified(file_name, correct_predict_result, wrong_predict_result)
-#file_name = file_header + "Russia Premier League-2014-2015.json"
-#IsGameQualified(file_name, correct_predict_result, wrong_predict_result)
-#file_name = file_header + "Scottish Premier League-2014-2015.json"
-#IsGameQualified(file_name, correct_predict_result, wrong_predict_result)
-#file_name = file_header + "Spanish Segunda Division-2014-2015.json"
-#IsGameQualified(file_name, correct_predict_result, wrong_predict_result)
-#file_name = file_header + "Swedish Allsvenskan-2015.json"
-#IsGameQualified(file_name, correct_predict_result, wrong_predict_result)
-#file_name = file_header + "Swiss Super League-2014-2015.json"
-#IsGameQualified(file_name, correct_predict_result, wrong_predict_result)
-#file_name = file_header + "Turkish Super Liga-2014-2015.json"
-#IsGameQualified(file_name, correct_predict_result, wrong_predict_result)
-#file_name = file_header + "USA Major League Soccer-2015.json"
-#IsGameQualified(file_name, correct_predict_result, wrong_predict_result)
-#file_name = file_header + "Argentine Division 1-2015.json"
-#IsGameQualified(file_name, correct_predict_result, wrong_predict_result)
-#file_name = file_header + "Australia A-League-2014-2015.json"
-#IsGameQualified(file_name, correct_predict_result, wrong_predict_result)
-#file_name = file_header + "Brazil Serie A-2015.json"
-#IsGameQualified(file_name, correct_predict_result, wrong_predict_result)
-#file_name = file_header + "Brazil Serie B-2015.json"
-#IsGameQualified(file_name, correct_predict_result, wrong_predict_result)
-#file_name = file_header + "Chinese Super League-2015.json"
-#IsGameQualified(file_name, correct_predict_result, wrong_predict_result)
-#file_name = file_header + "J-League Division 2-2015.json"
-#IsGameQualified(file_name, correct_predict_result, wrong_predict_result)
-#file_name = file_header + "Korea League-2015.json"
-#IsGameQualified(file_name, correct_predict_result, wrong_predict_result)
-#file_name = file_header + "Primera Division de Chile-2014-2015.json"
-#IsGameQualified(file_name, correct_predict_result, wrong_predict_result)
-#file_name = file_header + "Primera Division de Mexico-2015.json"
-#IsGameQualified(file_name, correct_predict_result, wrong_predict_result)
-
-#file_name = file_header + "Brazil Serie A-2014.json"
-#IsGameQualified(file_name, correct_predict_result, wrong_predict_result)
-#file_name = file_header + "Brazil Serie B-2014.json"
-#IsGameQualified(file_name, correct_predict_result, wrong_predict_result)
 
 allowedSamples = min(len(correct_predict_result), len(wrong_predict_result))
 allResult = []

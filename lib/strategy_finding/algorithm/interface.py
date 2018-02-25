@@ -1,5 +1,5 @@
 import abc
-
+import numpy as np
 
 class AlgorithmInterface(abc.ABC):
 
@@ -8,5 +8,5 @@ class AlgorithmInterface(abc.ABC):
 
     # Use algorithm to calculate PNL
     @abc.abstractmethod
-    def get_results(self, featured_data: dict):
+    def get_results(self, header, featured_data: np.array):
         pass
