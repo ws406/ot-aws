@@ -1,5 +1,4 @@
 from lib.strategy_finding.feature_builder.interface import FeatureBuilderInterface
-from pprint import pprint
 import numpy as np
 
 # Features are:

@@ -3,10 +3,10 @@ from lib.win007.observers.same_direction.qualification_check import Qualificatio
 
 class DnbWinOnly(DataLabelerInterface):
 
-    def label_data(self, matches: list):
+    def label_data(self, data: list):
         print("Running match labeler - DnbWinOnly")
 
-        for match in matches:
+        for match in data:
 
             prediction = match['prediction']
 
@@ -19,6 +19,6 @@ class DnbWinOnly(DataLabelerInterface):
             else:
                 raise ValueError('match prediction is not expected. Expect home_win or away_won, but got ' + prediction)
 
-        print(str(len(matches)) + " labelled - win is labelled 1, others are labelled 0.")
+        print(str(len(data)) + " labelled - win is labelled 1, others are labelled 0.")
 
-        return matches
+        return data
