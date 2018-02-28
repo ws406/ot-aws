@@ -2,12 +2,12 @@ from lib.win007.observers.interface import ObserverInterface
 from lib.win007.observers.prefer_lower_ranked.qualification_check import QualificationCheck
 
 
-class Observer(ObserverInterface):
+class PreferLowerRankedObserver(ObserverInterface):
 
     qualification_checker = None
 
     def __init__(self):
-        super(Observer, self).__init__()
+        super(PreferLowerRankedObserver, self).__init__()
         self.qualification_checker = QualificationCheck()
         pass
 

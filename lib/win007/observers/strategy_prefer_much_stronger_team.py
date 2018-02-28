@@ -1,10 +1,10 @@
 from lib.win007.observers.interface import ObserverInterface
 
 
-class Observer(ObserverInterface):
+class PreferStrongerTeamObserver(ObserverInterface):
 
     def __init__(self):
-        super(Observer, self).__init__()
+        super(PreferStrongerTeamObserver, self).__init__()
         pass
 
     def observer_run(self, data):
