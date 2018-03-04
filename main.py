@@ -14,7 +14,7 @@ class Main:
         177: "pinnacle",  # Pinnacle
         432: "hkjc",  # HKJC
     }
-    minutes = 150
+    minutes = 360
     league_ids = [
         34,  # IT1
         40,  # IT2
