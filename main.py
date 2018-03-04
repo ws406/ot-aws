@@ -1,6 +1,5 @@
-import sys
 from lib.win007.observers.strategy_prefer_lower_ranked import PreferLowerRankedObserver as StrategyLowerRanked
-from lib.win007.observers.strategy_prefer_much_stronger_team import PreferStrongerTeamObserver as StrategyStrongerTeam
+# from lib.win007.observers.strategy_prefer_much_stronger_team import PreferStrongerTeamObserver as StrategyStrongerTeam
 from lib.win007.observers.strategy_compare_macau_hkjc import MacauHKObserver as StrategyMacauHKJCCompare
 from lib.win007.subject.upcoming_games import Subject as UpcomingGamesProcessor
 from lib.win007.modules.games_fetcher.game_info_and_open_final_odds import GameInfoAndOpenFinalOddsFetcher
@@ -15,7 +14,7 @@ class Main:
         177: "pinnacle",  # Pinnacle
         432: "hkjc",  # HKJC
     }
-    minutes = 300
+    minutes = 150
     league_ids = [
         34,  # IT1
         40,  # IT2

@@ -8,7 +8,7 @@ import datetime
 
 
 class GamesFetcher:
-    url_games_list = 'http://op1.win007.com/index.aspx'
+    url_games_list = 'http://op1.win007.com'
     odds_fetcher = None
 
     def __init__(self, odds_fetcher: OddsFetcherInterface):
@@ -22,7 +22,12 @@ class GamesFetcher:
         return self._get_games_with_conditions(minutes, league_ids)
 
     def _get_games_with_conditions(self, minutes, league_ids=None):
-        response = BrowserRequests.get(self.url_games_list)
+        try:
+            response = BrowserRequests.get(self.url_games_list)
+        except (ConnectionError, ConnectionAbortedError, ConnectionRefusedError, ConnectionResetError):
+            print("Can't process url - " + self.url_games_list)
+            sys.exit()
+
         soup = BeautifulSoup(response.text, "lxml")
         game_rows = soup.findAll("tr", {"id": re.compile('tr_[0-9]{1,2}')})
         games = dict()
@@ -50,20 +55,22 @@ class GamesFetcher:
             game["league_name"] = league_name
             game["kickoff"] = kickoff
 
-            no_use_kickoff_time, \
-            game["home_team_name"], \
-            game["away_team_name"], \
-            game["home_team_id"], \
-            game["away_team_id"], \
-            game["home_team_rank"], \
-            game["away_team_rank"] \
-                = self.odds_fetcher.get_game_metadata(gid)
+            try:
+                no_use_kickoff_time, \
+                game["home_team_name"], \
+                game["away_team_name"], \
+                game["home_team_id"], \
+                game["away_team_id"], \
+                game["home_team_rank"], \
+                game["away_team_rank"] \
+                    = self.odds_fetcher.get_game_metadata(gid)
 
-            game["odds"], \
-            game["probabilities"], \
-            game["kelly_rates"] \
-                = self.odds_fetcher.get_odds(gid)
-
+                game["odds"], \
+                game["probabilities"], \
+                game["kelly_rates"] \
+                    = self.odds_fetcher.get_odds(gid)
+            except StopIteration:
+                continue
             # Add game details to the games dict
             games[gid] = game
 
@@ -74,7 +81,7 @@ class GamesFetcher:
         league_info_a = tds[1].find("a")
         if league_info_a:
             try:
-                league_id = int(re.search('.=([0-9]+)', league_info_a.attrs['href']).group(1))
+                league_id = int(re.search('.[=|/]([0-9]+)', league_info_a.attrs['href']).group(1))
             except AttributeError:
                 print("error while extracting 'league id'")
                 sys.exit(1)

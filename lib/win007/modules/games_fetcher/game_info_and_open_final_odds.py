@@ -17,7 +17,12 @@ class GameInfoAndOpenFinalOddsFetcher(OddsFetcherInterface):
 
     def get_game_metadata(self, gid):
         # raw_data = self._get_data_soup_by_gid(gid).text.split('game=Array(')[0].split('var ')
-        raw_data = self._get_data_soup_by_gid(gid).text
+        raw_data = self._get_data_soup_by_gid(gid)
+
+        if raw_data is None:
+            raise StopIteration
+
+        raw_data = raw_data.text
 
         kick_off = self._get_kickoff(re.findall('MatchTime="(.+?)"', raw_data)[0])
         home_team_name = re.findall('hometeam="(.+?)"', raw_data)[0]
@@ -56,16 +61,27 @@ class GameInfoAndOpenFinalOddsFetcher(OddsFetcherInterface):
         return rtn
 
     def _get_data_soup_by_gid(self, gid):
-        if gid in self.game_page_data:
+        if gid in self.game_page_data.keys():
             data = self.game_page_data[gid]
         else:
-            data = BrowserRequests.get(str.replace(self.odds_url_pattern, '%game_id%', str(gid)))
+            url = str.replace(self.odds_url_pattern, '%game_id%', str(gid))
+            try:
+                data = BrowserRequests.get(url)
+            except:
+                print("Can't get data from URL - " + url)
+                return None
+
+            self.game_page_data[gid] = data
+
         return BeautifulSoup(data.text, "lxml")
 
 
     def get_odds(self, gid):
-        raw_data = self._get_data_soup_by_gid(gid).text.split('game=Array(')[1].split(');')[0]
+        raw_data = self._get_data_soup_by_gid(gid)
+        if raw_data is None:
+            raise StopIteration
 
+        raw_data = raw_data.text.split('game=Array(')[1].split(');')[0]
         # Build the regex to extract odds from bids: "((?=80\||115\||281\||177\|)(.*?))"
         regex_pattern = '"((?='
         for key, name in self.bids.items():
