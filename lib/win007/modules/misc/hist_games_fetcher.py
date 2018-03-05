@@ -2,7 +2,7 @@ from bs4 import BeautifulSoup
 import re
 from lib.crawler.browser_requests import BrowserRequests
 import sys
-from lib.win007.modules.games_fetcher.odds_fetcher_interface import OddsFetcherInterface
+from lib.win007.modules.games_fetcher.odds_fetcher.abstract_odds_fetcher import AbstractOddsFetcher
 import time
 import json
 
@@ -13,7 +13,7 @@ class HistGamesFetcher:
     url_league_info = 'http://info.nowgoal.com/jsData/matchResult/%season_id%/s%league_id%.js'
     odds_fetcher = None
 
-    def __init__(self, odds_fetcher: OddsFetcherInterface):
+    def __init__(self, odds_fetcher: AbstractOddsFetcher):
         self.odds_fetcher = odds_fetcher
         pass
 
@@ -111,10 +111,10 @@ class HistGamesFetcher:
                 game['away_team_rank'] \
                     = self.odds_fetcher.get_game_metadata(game['game_id'])
 
-                game['odds'], game['probabilities'], game['kelly_rates'] = self.odds_fetcher.get_odds(game['game_id'])
+                game['odds'], game['probabilities'] = self.odds_fetcher.get_odds(game['game_id'])
                 games.append(game)
             # Sleep 10 seconds after grabbing data from each round
-            time.sleep(5)
+            time.sleep(2)
         return games
 
     def get_hist_games_by_league(self, league_id, num_of_seasons, start_season_offset, sub_league_id=None):

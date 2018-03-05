@@ -3,7 +3,7 @@ import re
 from lib.crawler.browser_requests import BrowserRequests
 from pytz import timezone
 import sys
-from lib.win007.modules.games_fetcher.odds_fetcher_interface import OddsFetcherInterface
+from lib.win007.modules.games_fetcher.odds_fetcher.abstract_odds_fetcher import AbstractOddsFetcher
 import datetime
 
 
@@ -11,7 +11,7 @@ class GamesFetcher:
     url_games_list = 'http://op1.win007.com'
     odds_fetcher = None
 
-    def __init__(self, odds_fetcher: OddsFetcherInterface):
+    def __init__(self, odds_fetcher: AbstractOddsFetcher):
         self.odds_fetcher = odds_fetcher
         pass
 
@@ -66,8 +66,7 @@ class GamesFetcher:
                     = self.odds_fetcher.get_game_metadata(gid)
 
                 game["odds"], \
-                game["probabilities"], \
-                game["kelly_rates"] \
+                game["probabilities"] \
                     = self.odds_fetcher.get_odds(gid)
             except StopIteration:
                 continue

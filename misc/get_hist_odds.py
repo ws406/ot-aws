@@ -1,8 +1,7 @@
-import sys
 from lib.win007.modules.misc.hist_games_fetcher import HistGamesFetcher
-from lib.win007.modules.games_fetcher.game_info_and_open_final_odds import GameInfoAndOpenFinalOddsFetcher
-from lib.win007.modules.dbc.db_connector import DBCOnnector
-import pprint
+from lib.win007.modules.games_fetcher.odds_fetcher.game_info_and_open_final_odds import GameInfoAndOpenFinalOddsFetcher
+from lib.win007.modules.games_fetcher.odds_fetcher.game_info_and_all_odds_sequence import GameInfoAndAllOddsSequence
+
 
 class Main:
     # These data is used for
@@ -89,13 +88,14 @@ class Main:
         pass
 
     def execute(self):
-        odds_fetcher = GameInfoAndOpenFinalOddsFetcher(self.bids)
+        # odds_fetcher = GameInfoAndOpenFinalOddsFetcher(self.bids)
+        odds_fetcher = GameInfoAndAllOddsSequence(self.bids)
         hist_game_fetcher = HistGamesFetcher(odds_fetcher)
 
         # Fetch historical games data league by league
         # for lid in self.league_ids:
         # TODO: check with Yaowang to see if it is enough
-        num_of_seasons = 4
+        num_of_seasons = 1
         start_season_offset = 0
         for lid in self.league_ids:
         # for lid in [25]:

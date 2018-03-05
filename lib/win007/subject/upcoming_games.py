@@ -1,13 +1,13 @@
 from lib.win007.modules.games_fetcher.games_fetcher import GamesFetcher
 from lib.win007.subject.interface import SubjectInterface
-from lib.win007.modules.games_fetcher.odds_fetcher_interface import OddsFetcherInterface
+from lib.win007.modules.games_fetcher.odds_fetcher.abstract_odds_fetcher import AbstractOddsFetcher
 
 
 class Subject(SubjectInterface):
 
     games_fetcher = None
 
-    def __init__(self, odds_fetcher: OddsFetcherInterface):
+    def __init__(self, odds_fetcher: AbstractOddsFetcher):
         self.games_fetcher = GamesFetcher(odds_fetcher)
         pass
 
