@@ -12,8 +12,12 @@ class GameInfoAndAllOddsSequence(AbstractOddsFetcher):
         if raw_data is None:
             raise StopIteration
 
-        open_final_odds_data = raw_data.text.split('game=Array(')[1].split(');')[0]
-        all_odds_data = raw_data.text.split('gameDetail=Array(')[1].split(');')[0]
+        try:
+            open_final_odds_data = raw_data.text.split('game=Array(')[1].split(');')[0]
+            all_odds_data = raw_data.text.split('gameDetail=Array(')[1].split(');')[0]
+        except IndexError:
+            raise StopIteration
+
         # Build the regex to extract odds from bids: "((?=80\||115\||281\||177\|)(.*?))"
         regex_pattern = '"((?='
         for key in self.bids.keys():
@@ -61,9 +65,9 @@ class GameInfoAndAllOddsSequence(AbstractOddsFetcher):
                 implied_prob_x = 1/float(tmp_array[1])
                 implied_prob_2 = 1/float(tmp_array[2])
                 overround = implied_prob_1 + implied_prob_x + implied_prob_2
-                odds[bookie_name][tmp_timestamp]["1"] = implied_prob_1/overround
-                odds[bookie_name][tmp_timestamp]["x"] = implied_prob_x/overround
-                odds[bookie_name][tmp_timestamp]["2"] = implied_prob_2/overround
+                probability[bookie_name][tmp_timestamp]["1"] = implied_prob_1/overround
+                probability[bookie_name][tmp_timestamp]["x"] = implied_prob_x/overround
+                probability[bookie_name][tmp_timestamp]["2"] = implied_prob_2/overround
 
         return odds, probability
 

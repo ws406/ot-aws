@@ -27,7 +27,6 @@ class HistGamesFetcher:
             print("num_of_seasons is expected to be a positive int instead of " + str(num_of_seasons))
             sys.exit()
 
-
     def _get_all_games_from_a_season(self, season_id, league_id, sub_league_id):
         games = []
         if sub_league_id is not None:
@@ -102,16 +101,23 @@ class HistGamesFetcher:
                 game.update(shared_game_info)
 
                 # 3. Get more game details and odds from games page
-                game['kickoff'], \
-                game['home_team_name'], \
-                game['away_team_name'], \
-                game['home_team_id'], \
-                game['away_team_id'], \
-                game['home_team_rank'], \
-                game['away_team_rank'] \
-                    = self.odds_fetcher.get_game_metadata(game['game_id'])
+                try:
+                    game['kickoff'], \
+                    game["home_team_name"], \
+                    game["away_team_name"], \
+                    game["home_team_id"], \
+                    game["away_team_id"], \
+                    game["home_team_rank"], \
+                    game["away_team_rank"] \
+                        = self.odds_fetcher.get_game_metadata(game['game_id'])
 
-                game['odds'], game['probabilities'] = self.odds_fetcher.get_odds(game['game_id'])
+                    game["odds"], \
+                    game["probabilities"] \
+                        = self.odds_fetcher.get_odds(game['game_id'])
+                except StopIteration:
+                    print("Skip game - " + str(game['game_id']))
+                    continue
+
                 games.append(game)
             # Sleep 10 seconds after grabbing data from each round
             time.sleep(2)
