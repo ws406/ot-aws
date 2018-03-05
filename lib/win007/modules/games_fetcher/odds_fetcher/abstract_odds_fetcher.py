@@ -16,7 +16,6 @@ class AbstractOddsFetcher(abc.ABC):
 
     def __init__(self, bids):
         self.bids = bids
-        pass
 
     @abc.abstractmethod
     def get_odds(self, gid):

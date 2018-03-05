@@ -12,7 +12,7 @@ class GameInfoAndOpenFinalOddsFetcher(AbstractOddsFetcher):
         raw_data = raw_data.text.split('game=Array(')[1].split(');')[0]
         # Build the regex to extract odds from bids: "((?=80\||115\||281\||177\|)(.*?))"
         regex_pattern = '"((?='
-        for key, name in self.bids.items():
+        for key, name in self.bids.keys():
             regex_pattern += repr(key) + '\|'
             if key != list(self.bids.keys())[-1]:
                 regex_pattern += '|'

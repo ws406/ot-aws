@@ -88,4 +88,6 @@ class Main:
         # Notify all observers to action using the games data
         processor.notify(games)  # Notify the strategy to handle these games.
 
-if __name__ == '__main__':   Main().execute()
+
+if __name__ == '__main__':
+    Main().execute()

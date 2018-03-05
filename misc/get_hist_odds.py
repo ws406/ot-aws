@@ -1,5 +1,5 @@
 from lib.win007.modules.misc.hist_games_fetcher import HistGamesFetcher
-from lib.win007.modules.games_fetcher.odds_fetcher.game_info_and_open_final_odds import GameInfoAndOpenFinalOddsFetcher
+# from lib.win007.modules.games_fetcher.odds_fetcher.game_info_and_open_final_odds import GameInfoAndOpenFinalOddsFetcher
 from lib.win007.modules.games_fetcher.odds_fetcher.game_info_and_all_odds_sequence import GameInfoAndAllOddsSequence
 
 
@@ -108,4 +108,6 @@ class Main:
                 hist_game_fetcher.get_hist_games_by_league(lid, num_of_seasons, start_season_offset)
             # TODO: save data to AWS Dynamo DB
 
-Main().execute()
+
+if __name__ == '__main__':
+    Main().execute()

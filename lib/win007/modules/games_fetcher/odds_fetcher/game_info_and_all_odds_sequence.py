@@ -1,6 +1,6 @@
 from lib.win007.modules.games_fetcher.odds_fetcher.abstract_odds_fetcher import AbstractOddsFetcher
 import re
-import sys, datetime
+import datetime
 from pytz import timezone
 from collections import defaultdict
 
@@ -16,7 +16,7 @@ class GameInfoAndAllOddsSequence(AbstractOddsFetcher):
         all_odds_data = raw_data.text.split('gameDetail=Array(')[1].split(');')[0]
         # Build the regex to extract odds from bids: "((?=80\||115\||281\||177\|)(.*?))"
         regex_pattern = '"((?='
-        for key, name in self.bids.items():
+        for key in self.bids.keys():
             regex_pattern += repr(key) + '\|'
             if key != list(self.bids.keys())[-1]:
                 regex_pattern += '|'
