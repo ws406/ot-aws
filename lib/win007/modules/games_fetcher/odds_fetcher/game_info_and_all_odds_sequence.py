@@ -49,8 +49,10 @@ class GameInfoAndAllOddsSequence(AbstractOddsFetcher):
             # 2.42 | 3.42 | 3.13 | 02 - 17 23: 42 | 0.87 | 1.02 | 1.07;
             # 2.48 | 3.55 | 2.93 | 02 - 17 00: 26 | 0.89 | 1.06 | 1.00
 
-
-            odds_at_eacch_tick = re.findall('"' + matching_id + '\^(.+?)"', all_odds_data)[0].split(';')
+            try:
+                odds_at_eacch_tick = re.findall('"' + matching_id + '\^(.+?)"', all_odds_data)[0].split(';')
+            except IndexError:
+                raise StopIteration
 
             for odds_tick in odds_at_eacch_tick[:-1]:
                 tmp_array = odds_tick.split('|')
