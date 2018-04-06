@@ -95,10 +95,10 @@ class Main:
         # Fetch historical games data league by league
         # for lid in self.league_ids:
         # TODO: check with Yaowang to see if it is enough
-        num_of_seasons = 1
-        start_season_offset = 3
-        # for lid in self.league_ids:
-        for lid in [34]:
+        num_of_seasons = 2
+        start_season_offset = 0
+        for lid in self.league_ids:
+        # for lid in [273]:
             print("Start extracting historical games from " + str(len(self.league_ids)) + " leagues and "
                 + str(num_of_seasons) + " seasons...")
             print("Processing league - " + str(lid))
