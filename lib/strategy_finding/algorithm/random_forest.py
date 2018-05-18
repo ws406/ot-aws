@@ -27,5 +27,27 @@ class RandomForestAlgorithm(AlgorithmInterface):
         print("Feature ranking:")
         for f in range(trainArr.shape[1]):
             print("%d. feature %d (%f)" % (f + 1, indices[f] + 1, importances[indices[f]]))
-        #pprint(header)
-        pass
+        testData = matrix(test_result)
+        testRes = array(testData[:,0])
+        testArr = testData[:,2:]
+
+        output = rf.predict(testArr)
+        a = np.asarray(output)
+        probability = rf.predict_proba(testArr)
+
+        benmarkProb1 = 0.56
+        benmarkProb2 = 0.56
+        for prob in probability:
+            result_odds = 0
+            if prob[1] > benmarkProb1:
+                result_odds = CalculateOdds(file_names, testData[index, 1], prob)
+                if result_odds > 0:
+                    right = right + 1
+                else:
+                    wrong = wrong + 1
+                odds = odds + result_odds
+            index = index + 1
+
+        print("win rate is ", right / (right + wrong), ", bet ratio is ", (right + wrong) / len(test_result), ", total bet matches ", right + wrong, ", pnl is ", odds)
+        
+        return odds
