@@ -95,6 +95,8 @@ def find_open_final(data):
     probOpenTime = 9999999999
     probFinalTime = 0
     for key, value in data.items():
+        if key == "final" or key == "open":
+            continue
         itemTime = int(key)
         #print("Time is", itemTime, "value is", value)
         if probOpenTime > itemTime:
@@ -114,20 +116,6 @@ class QualificationCheck:
 
     def __init__(self):
         pass
-
-    #def find_open_final(self, data, timeList):
-        #timeList = []
-        #probOpenTime = 9999999999
-        #probFinalTime = 0
-        #for key, value in data.items():
-            #itemTime = long(key)
-            #print("Time is ", itemTime)
-            #if probOpenTime > itemTime:
-                #probOpenTime = itemTime
-            #if probFinalTime < itemTime:
-                #probFinalTime = itemTime
-        #timeList.append(str(probOpenTime))
-        #timeList.append(str(probFinalTime))
 
     def is_qualified(self, game_data):
 

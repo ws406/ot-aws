@@ -136,8 +136,8 @@ def GenerateProbData(probList, kickoffTime, side):
     return data
 
 def Operation(data1, data2):
-    return np.log(data1 / data2)
-    #return (data1 - data2) / 100.0
+    #return np.log(data1 / data2)
+    return (data1 - data2) / 100.0
     #return data1 - data2
     #return (data1 / data2)
     #return 0
@@ -146,7 +146,7 @@ def Operation(data1, data2):
 #  4: the opening probabilities for the predicted result from 4 bookies: MS, Bet365, WH, PIN
 #  4: the delta probabilities for the predicted result from 4 bookies: MS, Bet365, WH, PIN
 #  1: home or away
-class WDLProbabilitiesFeatureBuilder(FeatureBuilderInterface):
+class WDLProbabilitiesFeatureBuilder2(FeatureBuilderInterface):
 
     def get_features(self, labelled_data: dict):
         print("Running feature builder - 1x2_probabilities with " + str(len(labelled_data)) + " games")
@@ -164,7 +164,7 @@ class WDLProbabilitiesFeatureBuilder(FeatureBuilderInterface):
             'delta_prob_pin'
         ]
 
-        featured_data = np.empty((0, 60))
+        featured_data = np.empty((0, 59))
 
         for data in labelled_data:
             h_or_a = str(data['prediction'])
@@ -183,7 +183,6 @@ class WDLProbabilitiesFeatureBuilder(FeatureBuilderInterface):
             row.append(macau_slot[0])
             i = 1
             while i < len(macau_slot):
-                index = index + 1
                 if macau_slot[i] == 0:
                     row.append(0)
                 else:
@@ -193,7 +192,6 @@ class WDLProbabilitiesFeatureBuilder(FeatureBuilderInterface):
             row.append(bet365[0])
             i = 1
             while i < len(bet365):
-                index = index + 1
                 if bet365[i] == 0:
                     row.append(0)
                 else:
@@ -203,7 +201,6 @@ class WDLProbabilitiesFeatureBuilder(FeatureBuilderInterface):
             row.append(pinnacle[0])
             i = 1
             while i < len(pinnacle):
-                index = index + 1
                 if pinnacle[i] == 0:
                     row.append(0)
                 else:
@@ -213,7 +210,6 @@ class WDLProbabilitiesFeatureBuilder(FeatureBuilderInterface):
             row.append(will_hill[0])
             i = 1
             while i < len(will_hill):
-                index = index + 1
                 if will_hill[i] == 0:
                     row.append(0)
                 else:
@@ -223,7 +219,6 @@ class WDLProbabilitiesFeatureBuilder(FeatureBuilderInterface):
             row.append(hkjc[0])
             i = 1
             while i < len(hkjc):
-                index = index + 1
                 if hkjc[i] == 0:
                     row.append(0)
                 else:
@@ -233,7 +228,6 @@ class WDLProbabilitiesFeatureBuilder(FeatureBuilderInterface):
             row.append(interwetten[0])
             i = 1
             while i < len(interwetten):
-                index = index + 1
                 if interwetten[i] == 0:
                     row.append(0)
                 else:

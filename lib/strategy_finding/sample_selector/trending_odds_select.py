@@ -15,7 +15,8 @@ def Returns(favTeamOdds, dnbOdds, dcOdds):
     else:
         return 0
 
-class TrendingOnlySelector(SampleSelectorInterface):
+coefficient = 0.95
+class TrendingOddsSelector(SampleSelectorInterface):
 
     def get_selected_games_data(self, raw_data: dict):
         print("Running game selector - TrendingOddsSelector")
