@@ -35,8 +35,8 @@ class Main:
         16,  # HO1
         17,  # HO2
 
-        25,  # JAP1
-        284,  # JAP2
+        # 25,  # JAP1
+        # 284,  # JAP2
 
         4,  # BRA1
         358,  # BRA2
@@ -94,9 +94,8 @@ class Main:
 
         # Fetch historical games data league by league
         # for lid in self.league_ids:
-        # TODO: check with Yaowang to see if it is enough
-        num_of_seasons = 2
-        start_season_offset = 0
+        num_of_seasons = 1
+        start_season_offset = 4
         for lid in self.league_ids:
         # for lid in [273]:
             print("Start extracting historical games from " + str(len(self.league_ids)) + " leagues and "
@@ -106,7 +105,6 @@ class Main:
                 hist_game_fetcher.get_hist_games_by_league(lid, num_of_seasons, start_season_offset, self.sub_league_ids[lid])
             else:
                 hist_game_fetcher.get_hist_games_by_league(lid, num_of_seasons, start_season_offset)
-            # TODO: save data to AWS Dynamo DB
 
 
 if __name__ == '__main__':

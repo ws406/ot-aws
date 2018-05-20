@@ -5,6 +5,7 @@ from lib.strategy_finding.algorithm.interface import AlgorithmInterface
 from lib.utils.file_helper import filerHelper
 import json
 
+
 class Analyser:
 
     def __init__(self):
