@@ -15,9 +15,9 @@ class RandomForestAlgorithm(AlgorithmInterface):
     def get_results(self, header, featured_data: np.array):
         print("Running algorithm - RandomForest")
         print(featured_data.shape)
-        trainData = matrix(featured_data)
+        trainData = matrix(featured_data[0:featured_data.shape[0] - 999,:])
         trainRes = array(trainData[:,0])
-        trainArr = trainData[:,2:]
+        trainArr = trainData[:,3:]
         rf = RandomForestClassifier(n_estimators=10000, min_samples_leaf=100, random_state = 0, n_jobs=-1) #, criterion='gini'
         rf.fit(trainArr, trainRes.ravel())
         importances = rf.feature_importances_
@@ -27,27 +27,39 @@ class RandomForestAlgorithm(AlgorithmInterface):
         print("Feature ranking:")
         for f in range(trainArr.shape[1]):
             print("%d. feature %d (%f)" % (f + 1, indices[f] + 1, importances[indices[f]]))
-        testData = matrix(test_result)
+
+        testData = matrix(featured_data[featured_data.shape[0] - 1000:featured_data.shape[0] - 1,:])
         testRes = array(testData[:,0])
-        testArr = testData[:,2:]
+        testArr = testData[:,3:]
 
         output = rf.predict(testArr)
         a = np.asarray(output)
         probability = rf.predict_proba(testArr)
 
         benmarkProb1 = 0.56
-        benmarkProb2 = 0.56
+        index = 0
+        right = 0
+        wrong = 0
+        odds = 0
+        predict_result = None
         for prob in probability:
-            result_odds = 0
+            result_odds = -1
             if prob[1] > benmarkProb1:
-                result_odds = CalculateOdds(file_names, testData[index, 1], prob)
-                if result_odds > 0:
+                if testData[index, 0] == 1:
                     right = right + 1
+                    result_odds = testData[index, 2]
                 else:
                     wrong = wrong + 1
                 odds = odds + result_odds
+                if testData[index, 3] == 1:
+                    predict_result = "home win"
+                elif testData[index, 3] == 0:
+                    predict_result = "away win"
+                else:
+                    print("fatal error")
+                print("id", int(testData[index, 1]), ",predict", predict_result, ",result", testData[index, 0], ",return", result_odds, ",prob", prob)
             index = index + 1
 
-        print("win rate is ", right / (right + wrong), ", bet ratio is ", (right + wrong) / len(test_result), ", total bet matches ", right + wrong, ", pnl is ", odds)
+        print("win rate is", right / (right + wrong), ",bet ratio is", (right + wrong) / len(testRes), ",total bet matches", right + wrong, ",pnl is", odds)
         
         return odds

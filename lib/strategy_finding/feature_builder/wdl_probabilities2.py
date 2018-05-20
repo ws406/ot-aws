@@ -164,9 +164,19 @@ class WDLProbabilitiesFeatureBuilder2(FeatureBuilderInterface):
             'delta_prob_pin'
         ]
 
-        featured_data = np.empty((0, 59))
+        featured_data = np.empty((0, 61))
 
         for data in labelled_data:
+
+            row = []
+            row.append(data['result'])
+            row.append(data['game_id'])
+            row.append(data['potentialReturn'])
+            if data['prediction'] == '1':
+                row.append(1)
+            else:
+                row.append(0)
+
             h_or_a = str(data['prediction'])
 
             macau_slot = GenerateProbData(data['probabilities']['macau_slot'], data['kickoff'], h_or_a)
@@ -175,10 +185,6 @@ class WDLProbabilitiesFeatureBuilder2(FeatureBuilderInterface):
             will_hill = GenerateProbData(data['probabilities']['will_hill'], data['kickoff'], h_or_a)
             hkjc = GenerateProbData(data['probabilities']['hkjc'], data['kickoff'], h_or_a)
             interwetten = GenerateProbData(data['probabilities']['interwetten'], data['kickoff'], h_or_a)
-
-            row = []
-            row.append(data['result'])
-            row.append(h_or_a)
 
             row.append(macau_slot[0])
             i = 1
@@ -259,6 +265,9 @@ class WDLProbabilitiesFeatureBuilder2(FeatureBuilderInterface):
                     row.append(0)
                 else:
                     row.append(Operation(homeTeamRank / data['size'], awayTeamRank / data['size']))
+
+            #score = str(data['home_score']) + ":" + str(data['away_score'])
+            #row.append(score)
 
             featured_data = np.append(featured_data, [row], axis=0)
 
