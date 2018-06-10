@@ -3,37 +3,38 @@ from lib.strategy_finding.data_labeler.interface import DataLabelerInterface
 from lib.strategy_finding.feature_builder.interface import FeatureBuilderInterface
 from lib.strategy_finding.algorithm.interface import AlgorithmInterface
 from lib.utils.file_helper import filerHelper
+from lib.utils.logger import OtLogger
 import json
 
 
 class Analyser:
 
     def __init__(self):
+        self.logger = OtLogger()
         pass
 
-    @staticmethod
-    def load_data(path):
+    def load_data(self, path):
         games = []
-        print("Loading games dat from " + path)
+        self.logger.debug("Loading games dat from " + path)
         for file_name in filerHelper.get_files_from_a_dir(path):
             file_dir_name = path + file_name
             with open(file_dir_name) as json_file:
                 g = json.load(json_file)
-                print("\tAdd " + str(len(g)) + " games from file - " + file_name)
+                self.logger.debug("\tAdd " + str(len(g)) + " games from file - " + file_name)
                 games += g
 
-        print(str(len(games)) + " games added")
+                self.logger.debug(str(len(games)) + " games added", True)
         return games
 
-    @staticmethod
     def execute(
+        self,
         sample_selector: SampleSelectorInterface,
         data_labeler: DataLabelerInterface,
         feature_builder: FeatureBuilderInterface,
         algorithm: AlgorithmInterface,
         data
     ):
-        print("Starting analysis...")
+        self.logger.debug("Starting analysis...")
 
         selected_matches = sample_selector.get_selected_games_data(data)
         labelled_matches = data_labeler.label_data(selected_matches)

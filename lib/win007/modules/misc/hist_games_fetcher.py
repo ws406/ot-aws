@@ -72,7 +72,7 @@ class HistGamesFetcher:
             #  "1394661,36,-1,'2017-08-12 02:45',19,59,'4-3','2-2','5','12',1.25,0.5,'3','1/1.5',1,1,1,1,0,0,'','5','12'"
             round_games_list = round_info[1].split('],[')
             for tmp in round_games_list:
-                print('\t\t\t' + tmp)
+                # print('\t\t\t' + tmp)
                 game = dict()
                 game['is_played'] = 1 if re.findall(",(-1|0|-14|2),", tmp)[0] == '-1' else 0
                 if game['is_played'] == 0:
@@ -132,7 +132,7 @@ class HistGamesFetcher:
             if not data:
                 print("\t---Season - " + str(season_id) + ' has no game data available---')
                 continue
-            file_name = 'all_odds_data\\' + data[0]['league_name'] + '-' + season_id + '.json'
+            file_name = './misc/all_odds_data/' + data[0]['league_name'] + '-' + season_id + '.json'
             self._write_to_file(file_name, data)
             print(str(len(data)) + ' games saved to ' + file_name)
             games.append(data)
