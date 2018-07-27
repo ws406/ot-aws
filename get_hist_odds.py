@@ -1,4 +1,4 @@
-from lib.win007.modules.misc.hist_games_fetcher import HistGamesFetcher
+from lib.win007.modules.misc.football_hist_games_fetcher import HistGamesFetcher
 # from lib.win007.modules.games_fetcher.odds_fetcher.game_info_and_open_final_odds import GameInfoAndOpenFinalOddsFetcher
 from lib.win007.modules.games_fetcher.odds_fetcher.game_info_and_all_odds_sequence import GameInfoAndAllOddsSequence
 
