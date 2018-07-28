@@ -3,7 +3,7 @@ import re
 from lib.crawler.browser_requests import BrowserRequests
 from pytz import timezone
 import sys
-from lib.win007.modules.games_fetcher.odds_fetcher.abstract_odds_fetcher import AbstractOddsFetcher
+from lib.win007.modules.games_fetcher.football_odds_fetcher.abstract_odds_fetcher import AbstractOddsFetcher
 import datetime
 
 

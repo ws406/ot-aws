@@ -1,6 +1,6 @@
 from lib.win007.modules.games_fetcher.games_fetcher import GamesFetcher
 from lib.win007.subject.interface import SubjectInterface
-from lib.win007.modules.games_fetcher.odds_fetcher.abstract_odds_fetcher import AbstractOddsFetcher
+from lib.win007.modules.games_fetcher.football_odds_fetcher.abstract_odds_fetcher import AbstractOddsFetcher
 
 
 class Subject(SubjectInterface):

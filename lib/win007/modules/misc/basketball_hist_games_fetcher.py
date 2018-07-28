@@ -2,7 +2,7 @@ from bs4 import BeautifulSoup
 import re
 from lib.crawler.browser_requests import BrowserRequests
 import sys
-from lib.win007.modules.games_fetcher.odds_fetcher.abstract_odds_fetcher import AbstractOddsFetcher
+from lib.win007.modules.games_fetcher.basketball_odds_fetcher.abstract_odds_fetcher import AbstractOddsFetcher
 import time
 import json
 
@@ -73,63 +73,60 @@ class HistGamesFetcher:
 
             # 2: get individual game details from games page
             # Please do not try to understand it!!!
-            rounds_segment = re.findall('jh\["R_(\d+)"\] = \[(.+?)\];', content)
-            for round_info in rounds_segment:
-                rounds = round_info[0]
-                print("\t\tRound - " + str(rounds))
-                # tmp is like
-                #  "1394661,36,-1,'2017-08-12 02:45',19,59,'4-3','2-2','5','12',1.25,0.5,'3','1/1.5',1,1,1,1,0,0,'','5','12'"
-                round_games_list = round_info[1].split('],[')
-                for tmp in round_games_list:
-                    # print('\t\t\t' + tmp)
-                    game = dict()
-                    game['is_played'] = 1 if re.findall(",(-1|0|-14|2),", tmp)[0] == '-1' else 0
-                    if game['is_played'] == 0:
-                        print('\t\t\tGame has not been played yet.')
-                        continue
+            all_games_string = re.findall('arrData = \[(.+?)\];', content)[0]
+            #  "289788,1,'2017-10-18 08:00',16,2,102,99,54,38,-1,4.5,216,1,1"
+            games_data = re.findall(
+                "\[([0-9]*),"                                           # Game Id
+                ".+?,"                                                # Don't care
+                "'(?:[0-9]{4}-[0-9]{2}-[0-9]{2} [0-9]{2}:[0-9]{2})',"   # Game datetime played
+                "([0-9]{1,2}),"                                       # Home team ID
+                "([0-9]{1,2}),"                                       # Away team ID
+                "([0-9]{1,3}),"                                       # Home team score
+                "([0-9]{1,3}),"                                       # Away team score
+                "([0-9]{1,3}),"                                       # Home team ht ranking
+                "([0-9]{1,3}),"                                       # Away team ht ranking
+                ".+?\]",                                            # Don't care
+                all_games_string
+            )
+            for game_data in games_data:
+                game = dict()
+                # game['is_played'] = 1 if re.findall(",(-1|0|-14|2),", game_data)[0] == '-1' else 0
+                # if game['is_played'] == 0:
+                #     print('\t\t\tGame has not been played yet.')
+                #     continue
 
-                    game_details = re.findall(
-                        "([0-9]*),.+?,(-1|0|-14|2),.+?,.+?,.+?,'(?:([0-9]+)-([0-9]+))?','(?:([0-9]+)-([0-9]+))?'", tmp)[0]
+                game['game_id'] = int(game_data[0])
+                game['home_team_id'] = int(game_data[1])
+                game['away_team_id'] = int(game_data[2])
+                game['home_score'] = int(game_data[3])
+                game['away_score'] = int(game_data[4])
+                game['home_half_score'] = int(game_data[5])
+                game['away_half_score'] = int(game_data[6])
 
-                    game['game_id'] = int(game_details[0])
-                    game['home_score'] = int(game_details[2])
-                    game['away_score'] = int(game_details[3])
-                    game['home_half_score'] = int(game_details[4])
-                    game['away_half_score'] = int(game_details[5])
+                # Calculate game result
+                if game['home_score'] > game['away_score']:
+                    game['result'] = '1'
+                else:
+                    game['result'] = '2'
 
-                    game['rounds'] = rounds
+                game.update(shared_game_info)
 
-                    # Calculate game result
-                    if game['home_score'] > game['away_score']:
-                        game['result'] = '1'
-                    elif game['home_score'] == game['away_score']:
-                        game['result'] = 'x'
-                    else:
-                        game['result'] = '2'
+                # 3. Get more game details and odds from games page
+                try:
+                    game['kickoff'], \
+                    game["home_team_name"], \
+                    game["away_team_name"] \
+                        = self.odds_fetcher.get_game_metadata(game['game_id'])
 
-                    game.update(shared_game_info)
+                    game["odds"], \
+                    game["probabilities"] \
+                        = self.odds_fetcher.get_odds(game['game_id'])
 
-                    # 3. Get more game details and odds from games page
-                    try:
-                        game['kickoff'], \
-                        game["home_team_name"], \
-                        game["away_team_name"], \
-                        game["home_team_id"], \
-                        game["away_team_id"], \
-                        game["home_team_rank"], \
-                        game["away_team_rank"] \
-                            = self.odds_fetcher.get_game_metadata(game['game_id'])
+                except StopIteration:
+                    print("Skip game - " + str(game['game_id']))
+                    continue
 
-                        game["odds"], \
-                        game["probabilities"] \
-                            = self.odds_fetcher.get_odds(game['game_id'])
-                    except StopIteration:
-                        print("Skip game - " + str(game['game_id']))
-                        continue
-
-                    games.append(game)
-                # Sleep 10 seconds after grabbing data from each round
-                time.sleep(2)
+                games.append(game)
         return games
 
     def get_hist_games_by_league(self, league_id, num_of_seasons, start_season_offset, year_month):
@@ -141,7 +138,7 @@ class HistGamesFetcher:
             if not data:
                 print("\t---Season - " + str(season_id) + ' has no game data available---')
                 continue
-            file_name = './misc/all_odds_data/' + data[0]['league_name'] + '-' + season_id + '.json'
+            file_name = './misc/basketball_all_odds_data/' + data[0]['league_name'] + '-' + season_id + '.json'
             self._write_to_file(file_name, data)
             print(str(len(data)) + ' games saved to ' + file_name)
             games.append(data)

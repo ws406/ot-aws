@@ -1,6 +1,5 @@
 from lib.win007.modules.misc.basketball_hist_games_fetcher import HistGamesFetcher
-# from lib.win007.modules.games_fetcher.odds_fetcher.game_info_and_open_final_odds import GameInfoAndOpenFinalOddsFetcher
-from lib.win007.modules.games_fetcher.odds_fetcher.game_info_and_all_odds_sequence import GameInfoAndAllOddsSequence
+from lib.win007.modules.games_fetcher.basketball_odds_fetcher.game_info_and_all_odds_sequence import GameInfoAndAllOddsSequence
 
 
 class Main:
@@ -35,7 +34,7 @@ class Main:
         pass
 
     def execute(self):
-        # odds_fetcher = GameInfoAndOpenFinalOddsFetcher(self.bids)
+        # football_odds_fetcher = GameInfoAndOpenFinalOddsFetcher(self.bids)
         odds_fetcher = GameInfoAndAllOddsSequence(self.bids)
         hist_game_fetcher = HistGamesFetcher(odds_fetcher)
 

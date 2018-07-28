@@ -2,7 +2,7 @@ from bs4 import BeautifulSoup
 import re
 from lib.crawler.browser_requests import BrowserRequests
 import sys
-from lib.win007.modules.games_fetcher.odds_fetcher.abstract_odds_fetcher import AbstractOddsFetcher
+from lib.win007.modules.games_fetcher.football_odds_fetcher.abstract_odds_fetcher import AbstractOddsFetcher
 import time
 import json
 
@@ -132,7 +132,7 @@ class HistGamesFetcher:
             if not data:
                 print("\t---Season - " + str(season_id) + ' has no game data available---')
                 continue
-            file_name = './misc/all_odds_data/' + data[0]['league_name'] + '-' + season_id + '.json'
+            file_name = './misc/football_all_odds_data/' + data[0]['league_name'] + '-' + season_id + '.json'
             self._write_to_file(file_name, data)
             print(str(len(data)) + ' games saved to ' + file_name)
             games.append(data)
