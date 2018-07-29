@@ -76,16 +76,16 @@ class HistGamesFetcher:
             all_games_string = re.findall('arrData = \[(.+?)\];', content)[0]
             #  "289788,1,'2017-10-18 08:00',16,2,102,99,54,38,-1,4.5,216,1,1"
             games_data = re.findall(
-                "\[([0-9]*),"                                           # Game Id
+                "\[([0-9]*),"                                         # Game Id
                 ".+?,"                                                # Don't care
-                "'(?:[0-9]{4}-[0-9]{2}-[0-9]{2} [0-9]{2}:[0-9]{2})',"   # Game datetime played
+                "'(?:[0-9]{4}-[0-9]{2}-[0-9]{2} [0-9]{2}:[0-9]{2})'," # Game datetime played
                 "([0-9]{1,2}),"                                       # Home team ID
                 "([0-9]{1,2}),"                                       # Away team ID
                 "([0-9]{1,3}),"                                       # Home team score
                 "([0-9]{1,3}),"                                       # Away team score
                 "([0-9]{1,3}),"                                       # Home team ht ranking
                 "([0-9]{1,3}),"                                       # Away team ht ranking
-                ".+?\]",                                            # Don't care
+                ".+?\]",                                              # Don't care
                 all_games_string
             )
             for game_data in games_data:
