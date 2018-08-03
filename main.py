@@ -62,7 +62,8 @@ class Main:
         113, # Euroba league
     ]
 
-    # league_ids = None
+    league_ids = [37]
+
 
     def __init__(self):
         pass
@@ -82,11 +83,13 @@ class Main:
             msg += " and from "+ str(len(self.league_ids)) + " leagues.."
         print(msg)
         games = processor.get_games(self.minutes, self.league_ids)    # Get games starting in the next 5 mins.
-        # pprint(games)
+        print(games)
         print(str(len(games)) + " games found")
 
+
+
         # Notify all observers to action using the games data
-        processor.notify(games)  # Notify the strategy to handle these games.
+        # processor.notify(games)  # Notify the strategy to handle these games.
 
 
 if __name__ == '__main__':

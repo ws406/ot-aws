@@ -8,7 +8,8 @@ import datetime
 
 
 class GamesFetcher:
-    url_games_list = 'http://op1.win007.com'
+    # url_games_list = 'http://op1.win007.com'
+    url_games_list = 'http://op1.win007.com/company.aspx?id=80'
     odds_fetcher = None
 
     def __init__(self, odds_fetcher: AbstractOddsFetcher):
@@ -30,6 +31,7 @@ class GamesFetcher:
 
         soup = BeautifulSoup(response.text, "lxml")
         game_rows = soup.findAll("tr", {"id": re.compile('tr_[0-9]{1,2}')})
+
         games = dict()
         # Then time range
         time_slot_ends_at = (datetime.datetime.now() + datetime.timedelta(minutes=minutes)).timestamp()
