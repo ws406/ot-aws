@@ -2,7 +2,7 @@ import abc
 import re
 from bs4 import BeautifulSoup
 from lib.crawler.browser_requests import BrowserRequests
-from datetime import datetime
+import datetime
 from pytz import timezone
 import sys
 
@@ -37,7 +37,11 @@ class AbstractOddsFetcher(abc.ABC):
     def _get_kickoff(self, kickoff_in_string):
         try:
             simplified_kickoff_in_string = str.replace(kickoff_in_string, '-1', '')
-            datetime_obj = datetime.strptime(simplified_kickoff_in_string, '%Y,%m,%d,%H,%M,%S')
+            # Add 10 more mins to the kickoff time.
+            # Because NBA always starts 10 mins after planned kickoff and odds could change after planned kickoff.
+            # If the 10 mins isn't added, it could cause issues.
+            datetime_obj = datetime.datetime.strptime(simplified_kickoff_in_string, '%Y,%m,%d,%H,%M,%S') + \
+                           datetime.timedelta(minutes = 10)
             kickoff = timezone('utc').localize(datetime_obj)
             rtn = kickoff.timestamp()
         except AttributeError:
@@ -51,8 +55,13 @@ class AbstractOddsFetcher(abc.ABC):
             data = self.game_page_data[gid]
         else:
             gid_str = str(gid)
-            url = str.replace(self.odds_url_pattern,
-                '%game_id%', gid_str[0] + '/' + gid_str[1:3] + '/' + gid_str)
+
+            # TODO: fix this! This is to make it work for NBA only when the url for 2013-2014 season is like:
+            # http://nba.win007.com/1x2/data1x2/160570.js
+            game_id_replacement = gid_str if gid < 188584 \
+                else gid_str[0] + '/' + gid_str[1:3] + '/' + gid_str
+
+            url = str.replace(self.odds_url_pattern, '%game_id%', game_id_replacement)
             try:
                 data = BrowserRequests.get(url)
             except:

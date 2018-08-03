@@ -7,6 +7,8 @@ from collections import defaultdict
 
 class GameInfoAndAllOddsSequence(AbstractOddsFetcher):
 
+    kick_off_in_utc_gid = dict()
+
     def get_odds(self, gid):
         raw_data = self._get_data_soup_by_gid(gid)
         if raw_data is None:
@@ -71,19 +73,31 @@ class GameInfoAndAllOddsSequence(AbstractOddsFetcher):
         return odds, probability
 
     def _get_timestamp_from_string(self, gid, datetime_string_in_hk_time):
+        # if gid in self.kick_off_in_utc_gid.keys():
+        #     print(self.kick_off_in_utc_gid[gid])
+        #     exit(1)
+        #     kickoff_datetime, kickoff_datetime_in_utc = self.game_page_data[gid]
+        # else:
         kickoff_timestamp = self.get_game_metadata(gid)[0]
 
         kickoff_datetime = datetime.datetime.fromtimestamp(kickoff_timestamp)
         kickoff_datetime_in_utc = timezone('utc').localize(kickoff_datetime)
+        self.kick_off_in_utc_gid[gid] = [kickoff_datetime, kickoff_datetime_in_utc]
 
         # Assign the 'year' from kickoff time to the 'tick' as it doesn't have year.
         tmp_date_time_with_year = str(kickoff_datetime.year) + '-' + datetime_string_in_hk_time
         datetime_in_hk_time = datetime.datetime.strptime(tmp_date_time_with_year, '%Y-%m-%d %H:%M')
 
         datetime_in_utc = timezone('Hongkong').localize(datetime_in_hk_time)
+
         # BUT if the a game is kicked off in Jan 2018 and the odds were given in Dec 2017, assign 2018 is wrong.
         # This is to fix it!
         if datetime_in_utc > kickoff_datetime_in_utc:
+            # print(dir(datetime_in_utc))
+            # print(datetime_in_utc.timestamp())
+            # print(dir(kickoff_datetime_in_utc))
+            # print(kickoff_datetime_in_utc.timestamp())
+            # print(str(kickoff_datetime.year-1) + '-' + datetime_string_in_hk_time)
             datetime_in_hk_time = datetime.datetime.strptime(
                 str(kickoff_datetime.year-1) + '-' + datetime_string_in_hk_time,
                 '%Y-%m-%d %H:%M'
