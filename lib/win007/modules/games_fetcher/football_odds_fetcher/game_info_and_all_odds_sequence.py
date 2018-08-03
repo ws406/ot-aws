@@ -28,8 +28,8 @@ class GameInfoAndAllOddsSequence(AbstractOddsFetcher):
 
         # Extract & parse odds data. Return a dictionary
         data_rows = re.finditer(regex_pattern, open_final_odds_data)
-        odds = defaultdict(dict)
-        probability = defaultdict(dict)
+        odds = dict()
+        probability = dict()
         for data_row in data_rows:
             # Remove trailing and prefixing "
             data_list = data_row.group(1).split('|')
@@ -57,11 +57,15 @@ class GameInfoAndAllOddsSequence(AbstractOddsFetcher):
             for odds_tick in odds_at_eacch_tick[:-1]:
                 tmp_array = odds_tick.split('|')
                 tmp_timestamp = self._get_timestamp_from_string(gid, tmp_array[3])
+                # TODO: there must be a better way!!!
+                odds[bookie_name] = {}
                 odds[bookie_name][tmp_timestamp] = {}
                 odds[bookie_name][tmp_timestamp]["1"] = tmp_array[0]
                 odds[bookie_name][tmp_timestamp]["x"] = tmp_array[1]
                 odds[bookie_name][tmp_timestamp]["2"] = tmp_array[2]
 
+                # TODO: there must be a better way!!!
+                probability[bookie_name] = {}
                 probability[bookie_name][tmp_timestamp] = {}
                 implied_prob_1 = 1/float(tmp_array[0])
                 implied_prob_x = 1/float(tmp_array[1])
