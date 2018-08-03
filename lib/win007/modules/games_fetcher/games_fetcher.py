@@ -8,8 +8,7 @@ import datetime
 
 
 class GamesFetcher:
-    # url_games_list = 'http://op1.win007.com'
-    url_games_list = 'http://op1.win007.com/company.aspx?id=80'
+    url_games_list = 'http://op1.win007.com/index.aspx'
     odds_fetcher = None
 
     def __init__(self, odds_fetcher: AbstractOddsFetcher):
