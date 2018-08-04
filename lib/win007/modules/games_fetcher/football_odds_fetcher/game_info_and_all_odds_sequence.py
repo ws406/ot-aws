@@ -58,14 +58,16 @@ class GameInfoAndAllOddsSequence(AbstractOddsFetcher):
                 tmp_array = odds_tick.split('|')
                 tmp_timestamp = self._get_timestamp_from_string(gid, tmp_array[3])
                 # TODO: there must be a better way!!!
-                odds[bookie_name] = {}
+                if bookie_name not in odds:
+                    odds[bookie_name] = {}
                 odds[bookie_name][tmp_timestamp] = {}
                 odds[bookie_name][tmp_timestamp]["1"] = tmp_array[0]
                 odds[bookie_name][tmp_timestamp]["x"] = tmp_array[1]
                 odds[bookie_name][tmp_timestamp]["2"] = tmp_array[2]
 
                 # TODO: there must be a better way!!!
-                probability[bookie_name] = {}
+                if bookie_name not in probability:
+                    probability[bookie_name] = {}
                 probability[bookie_name][tmp_timestamp] = {}
                 implied_prob_1 = 1/float(tmp_array[0])
                 implied_prob_x = 1/float(tmp_array[1])
