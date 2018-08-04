@@ -8,7 +8,7 @@ from lib.strategy_finding.feature_builder.wdl_probabilities2 import WDLProbabili
 from lib.strategy_finding.algorithm.random_forest import RandomForestAlgorithm
 
 # path_to_dir = './misc/all_odds_data/'
-path_to_dir = './misc/test/'
+path_to_dir = './data/test/'
 analyser = Analyser()
 games_data = analyser.load_data(path_to_dir)
 result = analyser.execute(

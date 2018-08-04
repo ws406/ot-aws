@@ -31,7 +31,7 @@ class GamesFetcher:
         soup = BeautifulSoup(response.text, "lxml")
         game_rows = soup.findAll("tr", {"id": re.compile('tr_[0-9]{1,2}')})
 
-        games = dict()
+        games = []
         # Then time range
         time_slot_ends_at = (datetime.datetime.now() + datetime.timedelta(minutes=minutes)).timestamp()
 
@@ -49,12 +49,16 @@ class GamesFetcher:
                 continue
 
             gid = self._get_game_id(tds)
-            league_name = self._get_league_name(tds)
 
             game = dict()
+            game["gid"] = gid
             game["league_id"] = lid
-            game["league_name"] = league_name
             game["kickoff"] = kickoff
+
+            # TODO: for consistency - need to improve prediction code
+            game["home_score"] = 0
+            game["away_score"] = 0
+            game["is_played"] = 0
 
             try:
                 no_use_kickoff_time, \
@@ -63,16 +67,18 @@ class GamesFetcher:
                 game["home_team_id"], \
                 game["away_team_id"], \
                 game["home_team_rank"], \
-                game["away_team_rank"] \
-                    = self.odds_fetcher.get_game_metadata(gid)
+                game["away_team_rank"], \
+                game["league_name"] \
+                            = self.odds_fetcher.get_game_metadata(gid)
 
                 game["odds"], \
                 game["probabilities"] \
                     = self.odds_fetcher.get_odds(gid)
+
             except StopIteration:
                 continue
             # Add game details to the games dict
-            games[gid] = game
+            games.append(game)
 
         return games
 
@@ -90,15 +96,15 @@ class GamesFetcher:
 
         return league_id
 
-    def _get_league_name(self, tds):
-        # Extract league_name
-        league_info_a = tds[1].find("a")
-        if league_info_a:
-            league_name = league_info_a.text.strip()
-        else:
-            league_name = tds[1].text.strip()
-
-        return league_name
+    # def _get_league_name(self, tds):
+    #     # Extract league_name
+    #     league_info_a = tds[1].find("a")
+    #     if league_info_a:
+    #         league_name = league_info_a.text.strip()
+    #     else:
+    #         league_name = tds[1].text.strip()
+    #
+    #     return league_name
 
     def _get_kickoff_time(self, tds):
         try:

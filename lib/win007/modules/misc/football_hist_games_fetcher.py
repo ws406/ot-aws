@@ -125,17 +125,15 @@ class HistGamesFetcher:
 
     def get_hist_games_by_league(self, league_id, num_of_seasons, start_season_offset, sub_league_id=None):
         season_ids = self._get_season_ids(league_id, num_of_seasons, start_season_offset)
-        games = []
         for season_id in season_ids:
             print("\tSeason - " + str(season_id))
             data = self._get_all_games_from_a_season(season_id, league_id, sub_league_id)
             if not data:
                 print("\t---Season - " + str(season_id) + ' has no game data available---')
                 continue
-            file_name = './misc/football_all_odds_data/' + data[0]['league_name'] + '-' + season_id + '.json'
+            file_name = './data/football_all_odds_data/' + data[0]['league_name'] + '-' + season_id + '.json'
             self._write_to_file(file_name, data)
             print(str(len(data)) + ' games saved to ' + file_name)
-            games.append(data)
 
     def _write_to_file(self, file_name, data):
         file = open(file_name, 'w+')

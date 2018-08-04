@@ -4,7 +4,7 @@ from lib.win007.observers.strategy_compare_macau_hkjc import MacauHKObserver as 
 from lib.win007.subject.upcoming_games import Subject as UpcomingGamesProcessor
 # from lib.win007.modules.games_fetcher.football_odds_fetcher.game_info_and_open_final_odds import GameInfoAndOpenFinalOddsFetcher
 from lib.win007.modules.games_fetcher.football_odds_fetcher.game_info_and_all_odds_sequence import GameInfoAndAllOddsSequence
-
+import json
 
 class Main:
     # These data is used for
@@ -84,12 +84,10 @@ class Main:
             msg += " and from "+ str(len(self.league_ids)) + " leagues.."
         print(msg)
         games = processor.get_games(self.minutes, self.league_ids)    # Get games starting in the next 5 mins.
-        print(games)
+        print(json.dumps(games))
         print(str(len(games)) + " games found")
 
-
-
-        # Notify all observers to action using the games data
+        # TODO: Notify all observers to action using the games data
         # processor.notify(games)  # Notify the strategy to handle these games.
 
 

@@ -31,6 +31,7 @@ class AbstractOddsFetcher(abc.ABC):
         raw_data = raw_data.text
 
         kick_off = self._get_kickoff(re.findall('MatchTime="(.+?)"', raw_data)[0])
+        league_name = re.findall('matchname="(.+?)"', raw_data)[0]
         home_team_name = re.findall('hometeam="(.+?)"', raw_data)[0]
         away_team_name = re.findall('guestteam="(.+?)"', raw_data)[0]
         home_team_id = int(re.findall('hometeamID=(.+?);', raw_data)[0])
@@ -39,7 +40,7 @@ class AbstractOddsFetcher(abc.ABC):
         home_team_rank = self._get_team_ranking(re.findall('hOrder="(.+?)"', raw_data))
         away_team_rank = self._get_team_ranking(re.findall('gOrder="(.+?)"', raw_data))
 
-        return kick_off, home_team_name, away_team_name, home_team_id, away_team_id, home_team_rank, away_team_rank
+        return kick_off, home_team_name, away_team_name, home_team_id, away_team_id, home_team_rank, away_team_rank, league_name
 
     def _get_team_ranking(self, ranking_string):
         # If no match, return None.

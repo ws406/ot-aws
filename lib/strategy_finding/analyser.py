@@ -15,7 +15,7 @@ class Analyser:
 
     def load_data(self, path):
         games = []
-        self.logger.debug("Loading games dat from " + path)
+        self.logger.debug("Loading games data from " + path)
         for file_name in filerHelper.get_files_from_a_dir(path):
             file_dir_name = path + file_name
             with open(file_dir_name) as json_file:
