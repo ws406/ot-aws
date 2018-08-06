@@ -1,4 +1,4 @@
-from lib.win007.modules.games_fetcher.basketball_odds_fetcher.game_info_and_all_odds_sequence import GameInfoAndAllOddsSequence
+from src.win007.modules.games_fetcher.basketball_odds_fetcher.game_info_and_all_odds_sequence import GameInfoAndAllOddsSequence
 
 bids = {
         265: "macau_slot",  # Macao Slot
