@@ -8,15 +8,13 @@ class RF6Leagus(GameQualifierInterface):
 	rf = None
 
 	def __init__(self):
+		# The ML model used for prediction
 		self.rf = joblib.load('./src/ops/game_qualifier/rf_6_leagues.pkl')
 
 	def is_game_qualified(self, game_data):
 		# TODO: this needs to be filled.
 		# Input data:
 		#       game_data is the one single game (only ONE game) in json
-
-		# The ML model used for prediction
-
 
 		# If not qualified, return
 		return False
