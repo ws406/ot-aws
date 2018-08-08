@@ -12,19 +12,20 @@ RUN pip3 install --upgrade numpy \
 		pandas \
 		bs4 \
 		lxml \
+		html5lib \
 		beautifulsoup4 \
 		requests \
 		sklearn \
 		pytz \
 		pprint \
 		psutil \
-		kafka-python
+		kafka
 
 # Install Kafka
 ENV KAFKA_HOME /usr/local/kafka
 
 # install java + others
-RUN apt-get update && apt-get install -y \
+RUN apt-get -qq update && apt-get install -y \
   wget \
   openjdk-8-jdk
 

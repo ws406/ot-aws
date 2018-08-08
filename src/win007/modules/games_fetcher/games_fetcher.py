@@ -9,6 +9,7 @@ import datetime
 
 class GamesFetcher:
     url_games_list = 'http://op1.win007.com/index.aspx'
+    # url_games_list = 'http://data.nowgoal.com/1x2/index.htm'
     odds_fetcher = None
 
     def __init__(self, odds_fetcher: AbstractOddsFetcher):
@@ -28,7 +29,7 @@ class GamesFetcher:
             print("Can't process url - " + self.url_games_list)
             sys.exit()
 
-        soup = BeautifulSoup(response.text, "lxml")
+        soup = BeautifulSoup(response.content.decode('gb2312', 'ignore'), "html5lib")
         game_rows = soup.findAll("tr", {"id": re.compile('tr_[0-9]{1,2}')})
 
         games = []

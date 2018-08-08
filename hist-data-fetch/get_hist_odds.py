@@ -95,7 +95,7 @@ class Main:
         # Fetch historical games data league by league
         # for lid in self.league_ids:
         num_of_seasons = 1
-        start_season_offset = 0
+        start_season_offset = 1
         for lid in self.league_ids:
         # for lid in [273]:
             print("Start extracting historical games from " + str(len(self.league_ids)) + " leagues and "
