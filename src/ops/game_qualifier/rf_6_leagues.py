@@ -128,6 +128,8 @@ def GenFeatures(side, data, match):
         else:
             data.append(Operation(homeTeamRank / match['size'], awayTeamRank / match['size']))
 
+from src.win007.observers.same_direction.qualification_check import QualificationCheck
+
 class RF6Leagus(GameQualifierInterface):
 
 	kafka_topic = 'event-new-game'
@@ -142,7 +144,6 @@ class RF6Leagus(GameQualifierInterface):
 	def is_game_qualified(self, game_data):
 		# Input data:
 		#       game_data is the one single game (only ONE game) in json
-            from src.win007.observers.same_direction.qualification_check import QualificationCheck
             predict = QualificationCheck().is_qualified(game_data)
             dnb_odds = 0
             dc_odds = 0
@@ -176,8 +177,7 @@ class RF6Leagus(GameQualifierInterface):
                         betString = None
                         result_odds = CalculateOdds(favTeamOdds, dnb_odds, dc_odds, betString)
                         return {
-                            "game_id": game_data['game_id'],
-                            "rounds": game_data['rounds'],
+                            "gid": game_data['game_id'],
                             "league_id": game_data['league_id'],
                             "season": None,
                             "league_name": game_data['league_name'],
