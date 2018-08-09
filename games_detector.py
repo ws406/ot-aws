@@ -14,57 +14,15 @@ class Main:
         177: "pinnacle",  # Pinnacle
         432: "hkjc",  # HKJC
     }
-    minutes = 720
+    minutes = 17720
     league_ids = [
         34,  # IT1
-        40,  # IT2
-
         36,  # EPL
         37,  # ENC
-        39,  # EFL1
-        35,  # EFL2
-
         31,  # ES1
-        33,  # ES2
-
         8,  # GE1
-        9,  # GE2
-
-        11,  # FR1
-        12,  # FR2
-
         16,  # HO1
-        17,  # HO2
-
-        25,  # JAP1
-        284,  # JAP2
-
-        4,  # BRA1
-        358,  # BRA2
-
-        23,  # POTG1
-        29,  # SCOT1
-        30,  # TUR1
-        5,  # BEL1
-        26,  # SWE1
-        22,  # NOR1
-        27,  # SW1
-        10,  # RUS1
-        30,  # TUR1
-        2,  # ARG1
-        21,  # USA1
-        415,  # CHILE1
-        140,  # MEX1
-        50,  # CHN1
-        15,  # KOR1
-        273,  # AUS
-
-        113, # Euroba league
     ]
-
-    # league_ids = [37]
-    # Remove this after testing
-    league_ids = [242]
 
     gameDetector = None
     producer = None
@@ -87,7 +45,9 @@ class Main:
             msg += " and from "+ str(len(self.league_ids)) + " leagues.."
         print(msg)
         games = self.gameDetector.get_games(self.minutes, self.league_ids)    # Get games starting in the next 5 mins.
-
+        file = open('test_data.json', 'w+')
+        file.write(json.dumps(games))
+        file.close()
 
         for game in games:
             gid_str = str(game['gid'])

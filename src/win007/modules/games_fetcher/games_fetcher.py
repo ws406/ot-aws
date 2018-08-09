@@ -9,6 +9,7 @@ import datetime
 
 class GamesFetcher:
     url_games_list = 'http://op1.win007.com/index.aspx'
+    # url_games_list = 'http://op1.win007.com/nextodds/cn/20180812.html'
     # url_games_list = 'http://data.nowgoal.com/1x2/index.htm'
     odds_fetcher = None
 
