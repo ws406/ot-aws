@@ -13,6 +13,15 @@ class GamesFetcher:
     # url_games_list = 'http://data.nowgoal.com/1x2/index.htm'
     odds_fetcher = None
 
+    league_size = {
+	    '34': 20,  # IT1
+	    '36': 20,  # EPL
+	    '37': 24,  # ENC
+	    '31': 20,  # ES1
+	    '8' : 20,  # GE1
+	    '16': 18,  # HO1
+    }
+
     def __init__(self, odds_fetcher: AbstractOddsFetcher):
         self.odds_fetcher = odds_fetcher
         pass
@@ -53,13 +62,16 @@ class GamesFetcher:
             gid = self._get_game_id(tds)
 
             game = dict()
-            game["gid"] = gid
+            game["game_id"] = gid
             game["league_id"] = lid
             game["kickoff"] = kickoff
 
             # TODO: for consistency - need to improve prediction code
             game["home_score"] = 0
             game["away_score"] = 0
+            game["is_played"] = 0
+            game["rounds"] = 1
+            game["size"] = self.league_size[str(lid)]
             game["is_played"] = 0
 
             try:
@@ -81,6 +93,7 @@ class GamesFetcher:
                 continue
             # Add game details to the games dict
             games.append(game)
+            self.odds_fetcher.clean_cached_game_data(gid)
 
         return games
 

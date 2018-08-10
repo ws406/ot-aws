@@ -10,11 +10,12 @@ class Main:
     bids = {
         80: "macau_slot",  # Macao Slot
         115: "will_hill",  # WH
-        281: "bet365",  # Bet365
-        177: "pinnacle",  # Pinnacle
-        432: "hkjc",  # HKJC
+        281: "bet365",     # Bet365
+        177: "pinnacle",   # Pinnacle
+        432: "hkjc",       # HKJC
+        104: "interwetten" # Interwetten
     }
-    minutes = 17720
+    minutes = 15
     league_ids = [
         34,  # IT1
         36,  # EPL
@@ -32,9 +33,6 @@ class Main:
 
     def __init__(self):
         self.gameDetector = UpcomingGamesProcessor(GameInfoAndAllOddsSequence(self.bids))
-        #vself.consumer = KafkaConsumer(bootstrap_servers='localhost:9092', auto_offset_reset='earliest', consumer_timeout_ms=1000)
-
-        pass
 
     def execute(self, kafka_producer: KafkaProducer):
         print("Start...")
@@ -50,7 +48,7 @@ class Main:
         file.close()
 
         for game in games:
-            gid_str = str(game['gid'])
+            gid_str = str(game['game_id'])
             kafka_producer.send(self.kafka_topic, game, key=gid_str)
             kafka_producer.send(self.kafka_topic, game)
             print("\tSend game " + gid_str + " to Kafka")

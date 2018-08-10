@@ -6,7 +6,8 @@ game_qualifier = RF6Leagus()
 i = 0
 j = 0
 
-file_name = "/home/wyao/workspace/ot-aws/data/football_all_odds_data/English Premier League-2016-2017.json"
+# file_name = "./data/football_all_odds_data/England Championship-2017-2018.json"
+file_name = "./test_data.json"
 with open(file_name) as json_file:
     matches = json.load(json_file)
     for data in matches:

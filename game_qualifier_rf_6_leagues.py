@@ -24,8 +24,8 @@ while True:
 		game_qualification_info = game_qualifier.is_game_qualified(game_data)
 		# Produce new message on Kafka if game is qualified
 		if game_qualification_info is False:
-			print ("--- Game " + str(game_data['gid']) + " is not qualified ---")
+			print ("--- Game " + str(game_data['game_id']) + " is not qualified ---")
 		else:
-			print("+++ Game " + str(game_data['gid']) + " is qualified. Send message to Kafka under topic - "
+			print("+++ Game " + str(game_data['game_id']) + " is qualified. Send message to Kafka under topic - "
 				+ kafka_topic_output + " +++")
 			producer.send(kafka_topic_output, game_qualification_info)

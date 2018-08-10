@@ -78,9 +78,14 @@ class AbstractOddsFetcher(abc.ABC):
                 print("Can't get data from URL - " + url)
                 return None
 
+            # TODO bring this back later
             self.game_page_data[gid] = data
 
         return BeautifulSoup(data.text, "lxml")
+
+    def clean_cached_game_data(self, gid):
+        if gid in self.game_page_data.keys():
+            del self.game_page_data[gid]
 
     def _str_to_float(self, str):
         try:
