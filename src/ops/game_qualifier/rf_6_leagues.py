@@ -7,35 +7,6 @@ coefficient = 0.95
 threshold = 1.83
 benmarkProb = 0.53
 
-def CalculateOdds(favTeamOdds, dnbOdds, dcOdds, betString):
-    if favTeamOdds <= 1.83:
-        betString = 'win'
-        return favTeamOdds - 1
-    elif dnbOdds < 1.5: # bet 0/0.5
-        betString = '-0/0.5'
-        return (favTeamOdds - 1) / 2 + (dnbOdds - 1) / 2
-    elif dcOdds < 1.5:
-        betString = 'dnb'
-        return dnbOdds - 1
-    elif dcOdds <= 2:
-        betString = 'double chance'
-        return dcOdds - 1
-    else:
-        betString = '+0.5'
-        return 0.3
-
-def Returns(favTeamOdds, dnbOdds, dcOdds):
-    if favTeamOdds <= threshold:
-        return favTeamOdds - 1
-    elif dnbOdds < 1.5: # bet 0/0.5
-        return (favTeamOdds - 1) / 2 + (dnbOdds - 1) / 2
-    elif dcOdds < 1.5:
-        return dnbOdds - 1
-    elif dcOdds <= 2:
-        return dcOdds - 1
-    else:
-        return 0
-
 from src.win007.observers.same_direction.qualification_check import QualificationCheck
 
 class RF6Leagus(GameQualifierInterface):
@@ -278,8 +249,8 @@ class RF6Leagus(GameQualifierInterface):
                 dnb_odds = game_data['odds']['bet365']['final']['1'] * (game_data['odds']['bet365']['final']['x'] - 1) / game_data['odds']['bet365']['final']['x']
                 dc_odds = game_data['odds']['bet365']['final']['1'] * game_data['odds']['bet365']['final']['x'] / (game_data['odds']['bet365']['final']['1'] + game_data['odds']['bet365']['final']['x'])
                 favTeamOdds = game_data['odds']['bet365']['final']['1']
-                if Returns(favTeamOdds, dnb_odds * coefficient, dc_odds * coefficient) < 0.5:
-                   print("buy return not enough", Returns(favTeamOdds, dnb_odds * coefficient, dc_odds * coefficient))
+                if self.Returns(favTeamOdds, dnb_odds * coefficient, dc_odds * coefficient) < 0.5:
+                   print("buy return not enough", self.Returns(favTeamOdds, dnb_odds * coefficient, dc_odds * coefficient))
                    return False
                 else:
                     self.preferred_team = 'home'
@@ -289,8 +260,8 @@ class RF6Leagus(GameQualifierInterface):
                 dnb_odds = game_data['odds']['bet365']['final']['2'] * (game_data['odds']['bet365']['final']['x'] - 1) / game_data['odds']['bet365']['final']['x']
                 dc_odds = game_data['odds']['bet365']['final']['2'] * game_data['odds']['bet365']['final']['x'] / (game_data['odds']['bet365']['final']['2'] + game_data['odds']['bet365']['final']['x'])
                 favTeamOdds = game_data['odds']['bet365']['final']['2']
-                if Returns(favTeamOdds, dnb_odds * coefficient, dc_odds * coefficient) < 0.5:
-                    print("away return not enough", Returns(favTeamOdds, dnb_odds * coefficient, dc_odds * coefficient))
+                if self.Returns(favTeamOdds, dnb_odds * coefficient, dc_odds * coefficient) < 0.5:
+                    print("away return not enough", self.Returns(favTeamOdds, dnb_odds * coefficient, dc_odds * coefficient))
                     return False
                 else:
                     self.preferred_team = 'away'
@@ -303,7 +274,7 @@ class RF6Leagus(GameQualifierInterface):
             for prob in probability:
                 if prob[1] > benmarkProb:
                     betString = None
-                    result_odds = CalculateOdds(favTeamOdds, dnb_odds, dc_odds, betString)
+                    result_odds = self.CalculateOdds(favTeamOdds, dnb_odds, dc_odds, betString)
                     return {
                         "gid": game_data['game_id'],
                         "league_id": game_data['league_id'],
@@ -321,6 +292,35 @@ class RF6Leagus(GameQualifierInterface):
                 else:
                     print("prob is not enough", prob[1])
                     return False
+
+        def CalculateOdds(self, favTeamOdds, dnbOdds, dcOdds, betString):
+            if favTeamOdds <= threshold:
+                betString = 'win'
+                return favTeamOdds - 1
+            elif dnbOdds < 1.5: # bet 0/0.5
+                betString = '-0/0.5'
+                return (favTeamOdds - 1) / 2 + (dnbOdds - 1) / 2
+            elif dcOdds < 1.5:
+                betString = 'dnb'
+                return dnbOdds - 1
+            elif dcOdds <= 2:
+                betString = 'double chance'
+                return dcOdds - 1
+            else:
+                betString = '+0.5'
+                return 0.3
+
+        def Returns(self, favTeamOdds, dnbOdds, dcOdds):
+            if favTeamOdds <= threshold:
+                return favTeamOdds - 1
+            elif dnbOdds < 1.5: # bet 0/0.5
+                return (favTeamOdds - 1) / 2 + (dnbOdds - 1) / 2
+            elif dcOdds < 1.5:
+                return dnbOdds - 1
+            elif dcOdds <= 2:
+                return dcOdds - 1
+            else:
+                return 0
 
 
 
