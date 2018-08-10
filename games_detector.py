@@ -30,7 +30,7 @@ class Main:
     consumer = None
 
     kafka_topic = 'event-new-game'
-    save_to_file_only = True
+    save_to_file_only = False
 
     def __init__(self):
         self.gameDetector = UpcomingGamesProcessor(GameInfoAndAllOddsSequence(self.bids))
