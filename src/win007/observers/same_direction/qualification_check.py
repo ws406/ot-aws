@@ -49,7 +49,6 @@ class QualificationCheck:
             #print("league id", game_data['league_id'], ", game id", game_data['game_id'])
 
             timeList = find_open_final(game_data['odds']['macau_slot'])
-            print(timeList)
             game_data['odds']['macau_slot']['open'] = game_data['odds']['macau_slot'][timeList[0]]
             game_data['odds']['macau_slot']['final'] = game_data['odds']['macau_slot'][timeList[1]]
             game_data['odds']['macau_slot']['open']['1'] = float(game_data['odds']['macau_slot']['open']['1'])
@@ -68,7 +67,6 @@ class QualificationCheck:
             game_data['odds']['hkjc']['final']['x'] = float(game_data['odds']['hkjc']['final']['x'])
             game_data['odds']['hkjc']['final']['2'] = float(game_data['odds']['hkjc']['final']['2'])
             timeList = find_open_final(game_data['odds']['will_hill'])
-            print(timeList)
             game_data['odds']['will_hill']['open'] = game_data['odds']['will_hill'][timeList[0]]
             game_data['odds']['will_hill']['final'] = game_data['odds']['will_hill'][timeList[1]]
             game_data['odds']['will_hill']['open']['1'] = float(game_data['odds']['will_hill']['open']['1'])

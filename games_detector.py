@@ -15,7 +15,7 @@ class Main:
         432: "hkjc",       # HKJC
         104: "interwetten" # Interwetten
     }
-    minutes = 15
+    minutes = 15000
     league_ids = [
         34,  # IT1
         36,  # EPL
@@ -30,6 +30,7 @@ class Main:
     consumer = None
 
     kafka_topic = 'event-new-game'
+    save_to_file_only = True
 
     def __init__(self):
         self.gameDetector = UpcomingGamesProcessor(GameInfoAndAllOddsSequence(self.bids))
@@ -43,17 +44,19 @@ class Main:
             msg += " and from "+ str(len(self.league_ids)) + " leagues.."
         print(msg)
         games = self.gameDetector.get_games(self.minutes, self.league_ids)    # Get games starting in the next 5 mins.
-        file = open('test_data.json', 'w+')
-        file.write(json.dumps(games))
-        file.close()
-
-        for game in games:
-            gid_str = str(game['game_id'])
-            kafka_producer.send(self.kafka_topic, game, key=gid_str)
-            kafka_producer.send(self.kafka_topic, game)
-            print("\tSend game " + gid_str + " to Kafka")
-
-        print(str(len(games)) + " games pushed Kafka under topic " + self.kafka_topic)
+        
+        if self.save_to_file_only:
+            file = open('test_data.json', 'w+')
+            file.write(json.dumps(games))
+            file.close()
+        else:
+            for game in games:
+                gid_str = str(game['game_id'])
+                kafka_producer.send(self.kafka_topic, game, key=gid_str)
+                kafka_producer.send(self.kafka_topic, game)
+                print("\tSend game " + gid_str + " to Kafka")
+    
+            print(str(len(games)) + " games pushed Kafka under topic " + self.kafka_topic)
 
 
 if __name__ == '__main__':

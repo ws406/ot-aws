@@ -65,15 +65,8 @@ class GamesFetcher:
             game["game_id"] = gid
             game["league_id"] = lid
             game["kickoff"] = kickoff
-
-            # TODO: for consistency - need to improve prediction code
-            game["home_score"] = 0
-            game["away_score"] = 0
-            game["is_played"] = 0
-            game["rounds"] = 1
             game["size"] = self.league_size[str(lid)]
-            game["is_played"] = 0
-
+            
             try:
                 no_use_kickoff_time, \
                 game["home_team_name"], \
