@@ -15,7 +15,7 @@ class Main:
         432: "hkjc",       # HKJC
         104: "interwetten" # Interwetten
     }
-    minutes = 15000
+    minutes = 30
     league_ids = [
         34,  # IT1
         36,  # EPL
@@ -60,7 +60,7 @@ class Main:
 
 
 if __name__ == '__main__':
-    interval_in_mins = 1
+    interval_in_mins = 5
     producer = KafkaProducer(value_serializer=lambda v: json.dumps(v).encode('utf-8'))
     while (True) :
         Main().execute(producer)

@@ -6,6 +6,8 @@ from numpy import array
 coefficient = 0.95
 threshold = 1.83
 benmarkProb = 0.53
+# min odds is 1.5
+min_return = 0.5
 
 from src.win007.observers.same_direction.qualification_check import QualificationCheck
 
@@ -261,7 +263,7 @@ class RF6Leagus(GameQualifierInterface):
 			dc_odds = game_data['odds']['bet365']['final']['2'] * game_data['odds']['bet365']['final']['x'] / (
 					game_data['odds']['bet365']['final']['2'] + game_data['odds']['bet365']['final']['x'])
 			favTeamOdds = game_data['odds']['bet365']['final']['2']
-			if self.Returns(favTeamOdds, dnb_odds * coefficient, dc_odds * coefficient) < 0.5:
+			if self.Returns(favTeamOdds, dnb_odds * coefficient, dc_odds * coefficient) < min_return:
 				print("away return not enough",
 					  self.Returns(favTeamOdds, dnb_odds * coefficient, dc_odds * coefficient))
 				return False
@@ -303,7 +305,7 @@ class RF6Leagus(GameQualifierInterface):
 		elif dcOdds <= 2:
 			return dcOdds, 'double chance'
 		else:
-			return 0.3, '+0.5'
+			return 1.3, '+0.5'
 	
 	def Returns(self, favTeamOdds, dnbOdds, dcOdds):
 		if favTeamOdds <= threshold:
