@@ -108,7 +108,8 @@ class HistGamesFetcher:
                     game["home_team_id"], \
                     game["away_team_id"], \
                     game["home_team_rank"], \
-                    game["away_team_rank"] \
+                    game["away_team_rank"], \
+                    game['league_name'] \
                         = self.odds_fetcher.get_game_metadata(game['game_id'])
 
                     game["odds"], \
@@ -131,7 +132,7 @@ class HistGamesFetcher:
             if not data:
                 print("\t---Season - " + str(season_id) + ' has no game data available---')
                 continue
-            file_name = '../data/football_all_odds_data/' + data[0]['league_name'] + '-' + season_id + '.json'
+            file_name = './data/football_all_odds_data/' + data[0]['league_name'] + '-' + season_id + '.json'
             self._write_to_file(file_name, data)
             print(str(len(data)) + ' games saved to ' + file_name)
 
