@@ -58,26 +58,26 @@ class RF6Leagus(GameQualifierInterface):
 			if probFinalTime < itemTime:
 				probFinalTime = itemTime
 				probFinal = value[side]
-			if itemTime < kickoffTimeinLong - 24 * 60 * 60:
-				if prob24hourTime < itemTime:
-					prob24hourTime = itemTime
-					prob24hour = value[side]
-			if itemTime >= kickoffTimeinLong - 24 * 60 * 60 and itemTime < kickoffTimeinLong - 12 * 60 * 60:
-				if prob12hourTime < itemTime:
-					prob12hourTime = itemTime
-					prob12hour = value[side]
-			if itemTime >= kickoffTimeinLong - 12 * 60 * 60 and itemTime < kickoffTimeinLong - 9 * 60 * 60:
-				if prob9hourTime < itemTime:
-					prob9hourTime = itemTime
-					prob9hour = value[side]
-			if itemTime >= kickoffTimeinLong - 9 * 60 * 60 and itemTime < kickoffTimeinLong - 6 * 60 * 60:
-				if prob6hourTime < itemTime:
-					prob6hourTime = itemTime
-					prob6hour = value[side]
-			if itemTime >= kickoffTimeinLong - 6 * 60 * 60 and itemTime < kickoffTimeinLong - 3 * 60 * 60:
-				if prob3hourTime < itemTime:
-					prob3hourTime = itemTime
-					prob3hour = value[side]
+			#if itemTime < kickoffTimeinLong - 24 * 60 * 60:
+				#if prob24hourTime < itemTime:
+					#prob24hourTime = itemTime
+					#prob24hour = value[side]
+			#if itemTime >= kickoffTimeinLong - 24 * 60 * 60 and itemTime < kickoffTimeinLong - 12 * 60 * 60:
+				#if prob12hourTime < itemTime:
+					#prob12hourTime = itemTime
+					#prob12hour = value[side]
+			#if itemTime >= kickoffTimeinLong - 12 * 60 * 60 and itemTime < kickoffTimeinLong - 9 * 60 * 60:
+				#if prob9hourTime < itemTime:
+					#prob9hourTime = itemTime
+					#prob9hour = value[side]
+			#if itemTime >= kickoffTimeinLong - 9 * 60 * 60 and itemTime < kickoffTimeinLong - 6 * 60 * 60:
+				#if prob6hourTime < itemTime:
+					#prob6hourTime = itemTime
+					#prob6hour = value[side]
+			#if itemTime >= kickoffTimeinLong - 6 * 60 * 60 and itemTime < kickoffTimeinLong - 3 * 60 * 60:
+				#if prob3hourTime < itemTime:
+					#prob3hourTime = itemTime
+					#prob3hour = value[side]
 			if itemTime >= kickoffTimeinLong - 3 * 60 * 60 and itemTime < kickoffTimeinLong - 60 * 60:
 				if prob60minTime < itemTime:
 					prob60minTime = itemTime
@@ -86,59 +86,59 @@ class RF6Leagus(GameQualifierInterface):
 				if prob30minTime < itemTime:
 					prob30minTime = itemTime
 					prob30min = value[side]
-			if itemTime >= kickoffTimeinLong - 30 * 60 and itemTime < kickoffTimeinLong - 15 * 60:
-				if prob15minTime < itemTime:
-					prob15minTime = itemTime
-					prob15min = value[side]
+			#if itemTime >= kickoffTimeinLong - 30 * 60 and itemTime < kickoffTimeinLong - 15 * 60:
+				#if prob15minTime < itemTime:
+					#prob15minTime = itemTime
+					#prob15min = value[side]
 		data = []
 		data.append(probOpen)
 		
 		index = 0
-		if prob24hour == 0:
-			if probOpenTime > kickoffTimeinLong - 24 * 60 * 60:
-				data.append(0)
-			else:
-				data.append(probOpen)
-		else:
-			data.append(prob24hour)
+		#if prob24hour == 0:
+			#if probOpenTime > kickoffTimeinLong - 24 * 60 * 60:
+				#data.append(0)
+			#else:
+				#data.append(probOpen)
+		#else:
+			#data.append(prob24hour)
 		
-		index += 1
-		if prob12hour == 0:
-			if probOpenTime > kickoffTimeinLong - 12 * 60 * 60:
-				data.append(0)
-			else:
-				data.append(data[index])
-		else:
-			data.append(prob12hour)
+		#index += 1
+		#if prob12hour == 0:
+			#if probOpenTime > kickoffTimeinLong - 12 * 60 * 60:
+				#data.append(0)
+			#else:
+				#data.append(data[index])
+		#else:
+			#data.append(prob12hour)
 		
-		index += 1
-		if prob9hour == 0:
-			if probOpenTime > kickoffTimeinLong - 9 * 60 * 60:
-				data.append(0)
-			else:
-				data.append(data[index])
-		else:
-			data.append(prob9hour)
+		#index += 1
+		#if prob9hour == 0:
+			#if probOpenTime > kickoffTimeinLong - 9 * 60 * 60:
+				#data.append(0)
+			#else:
+				#data.append(data[index])
+		#else:
+			#data.append(prob9hour)
 		
-		index += 1
-		if prob6hour == 0:
-			if probOpenTime > kickoffTimeinLong - 6 * 60 * 60:
-				data.append(0)
-			else:
-				data.append(data[index])
-		else:
-			data.append(prob6hour)
+		#index += 1
+		#if prob6hour == 0:
+			#if probOpenTime > kickoffTimeinLong - 6 * 60 * 60:
+				#data.append(0)
+			#else:
+				#data.append(data[index])
+		#else:
+			#data.append(prob6hour)
 		
-		index += 1
-		if prob3hour == 0:
-			if probOpenTime > kickoffTimeinLong - 3 * 60 * 60:
-				data.append(0)
-			else:
-				data.append(data[index])
-		else:
-			data.append(prob3hour)
+		#index += 1
+		#if prob3hour == 0:
+			#if probOpenTime > kickoffTimeinLong - 3 * 60 * 60:
+				#data.append(0)
+			#else:
+				#data.append(data[index])
+		#else:
+			#data.append(prob3hour)
 		
-		index += 1
+		#index += 1
 		if prob60min == 0:
 			if probOpenTime > kickoffTimeinLong - 60 * 60:
 				data.append(0)
@@ -146,6 +146,16 @@ class RF6Leagus(GameQualifierInterface):
 				data.append(data[index])
 		else:
 			data.append(prob60min)
+
+                index += 1
+                if prob30min == 0:
+                        if probOpenTime > kickoffTimeinLong - 30 * 60:
+                                data.append(0)
+                        else:
+                                data.append(data[index])
+                else:
+                        data.append(prob30min)
+
 		data.append(probFinal)
 		return data
 	
