@@ -15,7 +15,7 @@ class Main:
     }
 
     league_ids = [
-        # 34,  # IT1
+        34,  # IT1
         # 40,  # IT2
 
         36,  # EPL
@@ -23,10 +23,10 @@ class Main:
         # 39,  # EFL1
         # 35,  # EFL2
 
-        # 31,  # ES1
+        31,  # ES1
         # 33,  # ES2
 
-        # 8,  # GE1
+        8,  # GE1
         # 9,  # GE2
  
         # 11,  # FR1
