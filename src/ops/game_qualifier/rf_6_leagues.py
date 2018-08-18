@@ -19,9 +19,8 @@ class RF6Leagus(GameQualifierInterface):
 	preferred_team = None
 	
 	def __init__(self):
-		#self.rf = joblib.load('./src/ops/game_qualifier/rf_6_leagues.pkl')
-                self.rf = joblib.load('./footballNew.pkl')
-	
+		self.rf = joblib.load('./src/ops/game_qualifier/rf_6_leagues.pkl')
+
 	def Operation(self, data1, data2):
 		return data1 - data2
 	
