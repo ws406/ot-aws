@@ -2,6 +2,7 @@ from kafka import KafkaConsumer, KafkaProducer
 import json
 from src.utils.mailer import Mailer
 import datetime
+import sys
 
 kafka_topic_input = 'event-game-qualified'
 kafka_topic_output = 'event-bet-placed'
@@ -17,7 +18,20 @@ consumer = KafkaConsumer(
 			)
 mailer = Mailer()
 
-print("Bet_placer starting...")
+# print("Bet_placer starting...")
+#
+# args = len(sys.argv)
+#
+# if args < 3:
+# 	print ('Please provide Application key and session token')
+# 	appKey  = input('Enter your application key :')
+# 	sessionToken = input('Enter your session Token/SSOID :')
+# 	print ('Thanks for the input provided')
+# else:
+# 	appKey = sys.argv[1]
+# 	sessionToken = sys.argv[2]
+#
+# headers = {'X-Application': appKey, 'X-Authentication': sessionToken, 'content-type': 'application/json'}
 
 while True:
 	content = ''

@@ -1,10 +1,8 @@
 from src.win007.subject.upcoming_games import Subject as UpcomingGamesProcessor
 from src.win007.modules.games_fetcher.football_odds_fetcher.game_info_and_all_odds_sequence import \
 	GameInfoAndAllOddsSequence
+from src.ops.game_qualifier.rf_6_leagues import RF6Leagus
 import json
-from kafka import KafkaProducer
-import time
-import datetime
 
 
 class Main:
@@ -17,30 +15,21 @@ class Main:
 		432: "hkjc",  # HKJC
 		104: "interwetten"  # Interwetten
 	}
-	minutes = 30
+	
 	league_ids = [
 		34,  # IT1
 		36,  # EPL
 		37,  # ENC
 		31,  # ES1
-		8,   # GE1
+		8,  # GE1
 		16,  # HO1
 	]
 	
-	gameDetector = None
-	producer = None
-	consumer = None
-	
-	kafka_topic = 'event-new-game'
-	kafka_producer = None
-	
 	def __init__(self):
+		self.minutes = int(input("Enter the minutes "))
 		self.gameDetector = UpcomingGamesProcessor(GameInfoAndAllOddsSequence(self.bids))
-		
-	def get_kafka_producer(self):
-		if self.kafka_producer is None:
-			self.kafka_producer = KafkaProducer(value_serializer=lambda v: json.dumps(v).encode('utf-8'))
-		return self.kafka_producer
+		self.game_qualifier = RF6Leagus()
+	
 	
 	def execute(self):
 		print("Start...")
@@ -52,18 +41,22 @@ class Main:
 		print(msg)
 		games = self.gameDetector.get_games(self.minutes, self.league_ids)  # Get games starting in the next 5 mins.
 		
-		kafka_producer = self.get_kafka_producer()
-		for game in games:
-			gid_str = str(game['game_id'])
-			kafka_producer.send(self.kafka_topic, game, key=gid_str)
-			kafka_producer.send(self.kafka_topic, game)
-			print("\tSend game " + gid_str + " to Kafka")
-		print(str(len(games)) + " games pushed Kafka under topic " + self.kafka_topic)
+		# Put your game data here to test
+		i = j = 0
+		
+		# TODO: this is a big lame! Needs to correct it.
+		for data in json.loads(json.dumps(games)):
+			print("gid: ", data['game_id'])
+			result = self.game_qualifier.is_game_qualified(data)
+			print(result)
+			if result is not False:
+				i += 1
+			else:
+				j += 1
+		
+		print(str(i) + " games qualified")
+		print(str(j) + " games disqualified")
 
 
 if __name__ == '__main__':
-	interval_in_mins = 2
-	while (True):
-		Main().execute()
-		print("Next run at UTC: " + str(datetime.datetime.now() + datetime.timedelta(minutes=interval_in_mins)))
-		time.sleep(60 * interval_in_mins)
+	Main().execute()

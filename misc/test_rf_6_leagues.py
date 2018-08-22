@@ -6,11 +6,12 @@ game_qualifier = RF6Leagus()
 i = 0
 j = 0
 
-# file_name = "./data/football_all_odds_data/English Premier League-2018-2019.json"
+# file_name = "./data/football_all_odds_data/English Premier League-2017-2018.json"
 file_name = "./test_data.json"
 with open(file_name) as json_file:
     matches = json.load(json_file)
     for data in matches:
+        print("gid: ", data['game_id'])
         result = game_qualifier.is_game_qualified(data)
         print(result)
         if result is not False:
