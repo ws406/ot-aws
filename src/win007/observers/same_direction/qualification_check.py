@@ -122,8 +122,7 @@ class QualificationCheck:
                 prediction = self.prediction_home_win
 
         except (TypeError, KeyError):
-            exceptions = 'missing required odds'
-            exit(exceptions)
+            print("missing odds, skip...")
 
         return prediction
 
