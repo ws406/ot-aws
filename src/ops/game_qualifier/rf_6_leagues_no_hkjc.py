@@ -9,7 +9,7 @@ benmarkProb = 0.53
 # min odds is 1.5
 min_return = 0.5
 
-from src.win007.observers.same_direction.qualification_check2 import QualificationCheck
+from src.win007.observers.same_direction.qualification_check_no_hkjc import QualificationCheck
 
 
 class RF6Leagus(GameQualifierInterface):
@@ -19,7 +19,7 @@ class RF6Leagus(GameQualifierInterface):
 	preferred_team = None
 	
 	def __init__(self):
-		self.rf = joblib.load('./src/ops/game_qualifier/new_rf_6_leagues_no_hkjc.pkl')
+		self.rf = joblib.load('./src/ops/game_qualifier/rf_6_leagues_no_hkjc.pkl')
 
 	def Operation(self, data1, data2):
             if data1 > 0 and data2 > 0:
