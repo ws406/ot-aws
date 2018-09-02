@@ -84,6 +84,15 @@ class QualificationCheck:
             game_data['odds']['bet365']['final']['1'] = float(game_data['odds']['bet365']['final']['1'])
             game_data['odds']['bet365']['final']['x'] = float(game_data['odds']['bet365']['final']['x'])
             game_data['odds']['bet365']['final']['2'] = float(game_data['odds']['bet365']['final']['2'])
+            timeList = find_open_final(game_data['probabilities']['bet365'])
+            game_data['probabilities']['bet365']['open'] = game_data['probabilities']['bet365'][timeList[0]]
+            game_data['probabilities']['bet365']['final'] = game_data['probabilities']['bet365'][timeList[1]]
+            game_data['probabilities']['bet365']['open']['1'] = float(game_data['probabilities']['bet365']['open']['1'])
+            game_data['probabilities']['bet365']['open']['x'] = float(game_data['probabilities']['bet365']['open']['x'])
+            game_data['probabilities']['bet365']['open']['2'] = float(game_data['probabilities']['bet365']['open']['2'])
+            game_data['probabilities']['bet365']['final']['1'] = float(game_data['probabilities']['bet365']['final']['1'])
+            game_data['probabilities']['bet365']['final']['x'] = float(game_data['probabilities']['bet365']['final']['x'])
+            game_data['probabilities']['bet365']['final']['2'] = float(game_data['probabilities']['bet365']['final']['2'])
             timeList = find_open_final(game_data['odds']['pinnacle'])
             game_data['odds']['pinnacle']['open'] = game_data['odds']['pinnacle'][timeList[0]]
             game_data['odds']['pinnacle']['final'] = game_data['odds']['pinnacle'][timeList[1]]

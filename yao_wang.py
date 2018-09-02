@@ -13,7 +13,7 @@ class Main:
 		115: "will_hill",  # WH
 		281: "bet365",  # Bet365
 		177: "pinnacle",  # Pinnacle
-		#432: "hkjc",  # HKJC
+		432: "hkjc",  # HKJC
 		104: "interwetten"  # Interwetten
 	}
 	

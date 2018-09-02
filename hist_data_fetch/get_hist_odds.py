@@ -41,7 +41,7 @@ class Main:
         # 4,  # BRA1
         # 358,  # BRA2
  
-        # 23,  # POTG1
+        23,  # POTG1
         # 29,  # SCOT1
         # 30,  # TUR1
         # 5,  # BEL1
