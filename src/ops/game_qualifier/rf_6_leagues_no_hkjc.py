@@ -12,7 +12,7 @@ min_return = 0.5
 from src.win007.observers.same_direction.qualification_check_no_hkjc import QualificationCheck
 
 
-class RF6Leagus(GameQualifierInterface):
+class RF6LeagusNoHkjc(GameQualifierInterface):
 	kafka_topic = 'event-new-game'
 	rf = None
 	data = []

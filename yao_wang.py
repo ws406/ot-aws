@@ -1,7 +1,8 @@
 from src.win007.subject.upcoming_games import Subject as UpcomingGamesProcessor
 from src.win007.modules.games_fetcher.football_odds_fetcher.game_info_and_all_odds_sequence import \
 	GameInfoAndAllOddsSequence
-from src.ops.game_qualifier.rf_6_leagues_no_hkjc import RF6Leagus
+from src.ops.game_qualifier.rf_6_leagues_no_hkjc import RF6LeagusNoHkjc
+from src.ops.game_qualifier.rf_6_leagues import RF6Leagus
 import json
 
 
@@ -28,8 +29,9 @@ class Main:
 	def __init__(self):
 		self.minutes = int(input("Enter the minutes "))
 		self.gameDetector = UpcomingGamesProcessor(GameInfoAndAllOddsSequence(self.bids))
-		self.game_qualifier = RF6Leagus()
-	
+		self.game_qualifier1 = RF6LeagusNoHkjc()
+		self.game_qualifier2 = RF6Leagus()
+
 	
 	def execute(self):
 		print("Start...")
@@ -47,9 +49,11 @@ class Main:
 		# TODO: this is a big lame! Needs to correct it.
 		for data in json.loads(json.dumps(games)):
 			print("gid: ", data['game_id'])
-			result = self.game_qualifier.is_game_qualified(data)
-			print(result)
-			if result is not False:
+			result1 = self.game_qualifier1.is_game_qualified(data)
+			result2 = self.game_qualifier2.is_game_qualified(data)
+			print('qualifier1:' + str(result1))
+			print('qualifier2:' + str(result2))
+			if result1 or result2:
 				i += 1
 			else:
 				j += 1
