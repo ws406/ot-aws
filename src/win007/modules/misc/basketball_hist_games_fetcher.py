@@ -138,7 +138,7 @@ class HistGamesFetcher:
             if not data:
                 print("\t---Season - " + str(season_id) + ' has no game data available---')
                 continue
-            file_name = '../data/basketball_all_odds_data/' + data[0]['league_name'] + '-' + season_id + '.json'
+            file_name = './data/basketball_all_odds_data/' + data[0]['league_name'] + '-' + season_id + '.json'
             self._write_to_file(file_name, data)
             print(str(len(data)) + ' games saved to ' + file_name)
             games.append(data)
