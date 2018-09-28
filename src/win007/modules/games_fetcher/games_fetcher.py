@@ -9,8 +9,8 @@ import datetime
 
 class GamesFetcher:
     url_games_list = 'http://op1.win007.com/index.aspx'
-    # url_games_list = 'http://op1.win007.com/nextodds/cn/20180812.html'
-    # url_games_list = 'http://data.nowgoal.com/1x2/index.htm'
+    # url_games_list = 'http://op1.win007.com/company.aspx?id=281&company=bet%20365(%D3%A2%B9%FA)'
+
     odds_fetcher = None
 
     league_size = {
@@ -35,9 +35,9 @@ class GamesFetcher:
     def _get_games_with_conditions(self, minutes, league_ids=None):
         try:
             response = BrowserRequests.get(self.url_games_list)
-        except (ConnectionError, ConnectionAbortedError, ConnectionRefusedError, ConnectionResetError):
+        except:
             print("Can't process url - " + self.url_games_list)
-            sys.exit()
+            return
 
         soup = BeautifulSoup(response.content.decode('gb2312', 'ignore'), "html5lib")
         game_rows = soup.findAll("tr", {"id": re.compile('tr_[0-9]{1,2}')})
@@ -96,9 +96,9 @@ class GamesFetcher:
         if league_info_a:
             try:
                 league_id = int(re.search('.[=|/]([0-9]+)', league_info_a.attrs['href']).group(1))
-            except AttributeError:
+            except AttributeError as ae:
                 print("error while extracting 'league id'")
-                sys.exit(1)
+                raise ae
         else:
             league_id = None
 
@@ -119,9 +119,9 @@ class GamesFetcher:
             datetime_obj = datetime.datetime.strptime(tds[2].text.strip(), '%y-%m-%d%H:%M')
             kickoff = timezone('Asia/Chongqing').localize(datetime_obj)
             rtn = kickoff.timestamp()
-        except AttributeError:
+        except AttributeError as ae:
             print("error while extracting 'kickoff'")
-            sys.exit(1)
+            raise ae
 
         return rtn
 
@@ -129,8 +129,8 @@ class GamesFetcher:
         # Extract game_id
         try:
             game_id = int(re.search('/([0-9]+).', tds[12].find("a").attrs['href']).group(1))
-        except AttributeError:
+        except AttributeError as ae:
             print("error while extracting 'game id'")
-            sys.exit(1)
+            raise ae
 
         return game_id

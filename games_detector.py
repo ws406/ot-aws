@@ -64,6 +64,9 @@ class Main:
 if __name__ == '__main__':
 	interval_in_mins = 2
 	while (True):
-		Main().execute()
+		try:
+			Main().execute()
+		except Exception as e:
+			print('Exception happened.... Try again later.')
 		print("Next run at UTC: " + str(datetime.datetime.now() + datetime.timedelta(minutes=interval_in_mins)))
 		time.sleep(60 * interval_in_mins)

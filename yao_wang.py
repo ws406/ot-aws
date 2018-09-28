@@ -63,4 +63,7 @@ class Main:
 
 
 if __name__ == '__main__':
-	Main().execute()
+	try:
+		Main ().execute ()
+	except Exception as e:
+		print ('Exception happened.... Try again later.')
