@@ -34,6 +34,8 @@ class GameInfoAndAllOddsSequence(AbstractOddsFetcher):
 
         odds = defaultdict(dict)
         probability = defaultdict(dict)
+        # Set to none so it can be used as a flag to check if it will be assigned.
+        data_row = None
         for data_row in data_rows:
             # Remove trailing and prefixing "
             data_list = data_row.group(1).split('|')
@@ -71,6 +73,9 @@ class GameInfoAndAllOddsSequence(AbstractOddsFetcher):
                 overround = implied_prob_1 + implied_prob_2
                 probability[bookie_name][tmp_timestamp]["1"] = implied_prob_1/overround
                 probability[bookie_name][tmp_timestamp]["2"] = implied_prob_2/overround
+
+        if data_row is None:
+            raise StopIteration
 
         return odds, probability
 
