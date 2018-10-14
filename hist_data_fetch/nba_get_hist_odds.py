@@ -5,13 +5,14 @@ from src.win007.modules.games_fetcher.basketball_odds_fetcher.game_info_and_all_
 class Main:
     # These data is used for
     bids = {
-        265: "macau_slot",  # Macao Slot
         26: "will_hill",  # WH
-        214: "bet365",  # Bet365
+        #214: "bet365",  # Bet365
         17: "pinnacle",  # Pinnacle
-        # 432: "hkjc",  # HKJC
         82:  "vcbet", # VcBet
-        3: "interwetten" # Interwetten
+        6: "easybet",
+        83: "ladbroke",
+        381: "marathon",
+        446: "skybet",
     }
 
     league_ids = [
@@ -40,8 +41,8 @@ class Main:
 
         # Fetch historical games data league by league
         # for lid in self.league_ids:
-        num_of_seasons = 2
-        start_season_offset = 4
+        num_of_seasons = 1
+        start_season_offset = 1
         for lid in self.league_ids:
         # for lid in [273]:
             print("Start extracting historical games from " + str(len(self.league_ids)) + " leagues and "

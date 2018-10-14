@@ -11,6 +11,7 @@ class GameInfoAndAllOddsSequence(AbstractOddsFetcher):
 
     def get_odds(self, gid):
         raw_data = self._get_data_soup_by_gid(gid)
+
         if raw_data is None:
             raise StopIteration
 
@@ -30,6 +31,7 @@ class GameInfoAndAllOddsSequence(AbstractOddsFetcher):
 
         # Extract & parse odds data. Return a dictionary
         data_rows = re.finditer(regex_pattern, open_final_odds_data)
+
         odds = defaultdict(dict)
         probability = defaultdict(dict)
         for data_row in data_rows:
