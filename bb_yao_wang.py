@@ -39,12 +39,9 @@ class Main:
             # Put your game data here to test
             i = j = 0
             
-            # TODO: this is a big lame! Needs to correct it.
-            file_header = "./data/basketball_all_odds_data/"
-            file_name = file_header + "National Basketball Association-2018-2019.json"
-            for data in json.loads(json.dumps(games)):
+            for data in games:
                     print("gid: ", data['game_id'])
-                    result1 = self.game_qualifier1.is_game_qualified(file_name, data)
+                    result1 = self.game_qualifier1.is_game_qualified(data)
                     print('qualifier1:' + str(result1))
                     if result1:
                             i += 1

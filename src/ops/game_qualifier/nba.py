@@ -508,7 +508,7 @@ class Nba(GameQualifierInterface):
         else:
             print("This is totally wrong! There must be a winner")
 
-    def is_game_qualified(self, file_name, game_data):
+    def is_game_qualified(self, game_data):
         teamsDict = dict()
         teamsHomeDict = dict()
         teamsAwayDict = dict()

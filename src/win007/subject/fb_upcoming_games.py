@@ -1,4 +1,4 @@
-from src.win007.modules.games_fetcher.games_fetcher import GamesFetcher
+from src.win007.modules.games_fetcher.fb_games_fetcher import GamesFetcher
 from src.win007.subject.interface import SubjectInterface
 from src.win007.modules.games_fetcher.football_odds_fetcher.abstract_odds_fetcher import AbstractOddsFetcher
 

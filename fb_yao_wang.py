@@ -1,4 +1,4 @@
-from src.win007.subject.upcoming_games import Subject as UpcomingGamesProcessor
+from src.win007.subject.fb_upcoming_games import Subject as UpcomingGamesProcessor
 from src.win007.modules.games_fetcher.football_odds_fetcher.game_info_and_all_odds_sequence import \
 	GameInfoAndAllOddsSequence
 from src.ops.game_qualifier.rf_6_leagues_no_hkjc import RF6LeagusNoHkjc
