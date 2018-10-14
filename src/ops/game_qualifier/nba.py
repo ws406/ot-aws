@@ -508,7 +508,7 @@ class Nba(GameQualifierInterface):
         else:
             print("This is totally wrong! There must be a winner")
 
-    def is_game_qualified(self, game_data):
+    def is_game_qualified(self, file_name, game_data):
         teamsDict = dict()
         teamsHomeDict = dict()
         teamsAwayDict = dict()
@@ -517,111 +517,113 @@ class Nba(GameQualifierInterface):
         teamsRecentAwayDict = dict()
         teamsLastDate = dict()
         curMatchIndex = 0
-
-        predict = QualificationCheck().is_qualified(game_data)
-        homeId = int(game_data['home_team_id'])
-        awayId = int(game_data['away_team_id'])
-        kickoffTime = float(game_data['kickoff'])
-        if homeId not in teamsLastDate:
-            results = []
-            results.append(0)
-            results.append(0)
-            teamsLastDate[homeId] = results
-        if awayId not in teamsLastDate:
-            results = []
-            results.append(0)
-            results.append(0)
-            teamsLastDate[awayId] = results
-        if homeId not in teamsDict:
-            results = []
-            results.append(0)
-            results.append(0)
-            teamsDict[homeId] = results
-        if awayId not in teamsDict:
-            results = []
-            results.append(0)
-            results.append(0)
-            teamsDict[awayId] = results
-        if homeId not in teamsHomeDict:
-            results = []
-            results.append(0)
-            results.append(0)
-            teamsHomeDict[homeId] = results
-        if awayId not in teamsAwayDict:
-            results = []
-            results.append(0)
-            results.append(0)
-            teamsAwayDict[awayId] = results
-        if homeId not in teamsRecentHomeDict:
-            results = []
-            results.append(-1)
-            results.append(-1)
-            results.append(-1)
-            results.append(-1)
-            results.append(-1)
-            teamsRecentHomeDict[homeId] = results
-        if awayId not in teamsRecentAwayDict:
-            results = []
-            results.append(-1)
-            results.append(-1)
-            results.append(-1)
-            results.append(-1)
-            results.append(-1)
-            teamsRecentAwayDict[awayId] = results
-        if homeId not in teamsRecentDict:
-            results = []
-            results.append(-1)
-            results.append(-1)
-            results.append(-1)
-            results.append(-1)
-            results.append(-1)
-            results.append(-1)
-            results.append(-1)
-            results.append(-1)
-            results.append(-1)
-            results.append(-1)
-            teamsRecentDict[homeId] = results
-        if awayId not in teamsRecentDict:
-            results = []
-            results.append(-1)
-            results.append(-1)
-            results.append(-1)
-            results.append(-1)
-            results.append(-1)
-            results.append(-1)
-            results.append(-1)
-            results.append(-1)
-            results.append(-1)
-            results.append(-1)
-            teamsRecentDict[awayId] = results
-        if choice == 'bottom' and curMatchIndex < 615:
-            self.UpdateRecord(teamsDict, homeId, awayId, game_data['result'])
-            self.UpdateHomeRecord(teamsHomeDict, homeId, game_data['result'])
-            self.UpdateAwayRecord(teamsAwayDict, awayId, game_data['result'])
-            self.UpdateRecentHomeOrAwayRecord(teamsRecentHomeDict, teamsRecentAwayDict, homeId, awayId, game_data['result'])
-            self.UpdateRecentRecord(teamsRecentDict, homeId, awayId, game_data['result'])
-            self.UpdateKickoffTime(teamsLastDate, homeId, awayId, kickoffTime)
-            curMatchIndex = curMatchIndex + 1
-            continue
-        if choice == 'top' and curMatchIndex >= 615:
-            curMatchIndex = curMatchIndex + 1
-            continue
-        curMatchIndex = curMatchIndex + 1
-        self.UpdateRecord(teamsDict, homeId, awayId, game_data['result'])
-        self.UpdateHomeRecord(teamsHomeDict, homeId, game_data['result'])
-        self.UpdateAwayRecord(teamsAwayDict, awayId, game_data['result'])
-        self.UpdateRecentHomeOrAwayRecord(teamsRecentHomeDict, teamsRecentAwayDict, homeId, awayId, game_data['result'])
-        self.UpdateRecentRecord(teamsRecentDict, homeId, awayId, game_data['result'])
-        self.UpdateKickoffTime(teamsLastDate, homeId, awayId, kickoffTime)
-
+        with open(file_name) as json_file:
+            matches = json.load(json_file)
+            for match in matches:
+                predict = QualificationCheck().is_qualified(match)
+                homeId = int(match['home_team_id'])
+                awayId = int(match['away_team_id'])
+                kickoffTime = float(match['kickoff'])
+                if homeId not in teamsLastDate:
+                    results = []
+                    results.append(0)
+                    results.append(0)
+                    teamsLastDate[homeId] = results
+                if awayId not in teamsLastDate:
+                    results = []
+                    results.append(0)
+                    results.append(0)
+                    teamsLastDate[awayId] = results
+                if homeId not in teamsDict:
+                    results = []
+                    results.append(0)
+                    results.append(0)
+                    teamsDict[homeId] = results
+                if awayId not in teamsDict:
+                    results = []
+                    results.append(0)
+                    results.append(0)
+                    teamsDict[awayId] = results
+                if homeId not in teamsHomeDict:
+                    results = []
+                    results.append(0)
+                    results.append(0)
+                    teamsHomeDict[homeId] = results
+                if awayId not in teamsAwayDict:
+                    results = []
+                    results.append(0)
+                    results.append(0)
+                    teamsAwayDict[awayId] = results
+                if homeId not in teamsRecentHomeDict:
+                    results = []
+                    results.append(-1)
+                    results.append(-1)
+                    results.append(-1)
+                    results.append(-1)
+                    results.append(-1)
+                    teamsRecentHomeDict[homeId] = results
+                if awayId not in teamsRecentAwayDict:
+                    results = []
+                    results.append(-1)
+                    results.append(-1)
+                    results.append(-1)
+                    results.append(-1)
+                    results.append(-1)
+                    teamsRecentAwayDict[awayId] = results
+                if homeId not in teamsRecentDict:
+                    results = []
+                    results.append(-1)
+                    results.append(-1)
+                    results.append(-1)
+                    results.append(-1)
+                    results.append(-1)
+                    results.append(-1)
+                    results.append(-1)
+                    results.append(-1)
+                    results.append(-1)
+                    results.append(-1)
+                    teamsRecentDict[homeId] = results
+                if awayId not in teamsRecentDict:
+                    results = []
+                    results.append(-1)
+                    results.append(-1)
+                    results.append(-1)
+                    results.append(-1)
+                    results.append(-1)
+                    results.append(-1)
+                    results.append(-1)
+                    results.append(-1)
+                    results.append(-1)
+                    results.append(-1)
+                    teamsRecentDict[awayId] = results
+                if choice == 'bottom' and curMatchIndex < 615:
+                    self.UpdateRecord(teamsDict, homeId, awayId, match['result'])
+                    self.UpdateHomeRecord(teamsHomeDict, homeId, match['result'])
+                    self.UpdateAwayRecord(teamsAwayDict, awayId, match['result'])
+                    self.UpdateRecentHomeOrAwayRecord(teamsRecentHomeDict, teamsRecentAwayDict, homeId, awayId, match['result'])
+                    self.UpdateRecentRecord(teamsRecentDict, homeId, awayId, match['result'])
+                    self.UpdateKickoffTime(teamsLastDate, homeId, awayId, kickoffTime)
+                    curMatchIndex = curMatchIndex + 1
+                    continue
+                if choice == 'top' and curMatchIndex >= 615:
+                    curMatchIndex = curMatchIndex + 1
+                    continue
+                curMatchIndex = curMatchIndex + 1
+                self.UpdateRecord(teamsDict, homeId, awayId, match['result'])
+                self.UpdateHomeRecord(teamsHomeDict, homeId, match['result'])
+                self.UpdateAwayRecord(teamsAwayDict, awayId, match['result'])
+                self.UpdateRecentHomeOrAwayRecord(teamsRecentHomeDict, teamsRecentAwayDict, homeId, awayId, match['result'])
+                self.UpdateRecentRecord(teamsRecentDict, homeId, awayId, match['result'])
+                self.UpdateKickoffTime(teamsLastDate, homeId, awayId, kickoffTime)
+                continue
         data = []
         predict = QualificationCheck().is_qualified(game_data)
         if predict == 'x':
             print("trend wrong")
-                return False
+            return False
         if game_data['odds']['pinnacle']['final']['1'] < min_odds or game_data['odds']['pinnacle']['final']['2'] < min_odds:
             print("return not enough", game_data['odds']['pinnacle']['final']['1'], "vs", game_data['odds']['pinnacle']['final']['2'])
-                return False
+            return False
         favTeamOdds = 0
         nonFavTeamOdds = 0
         if predict == '1':
@@ -673,4 +675,4 @@ class Nba(GameQualifierInterface):
                         }
             else:
                 print("prob does not qualify", prob)
-                    return False     
+                return False     
