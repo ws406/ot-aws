@@ -17,7 +17,7 @@ class Main:
 		432: "hkjc",  # HKJC
 		104: "interwetten"  # Interwetten
 	}
-	minutes = 30
+	minutes = 45
 	league_ids = [
 		34,  # IT1
 		36,  # EPL
@@ -62,7 +62,7 @@ class Main:
 
 
 if __name__ == '__main__':
-	interval_in_mins = 2
+	interval_in_mins = 5
 	while (True):
 		try:
 			Main().execute()
