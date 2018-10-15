@@ -12,7 +12,7 @@ min_odds = 1.5
 max_odds = 1.0 + (2.0 / (min_odds - 1))
 decayRatio = 0.618
 benmarkProb1 = 0.5
-benmarkProb2 = 0.6
+benmarkProb2 = 1.6
 
 
 class Nba (GameQualifierInterface):
@@ -25,13 +25,19 @@ class Nba (GameQualifierInterface):
 		self.rf = joblib.load ('./src/ops/game_qualifier/nba.pkl')
 
 	def Operation (self, data1, data2):
-		return (data1 - data2) / 100.0
+		number1 = float (data1)
+		number2 = float (data2)
+		if number1 > 0 and number2 > 0:
+			return (number1 - number2) / 100.0
+		else:
+			return 0
 
 	def Operation1 (self, data1):
-		if data1 > 0:
-			return data1 * data1
+		number = float (data1)
+		if number > 0:
+			return number * number
 		else:
-			return data1
+			return number
 
 	def GenerateProbData (self, probList, kickoffTime, side):
 		kickoffTimeinLong = int (kickoffTime)
