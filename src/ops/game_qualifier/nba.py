@@ -166,7 +166,6 @@ class Nba (GameQualifierInterface):
 			data.append (bookie [0])
 			i = 1
 			while i < len (bookie):
-				index = index + 1
 				if bookie [i] == 0:
 					data.append (0)
 				else:
@@ -227,7 +226,6 @@ class Nba (GameQualifierInterface):
 			data.append (bookie [0])
 			i = 1
 			while i < len (bookie):
-				index = index + 1
 				if bookie [i] == 0:
 					data.append (0)
 				else:
@@ -299,7 +297,6 @@ class Nba (GameQualifierInterface):
 				data.append (bookie [len (bookie) - 1])
 				i = 1
 				while i < len (bookie):
-					index = index + 1
 					if bookie [i] == 0:
 						data.append (0)
 					else:
@@ -308,6 +305,16 @@ class Nba (GameQualifierInterface):
 
 		for item in data:
 			data1.append (item)
+
+		if int (match ['home_team_id']) not in teamsDict or int (match ['away_team_id']) not in teamsDict:
+			data1.append (0)
+			data1.append (0)
+			data1.append (0)
+			data1.append (0)
+			data1.append (0)
+			data1.append (0)
+			data1.append (1)
+			return
 
 		if side == '1':
 			favTeamId = int (match ['home_team_id'])
@@ -640,18 +647,18 @@ class Nba (GameQualifierInterface):
 			self.data = []
 			favTeamOdds = game_data ['odds'] ['pinnacle'] ['final'] ['1']
 			nonFavTeamOdds = game_data ['odds'] ['pinnacle'] ['final'] ['2']
-			self.GenFeatures ('1', self.data, game_data, self.teamsDict, self.teamsRecentDict, self.teamsHomeDict,
-			                  self.teamsAwayDict, self.teamsRecentHomeDict, self.teamsRecentAwayDict,
-			                  self.teamsLastDate)
+			self.GenFeatures ('1', self.data, game_data, teamsDict, teamsRecentDict, teamsHomeDict,
+			                  teamsAwayDict, teamsRecentHomeDict, teamsRecentAwayDict,
+			                  teamsLastDate)
 		elif predict == '2':
 			self.preferred_team = 'away'
 			game_data ['predict'] = '2'
 			self.data = []
 			favTeamOdds = game_data ['odds'] ['pinnacle'] ['final'] ['2']
 			nonFavTeamOdds = game_data ['odds'] ['pinnacle'] ['final'] ['1']
-			self.GenFeatures ('2', self.data, game_data, self.teamsDict, self.teamsRecentDict, self.teamsHomeDict,
-			                  self.teamsAwayDict, self.teamsRecentHomeDict, self.teamsRecentAwayDict,
-			                  self.teamsLastDate)
+			self.GenFeatures ('2', self.data, game_data, teamsDict, teamsRecentDict, teamsHomeDict,
+			                  teamsAwayDict, teamsRecentHomeDict, teamsRecentAwayDict,
+			                  teamsLastDate)
 
 		testData = matrix (self.data)
 		testArr = testData [:, 1:]
