@@ -5,6 +5,7 @@ import datetime
 import sys
 
 kafka_topic_game_qualified = 'event-game-qualified'
+kafka_topic_bb_game_qualified = 'event-bb-game-qualified'
 kafka_topic_game_bet = 'event-game-bet'
 
 recipient = "wangjia.sun@gmail.com, panda0079@gmail.com"
@@ -13,6 +14,7 @@ producer = KafkaProducer (value_serializer = lambda v: json.dumps (v).encode ('u
 consumer = KafkaConsumer (
 	kafka_topic_game_qualified,
 	kafka_topic_game_bet,
+	kafka_topic_bb_game_qualified,
 	bootstrap_servers = 'localhost:9092',
 	value_deserializer = lambda m: json.loads (m.decode ('utf-8')),
 	auto_offset_reset = 'latest'
