@@ -31,8 +31,10 @@ class AbstractOddsFetcher(abc.ABC):
         kick_off = self._get_kickoff(re.findall('MatchTime="(.+?)"', raw_data)[0])
         home_team_name = re.findall('hometeam="(.+?)"', raw_data)[0]
         away_team_name = re.findall('guestteam="(.+?)"', raw_data)[0]
+        home_team_id = int (re.findall ('hometeamID=(.+?);', raw_data) [0])
+        away_team_id = int (re.findall ('guestteamID=(.+?);', raw_data) [0])
 
-        return kick_off, home_team_name, away_team_name
+        return kick_off, home_team_name, away_team_name, home_team_id, away_team_id
 
     def _get_kickoff(self, kickoff_in_string):
         try:

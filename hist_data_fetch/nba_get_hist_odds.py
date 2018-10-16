@@ -11,7 +11,8 @@ class Main:
         82:  "vcbet", # VcBet
         6: "easybet",
         83: "ladbroke",
-        381: "marathon",
+        # 381: "marathon",
+        457: "marathonbet",
         446: "skybet",
     }
 
@@ -41,7 +42,7 @@ class Main:
 
         # Fetch historical games data league by league
         # for lid in self.league_ids:
-        num_of_seasons = 1
+        num_of_seasons = 4
         start_season_offset = 1
         for lid in self.league_ids:
         # for lid in [273]:

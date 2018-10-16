@@ -96,8 +96,6 @@ class HistGamesFetcher:
                 #     continue
 
                 game['game_id'] = int(game_data[0])
-                game['home_team_id'] = int(game_data[1])
-                game['away_team_id'] = int(game_data[2])
                 game['home_score'] = int(game_data[3])
                 game['away_score'] = int(game_data[4])
                 game['home_half_score'] = int(game_data[5])
@@ -115,7 +113,9 @@ class HistGamesFetcher:
                 try:
                     game['kickoff'], \
                     game["home_team_name"], \
-                    game["away_team_name"] \
+                    game["away_team_name"], \
+                    game['home_team_id'], \
+                    game['away_team_id'] \
                         = self.odds_fetcher.get_game_metadata(game['game_id'])
 
                     game["odds"], \

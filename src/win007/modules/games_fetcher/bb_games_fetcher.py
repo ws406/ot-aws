@@ -66,7 +66,9 @@ class GamesFetcher:
 			try:
 				no_use_kickoff_time, \
 				game ["home_team_name"], \
-				game ["away_team_name"] \
+				game ["away_team_name"], \
+				game ["home_team_id"], \
+				game ["away_team_id"] \
 					= self.odds_fetcher.get_game_metadata (gid)
 
 				game ["odds"], \
