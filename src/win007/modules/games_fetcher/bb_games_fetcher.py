@@ -8,7 +8,7 @@ import datetime
 
 
 class GamesFetcher:
-	url_games_list = 'http://nba.win007.com/1x2/cn/next-20181017.html'
+	url_games_list = 'http://nba.win007.com/1x2/'
 	# url_games_list = 'http://nba.win007.com/1x2/cn/next-20181017.html'
 
 	odds_fetcher = None
