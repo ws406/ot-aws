@@ -16,7 +16,7 @@ class Main:
 		82: "vcbet",  # VcBet
 		6: "easybet",
 		83: "ladbroke",
-		# 381: "marathon",
+		381: "marathon",
 		457: "marathonbet",
 		446: "skybet",
 	}
