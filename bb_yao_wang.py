@@ -36,9 +36,9 @@ class Main:
 			msg += " and from " + str (len (self.league_names)) + " leagues.."
 		print (msg)
 		games = self.gameDetector.get_games (self.minutes, self.league_names)  # Get games starting in the next 5 mins.
-		# file = open('./test.json', 'w+')
-		# file.write(json.dumps(games))
-		# file.close()
+		file = open('./test.json', 'w+')
+		file.write(json.dumps(games))
+		file.close()
 
 		# Put your game data here to test
 		i = j = 0
