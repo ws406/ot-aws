@@ -34,7 +34,7 @@ class Main:
             if self.league_names is not None:
                     msg += " and from " + str(len(self.league_names)) + " leagues.."
             print(msg)
-            # games = self.gameDetector.get_games(self.minutes, self.league_names)  # Get games starting in the next 5 mins.
+            games = self.gameDetector.get_games(self.minutes, self.league_names)  # Get games starting in the next 5 mins.
             # file = open('./test.json', 'w+')
             # file.write(json.dumps(games))
             # file.close()
@@ -45,16 +45,16 @@ class Main:
             # Pass the file that has current season's data
             file_header = "./data/basketball_all_odds_data/"
             file_name = file_header + "National Basketball Association-2018-2019.json"
-            # for data in games:
-            with open ('./data/test.json') as json_file:
-                for data in json.load (json_file):
-                    print("gid: ", data['game_id'])
-                    result = self.game_qualifier.is_game_qualified(file_name, data)
-                    print('qualifier:' + str(result))
-                    if result:
-                        i += 1
-                    else:
-                        j += 1
+
+            for data in games:
+	            print ("gid: ", data ['game_id'])
+				result = self.game_qualifier.is_game_qualified (file_name, data)
+				print ('qualifier:' + str (result))
+				if result:
+					i += 1
+				else:
+					j += 1
+
             
             print(str(i) + " games qualified")
             print(str(j) + " games disqualified")
