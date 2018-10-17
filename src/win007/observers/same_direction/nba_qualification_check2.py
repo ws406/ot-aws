@@ -13,8 +13,8 @@ def find_open_final(data):
             probOpenTime = itemTime
         if probFinalTime < itemTime:
             probFinalTime = itemTime
-    timeList.append(str(probOpenTime))
-    timeList.append(str(probFinalTime))
+    timeList.append(int(probOpenTime))
+    timeList.append(int(probFinalTime))
     return timeList
 
 class QualificationCheck:
@@ -153,8 +153,10 @@ class QualificationCheck:
             else:
                 prediction = self.disqualified
 
-        except (TypeError, KeyError):
-            exceptions = 'missing required odds'
+        except TypeError as te:
+            raise te
+        except KeyError as ke:
+            raise ke
 
         return prediction
 

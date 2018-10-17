@@ -2,7 +2,6 @@ from src.win007.subject.bb_upcoming_games import Subject as UpcomingGamesProcess
 from src.win007.modules.games_fetcher.basketball_odds_fetcher.game_info_and_all_odds_sequence \
 	import GameInfoAndAllOddsSequence
 from src.ops.game_qualifier.nba import Nba
-from src.ops.game_qualifier.nba2 import Nba2
 import json
 
 
@@ -27,8 +26,7 @@ class Main:
 	def __init__ (self):
 		self.minutes = int (input ("Enter the minutes "))
 		self.gameDetector = UpcomingGamesProcessor (GameInfoAndAllOddsSequence (self.bids))
-		self.game_qualifier1 = Nba ()
-                self.game_qualifier2 = Nba2 ()
+		self.game_qualifier = Nba()
 
 	def execute (self):
 		print ("Start...")
@@ -52,11 +50,9 @@ class Main:
 
 		for data in games:
 			print ("gid: ", data ['game_id'])
-			result1 = self.game_qualifier1.is_game_qualified (file_name, data)
-                        result2 = self.game_qualifier2.is_game_qualified (file_name, data)
-			print ('qualifier1:' + str (result1))
-                        print ('qualifier2:' + str (result2))
-			if result1 or result2:
+			result = self.game_qualifier.is_game_qualified (file_name, data)
+			print ('qualifier: ' + str (result))
+			if result:
 				i += 1
 			else:
 				j += 1
