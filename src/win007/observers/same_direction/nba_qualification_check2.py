@@ -153,10 +153,8 @@ class QualificationCheck:
             else:
                 prediction = self.disqualified
 
-        except TypeError as te:
-            raise te
-        except KeyError as ke:
-            raise ke
+        except (TypeError, KeyError):
+            exceptions = 'missing required odds'
 
         return prediction
 
