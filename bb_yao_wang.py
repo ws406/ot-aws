@@ -50,7 +50,7 @@ class Main:
 
 		for data in games:
 			print ("gid: ", data ['game_id'])
-			result = self.game_qualifier.is_game_qualified (file_name, data)
+			result = self.game_qualifier.is_game_qualified (file_name, data, 'top')
 			print ('qualifier: ' + str (result))
 			if result:
 				i += 1

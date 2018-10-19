@@ -5,13 +5,16 @@ from numpy import array
 import numpy as np
 import math
 import json
+import collections
+import time
 
 from src.win007.observers.same_direction.nba_qualification_check2 import QualificationCheck
 
 min_odds = 1.5
 max_odds = 1.0 + (2.0 / (min_odds - 1))
 decayRatio = 0.618
-benmarkProb1 = 0.5
+benmarkProb1 = 0.5005
+min_odds_qualify = 1.0
 
 class Nba (GameQualifierInterface):
 	kafka_topic = 'event-new-game'
@@ -122,16 +125,13 @@ class Nba (GameQualifierInterface):
 		ladbroke = self.GenerateProbData (match ['probabilities'] ['ladbroke'], match ['kickoff'], side)
 
 		allBookieList = []
-		allBookieList.append (pinnacle)
 		allBookieList.append (vcbet)
 		allBookieList.append (will_hill)
 		allBookieList.append (easybet)
 		allBookieList.append (skybet)
 		allBookieList.append (ladbroke)
 
-		startIndex = 0
-
-		i = startIndex
+		i = 0
 		while i < len (pinnacle):
 			if i == 1:
 				i += 1
@@ -141,19 +141,13 @@ class Nba (GameQualifierInterface):
 			data.append (self.Operation (skybet [i], pinnacle [i]))  #
 			data.append (self.Operation (ladbroke [i], pinnacle [i]))  #
 			data.append (self.Operation (will_hill [i], pinnacle [i]))  #
-
 			data.append (self.Operation (easybet [i], vcbet [i]))  #
 			data.append (self.Operation (skybet [i], vcbet [i]))  #
-			data.append (self.Operation (ladbroke [i], vcbet [i]))  #
-			data.append (self.Operation (will_hill [i], vcbet [i]))  #
-
 			data.append (self.Operation (skybet [i], easybet [i]))  #
 			data.append (self.Operation (ladbroke [i], easybet [i]))  #
 			data.append (self.Operation (will_hill [i], easybet [i]))  #
-
 			data.append (self.Operation (will_hill [i], skybet [i]))  #
 			data.append (self.Operation (ladbroke [i], skybet [i]))  #
-
 			data.append (self.Operation (will_hill [i], ladbroke [i]))  #
 			i += 1
 
@@ -167,102 +161,124 @@ class Nba (GameQualifierInterface):
 					data.append (self.Operation (bookie [i - 1], bookie [i]))
 				i += 1
 
+		skybet = GenerateProbData(match['probabilities']['skybet'], match['kickoff'], oppoSide)
+		ladbroke = GenerateProbData(match['probabilities']['ladbroke'], match['kickoff'], oppoSide)
+
+		i = 0
+		while i < len(pinnacle):
+			if i == 1:
+				i += 1
+				continue
+			data.append(Operation(ladbroke[i], skybet[i]))
+			i += 1
+
 		for item in data:
 			data1.append (item)
 
-		if int (match ['home_team_id']) not in teamsDict or int (match ['away_team_id']) not in teamsDict:
-			data1.append (0)
-			data1.append (0)
-			data1.append (0)
-			data1.append (0)
-			data1.append (0)
-			data1.append (0)
-			return
-
 		if side == '1':
 			favTeamId = int (match ['home_team_id'])
-			favTeamTotalMatch = teamsDict [favTeamId] [0] + teamsDict [favTeamId] [1]
-			if favTeamTotalMatch > 0 and teamsDict [favTeamId] [0] > 0:
-				data1.append (self.Operation1 (teamsDict [favTeamId] [0] / favTeamTotalMatch))
-			else:
+			if favTeamId not in teamsDict:
 				data1.append (0)
-			data1.append ((favTeamTotalMatch + 1) / 82.0)
+				data1.append (0)
+				data1.append (0)
+			else:
+				favTeamTotalMatch = teamsDict [favTeamId] [0] + teamsDict [favTeamId] [1]
+				if favTeamTotalMatch > 0 and teamsDict [favTeamId] [0] > 0:
+					data1.append (self.Operation1 (teamsDict [favTeamId] [0] / favTeamTotalMatch))
+				else:
+					data1.append (0)
+				data1.append ((favTeamTotalMatch + 1) / 82.0)
 
-			recentWin = 0
-			recentTotal = 0
-			index = len (teamsRecentDict [favTeamId]) - 1
-			for result in teamsRecentDict [favTeamId]:
-				if result != -1:
-					recentTotal = recentTotal + 1
-				if result == 1:
-					recentWin = recentWin + 1 * math.pow (decayRatio, index)
-			if recentTotal == 0:
-				data1.append (0)
-			else:
-				data1.append (recentWin / recentTotal)
+				recentWin = 0
+				recentTotal = 0
+				index = len (teamsRecentDict [favTeamId]) - 1
+				for result in teamsRecentDict [favTeamId]:
+					if result != -1:
+						recentTotal = recentTotal + 1
+					if result == 1:
+						recentWin = recentWin + 1 * math.pow (decayRatio, index)
+				if recentTotal == 0:
+					data1.append (0)
+				else:
+					data1.append (recentWin / recentTotal)
 
 			nonFavTeamId = int (match ['away_team_id'])
-			nonFavTeamTotalMatch = teamsDict [nonFavTeamId] [0] + teamsDict [nonFavTeamId] [1]
-			if nonFavTeamTotalMatch > 0 and teamsDict [nonFavTeamId] [0] > 0:
-				data1.append (self.Operation1 (teamsDict [nonFavTeamId] [0] / nonFavTeamTotalMatch))
-			else:
+			if nonFavTeamId not in teamsDict:
 				data1.append (0)
-			data1.append ((nonFavTeamTotalMatch + 1) / 82.0)
+				data1.append (0)
+				data1.append (0)
+			else:
+				nonFavTeamTotalMatch = teamsDict [nonFavTeamId] [0] + teamsDict [nonFavTeamId] [1]
+				if nonFavTeamTotalMatch > 0 and teamsDict [nonFavTeamId] [0] > 0:
+					data1.append (self.Operation1 (teamsDict [nonFavTeamId] [0] / nonFavTeamTotalMatch))
+				else:
+					data1.append (0)
+				data1.append ((nonFavTeamTotalMatch + 1) / 82.0)
 
-			recentWin = 0
-			recentTotal = 0
-			index = len (teamsRecentDict [nonFavTeamId]) - 1
-			for result in teamsRecentDict [nonFavTeamId]:
-				if result != -1:
-					recentTotal = recentTotal + 1
-				if result == 1:
-					recentWin = recentWin + 1 * math.pow (decayRatio, index)
-			if recentTotal == 0:
-				data1.append (0)
-			else:
-				data1.append (recentWin / recentTotal)
+				recentWin = 0
+				recentTotal = 0
+				index = len (teamsRecentDict [nonFavTeamId]) - 1
+				for result in teamsRecentDict [nonFavTeamId]:
+					if result != -1:
+						recentTotal = recentTotal + 1
+					if result == 1:
+						recentWin = recentWin + 1 * math.pow (decayRatio, index)
+				if recentTotal == 0:
+					data1.append (0)
+				else:
+					data1.append (recentWin / recentTotal)
 		else:
 			favTeamId = int (match ['away_team_id'])
-			favTeamTotalMatch = teamsDict [favTeamId] [0] + teamsDict [favTeamId] [1]
-			if favTeamTotalMatch > 0 and teamsDict [favTeamId] [0] > 0:
-				data1.append (self.Operation1 (teamsDict [favTeamId] [0] / favTeamTotalMatch))
-			else:
+			if favTeamId not in teamsDict:
 				data1.append (0)
-			data1.append ((favTeamTotalMatch + 1) / 82.0)
+				data1.append (0)
+				data1.append (0)
+			else:
+				favTeamTotalMatch = teamsDict [favTeamId] [0] + teamsDict [favTeamId] [1]
+				if favTeamTotalMatch > 0 and teamsDict [favTeamId] [0] > 0:
+					data1.append (self.Operation1 (teamsDict [favTeamId] [0] / favTeamTotalMatch))
+				else:
+					data1.append (0)
+				data1.append ((favTeamTotalMatch + 1) / 82.0)
 
-			recentWin = 0
-			recentTotal = 0
-			index = len (teamsRecentDict [favTeamId]) - 1
-			for result in teamsRecentDict [favTeamId]:
-				if result != -1:
-					recentTotal = recentTotal + 1
-				if result == 1:
-					recentWin = recentWin + 1 * math.pow (decayRatio, index)
-			if recentTotal == 0:
-				data1.append (0)
-			else:
-				data1.append (recentWin / recentTotal)
+				recentWin = 0
+				recentTotal = 0
+				index = len (teamsRecentDict [favTeamId]) - 1
+				for result in teamsRecentDict [favTeamId]:
+					if result != -1:
+						recentTotal = recentTotal + 1
+					if result == 1:
+						recentWin = recentWin + 1 * math.pow (decayRatio, index)
+				if recentTotal == 0:
+					data1.append (0)
+				else:
+					data1.append (recentWin / recentTotal)
 
 			nonFavTeamId = int (match ['home_team_id'])
-			nonFavTeamTotalMatch = teamsDict [nonFavTeamId] [0] + teamsDict [nonFavTeamId] [1]
-			if nonFavTeamTotalMatch > 0 and teamsDict [nonFavTeamId] [0] > 0:
-				data1.append (self.Operation1 (teamsDict [nonFavTeamId] [0] / nonFavTeamTotalMatch))
-			else:
+			if nonFavTeamId not in teamsDict:
 				data1.append (0)
-			data1.append ((nonFavTeamTotalMatch + 1) / 82.0)
+				data1.append (0)
+				data1.append (0)
+			else:
+				nonFavTeamTotalMatch = teamsDict [nonFavTeamId] [0] + teamsDict [nonFavTeamId] [1]
+				if nonFavTeamTotalMatch > 0 and teamsDict [nonFavTeamId] [0] > 0:
+					data1.append (self.Operation1 (teamsDict [nonFavTeamId] [0] / nonFavTeamTotalMatch))
+				else:
+					data1.append (0)
+				data1.append ((nonFavTeamTotalMatch + 1) / 82.0)
 
-			recentWin = 0
-			recentTotal = 0
-			index = len (teamsRecentDict [nonFavTeamId]) - 1
-			for result in teamsRecentDict [nonFavTeamId]:
-				if result != -1:
-					recentTotal = recentTotal + 1
-				if result == 1:
-					recentWin = recentWin + 1 * math.pow (decayRatio, index)
-			if recentTotal == 0:
-				data1.append (0)
-			else:
-				data1.append (recentWin / recentTotal)
+				recentWin = 0
+				recentTotal = 0
+				index = len (teamsRecentDict [nonFavTeamId]) - 1
+				for result in teamsRecentDict [nonFavTeamId]:
+					if result != -1:
+						recentTotal = recentTotal + 1
+					if result == 1:
+						recentWin = recentWin + 1 * math.pow (decayRatio, index)
+				if recentTotal == 0:
+					data1.append (0)
+				else:
+					data1.append (recentWin / recentTotal)
 
 	def UpdateRecord (self, teamsDict, homeId, awayId, result):
 		if result == '1':
@@ -366,7 +382,7 @@ class Nba (GameQualifierInterface):
 		else:
 			print ("This is totally wrong! There must be a winner")
 
-	def is_game_qualified (self, file_name, game_data):
+	def is_game_qualified (self, file_name, game_data, choice):
 		teamsDict = dict ()
 		teamsHomeDict = dict ()
 		teamsAwayDict = dict ()
@@ -375,9 +391,15 @@ class Nba (GameQualifierInterface):
 		teamsRecentAwayDict = dict ()
 		teamsLastDate = dict ()
 		curMatchIndex = 0
+		allMatches = {}
 		with open (file_name) as json_file:
 			matches = json.load (json_file)
 			for match in matches:
+				time = match['kickoff'] + match['home_team_id']
+				allMatches[float(time)] = match
+			allMatchesInSeq = collections.OrderedDict(sorted(allMatches.items()))
+			for time, match in allMatchesInSeq.items():
+				#print(match['game_id'], time, match['kickoff'], match['home_team_id'], match['away_team_id'])
 				homeId = int (match ['home_team_id'])
 				awayId = int (match ['away_team_id'])
 				kickoffTime = float (match ['kickoff'])
@@ -509,10 +531,37 @@ class Nba (GameQualifierInterface):
 		testData = matrix (self.data)
 		testArr = testData [:, 1:]
 		probability = self.rf.predict_proba (testArr)
+		bet_string = 'prefer '
 		for prob in probability:
-			if ((game_data ['predict'] == '1' and prob[1] > game_data['probabilities']['pinnacle']['final']['1']) or\
-                            (game_data ['predict'] == '2' and prob[1] > game_data['probabilities']['pinnacle']['final']['2'])) and\
-			    prob [1] >= benmarkProb1:
+			if self.preferred_team == 'home':
+				bet_string+='home,'
+				bet_string+=str(game_data['probabilities']['pinnacle']['final']['1'])
+				bet_string+=':'
+				bet_string+=str(game_data['probabilities']['pinnacle']['final']['2'])
+				bet_string+=',prob,'
+				bet_string+=str(prob[1])
+				bet_string+=':'
+				bet_string+=str(prob[0])
+				bet_string+=','
+				bet_string+=str(game_data['odds']['pinnacle']['final']['1'])
+				bet_string+=':'
+				bet_string+=str(game_data['odds']['pinnacle']['final']['2'])
+			elif self.preferred_team == 'away':
+				bet_string+='away,'
+				bet_string+=str(game_data['probabilities']['pinnacle']['final']['1'])
+				bet_string+=':'
+				bet_string+=str(game_data['probabilities']['pinnacle']['final']['2'])
+				bet_string+=',prob,'
+				bet_string+=str(prob[0])
+				bet_string+=':'
+				bet_string+=str(prob[1])
+				bet_string+=','
+				bet_string+=str(game_data['odds']['pinnacle']['final']['1'])
+				bet_string+=':'
+				bet_string+=str(game_data['odds']['pinnacle']['final']['2'])
+			if ((game_data ['predict'] == '1' and prob[1] > game_data['probabilities']['pinnacle']['final']['1'] and game_data['odds']['pinnacle']['final']['1'] >= min_odds_qualify) or\
+                            (game_data ['predict'] == '2' and prob[1] > game_data['probabilities']['pinnacle']['final']['2'] and game_data['odds']['pinnacle']['final']['2'] >= min_odds_qualify)) and\
+			    prob [1] >= benmarkProb1: 
 				return {
 					"gid": game_data ['game_id'],
 					"league_id": game_data ['league_id'],
@@ -523,11 +572,11 @@ class Nba (GameQualifierInterface):
 					"home_team_id": game_data ['home_team_id'],
 					"away_team_id": game_data ['away_team_id'],
 					"preferred_team": self.preferred_team,
-					"bet_on_market": 'preferred team win',
+					"bet_on_market": 'preferred team win,'+bet_string,
 					"min_odds_to_bet_on": favTeamOdds
 				}
-			elif ((game_data ['predict'] == '1' and prob[0] > game_data['probabilities']['pinnacle']['final']['2']) or\
-                              (game_data ['predict'] == '2' and prob[0] > game_data['probabilities']['pinnacle']['final']['1'])) and\
+			elif ((game_data ['predict'] == '1' and prob[0] > game_data['probabilities']['pinnacle']['final']['2'] and game_data['odds']['pinnacle']['final']['2'] >= min_odds_qualify) or\
+                              (game_data ['predict'] == '2' and prob[0] > game_data['probabilities']['pinnacle']['final']['1'] and game_data['odds']['pinnacle']['final']['1'] >= min_odds_qualify)) and\
                               prob [0] >= benmarkProb1:
 				return {
 					"gid": game_data ['game_id'],
@@ -539,9 +588,9 @@ class Nba (GameQualifierInterface):
 					"home_team_id": game_data ['home_team_id'],
 					"away_team_id": game_data ['away_team_id'],
 					"preferred_team": self.preferred_team,
-					"bet_on_market": 'preferred team lose',
+					"bet_on_market": 'preferred team lose,'+bet_string,
 					"min_odds_to_bet_on": nonFavTeamOdds
 				}
 			else:
-				print ("prob does not qualify", prob)
+				print(bet_string)
 				return False
