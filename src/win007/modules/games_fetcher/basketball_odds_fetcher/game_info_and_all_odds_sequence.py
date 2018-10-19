@@ -88,14 +88,17 @@ class GameInfoAndAllOddsSequence(AbstractOddsFetcher):
         kickoff_timestamp = self.get_game_metadata(gid)[0]
 
         kickoff_datetime = datetime.datetime.fromtimestamp(kickoff_timestamp)
+
         kickoff_datetime_in_utc = timezone('utc').localize(kickoff_datetime)
+        kickoff_datetime_in_hk = kickoff_datetime_in_utc.astimezone(timezone('Hongkong'))
         self.kick_off_in_utc_gid[gid] = [kickoff_datetime, kickoff_datetime_in_utc]
 
         # Assign the 'year' from kickoff time to the 'tick' as it doesn't have year.
-        tmp_date_time_with_year = str(kickoff_datetime.year) + '-' + datetime_string_in_hk_time
+        tmp_date_time_with_year = str(kickoff_datetime_in_hk.year) + '-' + datetime_string_in_hk_time
         datetime_in_hk_time = datetime.datetime.strptime(tmp_date_time_with_year, '%Y-%m-%d %H:%M')
 
         datetime_in_utc = timezone('Hongkong').localize(datetime_in_hk_time)
+
 
         # BUT if the a game is kicked off in Jan 2018 and the odds were given in Dec 2017, assign 2018 is wrong.
         # This is to fix it!
@@ -104,12 +107,16 @@ class GameInfoAndAllOddsSequence(AbstractOddsFetcher):
             # print(datetime_in_utc.timestamp())
             # print(dir(kickoff_datetime_in_utc))
             # print(kickoff_datetime_in_utc.timestamp())
-            # print(str(kickoff_datetime.year-1) + '-' + datetime_string_in_hk_time)
+            # print(str(kickoff_datetime_in_hk.year-1) + '-' + datetime_string_in_hk_time)
             datetime_in_hk_time = datetime.datetime.strptime(
-                str(kickoff_datetime.year-1) + '-' + datetime_string_in_hk_time,
+                str(kickoff_datetime_in_hk.year-1) + '-' + datetime_string_in_hk_time,
                 '%Y-%m-%d %H:%M'
             )
             datetime_in_utc = timezone('Hongkong').localize(datetime_in_hk_time)
 
         # Return timestamp in seconds
         return int(int(datetime_in_utc.timestamp()))
+
+
+if __name__ == '__main__':
+    print(GameInfoAndAllOddsSequence ({17: "pinnacle"}).get_odds (189060))
