@@ -5,13 +5,16 @@ from numpy import array
 import numpy as np
 import math
 import json
+import collections
+import time
 
 from src.win007.observers.same_direction.nba_qualification_check2 import QualificationCheck
 
 min_odds = 1.5
 max_odds = 1.0 + (2.0 / (min_odds - 1))
 decayRatio = 0.618
-benmarkProb1 = 0.5
+benmarkProb1 = 0.5005
+min_odds_qualify = 1.0
 
 class Nba (GameQualifierInterface):
 	kafka_topic = 'event-new-game'
@@ -122,50 +125,52 @@ class Nba (GameQualifierInterface):
 		ladbroke = self.GenerateProbData (match ['probabilities'] ['ladbroke'], match ['kickoff'], side)
 
 		allBookieList = []
-		allBookieList.append (pinnacle)
 		allBookieList.append (vcbet)
 		allBookieList.append (will_hill)
 		allBookieList.append (easybet)
 		allBookieList.append (skybet)
 		allBookieList.append (ladbroke)
 
-		startIndex = 0
-
-		i = startIndex
+		i = 0
 		while i < len (pinnacle):
-			#if i == 1:
-				#i += 1
-				#continue
+			if i == 1:
+				i += 1
+				continue
 			data.append (self.Operation (vcbet [i], pinnacle [i]))  #
 			data.append (self.Operation (easybet [i], pinnacle [i]))  #
 			data.append (self.Operation (skybet [i], pinnacle [i]))  #
 			data.append (self.Operation (ladbroke [i], pinnacle [i]))  #
 			data.append (self.Operation (will_hill [i], pinnacle [i]))  #
-
 			data.append (self.Operation (easybet [i], vcbet [i]))  #
 			data.append (self.Operation (skybet [i], vcbet [i]))  #
-			data.append (self.Operation (ladbroke [i], vcbet [i]))  #
-			data.append (self.Operation (will_hill [i], vcbet [i]))  #
-
 			data.append (self.Operation (skybet [i], easybet [i]))  #
 			data.append (self.Operation (ladbroke [i], easybet [i]))  #
 			data.append (self.Operation (will_hill [i], easybet [i]))  #
-
 			data.append (self.Operation (will_hill [i], skybet [i]))  #
 			data.append (self.Operation (ladbroke [i], skybet [i]))  #
-
 			data.append (self.Operation (will_hill [i], ladbroke [i]))  #
 			i += 1
 
 		for bookie in allBookieList:
 			data.append (bookie [0])
-			#i = 1
+			i = 1
 			while i < len (bookie):
 				if bookie [i] == 0:
 					data.append (0)
 				else:
 					data.append (self.Operation (bookie [i - 1], bookie [i]))
 				i += 1
+
+		skybet = GenerateProbData(match['probabilities']['skybet'], match['kickoff'], oppoSide)
+		ladbroke = GenerateProbData(match['probabilities']['ladbroke'], match['kickoff'], oppoSide)
+
+		i = 0
+		while i < len(pinnacle):
+			if i == 1:
+				i += 1
+				continue
+			data.append(Operation(ladbroke[i], skybet[i]))
+			i += 1
 
 		for item in data:
 			data1.append (item)
@@ -377,7 +382,7 @@ class Nba (GameQualifierInterface):
 		else:
 			print ("This is totally wrong! There must be a winner")
 
-	def is_game_qualified (self, file_name, game_data):
+	def is_game_qualified (self, file_name, game_data, choice):
 		teamsDict = dict ()
 		teamsHomeDict = dict ()
 		teamsAwayDict = dict ()
@@ -386,9 +391,15 @@ class Nba (GameQualifierInterface):
 		teamsRecentAwayDict = dict ()
 		teamsLastDate = dict ()
 		curMatchIndex = 0
+		allMatches = {}
 		with open (file_name) as json_file:
 			matches = json.load (json_file)
 			for match in matches:
+				time = match['kickoff'] + match['home_team_id']
+				allMatches[float(time)] = match
+			allMatchesInSeq = collections.OrderedDict(sorted(allMatches.items()))
+			for time, match in allMatchesInSeq.items():
+				#print(match['game_id'], time, match['kickoff'], match['home_team_id'], match['away_team_id'])
 				homeId = int (match ['home_team_id'])
 				awayId = int (match ['away_team_id'])
 				kickoffTime = float (match ['kickoff'])
@@ -531,6 +542,10 @@ class Nba (GameQualifierInterface):
 				bet_string+=str(prob[1])
 				bet_string+=':'
 				bet_string+=str(prob[0])
+				bet_string+=','
+				bet_string+=str(game_data['odds']['pinnacle']['final']['1'])
+				bet_string+=':'
+				bet_string+=str(game_data['odds']['pinnacle']['final']['2'])
 			elif self.preferred_team == 'away':
 				bet_string+='away,'
 				bet_string+=str(game_data['probabilities']['pinnacle']['final']['1'])
@@ -540,8 +555,12 @@ class Nba (GameQualifierInterface):
 				bet_string+=str(prob[0])
 				bet_string+=':'
 				bet_string+=str(prob[1])
-			if ((game_data ['predict'] == '1' and prob[1] > game_data['probabilities']['pinnacle']['final']['1']) or\
-                            (game_data ['predict'] == '2' and prob[1] > game_data['probabilities']['pinnacle']['final']['2'])) and\
+				bet_string+=','
+				bet_string+=str(game_data['odds']['pinnacle']['final']['1'])
+				bet_string+=':'
+				bet_string+=str(game_data['odds']['pinnacle']['final']['2'])
+			if ((game_data ['predict'] == '1' and prob[1] > game_data['probabilities']['pinnacle']['final']['1'] and game_data['odds']['pinnacle']['final']['1'] >= min_odds_qualify) or\
+                            (game_data ['predict'] == '2' and prob[1] > game_data['probabilities']['pinnacle']['final']['2'] and game_data['odds']['pinnacle']['final']['2'] >= min_odds_qualify)) and\
 			    prob [1] >= benmarkProb1: 
 				return {
 					"gid": game_data ['game_id'],
@@ -556,8 +575,8 @@ class Nba (GameQualifierInterface):
 					"bet_on_market": 'preferred team win,'+bet_string,
 					"min_odds_to_bet_on": favTeamOdds
 				}
-			elif ((game_data ['predict'] == '1' and prob[0] > game_data['probabilities']['pinnacle']['final']['2']) or\
-                              (game_data ['predict'] == '2' and prob[0] > game_data['probabilities']['pinnacle']['final']['1'])) and\
+			elif ((game_data ['predict'] == '1' and prob[0] > game_data['probabilities']['pinnacle']['final']['2'] and game_data['odds']['pinnacle']['final']['2'] >= min_odds_qualify) or\
+                              (game_data ['predict'] == '2' and prob[0] > game_data['probabilities']['pinnacle']['final']['1'] and game_data['odds']['pinnacle']['final']['1'] >= min_odds_qualify)) and\
                               prob [0] >= benmarkProb1:
 				return {
 					"gid": game_data ['game_id'],
