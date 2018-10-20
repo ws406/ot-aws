@@ -15,7 +15,7 @@ class Main:
     }
 
     league_ids = [
-        34,  # IT1
+        # 34,  # IT1
         # 40,  # IT2
 
         36,  # EPL
@@ -23,16 +23,16 @@ class Main:
         # 39,  # EFL1
         # 35,  # EFL2
 
-        31,  # ES1
+        # 31,  # ES1
         # 33,  # ES2
 
-        8,  # GE1
+        # 8,  # GE1
         # 9,  # GE2
  
         # 11,  # FR1
         # 12,  # FR2
 
-        16,  # HO1
+        # 16,  # HO1
         # 17,  # HO2
 
         # 25,  # JAP1
@@ -41,7 +41,7 @@ class Main:
         # 4,  # BRA1
         # 358,  # BRA2
  
-        23,  # POTG1
+        # 23,  # POTG1
         # 29,  # SCOT1
         # 30,  # TUR1
         # 5,  # BEL1
@@ -95,7 +95,7 @@ class Main:
         # Fetch historical games data league by league
         # for lid in self.league_ids:
         num_of_seasons = 1
-        start_season_offset = 0
+        start_season_offset = 5
         for lid in self.league_ids:
         # for lid in [273]:
             print("Start extracting historical games from " + str(len(self.league_ids)) + " leagues and "

@@ -1,5 +1,4 @@
 from datetime import datetime
-import numpy as np
 
 def find_open_final(data):
     timeList = []
@@ -22,30 +21,15 @@ class QualificationCheck:
     prediction_home_win = '1'
     prediction_away_win = '2'
     disqualified = 'x'
-    #nodata = '0'
 
     def __init__(self):
         pass
 
     def is_qualified(self, game_data):
 
-        exceptions = None
         prediction = self.disqualified
 
         try:
-            test = game_data['probabilities']['marathonbet']
-            test = game_data['probabilities']['pinnacle']
-            test = game_data['probabilities']['easybet']
-            test = game_data['probabilities']['skybet']
-            test = game_data['probabilities']['ladbroke']
-            test = game_data['probabilities']['will_hill']
-
-            test = game_data['odds']['pinnacle']
-            test = game_data['odds']['marathonbet']
-            test = game_data['odds']['easybet']
-            test = game_data['odds']['skybet']
-            test = game_data['odds']['ladbroke']
-            test = game_data['odds']['will_hill']
 
             timeList = find_open_final(game_data['odds']['easybet'])
             game_data['odds']['easybet']['open'] = game_data['odds']['easybet'][timeList[0]]
@@ -154,9 +138,6 @@ class QualificationCheck:
                 prediction = self.disqualified
 
         except (TypeError, KeyError):
-            exceptions = 'missing required odds'
+            a = ('exception: missing required odds')
 
         return prediction
-
-    def _get_readable_kickoff_time(self, kickoff_in_linux_ts):
-        return datetime.fromtimestamp(kickoff_in_linux_ts).strftime('%Y-%m-%d %H:%M:%S')

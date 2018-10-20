@@ -10,7 +10,7 @@ import time
 
 from src.win007.observers.same_direction.nba_qualification_check2 import QualificationCheck
 
-min_odds = 1.5
+min_odds = 1.3
 max_odds = 1.0 + (2.0 / (min_odds - 1))
 decayRatio = 0.618
 benmarkProb1 = 0.5005
@@ -23,7 +23,7 @@ class Nba (GameQualifierInterface):
 	preferred_team = None
 
 	def __init__ (self):
-		self.rf = joblib.load ('./src/ops/game_qualifier/nba.pkl')
+		self.rf = joblib.load ('./src/ops/game_qualifier/nba_130.pkl')
 
 	def Operation (self, data1, data2):
 		number1 = float (data1)
@@ -119,13 +119,13 @@ class Nba (GameQualifierInterface):
 
 		pinnacle = self.GenerateProbData (match ['probabilities'] ['pinnacle'], match ['kickoff'], side)
 		will_hill = self.GenerateProbData (match ['probabilities'] ['will_hill'], match ['kickoff'], side)
-		vcbet = self.GenerateProbData (match ['probabilities'] ['vcbet'], match ['kickoff'], side)
+		marathonbet = self.GenerateProbData (match ['probabilities'] ['marathonbet'], match ['kickoff'], side)
 		easybet = self.GenerateProbData (match ['probabilities'] ['easybet'], match ['kickoff'], side)
 		skybet = self.GenerateProbData (match ['probabilities'] ['skybet'], match ['kickoff'], side)
 		ladbroke = self.GenerateProbData (match ['probabilities'] ['ladbroke'], match ['kickoff'], side)
 
 		allBookieList = []
-		allBookieList.append (vcbet)
+		allBookieList.append (marathonbet)
 		allBookieList.append (will_hill)
 		allBookieList.append (easybet)
 		allBookieList.append (skybet)
@@ -136,13 +136,13 @@ class Nba (GameQualifierInterface):
 			if i == 1:
 				i += 1
 				continue
-			data.append (self.Operation (vcbet [i], pinnacle [i]))  #
+			data.append (self.Operation (marathonbet [i], pinnacle [i]))  #
 			data.append (self.Operation (easybet [i], pinnacle [i]))  #
 			data.append (self.Operation (skybet [i], pinnacle [i]))  #
 			data.append (self.Operation (ladbroke [i], pinnacle [i]))  #
 			data.append (self.Operation (will_hill [i], pinnacle [i]))  #
-			data.append (self.Operation (easybet [i], vcbet [i]))  #
-			data.append (self.Operation (skybet [i], vcbet [i]))  #
+			data.append (self.Operation (easybet [i], marathonbet [i]))  #
+			data.append (self.Operation (skybet [i], marathonbet [i]))  #
 			data.append (self.Operation (skybet [i], easybet [i]))  #
 			data.append (self.Operation (ladbroke [i], easybet [i]))  #
 			data.append (self.Operation (will_hill [i], easybet [i]))  #
@@ -161,15 +161,15 @@ class Nba (GameQualifierInterface):
 					data.append (self.Operation (bookie [i - 1], bookie [i]))
 				i += 1
 
-		skybet = GenerateProbData(match['probabilities']['skybet'], match['kickoff'], oppoSide)
-		ladbroke = GenerateProbData(match['probabilities']['ladbroke'], match['kickoff'], oppoSide)
+		skybet = self.GenerateProbData(match['probabilities']['skybet'], match['kickoff'], oppoSide)
+		ladbroke = self.GenerateProbData(match['probabilities']['ladbroke'], match['kickoff'], oppoSide)
 
 		i = 0
 		while i < len(pinnacle):
 			if i == 1:
 				i += 1
 				continue
-			data.append(Operation(ladbroke[i], skybet[i]))
+			data.append(self.Operation(ladbroke[i], skybet[i]))
 			i += 1
 
 		for item in data:
@@ -561,7 +561,7 @@ class Nba (GameQualifierInterface):
 				bet_string+=str(game_data['odds']['pinnacle']['final']['2'])
 			if ((game_data ['predict'] == '1' and prob[1] > game_data['probabilities']['pinnacle']['final']['1'] and game_data['odds']['pinnacle']['final']['1'] >= min_odds_qualify) or\
                             (game_data ['predict'] == '2' and prob[1] > game_data['probabilities']['pinnacle']['final']['2'] and game_data['odds']['pinnacle']['final']['2'] >= min_odds_qualify)) and\
-			    prob [1] >= benmarkProb1: 
+			    prob [1] >= benmarkProb1:
 				return {
 					"gid": game_data ['game_id'],
 					"league_id": game_data ['league_id'],

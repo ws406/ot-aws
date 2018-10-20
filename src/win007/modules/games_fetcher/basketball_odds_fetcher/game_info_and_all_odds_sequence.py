@@ -122,7 +122,7 @@ class GameInfoAndAllOddsSequence(AbstractOddsFetcher):
             datetime_in_utc = timezone('Hongkong').localize(datetime_in_hk_time)
 
         # Return timestamp in seconds
-        return int(int(datetime_in_utc.timestamp()))
+        return str(int(datetime_in_utc.timestamp()))
 
 
 if __name__ == '__main__':

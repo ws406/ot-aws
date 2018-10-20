@@ -20,7 +20,7 @@ file_end = ".json"
 
 from src.win007.observers.same_direction.nba_qualification_check2 import QualificationCheck
 
-min_odds = 1.4
+min_odds = 1.3
 #max_odds = 1.0 + (2.0 / (min_odds - 1))
 decayRatio = 0.618
 #decayRatio = 0.65
@@ -71,62 +71,62 @@ def CalculateOdds(allQualifiedGames, game_id, prob, roundsPnl):
     predict = match['predict']
     match['date'] = int(time.strftime('%Y%m%d', time.localtime(float(match['kickoff']))))
     if predict == '1':
-                        #bestOdds = ChooseMax(match['odds']['pinnacle']['final']['1'], match['odds']['pinnacle']['final']['1'], match['odds']['pinnacle']['final']['1'])
-                        bestOdds = ChooseMax(match['odds']['pinnacle']['final']['2'], match['odds']['marathonbet']['final']['2'], match['odds']['easybet']['final']['2'])
-                        #bestOdds = match['odds']['pinnacle']['final']['1']
-                        returns = IsPredictRight_1(match['probabilities']['pinnacle']['final']['1'], bestOdds, '1', match['result'], prob)
-                        #print(match['probabilities']['pinnacle']['final']['1']," vs", prob[1])
-                        #print("Game",int(game_id),"predict home, result",match['result'],"return is",returns,"dist",match['probabilities']['pinnacle']['final']['1'],":",match['probabilities']['pinnacle']['final']['2'],"score",match['home_score'],":",match['away_score'],"prob",prob,"odds", match['odds']['pinnacle']['final']['1'],":",match['odds']['pinnacle']['final']['2'])
-                        curDate = int(match['date'])
-                        if curDate in roundsPnl:
-                            roundsPnl[curDate] = roundsPnl[curDate] + returns
-                        else:
-                            roundsPnl[curDate] = returns
-                        return returns
+        #bestOdds = ChooseMax(match['odds']['pinnacle']['final']['1'], match['odds']['pinnacle']['final']['1'], match['odds']['pinnacle']['final']['1'])
+        bestOdds = ChooseMax(match['odds']['pinnacle']['final']['2'], match['odds']['marathonbet']['final']['2'], match['odds']['easybet']['final']['2'])
+        #bestOdds = match['odds']['pinnacle']['final']['1']
+        returns = IsPredictRight_1(match['probabilities']['pinnacle']['final']['1'], bestOdds, '1', match['result'], prob)
+        #print(match['probabilities']['pinnacle']['final']['1']," vs", prob[1])
+        #print("Game",int(game_id),"predict home, result",match['result'],"return is",returns,"dist",match['probabilities']['pinnacle']['final']['1'],":",match['probabilities']['pinnacle']['final']['2'],"score",match['home_score'],":",match['away_score'],"prob",prob,"odds", match['odds']['pinnacle']['final']['1'],":",match['odds']['pinnacle']['final']['2'])
+        curDate = int(match['date'])
+        if curDate in roundsPnl:
+            roundsPnl[curDate] = roundsPnl[curDate] + returns
+        else:
+            roundsPnl[curDate] = returns
+        return returns
     elif predict == '2':
-                        #bestOdds = ChooseMax(match['odds']['pinnacle']['final']['2'], match['odds']['pinnacle']['final']['2'], match['odds']['pinnacle']['final']['2'])
-                        bestOdds = ChooseMax(match['odds']['pinnacle']['final']['2'], match['odds']['marathonbet']['final']['2'], match['odds']['easybet']['final']['2'])
-                        #bestOdds = match['odds']['pinnacle']['final']['2']
-                        returns = IsPredictRight_1(match['probabilities']['pinnacle']['final']['2'], bestOdds, '2', match['result'], prob)
-                        #print(match['probabilities']['pinnacle']['final']['2']," vs", prob[1])
-                        #print("Game",int(game_id),"predict away, result",match['result'],"return is",returns,"dist",match['probabilities']['pinnacle']['final']['1'],":",match['probabilities']['pinnacle']['final']['2'],"score",match['home_score'],":",match['away_score'],"prob",prob,"odds", match['odds']['pinnacle']['final']['1'],":",match['odds']['pinnacle']['final']['2'])
-                        curDate = int(match['date'])
-                        if curDate in roundsPnl:
-                            roundsPnl[curDate] = roundsPnl[curDate] + returns
-                        else:
-                            roundsPnl[curDate] = returns
-                        return returns
+        #bestOdds = ChooseMax(match['odds']['pinnacle']['final']['2'], match['odds']['pinnacle']['final']['2'], match['odds']['pinnacle']['final']['2'])
+        bestOdds = ChooseMax(match['odds']['pinnacle']['final']['2'], match['odds']['marathonbet']['final']['2'], match['odds']['easybet']['final']['2'])
+        #bestOdds = match['odds']['pinnacle']['final']['2']
+        returns = IsPredictRight_1(match['probabilities']['pinnacle']['final']['2'], bestOdds, '2', match['result'], prob)
+        #print(match['probabilities']['pinnacle']['final']['2']," vs", prob[1])
+        #print("Game",int(game_id),"predict away, result",match['result'],"return is",returns,"dist",match['probabilities']['pinnacle']['final']['1'],":",match['probabilities']['pinnacle']['final']['2'],"score",match['home_score'],":",match['away_score'],"prob",prob,"odds", match['odds']['pinnacle']['final']['1'],":",match['odds']['pinnacle']['final']['2'])
+        curDate = int(match['date'])
+        if curDate in roundsPnl:
+            roundsPnl[curDate] = roundsPnl[curDate] + returns
+        else:
+            roundsPnl[curDate] = returns
+        return returns
 
 def CalculateOppsiteOdds(allQualifiedGames, game_id, prob, roundsPnl):
     match = allQualifiedGames[game_id]
     predict = match['predict']
     match['date'] = int(time.strftime('%Y%m%d', time.localtime(float(match['kickoff']))))
     if predict == '1':
-                        #bestOdds = ChooseMax(match['odds']['pinnacle']['final']['2'], match['odds']['pinnacle']['final']['2'], match['odds']['pinnacle']['final']['2'])
-                        bestOdds = ChooseMax(match['odds']['pinnacle']['final']['2'], match['odds']['marathonbet']['final']['2'], match['odds']['easybet']['final']['2'])
-                        #bestOdds = match['odds']['pinnacle']['final']['1']
-                        returns = IsPredictRight_1(match['probabilities']['pinnacle']['final']['2'], bestOdds, '2', match['result'], prob)
-                        #print(match['probabilities']['pinnacle']['final']['1']," vs", prob[1])
-                        #print("Game",int(game_id),"oppo predict away, result",match['result'],"return",returns,"dist",match['probabilities']['pinnacle']['final']['1'],":",match['probabilities']['pinnacle']['final']['2'],"score",match['home_score'],":",match['away_score'],"prob",prob,"odds", match['odds']['pinnacle']['final']['1'],":",match['odds']['pinnacle']['final']['2'])
-                        curDate = int(match['date'])
-                        if curDate in roundsPnl:
-                            roundsPnl[curDate] = roundsPnl[curDate] + returns
-                        else:
-                            roundsPnl[curDate] = returns
-                        return returns
+        #bestOdds = ChooseMax(match['odds']['pinnacle']['final']['2'], match['odds']['pinnacle']['final']['2'], match['odds']['pinnacle']['final']['2'])
+        bestOdds = ChooseMax(match['odds']['pinnacle']['final']['2'], match['odds']['marathonbet']['final']['2'], match['odds']['easybet']['final']['2'])
+        #bestOdds = match['odds']['pinnacle']['final']['1']
+        returns = IsPredictRight_1(match['probabilities']['pinnacle']['final']['2'], bestOdds, '2', match['result'], prob)
+        #print(match['probabilities']['pinnacle']['final']['1']," vs", prob[1])
+        #print("Game",int(game_id),"oppo predict away, result",match['result'],"return",returns,"dist",match['probabilities']['pinnacle']['final']['1'],":",match['probabilities']['pinnacle']['final']['2'],"score",match['home_score'],":",match['away_score'],"prob",prob,"odds", match['odds']['pinnacle']['final']['1'],":",match['odds']['pinnacle']['final']['2'])
+        curDate = int(match['date'])
+        if curDate in roundsPnl:
+            roundsPnl[curDate] = roundsPnl[curDate] + returns
+        else:
+            roundsPnl[curDate] = returns
+        return returns
     elif predict == '2':
-                        #bestOdds = ChooseMax(match['odds']['pinnacle']['final']['1'], match['odds']['pinnacle']['final']['1'], match['odds']['pinnacle']['final']['1'])
-                        bestOdds = ChooseMax(match['odds']['pinnacle']['final']['2'], match['odds']['marathonbet']['final']['2'], match['odds']['easybet']['final']['2'])
-                        #bestOdds = match['odds']['pinnacle']['final']['2']
-                        returns = IsPredictRight_1(match['probabilities']['pinnacle']['final']['1'], bestOdds, '1', match['result'], prob)
-                        #print(match['probabilities']['pinnacle']['final']['2']," vs", prob[1])
-                        #print("Game",int(game_id),"oppo predict home, result",match['result'],"return",returns,"dist",match['probabilities']['pinnacle']['final']['1'],":",match['probabilities']['pinnacle']['final']['2'],"score",match['home_score'],":",match['away_score'],"prob",prob,"odds", match['odds']['pinnacle']['final']['1'],":",match['odds']['pinnacle']['final']['2'])
-                        curDate = int(match['date'])
-                        if curDate in roundsPnl:
-                            roundsPnl[curDate] = roundsPnl[curDate] + returns
-                        else:
-                            roundsPnl[curDate] = returns
-                        return returns
+        #bestOdds = ChooseMax(match['odds']['pinnacle']['final']['1'], match['odds']['pinnacle']['final']['1'], match['odds']['pinnacle']['final']['1'])
+        bestOdds = ChooseMax(match['odds']['pinnacle']['final']['2'], match['odds']['marathonbet']['final']['2'], match['odds']['easybet']['final']['2'])
+        #bestOdds = match['odds']['pinnacle']['final']['2']
+        returns = IsPredictRight_1(match['probabilities']['pinnacle']['final']['1'], bestOdds, '1', match['result'], prob)
+        #print(match['probabilities']['pinnacle']['final']['2']," vs", prob[1])
+        #print("Game",int(game_id),"oppo predict home, result",match['result'],"return",returns,"dist",match['probabilities']['pinnacle']['final']['1'],":",match['probabilities']['pinnacle']['final']['2'],"score",match['home_score'],":",match['away_score'],"prob",prob,"odds", match['odds']['pinnacle']['final']['1'],":",match['odds']['pinnacle']['final']['2'])
+        curDate = int(match['date'])
+        if curDate in roundsPnl:
+            roundsPnl[curDate] = roundsPnl[curDate] + returns
+        else:
+            roundsPnl[curDate] = returns
+        return returns
 
 def CalculateFinalOdds(allQualifiedGames, game_id, prob, roundsPnl):
     match = allQualifiedGames[game_id]
@@ -240,44 +240,36 @@ def GenFeatures(index, side, data1, match, teamsDict, teamsRecentDict, teamsHome
 
     pinnacle = GenerateProbData(match['probabilities']['pinnacle'], match['kickoff'], side)
     will_hill = GenerateProbData(match['probabilities']['will_hill'], match['kickoff'], side)
-    marathonbet = GenerateProbData(match['probabilities']['marathonbet'], match['kickoff'], side)
+    easybet = GenerateProbData(match['probabilities']['easybet'], match['kickoff'], side)
     marathonbet = GenerateProbData(match['probabilities']['marathonbet'], match['kickoff'], side)
     skybet = GenerateProbData(match['probabilities']['skybet'], match['kickoff'], side)
     ladbroke = GenerateProbData(match['probabilities']['ladbroke'], match['kickoff'], side)
 
     allBookieList = []
-    allBookieList.append(marathonbet)
-    allBookieList.append(will_hill)
-    allBookieList.append(marathonbet)
-    allBookieList.append(skybet)
-    allBookieList.append(ladbroke)
-    #if match['game_id'] == 189058 or match['game_id'] == 189059 or match['game_id'] == 218988 or match['game_id'] == 235590 or match['game_id'] == 257083 or match['game_id'] == 257089 or match['game_id'] == 257273 or match['game_id'] == 257323:
-        #print(match['game_id'])
-        #print(match['probabilities']['pinnacle'])
-        #print(match['probabilities']['marathonbet'])
-        #print(match['probabilities']['will_hill'])
-        #print(match['probabilities']['marathonbet'])
-        #print(match['probabilities']['skybet'])
-        #print(match['probabilities']['ladbroke'])
+    allBookieList.append (marathonbet)
+    allBookieList.append (will_hill)
+    allBookieList.append (easybet)
+    allBookieList.append (skybet)
+    allBookieList.append (ladbroke)
 
     i = 0
     while i < len(pinnacle):
         if i == 1:
             i += 1
             continue
-        data.append(Operation(marathonbet[i], pinnacle[i])) #
-        data.append(Operation(marathonbet[i], pinnacle[i])) #
-        data.append(Operation(skybet[i], pinnacle[i])) #
-        data.append(Operation(ladbroke[i], pinnacle[i])) # 1
-        data.append(Operation(will_hill[i], pinnacle[i])) #
-        data.append(Operation(marathonbet[i], marathonbet[i])) #
-        data.append(Operation(skybet[i], marathonbet[i])) #
-        data.append(Operation(skybet[i], marathonbet[i])) #
-        data.append(Operation(ladbroke[i], marathonbet[i])) #
-        data.append(Operation(will_hill[i], marathonbet[i])) #
-        data.append(Operation(will_hill[i], skybet[i])) #
-        data.append(Operation(ladbroke[i], skybet[i])) #
-        data.append(Operation(will_hill[i], ladbroke[i])) #
+        data.append (Operation (marathonbet [i], pinnacle [i]))  #
+        data.append (Operation (easybet [i], pinnacle [i]))  #
+        data.append (Operation (skybet [i], pinnacle [i]))  #
+        data.append (Operation (ladbroke [i], pinnacle [i]))  #
+        data.append (Operation (will_hill [i], pinnacle [i]))  #
+        data.append (Operation (easybet [i], marathonbet [i]))  #
+        data.append (Operation (skybet [i], marathonbet [i]))  #
+        data.append (Operation (skybet [i], easybet [i]))  #
+        data.append (Operation (ladbroke [i], easybet [i]))  #
+        data.append (Operation (will_hill [i], easybet [i]))  #
+        data.append (Operation (will_hill [i], skybet [i]))  #
+        data.append (Operation (ladbroke [i], skybet [i]))  #
+        data.append (Operation (will_hill [i], ladbroke [i]))  #
         i += 1
 
     for bookie in allBookieList:
@@ -291,10 +283,6 @@ def GenFeatures(index, side, data1, match, teamsDict, teamsRecentDict, teamsHome
                 data.append(Operation(bookie[i - 1], bookie[i]))
             i += 1
 
-    #pinnacle = GenerateProbData(match['probabilities']['pinnacle'], match['kickoff'], oppoSide)
-    #will_hill = GenerateProbData(match['probabilities']['will_hill'], match['kickoff'], oppoSide)
-    #marathonbet = GenerateProbData(match['probabilities']['marathonbet'], match['kickoff'], oppoSide)
-    #marathonbet = GenerateProbData(match['probabilities']['marathonbet'], match['kickoff'], oppoSide)
     skybet = GenerateProbData(match['probabilities']['skybet'], match['kickoff'], oppoSide)
     ladbroke = GenerateProbData(match['probabilities']['ladbroke'], match['kickoff'], oppoSide)
 
@@ -305,29 +293,6 @@ def GenFeatures(index, side, data1, match, teamsDict, teamsRecentDict, teamsHome
             continue
         data.append(Operation(ladbroke[i], skybet[i])) # interesting
         i += 1
-
-    #del data[58]
-    #del data[54]
-    #del data[46]
-
-    #del data[137]
-    #del data[133]
-    #del data[132]
-    #del data[126]
-    #del data[125]
-    #del data[121]
-    #del data[68]
-    #del data[64]
-    #del data[63]
-    #del data[57]
-    #del data[56]
-    #del data[52]
-    #data[5] = Operation1(data[5])
-    #data[30] = Operation1(data[30])
-    #data[85] = Operation1(data[85])
-    #data[100] = Operation1(data[100])
-    #data[125] = Operation1(data[125])
-    #data[180] = Operation1(data[180])
 
     for item in data:
         data1.append(item)
@@ -343,29 +308,6 @@ def GenFeatures(index, side, data1, match, teamsDict, teamsRecentDict, teamsHome
         else:
             data1.append(0)
         data1.append((favTeamTotalMatch + 1) / 82.0)
-        #data1.append(Operation1(favTeamTotalMatch + 1))
-
-        #favTeamHomeTotalMatch = teamsHomeDict[favTeamId][0] + teamsHomeDict[favTeamId][1]
-        #if favTeamHomeTotalMatch > 0:
-            #data1.append(teamsHomeDict[favTeamId][0] / favTeamHomeTotalMatch)
-        #else:
-            #data1.append(0)
-        #data1.append((favTeamHomeTotalMatch + 1) / 41.0)
-
-        #recentWin = 0
-        #recentTotal = 0
-        #index = 4
-        #for result in teamsRecentHomeDict[favTeamId]:
-            #if result != -1:
-                #recentTotal = recentTotal + 1
-            #if result == 1:
-                #recentWin = recentWin + 1 * math.pow(decayRatio, index)
-            #index = index - 1
-        #if recentTotal == 0:
-            #data1.append(0)
-        #else:
-            #data1.append(recentWin / recentTotal)
-
         recentWin = 0
         recentTotal = 0
         index = len(teamsRecentDict[favTeamId]) - 1
@@ -389,29 +331,6 @@ def GenFeatures(index, side, data1, match, teamsDict, teamsRecentDict, teamsHome
         else:
             data1.append(0)
         data1.append((nonFavTeamTotalMatch + 1) / 82.0)
-        #data1.append(Operation1(nonFavTeamTotalMatch + 1))
-
-        #teamAwayTotalMatch = teamsAwayDict[nonFavTeamId][0] + teamsAwayDict[nonFavTeamId][1]
-        #if teamAwayTotalMatch > 0:
-            #data1.append(teamsAwayDict[nonFavTeamId][0] / teamAwayTotalMatch)
-        #else:
-            #data1.append(0)
-        #data1.append((teamAwayTotalMatch + 1) / 41.0)
-
-        #recentWin = 0
-        #recentTotal = 0
-        #index = 4
-        #for result in teamsRecentAwayDict[nonFavTeamId]:
-            #if result != -1:
-                #recentTotal = recentTotal + 1
-            #if result == 1:
-                #recentWin = recentWin + 1 * math.pow(decayRatio, index)
-            #index = index - 1
-        #if recentTotal == 0:
-            #data1.append(0)
-        #else:
-            #data1.append(recentWin / recentTotal)
-
         recentWin = 0
         recentTotal = 0
         index = len(teamsRecentDict[nonFavTeamId]) - 1
@@ -424,46 +343,6 @@ def GenFeatures(index, side, data1, match, teamsDict, teamsRecentDict, teamsHome
             data1.append(0)
         else:
             data1.append(recentWin / recentTotal)
-
-        #if favTeamId in teamsHeadToHead and nonFavTeamId in teamsHeadToHead[favTeamId]:
-            #lastMatch = teamsHeadToHead[favTeamId][nonFavTeamId]
-            #pIndex = 0
-            #curSide = '1'
-            #while pIndex < 2:
-                #pIndex = pIndex + 1
-                #if pIndex == 2:
-                    #curSide = '2'
-                #data1.append(Operation(lastMatch['probabilities']['pinnacle']['final'][curSide], match['probabilities']['pinnacle']['final'][curSide]))
-                #data1.append(Operation(lastMatch['probabilities']['marathonbet']['final'][curSide], match['probabilities']['marathonbet']['final'][curSide]))
-                #data1.append(Operation(lastMatch['probabilities']['will_hill']['final'][curSide], match['probabilities']['will_hill']['final'][curSide]))
-                #data1.append(Operation(lastMatch['probabilities']['marathonbet']['final'][curSide], match['probabilities']['marathonbet']['final'][curSide]))
-                #data1.append(Operation(lastMatch['probabilities']['marathon']['final'][curSide], match['probabilities']['marathon']['final'][curSide]))
-                #data1.append(Operation(lastMatch['probabilities']['skybet']['final'][curSide], match['probabilities']['skybet']['final'][curSide]))
-                #data1.append(Operation(lastMatch['probabilities']['ladbroke']['final'][curSide], match['probabilities']['ladbroke']['final'][curSide]))
-        #else:
-            #pIndex = 0
-            #while pIndex < 14:
-                #data1.append(1)
-                #pIndex = pIndex + 1
-
-        #curMatchTime = float(match['kickoff'])
-        #favTeamLastTime = np.maximum(teamsLastDate[favTeamId][0], teamsLastDate[favTeamId][1])
-        #nonFavTeamLastTime = np.maximum(teamsLastDate[nonFavTeamId][0], teamsLastDate[nonFavTeamId][1])
-        #if favTeamLastTime > 0 and nonFavTeamLastTime > 0:
-            ##print("diff1", curMatchTime - favTeamLastTime, "diff2", curMatchTime - nonFavTeamLastTime)
-            ##data1.append(Operation((curMatchTime - favTeamLastTime), (curMatchTime - nonFavTeamLastTime)))
-            ##data1.append(np.log((curMatchTime - favTeamLastTime) / (curMatchTime - nonFavTeamLastTime)))
-            ##data1.append((curMatchTime - favTeamLastTime) / (curMatchTime - nonFavTeamLastTime))
-            #data1.append((nonFavTeamLastTime - favTeamLastTime) / 86400.0)
-        #else:
-            #data1.append(1)
-        #favTeamLastTime = teamsLastDate[favTeamId][0]
-        #nonFavTeamLastTime = teamsLastDate[nonFavTeamId][1]
-        #if favTeamLastTime > 0 and nonFavTeamLastTime > 0:
-            ##data1.append(np.log((curMatchTime - favTeamLastTime) / (curMatchTime - nonFavTeamLastTime)))
-            #data1.append((nonFavTeamLastTime - favTeamLastTime) / 86400.0)
-        #else:
-            #data1.append(1)
     else:
         favTeamId = int(match['away_team_id'])
         favTeamTotalMatch = teamsDict[favTeamId][0] + teamsDict[favTeamId][1]
@@ -475,28 +354,6 @@ def GenFeatures(index, side, data1, match, teamsDict, teamsRecentDict, teamsHome
         else:
             data1.append(0)
         data1.append((favTeamTotalMatch + 1) / 82.0)
-        #data1.append(Operation1(favTeamTotalMatch + 1))
-
-        #teamAwayTotalMatch = teamsAwayDict[favTeamId][0] + teamsAwayDict[favTeamId][1]
-        #if teamAwayTotalMatch > 0:
-            #data1.append(teamsAwayDict[favTeamId][0] / teamAwayTotalMatch)
-        #else:
-            #data1.append(0)
-        #data1.append((teamAwayTotalMatch + 1) / 41.0)
-
-        #recentWin = 0
-        #recentTotal = 0
-        #index = 4
-        #for result in teamsRecentAwayDict[favTeamId]:
-            #if result != -1:
-                #recentTotal = recentTotal + 1
-            #if result == 1:
-                #recentWin = recentWin + 1 * math.pow(decayRatio, index)
-            #index = index - 1
-        #if recentTotal == 0:
-            #data1.append(0)
-        #else:
-            #data1.append(recentWin / recentTotal)
 
         recentWin = 0
         recentTotal = 0
@@ -521,28 +378,7 @@ def GenFeatures(index, side, data1, match, teamsDict, teamsRecentDict, teamsHome
         else:
             data1.append(0)
         data1.append((nonFavTeamTotalMatch + 1) / 82.0)
-        #data1.append(Operation1(nonFavTeamTotalMatch + 1))
 
-        #teamHomeTotalMatch = teamsHomeDict[nonFavTeamId][0] + teamsHomeDict[nonFavTeamId][1]
-        #if teamHomeTotalMatch > 0:
-            #data1.append(teamsHomeDict[nonFavTeamId][0] / teamHomeTotalMatch)
-        #else:
-            #data1.append(0)
-        #data1.append((teamHomeTotalMatch + 1) / 41.0)
-
-        #recentWin = 0
-        #recentTotal = 0
-        #index = 4
-        #for result in teamsRecentHomeDict[nonFavTeamId]:
-            #if result != -1:
-                #recentTotal = recentTotal + 1
-            #if result == 1:
-                #recentWin = recentWin + 1 * math.pow(decayRatio, index)
-            #index = index - 1
-        #if recentTotal == 0:
-            #data1.append(0)
-        #else:
-            #data1.append(recentWin / recentTotal)
 
         recentWin = 0
         recentTotal = 0
@@ -556,48 +392,6 @@ def GenFeatures(index, side, data1, match, teamsDict, teamsRecentDict, teamsHome
             data1.append(0)
         else:
             data1.append(recentWin / recentTotal)
-
-        #if favTeamId in teamsHeadToHead and nonFavTeamId in teamsHeadToHead[favTeamId]:
-            #lastMatch = teamsHeadToHead[favTeamId][nonFavTeamId]
-            #pIndex = 0
-            #curSide = '1'
-            #while pIndex < 2:
-                #pIndex = pIndex + 1
-                #if pIndex == 2:
-                    #curSide = '2'
-                #data1.append(Operation(lastMatch['probabilities']['pinnacle']['final'][curSide], match['probabilities']['pinnacle']['final'][curSide]))
-                #data1.append(Operation(lastMatch['probabilities']['marathonbet']['final'][curSide], match['probabilities']['marathonbet']['final'][curSide]))
-                #data1.append(Operation(lastMatch['probabilities']['will_hill']['final'][curSide], match['probabilities']['will_hill']['final'][curSide]))
-                #data1.append(Operation(lastMatch['probabilities']['marathonbet']['final'][curSide], match['probabilities']['marathonbet']['final'][curSide]))
-                #data1.append(Operation(lastMatch['probabilities']['marathon']['final'][curSide], match['probabilities']['marathon']['final'][curSide]))
-                #data1.append(Operation(lastMatch['probabilities']['skybet']['final'][curSide], match['probabilities']['skybet']['final'][curSide]))
-                #data1.append(Operation(lastMatch['probabilities']['ladbroke']['final'][curSide], match['probabilities']['ladbroke']['final'][curSide]))
-        #else:
-            #pIndex = 0
-            #while pIndex < 14:
-                #data1.append(1)
-                #pIndex = pIndex + 1
-
-        #curMatchTime = float(match['kickoff'])
-        #favTeamLastTime = np.maximum(teamsLastDate[favTeamId][0], teamsLastDate[favTeamId][1])
-        #nonFavTeamLastTime = np.maximum(teamsLastDate[nonFavTeamId][0], teamsLastDate[nonFavTeamId][1])
-        #if favTeamLastTime > 0 and nonFavTeamLastTime > 0:
-            ##print("diff1", curMatchTime - favTeamLastTime, "diff2", curMatchTime - nonFavTeamLastTime)
-            ##data1.append(Operation((curMatchTime - favTeamLastTime), (curMatchTime - nonFavTeamLastTime)))
-            ##data1.append(np.log((curMatchTime - favTeamLastTime) / (curMatchTime - nonFavTeamLastTime)))
-            ##data1.append((curMatchTime - favTeamLastTime) / (curMatchTime - nonFavTeamLastTime))
-            #data1.append((nonFavTeamLastTime - favTeamLastTime) / 86400.0)
-        #else:
-            #data1.append(1)
-        #favTeamLastTime = teamsLastDate[favTeamId][1]
-        #nonFavTeamLastTime = teamsLastDate[nonFavTeamId][0]
-        #if favTeamLastTime > 0 and nonFavTeamLastTime > 0:
-            ##data1.append(np.log((curMatchTime - favTeamLastTime) / (curMatchTime - nonFavTeamLastTime)))
-            #data1.append((nonFavTeamLastTime - favTeamLastTime) / 86400.0)
-        #else:
-            #data1.append(1)
-
-    #print("feature is", len(data))
 
 def GenerateInitialProbData(probList):
     data = []
@@ -716,59 +510,6 @@ def GenerateProbData(probList, kickoffTime, side):
     data.append(probOpen)
 
     index = 0
-    #if prob24hour == 0:
-        #if probOpenTime > kickoffTimeinLong - 24 * 60 * 60:
-            #data.append(0)
-        #else:
-            #data.append(probOpen)
-    #else:
-        #data.append(prob24hour)
-
-    #index += 1
-    #if prob18hour == 0:
-        #if probOpenTime > kickoffTimeinLong - 18 * 60 * 60:
-            #data.append(0)
-        #else:
-            #data.append(data[index])
-    #else:
-        #data.append(prob18hour)
-
-    #index += 1
-    #if prob12hour == 0:
-        #if probOpenTime > kickoffTimeinLong - 12 * 60 * 60:
-            #data.append(0)
-        #else:
-            #data.append(data[index])
-    #else:
-        #data.append(prob12hour)
-    #index += 1
-
-    #if prob9hour == 0:
-        #if probOpenTime > kickoffTimeinLong - 9 * 60 * 60:
-            #data.append(0)
-        #else:
-            #data.append(data[index])
-    #else:
-        #data.append(prob9hour)
-
-    #index += 1
-    #if prob6hour == 0:
-        #if probOpenTime > kickoffTimeinLong - 6 * 60 * 60:
-            #data.append(0)
-        #else:
-            #data.append(data[index])
-    #else:
-        #data.append(prob6hour)
-
-    #index += 1
-    #if prob3hour == 0:
-        #if probOpenTime > kickoffTimeinLong - 3 * 60 * 60:
-            #data.append(0)
-        #else:
-            #data.append(data[index])
-    #else:
-        #data.append(prob3hour)
-    #index += 1
 
     if prob60min == 0:
         if probOpenTime > kickoffTimeinLong - 60 * 60:
@@ -779,15 +520,6 @@ def GenerateProbData(probList, kickoffTime, side):
         data.append(prob60min)
     index += 1
 
-    #if prob45min == 0:
-        #if probOpenTime > kickoffTimeinLong - 45 * 60:
-            #data.append(0)
-        #else:
-            #data.append(data[index])
-    #else:
-        #data.append(prob45min)
-    #index += 1
-
     if prob30min == 0:
         if probOpenTime > kickoffTimeinLong - 30 * 60:
             data.append(0)
@@ -796,26 +528,7 @@ def GenerateProbData(probList, kickoffTime, side):
     else:
         data.append(prob30min)
 
-    #index += 1
-    #if prob15min == 0:
-        #if probOpenTime > kickoffTimeinLong - 15 * 60:
-            #data.append(0)
-        #else:
-            #data.append(data[index])
-    #else:
-        #data.append(prob15min)
-
-    #index += 1
-    #if prob5min == 0:
-        #if probOpenTime > kickoffTimeinLong - 5 * 60:
-            #data.append(0)
-        #else:
-            #data.append(data[index])
-    #else:
-        #data.append(prob5min)
     data.append(probFinal)
-    #print(probOpen, ",", prob24hour, ",", prob18hour, ",", prob12hour, ",", prob9hour, ",", prob6hour, ",", prob3hour, ",", prob60min, ",", prob30min, ",", prob15min, ",", probFinal)
-    #print(data[0], ",", data[1], ",", data[2], ",", data[3], ",", data[4], ",", data[5], ",", data[6], ",", data[7], ",", data[8], ",", data[9], ",", data[10])
     return data
 
 def UpdateRecord(teamsDict, homeId, awayId, result):
@@ -855,46 +568,26 @@ def UpdateRecentHomeOrAwayRecord(teamsRecentHomeDict, teamsRecentAwayDict, homeI
         teamsRecentHomeDict[homeId][2] = teamsRecentHomeDict[homeId][3]
         teamsRecentHomeDict[homeId][3] = teamsRecentHomeDict[homeId][4]
         teamsRecentHomeDict[homeId][4] = 1
-        #teamsRecentDict[homeId][4] = teamsRecentDict[homeId][5]
-        #teamsRecentDict[homeId][5] = teamsRecentDict[homeId][6]
-        #teamsRecentDict[homeId][6] = teamsRecentDict[homeId][7]
-        #teamsRecentDict[homeId][7] = teamsRecentDict[homeId][8]
-        #teamsRecentDict[homeId][8] = teamsRecentDict[homeId][9]
-        #teamsRecentDict[homeId][9] = 1
+
         teamsRecentAwayDict[awayId][0] = teamsRecentAwayDict[awayId][1]
         teamsRecentAwayDict[awayId][1] = teamsRecentAwayDict[awayId][2]
         teamsRecentAwayDict[awayId][2] = teamsRecentAwayDict[awayId][3]
         teamsRecentAwayDict[awayId][3] = teamsRecentAwayDict[awayId][4]
         teamsRecentAwayDict[awayId][4] = 0
-        #teamsRecentDict[awayId][4] = teamsRecentDict[awayId][5]
-        #teamsRecentDict[awayId][5] = teamsRecentDict[awayId][6]
-        #teamsRecentDict[awayId][6] = teamsRecentDict[awayId][7]
-        #teamsRecentDict[awayId][7] = teamsRecentDict[awayId][8]
-        #teamsRecentDict[awayId][8] = teamsRecentDict[awayId][9]
-        #teamsRecentDict[awayId][9] = 0
+
     elif result == '2':
         teamsRecentHomeDict[homeId][0] = teamsRecentHomeDict[homeId][1]
         teamsRecentHomeDict[homeId][1] = teamsRecentHomeDict[homeId][2]
         teamsRecentHomeDict[homeId][2] = teamsRecentHomeDict[homeId][3]
         teamsRecentHomeDict[homeId][3] = teamsRecentHomeDict[homeId][4]
         teamsRecentHomeDict[homeId][4] = 0
-        #teamsRecentDict[homeId][4] = teamsRecentDict[homeId][5]
-        #teamsRecentDict[homeId][5] = teamsRecentDict[homeId][6]
-        #teamsRecentDict[homeId][6] = teamsRecentDict[homeId][7]
-        #teamsRecentDict[homeId][7] = teamsRecentDict[homeId][8]
-        #teamsRecentDict[homeId][8] = teamsRecentDict[homeId][9]
-        #teamsRecentDict[homeId][9] = 1
+
         teamsRecentAwayDict[awayId][0] = teamsRecentAwayDict[awayId][1]
         teamsRecentAwayDict[awayId][1] = teamsRecentAwayDict[awayId][2]
         teamsRecentAwayDict[awayId][2] = teamsRecentAwayDict[awayId][3]
         teamsRecentAwayDict[awayId][3] = teamsRecentAwayDict[awayId][4]
         teamsRecentAwayDict[awayId][4] = 1
-        #teamsRecentDict[awayId][4] = teamsRecentDict[awayId][5]
-        #teamsRecentDict[awayId][5] = teamsRecentDict[awayId][6]
-        #teamsRecentDict[awayId][6] = teamsRecentDict[awayId][7]
-        #teamsRecentDict[awayId][7] = teamsRecentDict[awayId][8]
-        #teamsRecentDict[awayId][8] = teamsRecentDict[awayId][9]
-        #teamsRecentDict[awayId][9] = 0
+
     else:
         print("This is totally wrong! There must be a winner")
 
@@ -1013,11 +706,6 @@ def IsGameQualified(file_name, correct_result, wrong_result, choice):
                 results.append(-1)
                 results.append(-1)
                 results.append(-1)
-                #results.append(-1)
-                #results.append(-1)
-                #results.append(-1)
-                #results.append(-1)
-                #results.append(-1)
                 teamsRecentHomeDict[homeId] = results
             if awayId not in teamsRecentAwayDict:
                 results = []
@@ -1026,11 +714,6 @@ def IsGameQualified(file_name, correct_result, wrong_result, choice):
                 results.append(-1)
                 results.append(-1)
                 results.append(-1)
-                #results.append(-1)
-                #results.append(-1)
-                #results.append(-1)
-                #results.append(-1)
-                #results.append(-1)
                 teamsRecentAwayDict[awayId] = results
             if homeId not in teamsRecentDict:
                 results = []
@@ -1218,13 +901,6 @@ for year in years:
         rf = RandomForestClassifier(n_estimators=tree_size, min_samples_leaf=1, random_state = 0, n_jobs=-1) #criterion='entropy',
         rf.fit(trainArr, trainRes.ravel())
 
-        #importances = rf.feature_importances_
-        #std = np.std([tree.feature_importances_ for tree in rf.estimators_],
-             #axis=0)
-        #indices = np.argsort(importances)[::-1]
-        #for f in range(trainArr.shape[1]):
-            #print("%d. feature %d (%f)" % (f + 1, indices[f] + 1, importances[indices[f]]))
-
         IsGameQualified(test_file_name, test_result, test_result, half)
         testData = matrix(test_result)
         testRes = array(testData[:,0])
@@ -1262,80 +938,4 @@ for year in years:
             odds = odds + result_odds
             index = index + 1
 
-            #if prob[1] >= benmarkProb1 and prob[1] <= benmarkProb2:
-                #result_odds = CalculateOdds(allQualifiedGames, testData[index, 1], prob, roundsPnl)
-                #if result_odds > 0:
-                    #right = right + 1
-                #elif result_odds < 0:
-                    #wrong = wrong + 1
-                #odds = odds + result_odds
-            #elif prob[0] > benmarkProb3 and prob[0] <= benmarkProb4:
-                #result_odds = CalculateOppsiteOdds(allQualifiedGames, testData[index, 1], prob, roundsPnl)
-                #if result_odds > 0:
-                    #right = right + 1
-                #elif result_odds < 0:
-                    #wrong = wrong + 1
-                #odds = odds + result_odds
-            #index = index + 1
-
-        #finalRoundsPnl = collections.OrderedDict(sorted(roundsPnl.items()))
-
-        #curPnl = 0
-        #for date, data in finalRoundsPnl.items():
-            #curPnl = curPnl + data
-            #allRoundPnl.append(curPnl)
-
-        #plt.figure(1)
-        #plt.plot(allRoundPnl, 'r-')
-        #plt.show()
-
-        #finalDiffsPnl = collections.OrderedDict(sorted(diffPnl.items()))
-        #for date, data in finalDiffsPnl.items():
-            #allDiffPnl.append(data)
-
-        #plt.figure(1)
-        #plt.plot(allDiffPnl, 'r-')
-        #plt.show()
-
         print(year, half, min_odds, tree_size, "winrate", right / (right + wrong), "bet ratio", (right + wrong) / len(test_result), "total bet matches", right + wrong, "pnl", odds, "per match return", odds / (right + wrong))
-
-## Plot the feature importances of the forest
-#plt.figure()
-#plt.title("Feature importances")
-#plt.bar(range(trainArr.shape[1]), importances[indices],
-       #color="r", yerr=std[indices], align="center")
-#plt.xticks(range(trainArr.shape[1]), indices)
-#plt.xlim([-1, trainArr.shape[1]])
-#plt.show()
-
-
-#pIndex = 0
-#while pIndex < trainArr.shape[1]:
-    #x = np.array(trainArr[:, pIndex]).flatten()
-    ##print('x', x)
-    #y = np.array(testArr[:, pIndex]).flatten()
-    ##print('y', y)
-    #z = np.concatenate((x, y))
-    #print("pIndex", pIndex+1, ",sample", ks_2samp(z, y))
-    #pIndex = pIndex + 1
-
-#score1 = rf.score(trainArr, trainRes.ravel())
-#score2 = rf.score(testArr, testRes.ravel())
-#print("Score is", score1, "and", score2, "roc", roc_auc_score(testRes, probability[:,1]))
-
-#joblib.dump(rf, './nba1.pkl')
-
-#print("game size is ", len(test_result_1), ", and ", len(test_result_2), ", and ", len(test_result))
-#print("test result ", testRes.ravel())
-#print("predict result ", a)
-
-#finalRoundsPnl = collections.OrderedDict(sorted(roundsPnl.items()))
-
-#curPnl = 0
-#for date, data in finalRoundsPnl.items():
-    #curPnl = curPnl + data
-    #allRoundPnl.append(curPnl)
-
-#plt.figure(1)
-#plt.plot(allRoundPnl, 'r-')
-#plt.show()
