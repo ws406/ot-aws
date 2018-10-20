@@ -93,8 +93,15 @@ class GameInfoAndAllOddsSequence(AbstractOddsFetcher):
         kickoff_datetime_in_hk = kickoff_datetime_in_utc.astimezone(timezone('Hongkong'))
         self.kick_off_in_utc_gid[gid] = [kickoff_datetime, kickoff_datetime_in_utc]
 
+        # print ('=========')
+        # print (kickoff_datetime_in_hk)
+        # print (kickoff_datetime_in_hk.timestamp())
+        # print (kickoff_datetime_in_hk.year)
+        # print ('=========')
+
         # Assign the 'year' from kickoff time to the 'tick' as it doesn't have year.
         tmp_date_time_with_year = str(kickoff_datetime_in_hk.year) + '-' + datetime_string_in_hk_time
+        # print(tmp_date_time_with_year)
         datetime_in_hk_time = datetime.datetime.strptime(tmp_date_time_with_year, '%Y-%m-%d %H:%M')
 
         datetime_in_utc = timezone('Hongkong').localize(datetime_in_hk_time)
@@ -103,11 +110,11 @@ class GameInfoAndAllOddsSequence(AbstractOddsFetcher):
         # BUT if the a game is kicked off in Jan 2018 and the odds were given in Dec 2017, assign 2018 is wrong.
         # This is to fix it!
         if datetime_in_utc > kickoff_datetime_in_utc:
-            # print(dir(datetime_in_utc))
+            # print('-----------')
             # print(datetime_in_utc.timestamp())
-            # print(dir(kickoff_datetime_in_utc))
             # print(kickoff_datetime_in_utc.timestamp())
             # print(str(kickoff_datetime_in_hk.year-1) + '-' + datetime_string_in_hk_time)
+            # print ('-----------')
             datetime_in_hk_time = datetime.datetime.strptime(
                 str(kickoff_datetime_in_hk.year-1) + '-' + datetime_string_in_hk_time,
                 '%Y-%m-%d %H:%M'
@@ -119,4 +126,4 @@ class GameInfoAndAllOddsSequence(AbstractOddsFetcher):
 
 
 if __name__ == '__main__':
-    print(GameInfoAndAllOddsSequence ({17: "pinnacle"}).get_odds (189060))
+    print(GameInfoAndAllOddsSequence ({26: "willhill"}).get_odds (218988))

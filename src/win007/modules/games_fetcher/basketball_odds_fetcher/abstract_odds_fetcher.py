@@ -43,7 +43,7 @@ class AbstractOddsFetcher(abc.ABC):
             # Because NBA always starts 10 mins after planned kickoff and odds could change after planned kickoff.
             # If the 10 mins isn't added, it could cause issues.
             datetime_obj = datetime.datetime.strptime(simplified_kickoff_in_string, '%Y,%m,%d,%H,%M,%S') + \
-                           datetime.timedelta(minutes = 10)
+                           datetime.timedelta(minutes = 30)
             kickoff = timezone('utc').localize(datetime_obj)
             rtn = kickoff.timestamp()
         except AttributeError:
