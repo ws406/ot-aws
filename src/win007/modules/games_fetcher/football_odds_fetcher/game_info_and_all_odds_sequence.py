@@ -95,7 +95,7 @@ class GameInfoAndAllOddsSequence(AbstractOddsFetcher):
 
         # Assign the 'year' from kickoff time to the 'tick' as it doesn't have year.
         tmp_date_time_with_year = str (kickoff_datetime_in_hk.year) + '-' + datetime_string_in_hk_time
-        print (tmp_date_time_with_year)
+        # print (tmp_date_time_with_year)
         datetime_in_hk_time = datetime.datetime.strptime (tmp_date_time_with_year, '%Y-%m-%d %H:%M')
 
         datetime_in_utc = timezone ('Hongkong').localize (datetime_in_hk_time)

@@ -13,8 +13,8 @@ def find_open_final(data):
             probOpenTime = itemTime
         if probFinalTime < itemTime:
             probFinalTime = itemTime
-    timeList.append(int(probOpenTime))
-    timeList.append(int(probFinalTime))
+    timeList.append(str(probOpenTime))
+    timeList.append(str(probFinalTime))
     return timeList
 
 class QualificationCheck:
@@ -33,7 +33,7 @@ class QualificationCheck:
         prediction = self.disqualified
 
         try:
-            test = game_data['probabilities']['vcbet']
+            test = game_data['probabilities']['marathonbet']
             test = game_data['probabilities']['pinnacle']
             test = game_data['probabilities']['easybet']
             test = game_data['probabilities']['skybet']
@@ -41,7 +41,7 @@ class QualificationCheck:
             test = game_data['probabilities']['will_hill']
 
             test = game_data['odds']['pinnacle']
-            test = game_data['odds']['vcbet']
+            test = game_data['odds']['marathonbet']
             test = game_data['odds']['easybet']
             test = game_data['odds']['skybet']
             test = game_data['odds']['ladbroke']
@@ -107,20 +107,20 @@ class QualificationCheck:
             game_data['probabilities']['will_hill']['final']['1'] = float(game_data['probabilities']['will_hill']['final']['1'])
             game_data['probabilities']['will_hill']['final']['2'] = float(game_data['probabilities']['will_hill']['final']['2'])
 
-            timeList = find_open_final(game_data['odds']['vcbet'])
-            game_data['odds']['vcbet']['open'] = game_data['odds']['vcbet'][timeList[0]]
-            game_data['odds']['vcbet']['final'] = game_data['odds']['vcbet'][timeList[1]]
-            game_data['odds']['vcbet']['open']['1'] = float(game_data['odds']['vcbet']['open']['1'])
-            game_data['odds']['vcbet']['open']['2'] = float(game_data['odds']['vcbet']['open']['2'])
-            game_data['odds']['vcbet']['final']['1'] = float(game_data['odds']['vcbet']['final']['1'])
-            game_data['odds']['vcbet']['final']['2'] = float(game_data['odds']['vcbet']['final']['2'])
-            timeList = find_open_final(game_data['probabilities']['vcbet'])
-            game_data['probabilities']['vcbet']['open'] = game_data['probabilities']['vcbet'][timeList[0]]
-            game_data['probabilities']['vcbet']['final'] = game_data['probabilities']['vcbet'][timeList[1]]
-            game_data['probabilities']['vcbet']['open']['1'] = float(game_data['probabilities']['vcbet']['open']['1'])
-            game_data['probabilities']['vcbet']['open']['2'] = float(game_data['probabilities']['vcbet']['open']['2'])
-            game_data['probabilities']['vcbet']['final']['1'] = float(game_data['probabilities']['vcbet']['final']['1'])
-            game_data['probabilities']['vcbet']['final']['2'] = float(game_data['probabilities']['vcbet']['final']['2'])
+            timeList = find_open_final(game_data['odds']['marathonbet'])
+            game_data['odds']['marathonbet']['open'] = game_data['odds']['marathonbet'][timeList[0]]
+            game_data['odds']['marathonbet']['final'] = game_data['odds']['marathonbet'][timeList[1]]
+            game_data['odds']['marathonbet']['open']['1'] = float(game_data['odds']['marathonbet']['open']['1'])
+            game_data['odds']['marathonbet']['open']['2'] = float(game_data['odds']['marathonbet']['open']['2'])
+            game_data['odds']['marathonbet']['final']['1'] = float(game_data['odds']['marathonbet']['final']['1'])
+            game_data['odds']['marathonbet']['final']['2'] = float(game_data['odds']['marathonbet']['final']['2'])
+            timeList = find_open_final(game_data['probabilities']['marathonbet'])
+            game_data['probabilities']['marathonbet']['open'] = game_data['probabilities']['marathonbet'][timeList[0]]
+            game_data['probabilities']['marathonbet']['final'] = game_data['probabilities']['marathonbet'][timeList[1]]
+            game_data['probabilities']['marathonbet']['open']['1'] = float(game_data['probabilities']['marathonbet']['open']['1'])
+            game_data['probabilities']['marathonbet']['open']['2'] = float(game_data['probabilities']['marathonbet']['open']['2'])
+            game_data['probabilities']['marathonbet']['final']['1'] = float(game_data['probabilities']['marathonbet']['final']['1'])
+            game_data['probabilities']['marathonbet']['final']['2'] = float(game_data['probabilities']['marathonbet']['final']['2'])
 
             timeList = find_open_final(game_data['odds']['pinnacle'])
             game_data['odds']['pinnacle']['open'] = game_data['odds']['pinnacle'][timeList[0]]
@@ -137,15 +137,15 @@ class QualificationCheck:
             game_data['probabilities']['pinnacle']['final']['1'] = float(game_data['probabilities']['pinnacle']['final']['1'])
             game_data['probabilities']['pinnacle']['final']['2'] = float(game_data['probabilities']['pinnacle']['final']['2'])
 
-            if (game_data['probabilities']['vcbet']['open']['2'] < game_data['probabilities']['vcbet']['final']['2'] and \
-                game_data['probabilities']['vcbet']['open']['1'] > game_data['probabilities']['vcbet']['final']['1']) or \
+            if (game_data['probabilities']['marathonbet']['open']['2'] < game_data['probabilities']['marathonbet']['final']['2'] and \
+                game_data['probabilities']['marathonbet']['open']['1'] > game_data['probabilities']['marathonbet']['final']['1']) or \
                (game_data['probabilities']['pinnacle']['open']['2'] < game_data['probabilities']['pinnacle']['final']['2'] and \
                 game_data['probabilities']['pinnacle']['open']['1'] > game_data['probabilities']['pinnacle']['final']['1']):
 
                 prediction = self.prediction_away_win
 
-            elif (game_data['probabilities']['vcbet']['open']['2'] > game_data['probabilities']['vcbet']['final']['2'] and \
-                game_data['probabilities']['vcbet']['open']['1'] < game_data['probabilities']['vcbet']['final']['1']) or \
+            elif (game_data['probabilities']['marathonbet']['open']['2'] > game_data['probabilities']['marathonbet']['final']['2'] and \
+                game_data['probabilities']['marathonbet']['open']['1'] < game_data['probabilities']['marathonbet']['final']['1']) or \
                  (game_data['probabilities']['pinnacle']['open']['2'] > game_data['probabilities']['pinnacle']['final']['2'] and \
                 game_data['probabilities']['pinnacle']['open']['1'] < game_data['probabilities']['pinnacle']['final']['1']):
 
