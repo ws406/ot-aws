@@ -10,7 +10,8 @@ import time
 
 from src.win007.observers.same_direction.nba_qualification_check2 import QualificationCheck
 
-min_odds = 1.3
+timeBackOffset = 0
+min_odds = 1.5
 max_odds = 1.0 + (2.0 / (min_odds - 1))
 decayRatio = 0.618
 benmarkProb1 = 0.5005
@@ -23,7 +24,7 @@ class Nba (GameQualifierInterface):
 	preferred_team = None
 
 	def __init__ (self):
-		self.rf = joblib.load ('./src/ops/game_qualifier/nba_130.pkl')
+		self.rf = joblib.load ('./src/ops/game_qualifier/nba.pkl')
 
 	def Operation (self, data1, data2):
 		number1 = float (data1)
@@ -42,6 +43,7 @@ class Nba (GameQualifierInterface):
 
 	def GenerateProbData (self, probList, kickoffTime, side):
 		kickoffTimeinLong = int (kickoffTime)
+		kickoffTimeinLong = kickoffTimeinLong - (30 - timeBackOffset) * 60
 		probOpenTime = 9999999999
 		probOpen = 0
 		probFinalTime = 0
@@ -70,10 +72,10 @@ class Nba (GameQualifierInterface):
 			if key == "final" or key == "open":
 				continue
 			itemTime = int (key)
-			if probOpenTime > itemTime:
+			if probOpenTime > itemTime and itemTime <= kickoffTimeinLong:
 				probOpenTime = itemTime
 				probOpen = value [side]
-			if probFinalTime < itemTime:
+			if probFinalTime < itemTime and itemTime <= kickoffTimeinLong:
 				probFinalTime = itemTime
 				probFinal = value [side]
 			if itemTime >= kickoffTimeinLong - 3 * 60 * 60 and itemTime < kickoffTimeinLong - 60 * 60:
@@ -124,161 +126,16 @@ class Nba (GameQualifierInterface):
 		skybet = self.GenerateProbData (match ['probabilities'] ['skybet'], match ['kickoff'], side)
 		ladbroke = self.GenerateProbData (match ['probabilities'] ['ladbroke'], match ['kickoff'], side)
 
-		allBookieList = []
-		allBookieList.append (marathonbet)
-		allBookieList.append (will_hill)
-		allBookieList.append (easybet)
-		allBookieList.append (skybet)
-		allBookieList.append (ladbroke)
-
 		i = 0
 		while i < len (pinnacle):
-			if i == 1:
-				i += 1
-				continue
-			data.append (self.Operation (marathonbet [i], pinnacle [i]))  #
-			data.append (self.Operation (easybet [i], pinnacle [i]))  #
-			data.append (self.Operation (skybet [i], pinnacle [i]))  #
-			data.append (self.Operation (ladbroke [i], pinnacle [i]))  #
-			data.append (self.Operation (will_hill [i], pinnacle [i]))  #
-			data.append (self.Operation (easybet [i], marathonbet [i]))  #
-			data.append (self.Operation (skybet [i], marathonbet [i]))  #
+			data.append (self.Operation (ladbroke [i], marathonbet [i]))  #
 			data.append (self.Operation (skybet [i], easybet [i]))  #
-			data.append (self.Operation (ladbroke [i], easybet [i]))  #
 			data.append (self.Operation (will_hill [i], easybet [i]))  #
 			data.append (self.Operation (will_hill [i], skybet [i]))  #
 			data.append (self.Operation (ladbroke [i], skybet [i]))  #
-			data.append (self.Operation (will_hill [i], ladbroke [i]))  #
 			i += 1
-
-		for bookie in allBookieList:
-			data.append (bookie [0])
-			i = 1
-			while i < len (bookie):
-				if bookie [i] == 0:
-					data.append (0)
-				else:
-					data.append (self.Operation (bookie [i - 1], bookie [i]))
-				i += 1
-
-		skybet = self.GenerateProbData(match['probabilities']['skybet'], match['kickoff'], oppoSide)
-		ladbroke = self.GenerateProbData(match['probabilities']['ladbroke'], match['kickoff'], oppoSide)
-
-		i = 0
-		while i < len(pinnacle):
-			if i == 1:
-				i += 1
-				continue
-			data.append(self.Operation(ladbroke[i], skybet[i]))
-			i += 1
-
 		for item in data:
-			data1.append (item)
-
-		if side == '1':
-			favTeamId = int (match ['home_team_id'])
-			if favTeamId not in teamsDict:
-				data1.append (0)
-				data1.append (0)
-				data1.append (0)
-			else:
-				favTeamTotalMatch = teamsDict [favTeamId] [0] + teamsDict [favTeamId] [1]
-				if favTeamTotalMatch > 0 and teamsDict [favTeamId] [0] > 0:
-					data1.append (self.Operation1 (teamsDict [favTeamId] [0] / favTeamTotalMatch))
-				else:
-					data1.append (0)
-				data1.append ((favTeamTotalMatch + 1) / 82.0)
-
-				recentWin = 0
-				recentTotal = 0
-				index = len (teamsRecentDict [favTeamId]) - 1
-				for result in teamsRecentDict [favTeamId]:
-					if result != -1:
-						recentTotal = recentTotal + 1
-					if result == 1:
-						recentWin = recentWin + 1 * math.pow (decayRatio, index)
-				if recentTotal == 0:
-					data1.append (0)
-				else:
-					data1.append (recentWin / recentTotal)
-
-			nonFavTeamId = int (match ['away_team_id'])
-			if nonFavTeamId not in teamsDict:
-				data1.append (0)
-				data1.append (0)
-				data1.append (0)
-			else:
-				nonFavTeamTotalMatch = teamsDict [nonFavTeamId] [0] + teamsDict [nonFavTeamId] [1]
-				if nonFavTeamTotalMatch > 0 and teamsDict [nonFavTeamId] [0] > 0:
-					data1.append (self.Operation1 (teamsDict [nonFavTeamId] [0] / nonFavTeamTotalMatch))
-				else:
-					data1.append (0)
-				data1.append ((nonFavTeamTotalMatch + 1) / 82.0)
-
-				recentWin = 0
-				recentTotal = 0
-				index = len (teamsRecentDict [nonFavTeamId]) - 1
-				for result in teamsRecentDict [nonFavTeamId]:
-					if result != -1:
-						recentTotal = recentTotal + 1
-					if result == 1:
-						recentWin = recentWin + 1 * math.pow (decayRatio, index)
-				if recentTotal == 0:
-					data1.append (0)
-				else:
-					data1.append (recentWin / recentTotal)
-		else:
-			favTeamId = int (match ['away_team_id'])
-			if favTeamId not in teamsDict:
-				data1.append (0)
-				data1.append (0)
-				data1.append (0)
-			else:
-				favTeamTotalMatch = teamsDict [favTeamId] [0] + teamsDict [favTeamId] [1]
-				if favTeamTotalMatch > 0 and teamsDict [favTeamId] [0] > 0:
-					data1.append (self.Operation1 (teamsDict [favTeamId] [0] / favTeamTotalMatch))
-				else:
-					data1.append (0)
-				data1.append ((favTeamTotalMatch + 1) / 82.0)
-
-				recentWin = 0
-				recentTotal = 0
-				index = len (teamsRecentDict [favTeamId]) - 1
-				for result in teamsRecentDict [favTeamId]:
-					if result != -1:
-						recentTotal = recentTotal + 1
-					if result == 1:
-						recentWin = recentWin + 1 * math.pow (decayRatio, index)
-				if recentTotal == 0:
-					data1.append (0)
-				else:
-					data1.append (recentWin / recentTotal)
-
-			nonFavTeamId = int (match ['home_team_id'])
-			if nonFavTeamId not in teamsDict:
-				data1.append (0)
-				data1.append (0)
-				data1.append (0)
-			else:
-				nonFavTeamTotalMatch = teamsDict [nonFavTeamId] [0] + teamsDict [nonFavTeamId] [1]
-				if nonFavTeamTotalMatch > 0 and teamsDict [nonFavTeamId] [0] > 0:
-					data1.append (self.Operation1 (teamsDict [nonFavTeamId] [0] / nonFavTeamTotalMatch))
-				else:
-					data1.append (0)
-				data1.append ((nonFavTeamTotalMatch + 1) / 82.0)
-
-				recentWin = 0
-				recentTotal = 0
-				index = len (teamsRecentDict [nonFavTeamId]) - 1
-				for result in teamsRecentDict [nonFavTeamId]:
-					if result != -1:
-						recentTotal = recentTotal + 1
-					if result == 1:
-						recentWin = recentWin + 1 * math.pow (decayRatio, index)
-				if recentTotal == 0:
-					data1.append (0)
-				else:
-					data1.append (recentWin / recentTotal)
+			data1.append(item)
 
 	def UpdateRecord (self, teamsDict, homeId, awayId, result):
 		if result == '1':
@@ -395,6 +252,7 @@ class Nba (GameQualifierInterface):
 		with open (file_name) as json_file:
 			matches = json.load (json_file)
 			for match in matches:
+				match['kickoff'] = match['kickoff'] - timeBackOffset * 60
 				time = match['kickoff'] + match['home_team_id']
 				allMatches[float(time)] = match
 			allMatchesInSeq = collections.OrderedDict(sorted(allMatches.items()))
@@ -498,6 +356,7 @@ class Nba (GameQualifierInterface):
 				self.UpdateKickoffTime (teamsLastDate, homeId, awayId, kickoffTime)
 				continue
 		data = []
+		game_data['kickoff'] = match['kickoff'] - timeBackOffset * 60
 		predict = QualificationCheck ().is_qualified (game_data)
 		if predict == 'x':
 			print ("trend wrong")
