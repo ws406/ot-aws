@@ -9,7 +9,7 @@ import datetime
 
 class GamesFetcher:
     url_games_list = 'http://op1.win007.com/index.aspx'
-    # url_games_list = 'http://op1.win007.com/company.aspx?id=281&company=bet%20365(%D3%A2%B9%FA)'
+    # url_games_list = 'http://op1.win007.com/nextodds/cn/20181023.html'
 
     odds_fetcher = None
 

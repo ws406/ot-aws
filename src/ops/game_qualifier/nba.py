@@ -252,7 +252,6 @@ class Nba (GameQualifierInterface):
 		with open (file_name) as json_file:
 			matches = json.load (json_file)
 			for match in matches:
-				match['kickoff'] = match['kickoff'] - timeBackOffset * 60
 				time = match['kickoff'] + match['home_team_id']
 				allMatches[float(time)] = match
 			allMatchesInSeq = collections.OrderedDict(sorted(allMatches.items()))
@@ -356,7 +355,6 @@ class Nba (GameQualifierInterface):
 				self.UpdateKickoffTime (teamsLastDate, homeId, awayId, kickoffTime)
 				continue
 		data = []
-		game_data['kickoff'] = match['kickoff'] - timeBackOffset * 60
 		predict = QualificationCheck ().is_qualified (game_data)
 		if predict == 'x':
 			print ("trend wrong")
