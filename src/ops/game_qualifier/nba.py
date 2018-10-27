@@ -429,7 +429,8 @@ class Nba (GameQualifierInterface):
 					"home_team_id": game_data ['home_team_id'],
 					"away_team_id": game_data ['away_team_id'],
 					"preferred_team": self.preferred_team,
-					"bet_on_market": 'preferred team win,'+bet_string,
+					"bet_on_market": 'preferred team win',
+					"details": 'preferred team win,' + bet_string,
 					"min_odds_to_bet_on": favTeamOdds
 				}
 			elif ((game_data ['predict'] == '1' and prob[0] > game_data['probabilities']['pinnacle']['final']['2'] and game_data['odds']['pinnacle']['final']['2'] >= min_odds_qualify) or\
@@ -445,7 +446,8 @@ class Nba (GameQualifierInterface):
 					"home_team_id": game_data ['home_team_id'],
 					"away_team_id": game_data ['away_team_id'],
 					"preferred_team": self.preferred_team,
-					"bet_on_market": 'preferred team lose,'+bet_string,
+					"bet_on_market": 'preferred team lose',
+					"details": 'preferred team lose,'+bet_string,
 					"min_odds_to_bet_on": nonFavTeamOdds
 				}
 			else:
