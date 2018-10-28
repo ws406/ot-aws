@@ -74,8 +74,7 @@ def CalculateOdds(allQualifiedGames, game_id, prob, roundsPnl):
     predict = match['predict']
     match['date'] = int(time.strftime('%Y%m%d', time.localtime(float(match['kickoff']))))
     if predict == '1':
-        #bestOdds = ChooseMax(match['odds']['pinnacle']['final']['1'], match['odds']['pinnacle']['final']['1'], match['odds']['pinnacle']['final']['1'])
-        bestOdds = ChooseMax(match['odds']['pinnacle']['final']['2'], match['odds']['vcbet']['final']['2'], match['odds']['easybet']['final']['2'])
+        bestOdds = ChooseMax(match['odds']['pinnacle']['final']['1'], match['odds']['pinnacle']['final']['1'], match['odds']['pinnacle']['final']['1'])
         #bestOdds = match['odds']['pinnacle']['final']['1']
         returns = IsPredictRight_1(match['probabilities']['pinnacle']['final']['1'], bestOdds, '1', match['result'], prob)
         #print(match['probabilities']['pinnacle']['final']['1']," vs", prob[1])
@@ -87,8 +86,7 @@ def CalculateOdds(allQualifiedGames, game_id, prob, roundsPnl):
             roundsPnl[curDate] = returns
         return returns
     elif predict == '2':
-        #bestOdds = ChooseMax(match['odds']['pinnacle']['final']['2'], match['odds']['pinnacle']['final']['2'], match['odds']['pinnacle']['final']['2'])
-        bestOdds = ChooseMax(match['odds']['pinnacle']['final']['2'], match['odds']['vcbet']['final']['2'], match['odds']['easybet']['final']['2'])
+        bestOdds = ChooseMax(match['odds']['pinnacle']['final']['2'], match['odds']['pinnacle']['final']['2'], match['odds']['pinnacle']['final']['2'])
         #bestOdds = match['odds']['pinnacle']['final']['2']
         returns = IsPredictRight_1(match['probabilities']['pinnacle']['final']['2'], bestOdds, '2', match['result'], prob)
         #print(match['probabilities']['pinnacle']['final']['2']," vs", prob[1])
@@ -105,8 +103,7 @@ def CalculateOppsiteOdds(allQualifiedGames, game_id, prob, roundsPnl):
     predict = match['predict']
     match['date'] = int(time.strftime('%Y%m%d', time.localtime(float(match['kickoff']))))
     if predict == '1':
-        #bestOdds = ChooseMax(match['odds']['pinnacle']['final']['2'], match['odds']['pinnacle']['final']['2'], match['odds']['pinnacle']['final']['2'])
-        bestOdds = ChooseMax(match['odds']['pinnacle']['final']['2'], match['odds']['vcbet']['final']['2'], match['odds']['easybet']['final']['2'])
+        bestOdds = ChooseMax(match['odds']['pinnacle']['final']['2'], match['odds']['pinnacle']['final']['2'], match['odds']['pinnacle']['final']['2'])
         #bestOdds = match['odds']['pinnacle']['final']['1']
         returns = IsPredictRight_1(match['probabilities']['pinnacle']['final']['2'], bestOdds, '2', match['result'], prob)
         #print(match['probabilities']['pinnacle']['final']['1']," vs", prob[1])
@@ -118,8 +115,7 @@ def CalculateOppsiteOdds(allQualifiedGames, game_id, prob, roundsPnl):
             roundsPnl[curDate] = returns
         return returns
     elif predict == '2':
-        #bestOdds = ChooseMax(match['odds']['pinnacle']['final']['1'], match['odds']['pinnacle']['final']['1'], match['odds']['pinnacle']['final']['1'])
-        bestOdds = ChooseMax(match['odds']['pinnacle']['final']['2'], match['odds']['vcbet']['final']['2'], match['odds']['easybet']['final']['2'])
+        bestOdds = ChooseMax(match['odds']['pinnacle']['final']['1'], match['odds']['pinnacle']['final']['1'], match['odds']['pinnacle']['final']['1'])
         #bestOdds = match['odds']['pinnacle']['final']['2']
         returns = IsPredictRight_1(match['probabilities']['pinnacle']['final']['1'], bestOdds, '1', match['result'], prob)
         #print(match['probabilities']['pinnacle']['final']['2']," vs", prob[1])
@@ -787,34 +783,34 @@ for year in years:
         benmarkProb3 = 0.5
         benmarkProb4 = 1.6
 
-        if year == "2018-2019" and half == "top":
-           joblib.dump(rf, './nba.pkl')
+        #if year == "2018-2019" and half == "top":
+        #   joblib.dump(rf, './nba.pkl')
 
         for prob in probability:
             result_odds = 0
 
             result_odds = CalculateFinalOdds(allQualifiedGames, testData[index, 1], prob, roundsPnl)
             if result_odds > 0:
-                right = right + 1
+               right = right + 1
             elif result_odds < 0:
-                wrong = wrong + 1
+               wrong = wrong + 1
             odds = odds + result_odds
             index = index + 1
 
-            #if prob[1] >= benmarkProb1 and prob[1] <= benmarkProb2:
-            #    result_odds = CalculateOdds(allQualifiedGames, testData[index, 1], prob, roundsPnl)
-            #    if result_odds > 0:
-            #        right = right + 1
-            #    elif result_odds < 0:
-            #        wrong = wrong + 1
-            #    odds = odds + result_odds
-            #elif prob[0] > benmarkProb3 and prob[0] <= benmarkProb4:
-            #    result_odds = CalculateOppsiteOdds(allQualifiedGames, testData[index, 1], prob, roundsPnl)
-            #    if result_odds > 0:
-            #        right = right + 1
-            #    elif result_odds < 0:
-            #        wrong = wrong + 1
-            #    odds = odds + result_odds
+            #if prob[1] >= 0.5 and prob[1] <= 1.0:
+                #result_odds = CalculateOdds(allQualifiedGames, testData[index, 1], prob, roundsPnl)
+                #if result_odds > 0:
+                    #right = right + 1
+                #elif result_odds < 0:
+                    #wrong = wrong + 1
+                #odds = odds + result_odds
+            #elif prob[0] > 0.5 and prob[0] <= 1.0:
+                #result_odds = CalculateOppsiteOdds(allQualifiedGames, testData[index, 1], prob, roundsPnl)
+                #if result_odds > 0:
+                    #right = right + 1
+                #elif result_odds < 0:
+                    #wrong = wrong + 1
+                #odds = odds + result_odds
             #index = index + 1
 
         #finalRoundsPnl = collections.OrderedDict(sorted(roundsPnl.items()))
