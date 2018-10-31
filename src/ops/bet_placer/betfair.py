@@ -119,6 +119,23 @@ class Betfair(abc.ABC):
         except urllib.error.URLError as e:
             raise e
 
+    # Round odds to abey Betfair increments to avoid 'INVALID_ODDS' error
+    # Details - https://docs.developer.betfair.com/display/1smk3cen4v3lu3yomq5qye0ni/placeOrders
+    @staticmethod
+    def _round_up_odds(odds):
+        if odds < 2:
+            return round(odds, 2)
+        elif odds < 3:
+            # odds = round(odds, 2)
+            return round(odds*5, 1)/5
+        elif odds < 4:
+            # odds = round(odds, 2)
+            return round(odds*2, 1)/2
+        elif odds < 6:
+            return round(odds, 1)
+        else:
+            return odds
+
     @staticmethod
     def _query_request_builder(endpoint, filters):
         return {

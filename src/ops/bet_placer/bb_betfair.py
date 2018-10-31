@@ -24,7 +24,7 @@ class BBBetfair(Betfair):
             return 'cannot handle bet_on_market : ' + game_data['bet_on_market']
 
         # Add the 4% BetFair charge on top of the min_odds_to_bet_on
-        price = round((game_data['min_odds_to_bet_on']-1)*1.04+1, 2)
+        price = self._round_up_odds((game_data['min_odds_to_bet_on']-1)*1.04+1)
         try:
             response_json = json.loads(self._get_market_catalogue(home_team_name, away_team_name, self.market_type_code_match_odds))
             market_id, selection_id = self._get_match_odds_market_selection_id(response_json, bet_on_team)
@@ -66,3 +66,8 @@ if __name__ == "__main__":
     # todo: add AH bet types later
     else:
         print('unrecognised bet type - ', bet_type)
+
+    # Test _round_up_odds method
+    # values = [1.23, 1.99, 2.00, 2.01, 2.3333333, 2.05, 2.06, 2.99, 3.01, 3.05, 3.9992, 3.3367, 3.776]
+    # for value in values:
+    #     print(str(value) + ' => ' + str(BBBetfair('a', 'b')._round_up_odds(value)))
