@@ -71,6 +71,7 @@ class HistGamesFetcher:
             # tmp is like
             #  "1394661,36,-1,'2017-08-12 02:45',19,59,'4-3','2-2','5','12',1.25,0.5,'3','1/1.5',1,1,1,1,0,0,'','5','12'"
             round_games_list = round_info[1].split('],[')
+            num_games_before_this_round = len(games)
             for tmp in round_games_list:
                 # print('\t\t\t' + tmp)
                 game = dict()
@@ -120,6 +121,10 @@ class HistGamesFetcher:
                     continue
 
                 games.append(game)
+            # If no game in this round has been played, do not process!
+            if num_games_before_this_round == len(games):
+                print('Process all games played!')
+                break
             # Sleep 10 seconds after grabbing data from each round
             time.sleep(2)
         return games
