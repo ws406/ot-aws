@@ -127,10 +127,10 @@ class Betfair(abc.ABC):
             return round(odds, 2)
         elif odds < 3:
             # odds = round(odds, 2)
-            return round(odds*5, 1)/5
+            return round(odds*50)/50
         elif odds < 4:
             # odds = round(odds, 2)
-            return round(odds*2, 1)/2
+            return round(odds*20)/20
         elif odds < 6:
             return round(odds, 1)
         else:

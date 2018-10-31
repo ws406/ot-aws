@@ -51,23 +51,23 @@ if __name__ == "__main__":
     #     'preferred_team': 'home', 'bet_on_market': 'win', 'min_odds_to_bet_on': 1.8
     # }
 
-    data = {'gid': 325656, 'league_id': 1, 'league_name': 'NBA', 'kickoff': 1540767600.0,
-            'home_team_name': 'Dallas Mavericks', 'away_team_name': 'Utah Jazz', 'home_team_id': 17, 'away_team_id': 20,
-            'preferred_team': 'away', 'bet_on_market': 'preferred team lose',
-            'details': 'preferred team lose,prefer away,0.3657957244655582:0.6342042755344418,prob,0.5324:0.4676,2.67:1.54',
-            'min_odds_to_bet_on': 2.67}
-
-    # Betfair(input("API key:"), input("session token:")).place_bet(data)
-    betfair = BBBetfair("4NTZimyPy6zJ8LDN", "nC6W3lfWK8CFKSZbucfvPS0YKrTcSXa6hJ+ytdpd73w=")
-
-    bet_type = data['bet_on_market']
-    if bet_type == 'preferred team win' or bet_type == 'preferred team lose':
-        betfair.place_match_odds_bet(data, 2)
-    # todo: add AH bet types later
-    else:
-        print('unrecognised bet type - ', bet_type)
+    # data = {'gid': 325656, 'league_id': 1, 'league_name': 'NBA', 'kickoff': 1540767600.0,
+    #         'home_team_name': 'Dallas Mavericks', 'away_team_name': 'Utah Jazz', 'home_team_id': 17, 'away_team_id': 20,
+    #         'preferred_team': 'away', 'bet_on_market': 'preferred team lose',
+    #         'details': 'preferred team lose,prefer away,0.3657957244655582:0.6342042755344418,prob,0.5324:0.4676,2.67:1.54',
+    #         'min_odds_to_bet_on': 2.67}
+    #
+    # # Betfair(input("API key:"), input("session token:")).place_bet(data)
+    # betfair = BBBetfair("4NTZimyPy6zJ8LDN", "nC6W3lfWK8CFKSZbucfvPS0YKrTcSXa6hJ+ytdpd73w=")
+    #
+    # bet_type = data['bet_on_market']
+    # if bet_type == 'preferred team win' or bet_type == 'preferred team lose':
+    #     betfair.place_match_odds_bet(data, 2)
+    # # todo: add AH bet types later
+    # else:
+    #     print('unrecognised bet type - ', bet_type)
 
     # Test _round_up_odds method
-    # values = [1.23, 1.99, 2.00, 2.01, 2.3333333, 2.05, 2.06, 2.99, 3.01, 3.05, 3.9992, 3.3367, 3.776]
-    # for value in values:
-    #     print(str(value) + ' => ' + str(BBBetfair('a', 'b')._round_up_odds(value)))
+    values = [1.23, 1.99, 2.00, 2.01, 2.3333333, 2.23, 2.06, 2.99, 3.01, 3.05, 3.9992, 3.3367, 3.776, 4.56, ]
+    for value in values:
+        print(str(value) + ' => ' + str(BBBetfair('a', 'b')._round_up_odds(value)))
