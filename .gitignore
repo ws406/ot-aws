@@ -1,4 +1,4 @@
-nohub.out
+nohup.out
 test.json
 logs/*
 docker_commands
