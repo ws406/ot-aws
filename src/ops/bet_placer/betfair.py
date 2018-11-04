@@ -25,10 +25,10 @@ class Betfair(abc.ABC):
             headers = {'X-Application': self.app_key, 'X-Authentication': self.session_token, 'Accept': 'application/json'}
             req = urllib.request.Request(url = self.keep_alive_api, headers = headers)
             response = urllib.request.urlopen(req)
-            jsonResponse = response.read().decode('utf-8')
+            jsonResponse = json.loads(response.read().decode('utf-8'))
             print(jsonResponse)
 
-            if (jsonResponse['status'] == 'SUCCESS'):
+            if jsonResponse['status'] == 'SUCCESS':
                 return {
                     'status': 'success',
                     'message': jsonResponse
@@ -47,6 +47,41 @@ class Betfair(abc.ABC):
     @abc.abstractmethod
     def place_match_odds_bet(self, game_data, betting_amount):
         pass
+
+    def _place_bet(self, home_team_name, away_team_name, bet_on_team, market_type_code_match_odds, betting_amount, price):
+        try:
+            response_json = json.loads (
+                self._get_market_catalogue (home_team_name, away_team_name, market_type_code_match_odds))
+            market_id, selection_id = self._get_match_odds_market_selection_id (response_json, bet_on_team)
+
+            # TODO: next step is to check amount and make sure existing bets' amount is enough
+            if self.does_this_bet_exist (market_id):
+                print ('Bet is already made!')
+                return {
+                    'status': 'ignore',
+                    'message': 'Bet is already made!'
+                }
+
+            if selection_id:
+                # TODO: this is not true! Because it is not guaranteed to be successful
+                return {
+                    'status': 'success',
+                    'message': self._execute_bet (market_id, selection_id, betting_amount, price)
+                }
+            else:
+                print ("failed to place bet - cannot get selectionId'")
+                # todo: check if it is success
+                print (response_json)
+                return {
+                    'status': 'error',
+                    'message': response_json
+                }
+        except IndexError as ie:
+            print ("failed to place bet - cannot get selectionId'")
+            return {
+                'status': 'error',
+                'message': str (ie)
+            }
 
     def _execute_bet(self, market_id, selection_id, size, price):
         parameters = {
@@ -127,7 +162,7 @@ class Betfair(abc.ABC):
 
         try:
             bets = response['result']['currentOrders']
-            if (len(bets) > 0):
+            if len(bets) > 0:
                 for bet in bets:
                     if str(bet['marketId']) == str(market_id):
                         return True

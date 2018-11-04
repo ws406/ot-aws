@@ -23,30 +23,8 @@ class FBBetfair(Betfair):
 
         # Add the 4% BetFair charge on top of the min_odds_to_bet_on
         price = self._round_up_odds ((game_data ['min_odds_to_bet_on'] - 1) * 1.04 + 1)
-        try:
-            response_json = json.loads(self._get_market_catalogue(home_team_name, away_team_name, self.market_type_code_match_odds))
-            market_id, selection_id = self._get_match_odds_market_selection_id(response_json, bet_on_team)
-
-            # TODO: next step is to check amount and make sure existing bets' amount is enough
-            if self.does_this_bet_exist(market_id):
-                print('Bet is already made!')
-                return {
-                    'status': 'ignore',
-                    'message': 'Bet is already made!'
-                }
-
-            if selection_id:
-                # TODO: this is not true! Because it is not guaranteed to be successful
-                return {
-                    'status': 'success',
-                    'message': self._execute_bet(market_id, selection_id, betting_amount, price)
-                }
-            else:
-                print("failed to place bet - cannot get selectionId'")
-                # todo: check if it is success
-                print(response_json)
-        except IndexError as ie:
-            print ("failed to place bet - cannot get selectionId'")
+        return self._place_bet (home_team_name, away_team_name, bet_on_team, self.market_type_code_match_odds, betting_amount,
+                         price)
 
 
     def _unify_team_name(self, teamname):
@@ -58,10 +36,9 @@ class FBBetfair(Betfair):
 
 if __name__ == "__main__":
 
-    # Betfair(input("API key:"), input("session token:")).place_bet(data)
-    betfair = FBBetfair("4NTZimyPy6zJ8LDN", "wAQlfjE+iF6D6p1LBA8D3Y4WbHL9hGYoo0umTA4nLBk=")
+    # Test keep_session_alive()
+    betfair = FBBetfair("4NTZimyPy6zJ8LDN", "XXXXXXXXXXXXXX")
     betfair.keep_session_alive()
-
     # data = {'gid': 1585150, 'league_id': 34, 'league_name': 'Italian Serie A', 'kickoff': 1540755000.0,
     #         'home_team_name': 'Napoli', 'away_team_name': 'AS Roma', 'home_team_id': 1419, 'away_team_id': 174,
     #         'preferred_team': 'home', 'bet_on_market': 'win', 'min_odds_to_bet_on': 1.57}

@@ -4,7 +4,6 @@ import sys
 from src.ops.bet_placer.bb_betfair import BBBetfair
 from src.ops.bet_placer.fb_betfair import FBBetfair
 import datetime
-import time
 
 kafka_topic__bb_game_qualified = 'event-bb-game-qualified'
 kafka_topic__fb_game_qualified = 'event-game-qualified'
@@ -37,18 +36,15 @@ fb_betfair = FBBetfair (appKey, sessionToken)
 amount = 1000
 mins_before_kickoff = 5
 
-now_ts = time.time()
-eight_hours_ts = 60*60*8
+def keep_session_alive():
+    result = fb_betfair.keep_session_alive ()
+    if result ['status'] == 'error':
+        producer.send (kafka_topic_error, result)
+    else:
+        print ("Session renewed at " + str (datetime.datetime.now ()))
 
 # TODO: this only bet on NBA now
 while True:
-
-    if time.time() - now_ts >= eight_hours_ts:
-        result = fb_betfair.keep_session_alive()
-        if result['status'] == 'error':
-            producer.send (kafka_topic_error, result)
-        else:
-            print("Session renewed at " + str(datetime.datetime.now()))
 
     for message in consumer:
         game_data = message.value
@@ -69,7 +65,13 @@ while True:
                    game_data ['away_team_name'])
             continue
         result = betfair.place_match_odds_bet (game_data, amount)
-        if result['status'] == 'error':
-            producer.send (kafka_topic_error, result)
-        else:
-            producer.send (kafka_topic_bet_placed, result)
+        print(result)
+        status = result['status']
+        message = result['message']
+        if status == 'error':
+            producer.send (kafka_topic_error, message)
+        elif status == 'success':
+            producer.send (kafka_topic_bet_placed, message)
+        elif status == 'ignore':
+            print(message)
+            pass
