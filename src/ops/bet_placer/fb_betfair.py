@@ -9,7 +9,9 @@ class FBBetfair(Betfair):
 
     team_names_mapping = {
         'AS Roma': 'Roma',
-        'Tottenham Hotspur': 'Tottenham'
+        'Tottenham Hotspur': 'Tottenham',
+        'West Ham United' : 'West Ham',
+        'Brighton   Hove Albion': 'Brighton'
     }
 
     def place_match_odds_bet(self, game_data, betting_amount):
@@ -28,10 +30,17 @@ class FBBetfair(Betfair):
             # TODO: next step is to check amount and make sure existing bets' amount is enough
             if self.does_this_bet_exist(market_id):
                 print('Bet is already made!')
-                return 'Bet is already made!'
+                return {
+                    'status': 'ignore',
+                    'message': 'Bet is already made!'
+                }
 
             if selection_id:
-                return self._execute_bet(market_id, selection_id, betting_amount, price)
+                # TODO: this is not true! Because it is not guaranteed to be successful
+                return {
+                    'status': 'success',
+                    'message': self._execute_bet(market_id, selection_id, betting_amount, price)
+                }
             else:
                 print("failed to place bet - cannot get selectionId'")
                 # todo: check if it is success
@@ -49,16 +58,16 @@ class FBBetfair(Betfair):
 
 if __name__ == "__main__":
 
-    data = {'gid': 1585150, 'league_id': 34, 'league_name': 'Italian Serie A', 'kickoff': 1540755000.0,
-            'home_team_name': 'Napoli', 'away_team_name': 'AS Roma', 'home_team_id': 1419, 'away_team_id': 174,
-            'preferred_team': 'home', 'bet_on_market': 'win', 'min_odds_to_bet_on': 1.57}
-
     # Betfair(input("API key:"), input("session token:")).place_bet(data)
-    betfair = FBBetfair("4NTZimyPy6zJ8LDN", "nC6W3lfWK8CFKSZbucfvPS0YKrTcSXa6hJ+ytdpd73w=")
+    betfair = FBBetfair("4NTZimyPy6zJ8LDN", "wAQlfjE+iF6D6p1LBA8D3Y4WbHL9hGYoo0umTA4nLBk=")
+    betfair.keep_session_alive()
 
-    bet_type = data['bet_on_market']
-    if bet_type == 'win':
-        betfair.place_match_odds_bet(data, 2)
-    # todo: add AH bet types later
-    else:
-        print('unrecognised bet type - ', bet_type)
+    # data = {'gid': 1585150, 'league_id': 34, 'league_name': 'Italian Serie A', 'kickoff': 1540755000.0,
+    #         'home_team_name': 'Napoli', 'away_team_name': 'AS Roma', 'home_team_id': 1419, 'away_team_id': 174,
+    #         'preferred_team': 'home', 'bet_on_market': 'win', 'min_odds_to_bet_on': 1.57}
+    # bet_type = data['bet_on_market']
+    # if bet_type == 'win':
+    #     betfair.place_match_odds_bet(data, 2)
+    # # todo: add AH bet types later
+    # else:
+    #     print('unrecognised bet type - ', bet_type)

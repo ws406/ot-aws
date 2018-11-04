@@ -12,9 +12,37 @@ class Betfair(abc.ABC):
     market_name = ''
     event_type_id = ''
 
+    keep_alive_api = 'http://identitysso.betfair.com/api/keepAlive'
+
     def __init__(self, app_key, session_token):
+        self.app_key = app_key
+        self.session_token = session_token
         self.request_headers = \
             {'X-Application': app_key, 'X-Authentication': session_token, 'content-type': 'application/json'}
+
+    def keep_session_alive(self):
+        try:
+            headers = {'X-Application': self.app_key, 'X-Authentication': self.session_token, 'Accept': 'application/json'}
+            req = urllib.request.Request(url = self.keep_alive_api, headers = headers)
+            response = urllib.request.urlopen(req)
+            jsonResponse = response.read().decode('utf-8')
+            print(jsonResponse)
+
+            if (jsonResponse['status'] == 'SUCCESS'):
+                return {
+                    'status': 'success',
+                    'message': jsonResponse
+                }
+            else:
+                return {
+                    'status': 'error',
+                    'message': jsonResponse
+                }
+        except urllib.error.URLError as e:
+            return {
+                'status': 'error',
+                'message': str(e)
+            }
 
     @abc.abstractmethod
     def place_match_odds_bet(self, game_data, betting_amount):
@@ -38,7 +66,7 @@ class Betfair(abc.ABC):
             ]
         }
         endpoint = "placeOrders"
-        bet_placer_response = self._call_api(json.dumps(self._order_request_builder(endpoint, parameters)))
+        bet_placer_response = self._call_exchange_api(json.dumps(self._order_request_builder(endpoint, parameters)))
         print("Bet placing result: ")
         print(bet_placer_response)
         return bet_placer_response
@@ -87,7 +115,7 @@ class Betfair(abc.ABC):
         }
         print(filters)
         endpoint = "listMarketCatalogue"
-        return self._call_api(json.dumps(self._query_request_builder(endpoint, filters)))
+        return self._call_exchange_api(json.dumps(self._query_request_builder(endpoint, filters)))
 
     def does_this_bet_exist(self, market_id):
         # TODO: the filters doesn't work!
@@ -95,7 +123,7 @@ class Betfair(abc.ABC):
             "marketIds": [str(market_id)]
         }
         endpoint = "listCurrentOrders"
-        response = json.loads(self._call_api (json.dumps (self._query_request_builder (endpoint, filters))))
+        response = json.loads(self._call_exchange_api (json.dumps (self._query_request_builder (endpoint, filters))))
 
         try:
             bets = response['result']['currentOrders']
@@ -110,7 +138,7 @@ class Betfair(abc.ABC):
         except IndexError as ie:
             return False
 
-    def _call_api(self, jsonrpc_req):
+    def _call_exchange_api(self, jsonrpc_req):
         try:
             req = urllib.request.Request(self.base_url, jsonrpc_req.encode('utf-8'), self.request_headers)
             response = urllib.request.urlopen(req)
@@ -157,3 +185,4 @@ class Betfair(abc.ABC):
             "params": params,
             "id": 1
         }
+
