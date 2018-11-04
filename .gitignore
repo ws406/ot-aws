@@ -1,0 +1,5 @@
+nohub.out
+test.json
+logs/*
+docker_commands
+src/ops/game_qualifier/nba.pkl
