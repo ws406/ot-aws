@@ -783,8 +783,8 @@ for year in years:
         benmarkProb3 = 0.5
         benmarkProb4 = 1.6
 
-        #if year == "2018-2019" and half == "top":
-        #   joblib.dump(rf, './nba.pkl')
+        if year == "2018-2019" and half == "top":
+          joblib.dump(rf, './nba.pkl')
 
         for prob in probability:
             result_odds = 0
