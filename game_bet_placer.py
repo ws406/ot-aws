@@ -50,8 +50,9 @@ while True:
         game_data = message.value
         print(game_data)
         if message.topic == kafka_topic__bb_game_qualified:
-            # Actual kickoff is kickoff + 10 mins for NBA
-            actual_kickoff = datetime.datetime.fromtimestamp(game_data['kickoff']) + datetime.timedelta(minutes = 10)
+            # Kickoff in game_data is 30 mins more than the kickoff from website. To place a bet, we assume the kickoff is
+            # website_kickoff + 10. Thus we do kickoff-20 here.
+            actual_kickoff = datetime.datetime.fromtimestamp(game_data['kickoff']) - datetime.timedelta(minutes = 20)
             betfair = bb_betfair
         elif message.topic == kafka_topic__fb_game_qualified:
             actual_kickoff = datetime.datetime.fromtimestamp (game_data ['kickoff'])
