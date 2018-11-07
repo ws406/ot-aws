@@ -24,7 +24,6 @@ class QualificationCheck:
     prediction_home_win = '1'
     prediction_away_win = '2'
     disqualified = 'x'
-    nodata = '0'
 
     def __init__(self):
         pass
@@ -32,7 +31,7 @@ class QualificationCheck:
     def is_qualified(self, game_data):
 
         exceptions = None
-        prediction = self.nodata
+        prediction = self.disqualified
 
         try:
             test = game_data['probabilities']['vcbet']

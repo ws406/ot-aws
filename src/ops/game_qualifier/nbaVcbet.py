@@ -8,23 +8,21 @@ import json
 import collections
 import time
 
-from src.win007.observers.same_direction.nba_qualification_check2 import QualificationCheck
+from src.win007.observers.same_direction.nba_qualification_check3 import QualificationCheck
 
-timeBackOffset = 0
 min_odds = 1.5
-max_odds = 1.0 + (2.0 / (min_odds - 1))
 decayRatio = 0.618
 benmarkProb1 = 0.5005
 min_odds_qualify = 1.0
 
-class Nba (GameQualifierInterface):
+class NbaVcbet (GameQualifierInterface):
 	kafka_topic = 'event-new-game'
 	rf = None
 	data = []
 	preferred_team = None
 
 	def __init__ (self):
-		self.rf = joblib.load ('./src/ops/game_qualifier/nba.pkl')
+		self.rf = joblib.load ('./src/ops/game_qualifier/nbaVcbet.pkl')
 
 	def Operation (self, data1, data2):
 		number1 = float (data1)
@@ -43,7 +41,6 @@ class Nba (GameQualifierInterface):
 
 	def GenerateProbData (self, probList, kickoffTime, side):
 		kickoffTimeinLong = int (kickoffTime)
-		kickoffTimeinLong = kickoffTimeinLong - (30 - timeBackOffset) * 60
 		probOpenTime = 9999999999
 		probOpen = 0
 		probFinalTime = 0
@@ -121,19 +118,57 @@ class Nba (GameQualifierInterface):
 
 		pinnacle = self.GenerateProbData (match ['probabilities'] ['pinnacle'], match ['kickoff'], side)
 		will_hill = self.GenerateProbData (match ['probabilities'] ['will_hill'], match ['kickoff'], side)
-		marathonbet = self.GenerateProbData (match ['probabilities'] ['marathonbet'], match ['kickoff'], side)
+		vcbet = self.GenerateProbData (match ['probabilities'] ['vcbet'], match ['kickoff'], side)
 		easybet = self.GenerateProbData (match ['probabilities'] ['easybet'], match ['kickoff'], side)
 		skybet = self.GenerateProbData (match ['probabilities'] ['skybet'], match ['kickoff'], side)
 		ladbroke = self.GenerateProbData (match ['probabilities'] ['ladbroke'], match ['kickoff'], side)
 
 		i = 0
 		while i < len (pinnacle):
-			data.append (self.Operation (ladbroke [i], marathonbet [i]))  #
-			data.append (self.Operation (skybet [i], easybet [i]))  #
-			data.append (self.Operation (will_hill [i], easybet [i]))  #
-			data.append (self.Operation (will_hill [i], skybet [i]))  #
-			data.append (self.Operation (ladbroke [i], skybet [i]))  #
+			if i == 1:
+				i += 1
+				continue
+			data.append(self.Operation(pinnacle[i], will_hill[i])) #
+			data.append(self.Operation(vcbet[i], will_hill[i])) #
+			data.append(self.Operation(easybet[i], will_hill[i])) #
+			data.append(self.Operation(skybet[i], will_hill[i])) #
+			data.append(self.Operation(ladbroke[i], will_hill[i])) #
+			data.append(self.Operation(pinnacle[i], easybet[i])) #
+			data.append(self.Operation(vcbet[i], easybet[i])) #
+			data.append(self.Operation(skybet[i], easybet[i])) #
+			data.append(self.Operation(ladbroke[i], easybet[i])) #
+			data.append(self.Operation(pinnacle[i], skybet[i])) #
+			data.append(self.Operation(vcbet[i], skybet[i])) #
+			data.append(self.Operation(ladbroke[i], skybet[i])) #
 			i += 1
+
+		allBookieList = []
+		allBookieList.append(vcbet)
+		allBookieList.append(will_hill)
+		allBookieList.append(easybet)
+		allBookieList.append(skybet)
+
+		for bookie in allBookieList:
+			data.append(bookie[0])
+			i = 1
+			while i < len(bookie):
+				if bookie[i] == 0:
+					data.append(0)
+				else:
+					data.append(self.Operation(bookie[i - 1], bookie[i]))
+				i += 1
+
+		skybet = self.GenerateProbData(match['probabilities']['skybet'], match['kickoff'], oppoSide)
+		ladbroke = self.GenerateProbData(match['probabilities']['ladbroke'], match['kickoff'], oppoSide)
+
+		i = 0
+		while i < len(pinnacle):
+			if i == 1:
+				i += 1
+				continue
+			data.append(self.Operation(ladbroke[i], skybet[i])) # interesting
+			i += 1
+
 		for item in data:
 			data1.append(item)
 
@@ -240,6 +275,7 @@ class Nba (GameQualifierInterface):
 			print ("This is totally wrong! There must be a winner")
 
 	def is_game_qualified (self, file_name, game_data, choice):
+		game_data ['kickoff'] =  game_data ['kickoff'] - 20 * 60
 		teamsDict = dict ()
 		teamsHomeDict = dict ()
 		teamsAwayDict = dict ()
