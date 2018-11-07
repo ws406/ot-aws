@@ -57,14 +57,21 @@ class Main:
             kafka_producer.send (self.kafka_topic, game)
             print ("\tSend game " + gid_str + " to Kafka")
         print (str (len (games)) + " games pushed Kafka under topic " + self.kafka_topic)
+        return len(games)
 
 
 if __name__ == '__main__':
-    interval_in_mins = 5
+    normal_interval_in_mins = 5
+    no_game_interval_in_mins = 60
+
     while (True):
         try:
-            Main ().execute ()
+            num_games = Main ().execute ()
+            if num_games == 0:
+                wait = no_game_interval_in_mins
+            else:
+                wait = normal_interval_in_mins
         except Exception as e:
             print ('Exception happened.... Try again later.')
-        print ("Next run at UTC: " + str (datetime.datetime.now () + datetime.timedelta (minutes = interval_in_mins)))
-        time.sleep (60 * interval_in_mins)
+        print ("Next run at UTC: " + str (datetime.datetime.now () + datetime.timedelta (minutes = wait)))
+        time.sleep (60 * wait)
