@@ -56,7 +56,7 @@ class Main:
 			print ("gid: ", data ['game_id'])
 			result1 = self.game_qualifier1.is_game_qualified (file_name, data, 'top')
 			result2 = self.game_qualifier2.is_game_qualified (file_name, data, 'top')
-			#print ('qualifier1: ' + str (result1))
+			print ('qualifier1: ' + str (result1))
 			print ('qualifier2: ' + str (result2))
 			if result1 or result2:
 				i += 1
