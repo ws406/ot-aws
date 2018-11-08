@@ -64,13 +64,12 @@ class Main:
 
 if __name__ == '__main__':
     normal_interval_in_mins = 5
-    no_game_interval_in_mins = 60
 
     while (True):
         try:
             num_games = Main ().execute ()
             if num_games == 0:
-                wait = no_game_interval_in_mins
+                wait = wait = Main().minutes - 5
             else:
                 wait = normal_interval_in_mins
         except Exception as e:
