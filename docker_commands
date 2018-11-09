@@ -1,0 +1,45 @@
+# Build image
+
+# Start the image
+cd /c/Users/wsun/Documents/projects/ot-aws/
+docker run -it -v /c/Users/wsun/Documents/projects/ot-aws:/app/ot ot
+
+# Start kafka & create topics
+  nohup $KAFKA_HOME/bin/zookeeper-server-start.sh $KAFKA_HOME/config/zookeeper.properties & \
+  sleep 5 && \
+  nohup $KAFKA_HOME/bin/kafka-server-start.sh $KAFKA_HOME/config/server.properties & \
+  sleep 15 && \
+  $KAFKA_HOME/bin/kafka-topics.sh --create --zookeeper localhost:2181 --replication-factor 1 --partitions 1 --topic event-new-game && \
+  $KAFKA_HOME/bin/kafka-topics.sh --create --zookeeper localhost:2181 --replication-factor 1 --partitions 1 --topic event-game-qualified && \
+  $KAFKA_HOME/bin/kafka-topics.sh --create --zookeeper localhost:2181 --replication-factor 1 --partitions 1 --topic event-bet-placed
+  $KAFKA_HOME/bin/kafka-topics.sh --create --zookeeper localhost:2181 --replication-factor 1 --partitions 1 --topic event-new-bb-game && \
+  $KAFKA_HOME/bin/kafka-topics.sh --create --zookeeper localhost:2181 --replication-factor 1 --partitions 1 --topic event-bb-game-qualified && \
+  $KAFKA_HOME/bin/kafka-topics.sh --create --zookeeper localhost:2181 --replication-factor 1 --partitions 1 --topic event-bb-bet-placed
+
+# Check Kafka topics
+$KAFKA_HOME/bin/kafka-topics.sh --list --zookeeper localhost:2181
+
+# Check messages
+$KAFKA_HOME/bin/kafka-console-consumer.sh --bootstrap-server localhost:9092 --topic event-new-game --from-beginning
+$KAFKA_HOME/bin/kafka-console-consumer.sh --bootstrap-server localhost:9092 --topic event-game-qualified
+$KAFKA_HOME/bin/kafka-console-consumer.sh --bootstrap-server localhost:9092 --topic event-bet-placed
+
+# Open console producer
+$KAFKA_HOME/kafka-console-producer.sh  --topic event-new-game --broker-list localhost:9092
+
+
+# Enter running container
+docker exec -it [container-id] bash
+
+# Start application
+python3 -u game_events_notifier.py > ./logs/game_events_notifier.log &
+python3 -u fb_games_detector.py > ./logs/fb_games_detector.log  &
+python3 -u fb_game_qualifier_rf_6_leagues.py > ./logs/fb_game_qualifier_rf_6_leagues.log  &
+python3 -u fb_game_qualifier_rf_6_leagues_no_hkjc.py > ./logs/fb_game_qualifier_rf_6_leagues_no_hkjc.log  &
+python3 -u bb_games_detector.py > ./logs/bb_games_detector.log  &
+python3 -u bb_game_qualifier.py > ./logs/bb_game_qualifier.log  &
+python3 -u game_bet_placer.py > ./logs/game_bet_placer.log 4NTZimyPy6zJ8LDN wAQlfjE+iF6D6p1LBA8D3Y4WbHL9hGYoo0umTA4nLBk= &
+
+# Check system datetime
+date '+%A %W %Y %X'
+

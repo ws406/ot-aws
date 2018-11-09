@@ -6,3 +6,4 @@ docker_commands
 google_cloud_platform
 nba_model_record
 *.xml
+*.jar
