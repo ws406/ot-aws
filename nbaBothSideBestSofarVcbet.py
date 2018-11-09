@@ -278,6 +278,12 @@ def GenFeatures(index, side, data1, match, teamsDict, teamsRecentDict, teamsHome
         data.append(Operation(ladbroke[i], skybet[i])) # interesting
         i += 1
 
+    del data[54]
+    del data[52]
+    del data[50]
+    del data[48]
+    del data[47]
+
     for item in data:
         data1.append(item)
 
@@ -895,8 +901,8 @@ for year in years:
         benmarkProb3 = 0.5
         benmarkProb4 = 1.6
 
-        #if year == "2018-2019" and half == "top":
-        #   joblib.dump(rf, './src/ops/game_qualifier/nbaVcbet.pkl')
+        if year == "2018-2019" and half == "top":
+           joblib.dump(rf, './src/ops/game_qualifier/nbaVcbet.pkl')
 
         for prob in probability:
             result_odds = 0

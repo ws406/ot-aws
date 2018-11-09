@@ -169,6 +169,12 @@ class NbaVcbet (GameQualifierInterface):
 			data.append(self.Operation(ladbroke[i], skybet[i])) # interesting
 			i += 1
 
+		del data[54]
+		del data[52]
+		del data[50]
+		del data[48]
+		del data[47]
+
 		for item in data:
 			data1.append(item)
 
