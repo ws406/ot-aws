@@ -37,19 +37,3 @@ class FBBetfair(Betfair):
             return self.team_names_mapping[teamname]
         except KeyError:
             return teamname
-
-
-if __name__ == "__main__":
-
-    # Test keep_session_alive()
-    betfair = FBBetfair("4NTZimyPy6zJ8LDN", "XXXXXXXXXXXXXX")
-    betfair.keep_session_alive()
-    # data = {'gid': 1585150, 'league_id': 34, 'league_name': 'Italian Serie A', 'kickoff': 1540755000.0,
-    #         'home_team_name': 'Napoli', 'away_team_name': 'AS Roma', 'home_team_id': 1419, 'away_team_id': 174,
-    #         'preferred_team': 'home', 'bet_on_market': 'win', 'min_odds_to_bet_on': 1.57}
-    # bet_type = data['bet_on_market']
-    # if bet_type == 'win':
-    #     betfair.place_match_odds_bet(data, 2)
-    # # todo: add AH bet types later
-    # else:
-    #     print('unrecognised bet type - ', bet_type)
