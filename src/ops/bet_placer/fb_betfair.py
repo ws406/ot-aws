@@ -11,7 +11,11 @@ class FBBetfair(Betfair):
         'AS Roma': 'Roma',
         'Tottenham Hotspur': 'Tottenham',
         'West Ham United' : 'West Ham',
-        'Brighton   Hove Albion': 'Brighton'
+        'Brighton   Hove Albion': 'Brighton',
+        'Leicester City': 'Leicester',
+        'Wigan Athletic': 'Wigan',
+        'Norwich City': 'Norwich',
+        'TSG Hoffenheim': 'Hoffenheim'
     }
 
     def place_match_odds_bet(self, game_data, betting_amount):

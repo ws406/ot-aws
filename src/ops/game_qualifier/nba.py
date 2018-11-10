@@ -431,7 +431,8 @@ class Nba (GameQualifierInterface):
 					"preferred_team": self.preferred_team,
 					"bet_on_market": 'preferred team win',
 					"details": 'preferred team win,' + bet_string,
-					"min_odds_to_bet_on": favTeamOdds
+					"min_odds_to_bet_on": favTeamOdds,
+                    "strategy": 'nba'
 				}
 			elif ((game_data ['predict'] == '1' and prob[0] > game_data['probabilities']['pinnacle']['final']['2'] and game_data['odds']['pinnacle']['final']['2'] >= min_odds_qualify) or\
                               (game_data ['predict'] == '2' and prob[0] > game_data['probabilities']['pinnacle']['final']['1'] and game_data['odds']['pinnacle']['final']['1'] >= min_odds_qualify)) and\
@@ -448,7 +449,8 @@ class Nba (GameQualifierInterface):
 					"preferred_team": self.preferred_team,
 					"bet_on_market": 'preferred team lose',
 					"details": 'preferred team lose,'+bet_string,
-					"min_odds_to_bet_on": nonFavTeamOdds
+					"min_odds_to_bet_on": nonFavTeamOdds,
+                    "strategy": 'nba'
 				}
 			else:
 				print(bet_string)
