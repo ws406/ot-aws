@@ -15,7 +15,8 @@ class FBBetfair(Betfair):
         'Leicester City': 'Leicester',
         'Wigan Athletic': 'Wigan',
         'Norwich City': 'Norwich',
-        'TSG Hoffenheim': 'Hoffenheim'
+        'TSG Hoffenheim': 'Hoffenheim',
+        'Crystal Palace': 'C Palace',
     }
 
     def place_match_odds_bet(self, game_data, betting_amount):
