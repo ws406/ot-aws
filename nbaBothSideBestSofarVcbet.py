@@ -19,7 +19,7 @@ from sklearn.neighbors import KNeighborsClassifier
 file_header = "./data/basketball_all_odds_data/National Basketball Association-"
 file_end = ".json"
 
-from src.win007.observers.same_direction.nba_qualification_check3 import QualificationCheck
+from src.win007.observers.same_direction.nba_qualification_check4 import QualificationCheck
 
 min_odds = 1.5
 decayRatio = 0.618
@@ -137,7 +137,7 @@ def CalculateFinalOdds(allQualifiedGames, game_id, prob, roundsPnl):
         if ((prob[1] - match['probabilities']['pinnacle']['final']['1']) > 0 and match['odds']['pinnacle']['final']['1'] >= min_odds_tobet1) and prob[1] >= min_pct:
             bestOdds = ChooseMax(match['odds']['pinnacle']['final']['1'], match['odds']['pinnacle']['final']['1'], match['odds']['pinnacle']['final']['1'])
             returns = IsPredictRight_1(match['probabilities']['pinnacle']['final']['1'], bestOdds, '1', match['result'], prob)
-            print("Game",int(game_id),curDate,"predict home, result",match['result'],"return is",returns,"dist",match['probabilities']['pinnacle']['final']['1'],":",match['probabilities']['pinnacle']['final']['2'],"prob",prob[1],":",prob[0],"score",match['home_score'],":",match['away_score'],"odds",match['odds']['pinnacle']['final']['1'],":",match['odds']['pinnacle']['final']['2'])
+            #print("Game",int(game_id),curDate,"predict home, result",match['result'],"return is",returns,"dist",match['probabilities']['pinnacle']['final']['1'],":",match['probabilities']['pinnacle']['final']['2'],"prob",prob[1],":",prob[0],"score",match['home_score'],":",match['away_score'],"odds",match['odds']['pinnacle']['final']['1'],":",match['odds']['pinnacle']['final']['2'])
             if curDate in roundsPnl:
                 roundsPnl[curDate] = roundsPnl[curDate] + returns
             else:
@@ -151,7 +151,7 @@ def CalculateFinalOdds(allQualifiedGames, game_id, prob, roundsPnl):
         elif ((prob[0] - match['probabilities']['pinnacle']['final']['2']) > 0 and match['odds']['pinnacle']['final']['2'] >= min_odds_tobet2) and prob[0] >= min_pct:
             bestOdds = ChooseMax(match['odds']['pinnacle']['final']['2'], match['odds']['pinnacle']['final']['2'], match['odds']['pinnacle']['final']['2'])
             returns = IsPredictRight_1(match['probabilities']['pinnacle']['final']['2'], bestOdds, '2', match['result'], prob)
-            print("Game",int(game_id),curDate,"predict oppo away, result",match['result'],"return is",returns,"dist",match['probabilities']['pinnacle']['final']['1'],":",match['probabilities']['pinnacle']['final']['2'],"prob",prob[1],":",prob[0],"score",match['home_score'],":",match['away_score'],"odds",match['odds']['pinnacle']['final']['1'],":",match['odds']['pinnacle']['final']['2'])
+            #print("Game",int(game_id),curDate,"predict oppo away, result",match['result'],"return is",returns,"dist",match['probabilities']['pinnacle']['final']['1'],":",match['probabilities']['pinnacle']['final']['2'],"prob",prob[1],":",prob[0],"score",match['home_score'],":",match['away_score'],"odds",match['odds']['pinnacle']['final']['1'],":",match['odds']['pinnacle']['final']['2'])
             if curDate in roundsPnl:
                 roundsPnl[curDate] = roundsPnl[curDate] + returns
             else:
@@ -169,7 +169,7 @@ def CalculateFinalOdds(allQualifiedGames, game_id, prob, roundsPnl):
         if ((prob[1] - match['probabilities']['pinnacle']['final']['2']) > 0 and match['odds']['pinnacle']['final']['2'] >= min_odds_tobet1) and prob[1] >= min_pct:
             bestOdds = ChooseMax(match['odds']['pinnacle']['final']['2'], match['odds']['pinnacle']['final']['2'], match['odds']['pinnacle']['final']['2'])
             returns = IsPredictRight_1(match['probabilities']['pinnacle']['final']['2'], bestOdds, '2', match['result'], prob)
-            print("Game",int(game_id),curDate,"predict away, result",match['result'],"return is",returns,"dist",match['probabilities']['pinnacle']['final']['1'],":",match['probabilities']['pinnacle']['final']['2'],"prob",prob[0],":",prob[1],"score",match['home_score'],":",match['away_score'],"odds",match['odds']['pinnacle']['final']['1'],":",match['odds']['pinnacle']['final']['2'])
+            #print("Game",int(game_id),curDate,"predict away, result",match['result'],"return is",returns,"dist",match['probabilities']['pinnacle']['final']['1'],":",match['probabilities']['pinnacle']['final']['2'],"prob",prob[0],":",prob[1],"score",match['home_score'],":",match['away_score'],"odds",match['odds']['pinnacle']['final']['1'],":",match['odds']['pinnacle']['final']['2'])
             if curDate in roundsPnl:
                 roundsPnl[curDate] = roundsPnl[curDate] + returns
             else:
@@ -183,7 +183,7 @@ def CalculateFinalOdds(allQualifiedGames, game_id, prob, roundsPnl):
         elif ((prob[0] - match['probabilities']['pinnacle']['final']['1']) > 0 and match['odds']['pinnacle']['final']['1'] >= min_odds_tobet2) and prob[0] >= min_pct:
             bestOdds = ChooseMax(match['odds']['pinnacle']['final']['1'], match['odds']['pinnacle']['final']['1'], match['odds']['pinnacle']['final']['1'])
             returns = IsPredictRight_1(match['probabilities']['pinnacle']['final']['1'], bestOdds, '1', match['result'], prob)
-            print("Game",int(game_id),curDate,"predict oppo home, result",match['result'],"return is",returns,"dist",match['probabilities']['pinnacle']['final']['1'],":",match['probabilities']['pinnacle']['final']['2'],"prob",prob[0],":",prob[1],"score",match['home_score'],":",match['away_score'],"odds",match['odds']['pinnacle']['final']['1'],":",match['odds']['pinnacle']['final']['2'])
+            #print("Game",int(game_id),curDate,"predict oppo home, result",match['result'],"return is",returns,"dist",match['probabilities']['pinnacle']['final']['1'],":",match['probabilities']['pinnacle']['final']['2'],"prob",prob[0],":",prob[1],"score",match['home_score'],":",match['away_score'],"odds",match['odds']['pinnacle']['final']['1'],":",match['odds']['pinnacle']['final']['2'])
             if curDate in roundsPnl:
                 roundsPnl[curDate] = roundsPnl[curDate] + returns
             else:
@@ -278,11 +278,11 @@ def GenFeatures(index, side, data1, match, teamsDict, teamsRecentDict, teamsHome
         data.append(Operation(ladbroke[i], skybet[i])) # interesting
         i += 1
 
-    del data[54]
-    del data[52]
-    del data[50]
-    del data[48]
-    del data[47]
+    #del data[54]
+    #del data[52]
+    #del data[50]
+    #del data[48]
+    #del data[47]
 
     for item in data:
         data1.append(item)
@@ -799,7 +799,7 @@ years.append("2018-2019")
 
 halves = []
 halves.append('top')
-#halves.append('bottom')
+halves.append('bottom')
 
 tree_size = 2000
 

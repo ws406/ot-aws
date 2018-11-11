@@ -814,15 +814,15 @@ for year in years:
                 #odds = odds + result_odds
             #index = index + 1
 
-        finalRoundsPnl = collections.OrderedDict(sorted(roundsPnl.items()))
+        #finalRoundsPnl = collections.OrderedDict(sorted(roundsPnl.items()))
 
-        curPnl = 0
-        for date, data in finalRoundsPnl.items():
-            curPnl = curPnl + data
-            allRoundPnl.append(curPnl)
+        #curPnl = 0
+        #for date, data in finalRoundsPnl.items():
+        #    curPnl = curPnl + data
+        #    allRoundPnl.append(curPnl)
 
-        plt.figure(1)
-        plt.plot(allRoundPnl, 'r-')
-        plt.show()
+        #plt.figure(1)
+        #plt.plot(allRoundPnl, 'r-')
+        #plt.show()
 
         print(year, half, min_odds, tree_size, timeBackOffset, min_pct, "winR", right / (right + wrong), "betR", (right + wrong) / len(test_result), "total matches", right + wrong, "pnl", odds, "per match ret", odds / (right + wrong))
