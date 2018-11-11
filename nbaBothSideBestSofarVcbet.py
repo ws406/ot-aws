@@ -137,7 +137,7 @@ def CalculateFinalOdds(allQualifiedGames, game_id, prob, roundsPnl):
         if ((prob[1] - match['probabilities']['pinnacle']['final']['1']) > 0 and match['odds']['pinnacle']['final']['1'] >= min_odds_tobet1) and prob[1] >= min_pct:
             bestOdds = ChooseMax(match['odds']['pinnacle']['final']['1'], match['odds']['pinnacle']['final']['1'], match['odds']['pinnacle']['final']['1'])
             returns = IsPredictRight_1(match['probabilities']['pinnacle']['final']['1'], bestOdds, '1', match['result'], prob)
-            print("Game",int(game_id),"predict home, result",match['result'],"return is",returns,"dist",match['probabilities']['pinnacle']['final']['1'],":",match['probabilities']['pinnacle']['final']['2'],"prob",prob[1],":",prob[0],"score",match['home_score'],":",match['away_score'],"odds",match['odds']['pinnacle']['final']['1'],":",match['odds']['pinnacle']['final']['2'])
+            print("Game",int(game_id),curDate,"predict home, result",match['result'],"return is",returns,"dist",match['probabilities']['pinnacle']['final']['1'],":",match['probabilities']['pinnacle']['final']['2'],"prob",prob[1],":",prob[0],"score",match['home_score'],":",match['away_score'],"odds",match['odds']['pinnacle']['final']['1'],":",match['odds']['pinnacle']['final']['2'])
             if curDate in roundsPnl:
                 roundsPnl[curDate] = roundsPnl[curDate] + returns
             else:
@@ -151,7 +151,7 @@ def CalculateFinalOdds(allQualifiedGames, game_id, prob, roundsPnl):
         elif ((prob[0] - match['probabilities']['pinnacle']['final']['2']) > 0 and match['odds']['pinnacle']['final']['2'] >= min_odds_tobet2) and prob[0] >= min_pct:
             bestOdds = ChooseMax(match['odds']['pinnacle']['final']['2'], match['odds']['pinnacle']['final']['2'], match['odds']['pinnacle']['final']['2'])
             returns = IsPredictRight_1(match['probabilities']['pinnacle']['final']['2'], bestOdds, '2', match['result'], prob)
-            print("Game",int(game_id),"predict oppo away, result",match['result'],"return is",returns,"dist",match['probabilities']['pinnacle']['final']['1'],":",match['probabilities']['pinnacle']['final']['2'],"prob",prob[1],":",prob[0],"score",match['home_score'],":",match['away_score'],"odds",match['odds']['pinnacle']['final']['1'],":",match['odds']['pinnacle']['final']['2'])
+            print("Game",int(game_id),curDate,"predict oppo away, result",match['result'],"return is",returns,"dist",match['probabilities']['pinnacle']['final']['1'],":",match['probabilities']['pinnacle']['final']['2'],"prob",prob[1],":",prob[0],"score",match['home_score'],":",match['away_score'],"odds",match['odds']['pinnacle']['final']['1'],":",match['odds']['pinnacle']['final']['2'])
             if curDate in roundsPnl:
                 roundsPnl[curDate] = roundsPnl[curDate] + returns
             else:
@@ -169,7 +169,7 @@ def CalculateFinalOdds(allQualifiedGames, game_id, prob, roundsPnl):
         if ((prob[1] - match['probabilities']['pinnacle']['final']['2']) > 0 and match['odds']['pinnacle']['final']['2'] >= min_odds_tobet1) and prob[1] >= min_pct:
             bestOdds = ChooseMax(match['odds']['pinnacle']['final']['2'], match['odds']['pinnacle']['final']['2'], match['odds']['pinnacle']['final']['2'])
             returns = IsPredictRight_1(match['probabilities']['pinnacle']['final']['2'], bestOdds, '2', match['result'], prob)
-            print("Game",int(game_id),"predict away, result",match['result'],"return is",returns,"dist",match['probabilities']['pinnacle']['final']['1'],":",match['probabilities']['pinnacle']['final']['2'],"prob",prob[0],":",prob[1],"score",match['home_score'],":",match['away_score'],"odds",match['odds']['pinnacle']['final']['1'],":",match['odds']['pinnacle']['final']['2'])
+            print("Game",int(game_id),curDate,"predict away, result",match['result'],"return is",returns,"dist",match['probabilities']['pinnacle']['final']['1'],":",match['probabilities']['pinnacle']['final']['2'],"prob",prob[0],":",prob[1],"score",match['home_score'],":",match['away_score'],"odds",match['odds']['pinnacle']['final']['1'],":",match['odds']['pinnacle']['final']['2'])
             if curDate in roundsPnl:
                 roundsPnl[curDate] = roundsPnl[curDate] + returns
             else:
@@ -183,7 +183,7 @@ def CalculateFinalOdds(allQualifiedGames, game_id, prob, roundsPnl):
         elif ((prob[0] - match['probabilities']['pinnacle']['final']['1']) > 0 and match['odds']['pinnacle']['final']['1'] >= min_odds_tobet2) and prob[0] >= min_pct:
             bestOdds = ChooseMax(match['odds']['pinnacle']['final']['1'], match['odds']['pinnacle']['final']['1'], match['odds']['pinnacle']['final']['1'])
             returns = IsPredictRight_1(match['probabilities']['pinnacle']['final']['1'], bestOdds, '1', match['result'], prob)
-            print("Game",int(game_id),"predict oppo home, result",match['result'],"return is",returns,"dist",match['probabilities']['pinnacle']['final']['1'],":",match['probabilities']['pinnacle']['final']['2'],"prob",prob[0],":",prob[1],"score",match['home_score'],":",match['away_score'],"odds",match['odds']['pinnacle']['final']['1'],":",match['odds']['pinnacle']['final']['2'])
+            print("Game",int(game_id),curDate,"predict oppo home, result",match['result'],"return is",returns,"dist",match['probabilities']['pinnacle']['final']['1'],":",match['probabilities']['pinnacle']['final']['2'],"prob",prob[0],":",prob[1],"score",match['home_score'],":",match['away_score'],"odds",match['odds']['pinnacle']['final']['1'],":",match['odds']['pinnacle']['final']['2'])
             if curDate in roundsPnl:
                 roundsPnl[curDate] = roundsPnl[curDate] + returns
             else:
@@ -799,7 +799,7 @@ years.append("2018-2019")
 
 halves = []
 halves.append('top')
-halves.append('bottom')
+#halves.append('bottom')
 
 tree_size = 2000
 
@@ -901,8 +901,8 @@ for year in years:
         benmarkProb3 = 0.5
         benmarkProb4 = 1.6
 
-        if year == "2018-2019" and half == "top":
-           joblib.dump(rf, './src/ops/game_qualifier/nbaVcbet.pkl')
+        #if year == "2018-2019" and half == "top":
+           #joblib.dump(rf, './src/ops/game_qualifier/nbaVcbet.pkl')
 
         for prob in probability:
             result_odds = 0
@@ -935,8 +935,8 @@ for year in years:
 
         #curPnl = 0
         #for date, data in finalRoundsPnl.items():
-        #    curPnl = curPnl + data
-        #    allRoundPnl.append(curPnl)
+        #   curPnl = curPnl + data
+        #   allRoundPnl.append(curPnl)
 
         #plt.figure(1)
         #plt.plot(allRoundPnl, 'r-')

@@ -13,6 +13,7 @@ class Main:
 		# 214: "bet365",  # Bet365
 		17: "pinnacle",  # Pinnacle
 		82: "vcbet",  # VcBet
+		506: "betvictor", # VcBet2
 		6: "easybet",
 		83: "ladbroke",
 		381: "marathon",
