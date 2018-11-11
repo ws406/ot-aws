@@ -31,7 +31,6 @@ class FBBetfair(Betfair):
         return self._place_bet (home_team_name, away_team_name, bet_on_team, self.market_type_code_match_odds, betting_amount,
                          price)
 
-
     def _unify_team_name(self, teamname):
         try:
             return self.team_names_mapping[teamname]

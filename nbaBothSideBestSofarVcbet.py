@@ -792,9 +792,9 @@ def IsGameQualified(file_name, correct_result, wrong_result, choice):
             allQualifiedGames[int(match['game_id'])] = match
 
 years = []
-#years.append("2016-2017")
-#years.append("2017-")
-#years.append("2017-2018")
+years.append("2016-2017")
+years.append("2017-")
+years.append("2017-2018")
 years.append("2018-2019")
 
 halves = []

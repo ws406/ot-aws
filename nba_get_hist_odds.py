@@ -1,6 +1,7 @@
 from src.win007.modules.misc.basketball_hist_games_fetcher import HistGamesFetcher
 from src.win007.modules.games_fetcher.basketball_odds_fetcher.game_info_and_all_odds_sequence import GameInfoAndAllOddsSequence
-
+import time
+import datetime
 
 class Main:
     # These data is used for
@@ -59,3 +60,12 @@ class Main:
 
 if __name__ == '__main__':
     Main().execute()
+    wait_in_hours = 12
+
+    while (True):
+        try:
+            num_games = Main ().execute ()
+        except Exception as e:
+            print ('Exception happened.... Try again later.')
+        print ("Next run at UTC: " + str (datetime.datetime.now () + datetime.timedelta (minutes = wait_in_hours)))
+        time.sleep (60 * 60 * wait_in_hours)
