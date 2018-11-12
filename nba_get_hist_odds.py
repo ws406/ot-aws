@@ -68,5 +68,5 @@ if __name__ == '__main__':
             num_games = Main ().execute ()
         except Exception as e:
             print ('Exception happened.... Try again later.')
-        print ("Next run at UTC: " + str (datetime.datetime.now () + datetime.timedelta (minutes = wait_in_hours)))
+        print ("Next run at UTC: " + str (datetime.datetime.now () + datetime.timedelta (hours = wait_in_hours)))
         time.sleep (60 * 60 * wait_in_hours)
