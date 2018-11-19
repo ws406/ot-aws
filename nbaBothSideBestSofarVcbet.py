@@ -19,7 +19,8 @@ from sklearn.neighbors import KNeighborsClassifier
 file_header = "./data/basketball_all_odds_data/National Basketball Association-"
 file_end = ".json"
 
-from src.win007.observers.same_direction.nba_qualification_check4 import QualificationCheck
+from src.win007.observers.same_direction.nba_qualification_check3 import QualificationCheck
+#from src.win007.observers.same_direction.nba_qualification_check4 import QualificationCheck
 
 min_odds = 1.5
 decayRatio = 0.618
@@ -278,11 +279,10 @@ def GenFeatures(index, side, data1, match, teamsDict, teamsRecentDict, teamsHome
         data.append(Operation(ladbroke[i], skybet[i])) # interesting
         i += 1
 
-    #del data[54]
-    #del data[52]
-    #del data[50]
-    #del data[48]
-    #del data[47]
+    del data[55]
+    del data[54]
+    del data[51]
+    del data[50]
 
     for item in data:
         data1.append(item)
@@ -792,9 +792,9 @@ def IsGameQualified(file_name, correct_result, wrong_result, choice):
             allQualifiedGames[int(match['game_id'])] = match
 
 years = []
-years.append("2016-2017")
-years.append("2017-")
-years.append("2017-2018")
+#years.append("2016-2017")
+#years.append("2017-")
+#years.append("2017-2018")
 years.append("2018-2019")
 
 halves = []
@@ -901,8 +901,8 @@ for year in years:
         benmarkProb3 = 0.5
         benmarkProb4 = 1.6
 
-        #if year == "2018-2019" and half == "top":
-           #joblib.dump(rf, './src/ops/game_qualifier/nbaVcbet.pkl')
+        if year == "2018-2019" and half == "top":
+           joblib.dump(rf, './src/ops/game_qualifier/nbaVcbet.pkl')
 
         for prob in probability:
             result_odds = 0
@@ -932,11 +932,10 @@ for year in years:
             #index = index + 1
 
         #finalRoundsPnl = collections.OrderedDict(sorted(roundsPnl.items()))
-
         #curPnl = 0
         #for date, data in finalRoundsPnl.items():
-        #   curPnl = curPnl + data
-        #   allRoundPnl.append(curPnl)
+          #curPnl = curPnl + data
+          #allRoundPnl.append(curPnl)
 
         #plt.figure(1)
         #plt.plot(allRoundPnl, 'r-')
