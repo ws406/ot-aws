@@ -134,8 +134,24 @@ class Nba (GameQualifierInterface):
 			data.append (self.Operation (will_hill [i], skybet [i]))  #
 			data.append (self.Operation (ladbroke [i], skybet [i]))  #
 			i += 1
+		#for item in data:
+		#	data1.append(item)
+		iList = []
+		iList.append(0)
+		iList.append(1)
+		iList.append(2)
+		iList.append(3)
+		iList.append(4)
+		iList.append(5)
+		iList.append(13)
+		iList.append(14)
+		iList.append(18)
+
+		index = -1
 		for item in data:
-			data1.append(item)
+			index += 1
+			if index in iList:
+				data1.append(item)
 
 	def UpdateRecord (self, teamsDict, homeId, awayId, result):
 		if result == '1':

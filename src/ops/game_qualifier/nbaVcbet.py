@@ -170,7 +170,7 @@ class NbaVcbet (GameQualifierInterface):
             data.append (self.Operation (ladbroke [i], skybet [i]))  # interesting
             i += 1
 
-	del data [55]
+        del data [55]
         del data [54]
         del data [51]
         del data [50]
