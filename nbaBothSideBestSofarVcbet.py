@@ -2,6 +2,7 @@ import json
 import time
 import math
 import collections
+import statistics
 import pandas as pd
 import numpy as np
 from numpy import matrix
@@ -226,12 +227,14 @@ def GenFeatures(index, side, data1, match, teamsDict, teamsRecentDict, teamsHome
     index = index + 1
     data.append(match['game_id'])
 
-    pinnacle = GenerateProbData(match['probabilities']['pinnacle'], match['kickoff'], side)
-    will_hill = GenerateProbData(match['probabilities']['will_hill'], match['kickoff'], side)
-    vcbet = GenerateProbData(match['probabilities']['vcbet'], match['kickoff'], side)
-    easybet = GenerateProbData(match['probabilities']['easybet'], match['kickoff'], side)
-    skybet = GenerateProbData(match['probabilities']['skybet'], match['kickoff'], side)
-    ladbroke = GenerateProbData(match['probabilities']['ladbroke'], match['kickoff'], side)
+    kickoff = match['kickoff'] - 20 * 60
+
+    pinnacle = GenerateProbData(match['probabilities']['pinnacle'], kickoff, side)
+    will_hill = GenerateProbData(match['probabilities']['will_hill'], kickoff, side)
+    vcbet = GenerateProbData(match['probabilities']['vcbet'], kickoff, side)
+    easybet = GenerateProbData(match['probabilities']['easybet'], kickoff, side)
+    skybet = GenerateProbData(match['probabilities']['skybet'], kickoff, side)
+    ladbroke = GenerateProbData(match['probabilities']['ladbroke'], kickoff, side)
 
     allBookieList = []
     allBookieList.append(vcbet)
@@ -268,8 +271,8 @@ def GenFeatures(index, side, data1, match, teamsDict, teamsRecentDict, teamsHome
                 data.append(Operation(bookie[i - 1], bookie[i]))
             i += 1
 
-    skybet = GenerateProbData(match['probabilities']['skybet'], match['kickoff'], oppoSide)
-    ladbroke = GenerateProbData(match['probabilities']['ladbroke'], match['kickoff'], oppoSide)
+    skybet = GenerateProbData(match['probabilities']['skybet'], kickoff, oppoSide)
+    ladbroke = GenerateProbData(match['probabilities']['ladbroke'], kickoff, oppoSide)
 
     i = 0
     while i < len(pinnacle):
@@ -607,7 +610,6 @@ def IsGameQualified(file_name, correct_result, wrong_result, choice):
         curMatchIndex = 0
         allMatches = {}
         for match in matches:
-            match['kickoff'] = match['kickoff'] - 20 * 60
             time = match['kickoff'] + match['home_team_id']
             allMatches[float(time)] = match
 
@@ -792,9 +794,9 @@ def IsGameQualified(file_name, correct_result, wrong_result, choice):
             allQualifiedGames[int(match['game_id'])] = match
 
 years = []
-#years.append("2016-2017")
-#years.append("2017-")
-#years.append("2017-2018")
+years.append("2016-2017")
+years.append("2017-")
+years.append("2017-2018")
 years.append("2018-2019")
 
 halves = []
@@ -802,7 +804,9 @@ halves.append('top')
 halves.append('bottom')
 
 tree_size = 2000
-
+totalPnl = 0
+perMatchPnl = []
+winRate = []
 for year in years:
     for half in halves:
         correct_predict_result = []
@@ -901,8 +905,8 @@ for year in years:
         benmarkProb3 = 0.5
         benmarkProb4 = 1.6
 
-        if year == "2018-2019" and half == "top":
-           joblib.dump(rf, './src/ops/game_qualifier/nbaVcbet.pkl')
+        #if year == "2018-2019" and half == "top":
+           #joblib.dump(rf, './src/ops/game_qualifier/nbaVcbet.pkl')
 
         for prob in probability:
             result_odds = 0
@@ -942,3 +946,8 @@ for year in years:
         #plt.show()
 
         print(year, half, min_odds, tree_size, min_pct, "winR", right / (right + wrong), "betR", (right + wrong) / len(test_result), "total matches", right + wrong, "pnl", odds, "per match ret", odds / (right + wrong))
+        totalPnl += odds
+        perMatchPnl.append(odds / (right + wrong))
+        winRate.append(right / (right + wrong))
+print("tPnl", totalPnl, "per match average", statistics.mean(perMatchPnl), "variance", statistics.variance(perMatchPnl),
+    "winRate average", statistics.mean(winRate), "variance", statistics.variance(winRate))

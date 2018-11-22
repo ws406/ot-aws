@@ -2,6 +2,7 @@ import json
 import time
 import math
 import collections
+import statistics
 import pandas as pd
 import numpy as np
 from numpy import matrix
@@ -258,15 +259,27 @@ def GenFeatures(index, side, data1, match, teamsDict, teamsRecentDict, teamsHome
         #data1.append(item)
 
     iList = []
+    #iList.append(0)
+    #iList.append(1)
+    #iList.append(2)
+    #iList.append(3)
+    #iList.append(4)
+    #iList.append(5)
+    #iList.append(13)
+    #iList.append(14)
+    #iList.append(18)
+
     iList.append(0)
     iList.append(1)
     iList.append(2)
     iList.append(3)
     iList.append(4)
     iList.append(5)
+    iList.append(7)
     iList.append(13)
     iList.append(14)
     iList.append(18)
+    iList.append(19)
 
     index = -1
     for item in data:
@@ -691,17 +704,19 @@ def IsGameQualified(file_name, correct_result, wrong_result, choice):
             allQualifiedGames[int(match['game_id'])] = match
 
 years = []
-#years.append("2016-2017")
-#years.append("2017-")
-#years.append("2017-2018")
+years.append("2016-2017")
+years.append("2017-")
+years.append("2017-2018")
 years.append("2018-2019")
 
 halves = []
 halves.append('top')
-#halves.append('bottom')
+halves.append('bottom')
 
 tree_size = 1000
-
+totalPnl = 0
+perMatchPnl = []
+winRate = []
 for year in years:
     for half in halves:
         correct_predict_result = []
@@ -801,8 +816,8 @@ for year in years:
         benmarkProb3 = 0.5
         benmarkProb4 = 1.6
 
-        if year == "2018-2019" and half == "top":
-          joblib.dump(rf, './src/ops/game_qualifier/nba.pkl')
+        #if year == "2018-2019" and half == "top":
+          #joblib.dump(rf, './src/ops/game_qualifier/nba.pkl')
 
         for prob in probability:
             result_odds = 0
@@ -842,3 +857,8 @@ for year in years:
         #plt.show()
 
         print(year, half, min_odds, tree_size, timeBackOffset, min_pct, "winR", right / (right + wrong), "betR", (right + wrong) / len(test_result), "total matches", right + wrong, "pnl", odds, "per match ret", odds / (right + wrong))
+        totalPnl += odds
+        perMatchPnl.append(odds / (right + wrong))
+        winRate.append(right / (right + wrong))
+print("tPnl", totalPnl, "per match average", statistics.mean(perMatchPnl), "variance", statistics.variance(perMatchPnl),
+    "winRate average", statistics.mean(winRate), "variance", statistics.variance(winRate))
