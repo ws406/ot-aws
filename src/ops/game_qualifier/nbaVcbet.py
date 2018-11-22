@@ -281,7 +281,6 @@ class NbaVcbet (GameQualifierInterface):
             print ("This is totally wrong! There must be a winner")
 
     def is_game_qualified (self, file_name, game_data, choice):
-        game_data ['kickoff'] = game_data ['kickoff'] - 20 * 60
         teamsDict = dict ()
         teamsHomeDict = dict ()
         teamsAwayDict = dict ()
