@@ -116,13 +116,14 @@ class NbaVcbet (GameQualifierInterface):
         if side == '1':
             oppoSide = '2'
         data.append (match ['game_id'])
+        kickoff = match ['kickoff'] - 20*60
 
-        pinnacle = self.GenerateProbData (match ['probabilities'] ['pinnacle'], match ['kickoff'], side)
-        will_hill = self.GenerateProbData (match ['probabilities'] ['will_hill'], match ['kickoff'], side)
-        vcbet = self.GenerateProbData (match ['probabilities'] ['vcbet'], match ['kickoff'], side)
-        easybet = self.GenerateProbData (match ['probabilities'] ['easybet'], match ['kickoff'], side)
-        skybet = self.GenerateProbData (match ['probabilities'] ['skybet'], match ['kickoff'], side)
-        ladbroke = self.GenerateProbData (match ['probabilities'] ['ladbroke'], match ['kickoff'], side)
+        pinnacle = self.GenerateProbData (match ['probabilities'] ['pinnacle'], kickoff, side)
+        will_hill = self.GenerateProbData (match ['probabilities'] ['will_hill'], kickoff, side)
+        vcbet = self.GenerateProbData (match ['probabilities'] ['vcbet'], kickoff, side)
+        easybet = self.GenerateProbData (match ['probabilities'] ['easybet'], kickoff, side)
+        skybet = self.GenerateProbData (match ['probabilities'] ['skybet'], kickoff, side)
+        ladbroke = self.GenerateProbData (match ['probabilities'] ['ladbroke'], kickoff, side)
 
         i = 0
         while i < len (pinnacle):
@@ -159,8 +160,8 @@ class NbaVcbet (GameQualifierInterface):
                     data.append (self.Operation (bookie [i - 1], bookie [i]))
                 i += 1
 
-        skybet = self.GenerateProbData (match ['probabilities'] ['skybet'], match ['kickoff'], oppoSide)
-        ladbroke = self.GenerateProbData (match ['probabilities'] ['ladbroke'], match ['kickoff'], oppoSide)
+        skybet = self.GenerateProbData (match ['probabilities'] ['skybet'], kickoff, oppoSide)
+        ladbroke = self.GenerateProbData (match ['probabilities'] ['ladbroke'], kickoff, oppoSide)
 
         i = 0
         while i < len (pinnacle):
