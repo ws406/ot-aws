@@ -259,27 +259,15 @@ def GenFeatures(index, side, data1, match, teamsDict, teamsRecentDict, teamsHome
         #data1.append(item)
 
     iList = []
-    #iList.append(0)
-    #iList.append(1)
-    #iList.append(2)
-    #iList.append(3)
-    #iList.append(4)
-    #iList.append(5)
-    #iList.append(13)
-    #iList.append(14)
-    #iList.append(18)
-
     iList.append(0)
     iList.append(1)
     iList.append(2)
     iList.append(3)
     iList.append(4)
     iList.append(5)
-    iList.append(7)
     iList.append(13)
     iList.append(14)
     iList.append(18)
-    iList.append(19)
 
     index = -1
     for item in data:
