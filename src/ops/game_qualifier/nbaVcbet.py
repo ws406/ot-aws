@@ -116,7 +116,7 @@ class NbaVcbet (GameQualifierInterface):
         if side == '1':
             oppoSide = '2'
         data.append (match ['game_id'])
-        kickoff = match ['kickoff'] - 20 * 60
+        kickoff = match ['kickoff'] - 20*60
 
         pinnacle = self.GenerateProbData (match ['probabilities'] ['pinnacle'], kickoff, side)
         will_hill = self.GenerateProbData (match ['probabilities'] ['will_hill'], kickoff, side)
