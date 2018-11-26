@@ -31,7 +31,7 @@ min_odds_tobet1 = 1.0
 min_odds_tobet2 = 1.0
 max_odds_tobet1 = 10.8
 max_odds_tobet2 = 10.8
-min_pct = 0.5005
+min_pct = 0.501
 
 allQualifiedGames = {}
 
@@ -274,6 +274,11 @@ def GenFeatures(index, side, data1, match, teamsDict, teamsRecentDict, teamsHome
         index += 1
         if index in iList:
             data1.append(item)
+    
+    #if side == '1':
+        #data1.append(1)
+    #else:
+        #data1.append(0)
 
 def GenerateProbData(probList, kickoffTime, side):
     kickoffTimeinLong = int(kickoffTime)
@@ -693,7 +698,7 @@ def IsGameQualified(file_name, correct_result, wrong_result, choice):
 
 years = []
 years.append("2016-2017")
-years.append("2017-")
+#years.append("2017-")
 years.append("2017-2018")
 years.append("2018-2019")
 
@@ -769,7 +774,7 @@ for year in years:
         trainRes = array(trainData[:,0])
         trainArr = trainData[:,2:]
         rf = RandomForestClassifier(n_estimators=tree_size, min_samples_leaf=1, random_state = 0, n_jobs=-1) #criterion='entropy',
-        #rf = KNeighborsClassifier(n_neighbors=800, algorithm='brute', n_jobs=-1) #metric='minkowski', 
+        #rf = KNeighborsClassifier(n_neighbors=len(correct_predict_result), algorithm='brute', n_jobs=-1) #metric='minkowski', 
         #rf = svm.SVC(gamma='scale')
         #rf = SGDClassifier(loss="log", penalty="l2", max_iter=50)
         rf.fit(trainArr, trainRes.ravel())
@@ -834,19 +839,19 @@ for year in years:
                 #odds = odds + result_odds
             #index = index + 1
 
-        #finalRoundsPnl = collections.OrderedDict(sorted(roundsPnl.items()))
-        #curPnl = 0
-        #for date, data in finalRoundsPnl.items():
-           #curPnl = curPnl + data
-           #allRoundPnl.append(curPnl)
+        finalRoundsPnl = collections.OrderedDict(sorted(roundsPnl.items()))
+        curPnl = 0
+        for date, data in finalRoundsPnl.items():
+           curPnl = curPnl + data
+           allRoundPnl.append(curPnl)
 
-        #plt.figure(1)
-        #plt.plot(allRoundPnl, 'r-')
-        #plt.show()
+        plt.figure(1)
+        plt.plot(allRoundPnl, 'r-')
+        plt.show()
 
         print(year, half, min_odds, tree_size, timeBackOffset, min_pct, "winR", right / (right + wrong), "betR", (right + wrong) / len(test_result), "total matches", right + wrong, "pnl", odds, "per match ret", odds / (right + wrong))
         totalPnl += odds
         perMatchPnl.append(odds / (right + wrong))
         winRate.append(right / (right + wrong))
-print("tPnl", totalPnl, "per match average", statistics.mean(perMatchPnl), "variance", statistics.variance(perMatchPnl),
-    "winRate average", statistics.mean(winRate), "variance", statistics.variance(winRate))
+#print("tPnl", totalPnl, "per match average", statistics.mean(perMatchPnl), "variance", statistics.variance(perMatchPnl),
+#    "winRate average", statistics.mean(winRate), "variance", statistics.variance(winRate))
