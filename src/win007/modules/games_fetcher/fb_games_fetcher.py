@@ -37,7 +37,7 @@ class GamesFetcher:
             response = BrowserRequests.get(self.url_games_list)
         except:
             print("Can't process url - " + self.url_games_list)
-            return
+            return False
 
         soup = BeautifulSoup(response.content.decode('gb2312', 'ignore'), "html5lib")
         game_rows = soup.findAll("tr", {"id": re.compile('tr_[0-9]{1,2}')})

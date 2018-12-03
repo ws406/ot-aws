@@ -50,6 +50,11 @@ class Main:
         print (msg)
         games = self.gameDetector.get_games (self.minutes, self.league_names)
 
+        # Return false to indicate that this needs to be return
+        if games is False:
+            print('Failed to get data from URL. Retrying....')
+            return False
+
         kafka_producer = self.get_kafka_producer ()
         for game in games:
             gid_str = str (game ['game_id'])
@@ -66,8 +71,12 @@ if __name__ == '__main__':
     while (True):
         try:
             num_games = Main ().execute ()
+            # Failed to get games from URL, retry
+            if num_games is False:
+                continue
+
             if num_games == 0:
-                wait = Main().minutes - 5
+                wait = Main().minutes - normal_interval_in_mins
             else:
                 wait = normal_interval_in_mins
         except Exception as e:

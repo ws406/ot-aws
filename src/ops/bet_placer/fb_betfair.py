@@ -17,6 +17,7 @@ class FBBetfair(Betfair):
         'Norwich City': 'Norwich',
         'TSG Hoffenheim': 'Hoffenheim',
         'Crystal Palace': 'C Palace',
+        'Bayer Leverkusen': 'Leverkusen',
     }
 
     def place_match_odds_bet(self, game_data, betting_amount):
