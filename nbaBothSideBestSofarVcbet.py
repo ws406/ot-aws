@@ -27,7 +27,7 @@ min_odds = 1.5
 decayRatio = 0.618
 min_odds_tobet1 = 1.0
 min_odds_tobet2 = 1.0
-min_pct = 0.501
+min_pct = 0.5005
 
 allQualifiedGames = {}
 
@@ -286,6 +286,10 @@ def GenFeatures(index, side, data1, match, teamsDict, teamsRecentDict, teamsHome
     del data[54]
     del data[51]
     del data[50]
+
+    #del data[45]
+    #del data[41]
+    #del data[35]
 
     #del data[27]
     #del data[22]
@@ -802,7 +806,7 @@ def IsGameQualified(file_name, correct_result, wrong_result, choice):
 
 years = []
 years.append("2016-2017")
-#years.append("2017-")
+years.append("2017-")
 years.append("2017-2018")
 years.append("2018-2019")
 
@@ -877,7 +881,7 @@ for year in years:
         trainData = matrix(allResult)
         trainRes = array(trainData[:,0])
         trainArr = trainData[:,2:]
-        rf = RandomForestClassifier(n_estimators=tree_size, min_samples_leaf=1, random_state = 0, n_jobs=-1) #criterion='entropy',
+        rf = RandomForestClassifier(n_estimators=tree_size, min_samples_leaf=1, random_state=0, n_jobs=-1) #criterion='entropy',max_features=0.5, 
         rf.fit(trainArr, trainRes.ravel())
 
         #importances = rf.feature_importances_
@@ -945,8 +949,8 @@ for year in years:
         finalRoundsPnl = collections.OrderedDict(sorted(roundsPnl.items()))
         curPnl = 0
         for date, data in finalRoundsPnl.items():
-          curPnl = curPnl + data
-          allRoundPnl.append(curPnl)
+         curPnl = curPnl + data
+         allRoundPnl.append(curPnl)
 
         plt.figure(1)
         plt.plot(allRoundPnl, 'r-')
@@ -956,5 +960,5 @@ for year in years:
         totalPnl += odds
         perMatchPnl.append(odds / (right + wrong))
         winRate.append(right / (right + wrong))
-#print("tPnl", totalPnl, "per match average", statistics.mean(perMatchPnl), "variance", statistics.variance(perMatchPnl),
-#    "winRate average", statistics.mean(winRate), "variance", statistics.variance(winRate))
+print("tPnl", totalPnl, "per match average", statistics.mean(perMatchPnl), "variance", statistics.variance(perMatchPnl),
+  "winRate average", statistics.mean(winRate), "variance", statistics.variance(winRate))

@@ -31,7 +31,8 @@ min_odds_tobet1 = 1.0
 min_odds_tobet2 = 1.0
 max_odds_tobet1 = 10.8
 max_odds_tobet2 = 10.8
-min_pct = 0.501
+min_pct = 0.5005
+minEdge = 0 / 10000
 
 allQualifiedGames = {}
 
@@ -49,6 +50,26 @@ def IsPredictRight_1(favTeamProb, favTeamOdds, predict, result, prob):
         return favTeamOdds - 1
     else:
         return -1
+
+def Operation(data1, data2):
+    if data1 == 0 or data2 == 0:
+        return 0
+    else:
+        return (data1 - data2) / 100.0
+
+def OperationX(data1, data2):
+    if data1 == 0 or data2 == 0:
+        return 0
+    else:
+        return np.log(data1 / data2)
+        #return (data1 - data2) / 100.0
+
+def Operation1(data1):
+    if data1 > 0:
+        return data1 * data1
+        #return data1 / 100.0
+    else:
+        return data1
 
 def IsPredictRight_2(poss, favTeamOdds, predict, result, prob):
     if favTeamOdds >= 1.5 and favTeamOdds <= 3:
@@ -129,6 +150,11 @@ def CalculateOppsiteOdds(allQualifiedGames, game_id, prob, roundsPnl):
             roundsPnl[curDate] = returns
         return returns
 
+def GetAverageProb(match, side):
+    #return (match['pinnacle']['open'][side] + match['will_hill']['open'][side] + match['easybet']['open'][side] + match['marathonbet']['open'][side] + match['skybet']['open'][side] + match['ladbroke']['open'][side]) / 6.0
+    #return (match['pinnacle']['final'][side] + match['will_hill']['final'][side] + match['easybet']['final'][side] + match['marathonbet']['final'][side] + match['skybet']['final'][side] + match['ladbroke']['final'][side]) / 6.0
+    return match['will_hill']['final'][side]
+
 def CalculateFinalOdds(allQualifiedGames, game_id, prob, roundsPnl):
     match = allQualifiedGames[game_id]
     predict = match['predict']
@@ -136,9 +162,8 @@ def CalculateFinalOdds(allQualifiedGames, game_id, prob, roundsPnl):
     curDate = int(match['date'])
     returns = 0
     if predict == '1':
-        #if (prob[1] - match['probabilities']['pinnacle']['final']['1'] > 0) and prob[1] >= 0.5:
-        if ((prob[1] - match['probabilities']['pinnacle']['final']['1']) > 0 and match['odds']['pinnacle']['final']['1'] >= min_odds_tobet1 and match['odds']['pinnacle']['final']['1'] <= max_odds_tobet1) and prob[1] >= min_pct:
-#        if (prob[1] > match['probabilities']['pinnacle']['final']['1'] or prob[1] > match['probabilities']['vcbet']['final']['1']) and prob[1] >= 0.5:
+        if (OperationX(prob[1], GetAverageProb(match['probabilities'], '1')) > minEdge and match['odds']['pinnacle']['final']['1'] >= min_odds_tobet1 and match['odds']['pinnacle']['final']['1'] <= max_odds_tobet1) and prob[1] >= min_pct:
+        #if ((prob[1] - match['probabilities']['pinnacle']['final']['1']) > 0 and match['odds']['pinnacle']['final']['1'] >= min_odds_tobet1 and match['odds']['pinnacle']['final']['1'] <= max_odds_tobet1) and prob[1] >= min_pct:
             bestOdds = ChooseMax(match['odds']['pinnacle']['final']['1'], match['odds']['pinnacle']['final']['1'], match['odds']['pinnacle']['final']['1'])
             returns = IsPredictRight_1(match['probabilities']['pinnacle']['final']['1'], bestOdds, '1', match['result'], prob)
             #print("Game",int(game_id),curDate,"predict home, result",match['result'],"return is",returns,"dist",match['probabilities']['pinnacle']['final']['1'],":",match['probabilities']['pinnacle']['final']['2'],"prob",prob[1],":",prob[0],"score",match['home_score'],":",match['away_score'],"odds",match['odds']['pinnacle']['final']['1'],":",match['odds']['pinnacle']['final']['2'])
@@ -152,10 +177,8 @@ def CalculateFinalOdds(allQualifiedGames, game_id, prob, roundsPnl):
             else:
                 diffPnl[curDate] = returns
             return returns
-        #elif (prob[0] - match['probabilities']['pinnacle']['final']['2'] > 0) and prob[0] >= 0.5:
-        elif ((prob[0] - match['probabilities']['pinnacle']['final']['2']) > 0 and match['odds']['pinnacle']['final']['2'] >= min_odds_tobet2 and match['odds']['pinnacle']['final']['2'] <= max_odds_tobet2) and prob[0] >= min_pct:
-#        elif (prob[0] > match['probabilities']['pinnacle']['final']['2'] or prob[0] > match['probabilities']['vcbet']['final']['2']) and prob[0] >= 0.5:
-        #if prob[0] > match['probabilities']['pinnacle']['final']['2'] and prob[0] >= 0.5:
+        elif (OperationX(prob[0], GetAverageProb(match['probabilities'], '2')) > minEdge and match['odds']['pinnacle']['final']['2'] >= min_odds_tobet2 and match['odds']['pinnacle']['final']['2'] <= max_odds_tobet2) and prob[0] >= min_pct:
+        #elif ((prob[0] - match['probabilities']['pinnacle']['final']['2']) > 0 and match['odds']['pinnacle']['final']['2'] >= min_odds_tobet2 and match['odds']['pinnacle']['final']['2'] <= max_odds_tobet2) and prob[0] >= min_pct:
             bestOdds = ChooseMax(match['odds']['pinnacle']['final']['2'], match['odds']['pinnacle']['final']['2'], match['odds']['pinnacle']['final']['2'])
             returns = IsPredictRight_1(match['probabilities']['pinnacle']['final']['2'], bestOdds, '2', match['result'], prob)
             #print("Game",int(game_id),curDate,"predict oppo away, result",match['result'],"return is",returns,"dist",match['probabilities']['pinnacle']['final']['1'],":",match['probabilities']['pinnacle']['final']['2'],"prob",prob[1],":",prob[0],"score",match['home_score'],":",match['away_score'],"odds",match['odds']['pinnacle']['final']['1'],":",match['odds']['pinnacle']['final']['2'])
@@ -173,9 +196,8 @@ def CalculateFinalOdds(allQualifiedGames, game_id, prob, roundsPnl):
             #print("Game",int(game_id),"predict void, result",match['result'],"dist",match['probabilities']['pinnacle']['final']['1'],":",match['probabilities']['pinnacle']['final']['2'],"prob",prob[1],":",prob[0],"score",match['home_score'],":",match['away_score'],"odds",match['odds']['pinnacle']['final']['1'],":",match['odds']['pinnacle']['final']['2'])
             return returns
     elif predict == '2':
-        #if (prob[1] - match['probabilities']['pinnacle']['final']['2'] > 0) and prob[1] >= 0.5:
-        if ((prob[1] - match['probabilities']['pinnacle']['final']['2']) > 0 and match['odds']['pinnacle']['final']['2'] >= min_odds_tobet1 and match['odds']['pinnacle']['final']['2'] <= max_odds_tobet1) and prob[1] >= min_pct:
-#        if (prob[1] > match['probabilities']['pinnacle']['final']['2'] or prob[1] > match['probabilities']['vcbet']['final']['2']) and prob[1] >= 0.5:
+        if (OperationX(prob[1], GetAverageProb(match['probabilities'], '2')) > minEdge and match['odds']['pinnacle']['final']['2'] >= min_odds_tobet1 and match['odds']['pinnacle']['final']['2'] <= max_odds_tobet1) and prob[1] >= min_pct:
+        #if ((prob[1] - match['probabilities']['pinnacle']['final']['2']) > 0 and match['odds']['pinnacle']['final']['2'] >= min_odds_tobet1 and match['odds']['pinnacle']['final']['2'] <= max_odds_tobet1) and prob[1] >= min_pct:
             bestOdds = ChooseMax(match['odds']['pinnacle']['final']['2'], match['odds']['pinnacle']['final']['2'], match['odds']['pinnacle']['final']['2'])
             returns = IsPredictRight_1(match['probabilities']['pinnacle']['final']['2'], bestOdds, '2', match['result'], prob)
             #print("Game",int(game_id),curDate,"predict away, result",match['result'],"return is",returns,"dist",match['probabilities']['pinnacle']['final']['1'],":",match['probabilities']['pinnacle']['final']['2'],"prob",prob[0],":",prob[1],"score",match['home_score'],":",match['away_score'],"odds",match['odds']['pinnacle']['final']['1'],":",match['odds']['pinnacle']['final']['2'])
@@ -189,10 +211,8 @@ def CalculateFinalOdds(allQualifiedGames, game_id, prob, roundsPnl):
             else:
                 diffPnl[curDate] = returns
             return returns
-        #elif (prob[0] - match['probabilities']['pinnacle']['final']['1'] < 0.1) and prob[0] >= 0.5:
-        elif ((prob[0] - match['probabilities']['pinnacle']['final']['1']) > 0 and match['odds']['pinnacle']['final']['1'] >= min_odds_tobet2 and match['odds']['pinnacle']['final']['1'] <= max_odds_tobet2) and prob[0] >= min_pct:
-#        elif (prob[0] > match['probabilities']['pinnacle']['final']['1'] or prob[0] > match['probabilities']['vcbet']['final']['1']) and prob[0] >= 0.5:
-        #if prob[0] > match['probabilities']['pinnacle']['final']['1'] and prob[0] >= 0.5:
+        elif (OperationX(prob[0], GetAverageProb(match['probabilities'], '1')) > minEdge and match['odds']['pinnacle']['final']['1'] >= min_odds_tobet2 and match['odds']['pinnacle']['final']['1'] <= max_odds_tobet2) and prob[0] >= min_pct:
+        #elif ((prob[0] - match['probabilities']['pinnacle']['final']['1']) > 0 and match['odds']['pinnacle']['final']['1'] >= min_odds_tobet2 and match['odds']['pinnacle']['final']['1'] <= max_odds_tobet2) and prob[0] >= min_pct:
             bestOdds = ChooseMax(match['odds']['pinnacle']['final']['1'], match['odds']['pinnacle']['final']['1'], match['odds']['pinnacle']['final']['1'])
             returns = IsPredictRight_1(match['probabilities']['pinnacle']['final']['1'], bestOdds, '1', match['result'], prob)
             #print("Game",int(game_id),curDate,"predict oppo home, result",match['result'],"return is",returns,"dist",match['probabilities']['pinnacle']['final']['1'],":",match['probabilities']['pinnacle']['final']['2'],"prob",prob[0],":",prob[1],"score",match['home_score'],":",match['away_score'],"odds",match['odds']['pinnacle']['final']['1'],":",match['odds']['pinnacle']['final']['2'])
@@ -209,26 +229,6 @@ def CalculateFinalOdds(allQualifiedGames, game_id, prob, roundsPnl):
         else:
             #print("Game",int(game_id),"predict oppo void, result",match['result'],"dist",match['probabilities']['pinnacle']['final']['1'],":",match['probabilities']['pinnacle']['final']['2'],"prob",prob[0],":",prob[1],"score",match['home_score'],":",match['away_score'],"odds",match['odds']['pinnacle']['final']['1'],":",match['odds']['pinnacle']['final']['2'])
             return returns
-
-def Operation(data1, data2):
-    if data1 == 0 or data2 == 0:
-        return 0
-    else:
-        return (data1 - data2) / 100.0
-
-def OperationX(data1, data2):
-    if data1 == 0 or data2 == 0:
-        return 0
-    else:
-        return np.log(data1 / data2)
-        #return (data1 - data2) / 100.0
-
-def Operation1(data1):
-    if data1 > 0:
-        return data1 * data1
-        #return data1 / 100.0
-    else:
-        return data1
 
 def GenFeatures(index, side, data1, match, teamsDict, teamsRecentDict, teamsHomeDict, teamsAwayDict, teamsRecentHomeDict, teamsRecentAwayDict, teamsLastDate):
     data = []
@@ -698,7 +698,7 @@ def IsGameQualified(file_name, correct_result, wrong_result, choice):
 
 years = []
 years.append("2016-2017")
-#years.append("2017-")
+years.append("2017-")
 years.append("2017-2018")
 years.append("2018-2019")
 
@@ -849,9 +849,9 @@ for year in years:
         plt.plot(allRoundPnl, 'r-')
         plt.show()
 
-        print(year, half, min_odds, tree_size, timeBackOffset, min_pct, "winR", right / (right + wrong), "betR", (right + wrong) / len(test_result), "total matches", right + wrong, "pnl", odds, "per match ret", odds / (right + wrong))
+        print(year, half, min_odds, tree_size, timeBackOffset, min_pct, minEdge, "winR", right / (right + wrong), "betR", (right + wrong) / len(test_result), "total matches", right + wrong, "pnl", odds, "per match ret", odds / (right + wrong))
         totalPnl += odds
         perMatchPnl.append(odds / (right + wrong))
         winRate.append(right / (right + wrong))
-#print("tPnl", totalPnl, "per match average", statistics.mean(perMatchPnl), "variance", statistics.variance(perMatchPnl),
-#    "winRate average", statistics.mean(winRate), "variance", statistics.variance(winRate))
+print("tPnl", totalPnl, "per match average", statistics.mean(perMatchPnl), "variance", statistics.variance(perMatchPnl),
+   "winRate average", statistics.mean(winRate), "variance", statistics.variance(winRate))
