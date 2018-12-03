@@ -32,7 +32,7 @@ min_odds_tobet2 = 1.0
 max_odds_tobet1 = 10.8
 max_odds_tobet2 = 10.8
 min_pct = 0.5005
-minEdge = 0 / 10000
+minEdge = 10 / 10000
 
 allQualifiedGames = {}
 
@@ -151,9 +151,9 @@ def CalculateOppsiteOdds(allQualifiedGames, game_id, prob, roundsPnl):
         return returns
 
 def GetAverageProb(match, side):
-    #return (match['pinnacle']['open'][side] + match['will_hill']['open'][side] + match['easybet']['open'][side] + match['marathonbet']['open'][side] + match['skybet']['open'][side] + match['ladbroke']['open'][side]) / 6.0
+    #return min(match['pinnacle']['final'][side], match['will_hill']['final'][side], match['easybet']['final'][side], match['marathonbet']['final'][side], match['skybet']['final'][side], match['ladbroke']['open'][side])
     #return (match['pinnacle']['final'][side] + match['will_hill']['final'][side] + match['easybet']['final'][side] + match['marathonbet']['final'][side] + match['skybet']['final'][side] + match['ladbroke']['final'][side]) / 6.0
-    return match['will_hill']['final'][side]
+    return match['pinnacle']['final'][side]
 
 def CalculateFinalOdds(allQualifiedGames, game_id, prob, roundsPnl):
     match = allQualifiedGames[game_id]
