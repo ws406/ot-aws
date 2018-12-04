@@ -287,19 +287,30 @@ def GenFeatures(index, side, data1, match, teamsDict, teamsRecentDict, teamsHome
     del data[51]
     del data[50]
 
+    #del data[44]
+    #del data[24]
+    #del data[19]
+
+    #del data[51]
+    #del data[13]
+    #del data[5]
+
     #del data[45]
     #del data[41]
     #del data[35]
 
-    #del data[27]
-    #del data[22]
-    #del data[12]
-
     #del data[19]
     #del data[9]
     #del data[2]
+
+    #del data[27]
+    #del data[22]
+    #del data[12]
     for item in data:
         data1.append(item)
+    #averageProb = (pinnacle[0] + will_hill[0] + easybet[0] + vcbet[0] + skybet[0] + ladbroke[0]) / 6.0
+    #averageProbFinal = (pinnacle[len(pinnacle)-1] + will_hill[len(pinnacle)-1] + easybet[len(pinnacle)-1] + vcbet[len(pinnacle)-1] + skybet[len(pinnacle)-1] + ladbroke[len(pinnacle)-1]) / 6.0
+    #data1.append(Operation(averageProbFinal, averageProb))
 
 def GenerateProbData(probList, kickoffTime, side):
     kickoffTimeinLong = int(kickoffTime)
@@ -946,15 +957,15 @@ for year in years:
                #odds = odds + result_odds
             #index = index + 1
 
-        finalRoundsPnl = collections.OrderedDict(sorted(roundsPnl.items()))
-        curPnl = 0
-        for date, data in finalRoundsPnl.items():
-         curPnl = curPnl + data
-         allRoundPnl.append(curPnl)
+        #finalRoundsPnl = collections.OrderedDict(sorted(roundsPnl.items()))
+        #curPnl = 0
+        #for date, data in finalRoundsPnl.items():
+         #curPnl = curPnl + data
+         #allRoundPnl.append(curPnl)
 
-        plt.figure(1)
-        plt.plot(allRoundPnl, 'r-')
-        plt.show()
+        #plt.figure(1)
+        #plt.plot(allRoundPnl, 'r-')
+        #plt.show()
 
         print(year, half, min_odds, tree_size, min_pct, "winR", right / (right + wrong), "betR", (right + wrong) / len(test_result), "total matches", right + wrong, "pnl", odds, "per match ret", odds / (right + wrong))
         totalPnl += odds
