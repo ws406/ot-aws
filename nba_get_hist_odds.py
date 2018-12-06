@@ -18,9 +18,9 @@ class Main:
         446: "skybet",
     }
 
-    league_ids = [
-        1, # NBA
-    ]
+    league_ids = {
+        1 : 'National Basketball Association', # NBA
+    }
 
     league_id_to_year_month = {
         1: [                          # NBA season is from previous Oct to the following April
@@ -46,16 +46,19 @@ class Main:
         # for lid in self.league_ids:
         num_of_seasons = 1
         start_season_offset = 0
-        for lid in self.league_ids:
+        replace = False
+        for lid, lname in self.league_ids.items():
         # for lid in [273]:
             print("Start extracting historical games from " + str(len(self.league_ids)) + " leagues and "
                 + str(num_of_seasons) + " seasons...")
             print("Processing league - " + str(lid))
             hist_game_fetcher.get_hist_games_by_league(
                 lid,
+                lname,
                 num_of_seasons,
                 start_season_offset,
-                self.league_id_to_year_month[lid]
+                self.league_id_to_year_month[lid],
+                replace # if True, it will re-gather odds for existing games
             )
 
 

@@ -26,7 +26,7 @@ class HistGamesFetcher:
             print("num_of_seasons is expected to be a positive int instead of " + str(num_of_seasons))
             sys.exit()
 
-    def _get_all_games_from_a_season(self, season_id, league_id, years_months):
+    def _get_all_games_from_a_season(self, season_id, league_id, years_months, gids_to_skip):
         games = []
 
         year_from, year_to = str.split(season_id, '-')
@@ -88,6 +88,7 @@ class HistGamesFetcher:
                 ".+?\]",                                              # Don't care
                 all_games_string
             )
+
             for game_data in games_data:
                 game = dict()
                 # game['is_played'] = 1 if re.findall(",(-1|0|-14|2),", game_data)[0] == '-1' else 0
@@ -96,6 +97,11 @@ class HistGamesFetcher:
                 #     continue
 
                 game['game_id'] = int(game_data[0])
+
+                if gids_to_skip and game['game_id'] in gids_to_skip:
+                    print('Skip! Game ' + str(game['game_id']) + ' exists already.')
+                    continue
+
                 game['home_score'] = int(game_data[3])
                 game['away_score'] = int(game_data[4])
                 game['home_half_score'] = int(game_data[5])
@@ -129,16 +135,28 @@ class HistGamesFetcher:
                 games.append(game)
         return games
 
-    def get_hist_games_by_league(self, league_id, num_of_seasons, start_season_offset, year_month):
+    def get_hist_games_by_league(self, league_id, league_name, num_of_seasons, start_season_offset, year_month, replace):
         season_ids = self._get_season_ids(league_id, num_of_seasons, start_season_offset)
         games = []
         for season_id in season_ids:
             print("\tSeason - " + str(season_id))
-            data = self._get_all_games_from_a_season(season_id, league_id, year_month)
+            file_name = './data/basketball_all_odds_data/' + league_name + '-' + season_id + '.json'
+            existing_gids = []
+            # 'replace' is False, load existing data first
+            if replace is False:
+                try:
+                    file_content = open (file_name, 'r')
+                    existing_games = json.load(file_content)
+                    for game in existing_games:
+                        existing_gids.append(game['game_id'])
+                except FileNotFoundError:
+                    print('File does not exist, thus cannot load game data - ' + file_name)
+
+            data = self._get_all_games_from_a_season(season_id, league_id, year_month, existing_gids)
             if not data:
                 print("\t---Season - " + str(season_id) + ' has no game data available---')
                 continue
-            file_name = './data/basketball_all_odds_data/' + data[0]['league_name'] + '-' + season_id + '.json'
+
             self._write_to_file(file_name, data)
             print(str(len(data)) + ' games saved to ' + file_name)
             games.append(data)
