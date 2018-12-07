@@ -1,6 +1,6 @@
 from bs4 import BeautifulSoup
 import re
-from src.crawler.browser_requests import BrowserRequests
+from src.utils.browser_requests import BrowserRequests
 import sys
 from src.win007.modules.games_fetcher.basketball_odds_fetcher.abstract_odds_fetcher import AbstractOddsFetcher
 import time
@@ -157,11 +157,19 @@ class HistGamesFetcher:
                 print("\t---Season - " + str(season_id) + ' has no game data available---')
                 continue
 
-            self._write_to_file(file_name, data)
+            if replace is False:
+                self._append_to_file(file_name, data)
+            else:
+                self._write_to_file(file_name, data)
             print(str(len(data)) + ' games saved to ' + file_name)
             games.append(data)
 
     def _write_to_file(self, file_name, data):
         file = open(file_name, 'w+')
+        file.write(json.dumps(data))
+        file.close()
+
+    def _append_to_file(self, file_name, data):
+        file = open(file_name, 'a+')
         file.write(json.dumps(data))
         file.close()

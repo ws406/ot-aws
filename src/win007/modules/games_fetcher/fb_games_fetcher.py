@@ -1,6 +1,6 @@
 from bs4 import BeautifulSoup
 import re
-from src.crawler.browser_requests import BrowserRequests
+from src.utils.browser_requests import BrowserRequests
 from pytz import timezone
 import sys
 from src.win007.modules.games_fetcher.football_odds_fetcher.abstract_odds_fetcher import AbstractOddsFetcher

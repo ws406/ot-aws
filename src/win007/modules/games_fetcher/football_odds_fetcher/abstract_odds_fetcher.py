@@ -1,7 +1,7 @@
 import abc
 import re
 from bs4 import BeautifulSoup
-from src.crawler.browser_requests import BrowserRequests
+from src.utils.browser_requests import BrowserRequests
 from datetime import datetime
 from pytz import timezone
 import sys
