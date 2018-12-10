@@ -17,7 +17,7 @@ class Main:
         432: "hkjc",  # HKJC
         104: "interwetten"  # Interwetten
     }
-    minutes = 45
+    minutes = 15
     league_ids = [
         34,  # IT1
         36,  # EPL

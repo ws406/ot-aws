@@ -20,7 +20,7 @@ class Main:
         457: "marathonbet",
         446: "skybet",
     }
-    minutes = 30
+    minutes = 15
     league_names = {
         'NBA': 1  # NBA
     }
