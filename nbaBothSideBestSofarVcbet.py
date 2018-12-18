@@ -16,6 +16,7 @@ from sklearn.metrics import classification_report
 from sklearn.metrics import roc_curve, auc
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.neighbors import KNeighborsClassifier
+from sklearn.linear_model import RandomizedLogisticRegression
 
 file_header = "./data/basketball_all_odds_data/National Basketball Association-"
 file_end = ".json"
@@ -306,6 +307,36 @@ def GenFeatures(index, side, data1, match, teamsDict, teamsRecentDict, teamsHome
     #del data[27]
     #del data[22]
     #del data[12]
+
+    #iList = []
+    #iList.append(data[0])
+    #iList.append(data[1])
+    #iList.append(data[2])
+    #iList.append(data[5])
+    #iList.append(data[7])
+    #iList.append(data[9])
+    #iList.append(data[12])
+    #iList.append(data[13])
+    #iList.append(data[14])
+    #iList.append(data[16])
+    #iList.append(data[18])
+    #iList.append(data[22])
+    #iList.append(data[24])
+    #iList.append(data[25])
+    #iList.append(data[28])
+    #iList.append(data[30])
+    #iList.append(data[32])
+    #iList.append(data[37])
+    #iList.append(data[38])
+    #iList.append(data[41])
+    #iList.append(data[43])
+    #iList.append(data[45])
+    #iList.append(data[46])
+    #iList.append(data[47])
+    #iList.append(data[49])
+    #iList.append(data[51])
+
+    #for item in iList:
     for item in data:
         data1.append(item)
     #averageProb = (pinnacle[0] + will_hill[0] + easybet[0] + vcbet[0] + skybet[0] + ladbroke[0]) / 6.0
@@ -816,9 +847,9 @@ def IsGameQualified(file_name, correct_result, wrong_result, choice):
             allQualifiedGames[int(match['game_id'])] = match
 
 years = []
-years.append("2016-2017")
-years.append("2017-")
-years.append("2017-2018")
+#years.append("2016-2017")
+#years.append("2017-")
+#years.append("2017-2018")
 years.append("2018-2019")
 
 halves = []
@@ -895,6 +926,8 @@ for year in years:
         rf = RandomForestClassifier(n_estimators=tree_size, min_samples_leaf=1, random_state=0, n_jobs=-1) #criterion='entropy',max_features=0.5, 
         rf.fit(trainArr, trainRes.ravel())
 
+        #corr=pd.DataFrame(trainArr).corr(method='pearson')
+        #print(corr)
         #importances = rf.feature_importances_
         #std = np.std([tree.feature_importances_ for tree in rf.estimators_],
         #     axis=0)
@@ -902,6 +935,9 @@ for year in years:
         #for f in range(trainArr.shape[1]):
         #    print("%d. feature %d (%f)" % (f + 1, indices[f] + 1, importances[indices[f]]))
 
+        clf = RandomizedLogisticRegression()
+        clf.fit(trainArr, trainRes.ravel())
+        print(clf.scores_)
         #if year == "2018-2019" and half == "top":
             #half = 'delete'
         IsGameQualified(test_file_name, test_result, test_result, half)
@@ -957,19 +993,19 @@ for year in years:
                #odds = odds + result_odds
             #index = index + 1
 
-        #finalRoundsPnl = collections.OrderedDict(sorted(roundsPnl.items()))
-        #curPnl = 0
-        #for date, data in finalRoundsPnl.items():
-         #curPnl = curPnl + data
-         #allRoundPnl.append(curPnl)
+        finalRoundsPnl = collections.OrderedDict(sorted(roundsPnl.items()))
+        curPnl = 0
+        for date, data in finalRoundsPnl.items():
+         curPnl = curPnl + data
+         allRoundPnl.append(curPnl)
 
-        #plt.figure(1)
-        #plt.plot(allRoundPnl, 'r-')
-        #plt.show()
+        plt.figure(1)
+        plt.plot(allRoundPnl, 'r-')
+        plt.show()
 
         print(year, half, min_odds, tree_size, min_pct, "winR", right / (right + wrong), "betR", (right + wrong) / len(test_result), "total matches", right + wrong, "pnl", odds, "per match ret", odds / (right + wrong))
         totalPnl += odds
         perMatchPnl.append(odds / (right + wrong))
         winRate.append(right / (right + wrong))
-print("tPnl", totalPnl, "per match average", statistics.mean(perMatchPnl), "variance", statistics.variance(perMatchPnl),
-  "winRate average", statistics.mean(winRate), "variance", statistics.variance(winRate))
+#print("tPnl", totalPnl, "per match average", statistics.mean(perMatchPnl), "variance", statistics.variance(perMatchPnl),
+  #"winRate average", statistics.mean(winRate), "variance", statistics.variance(winRate))

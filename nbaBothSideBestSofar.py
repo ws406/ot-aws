@@ -16,6 +16,7 @@ from sklearn.metrics import classification_report
 from sklearn.metrics import roc_curve, auc
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.neighbors import KNeighborsClassifier
+from sklearn.linear_model import RandomizedLogisticRegression
 
 file_header = "./data/basketball_all_odds_data/National Basketball Association-"
 file_end = ".json"
@@ -255,6 +256,7 @@ def GenFeatures(index, side, data1, match, teamsDict, teamsRecentDict, teamsHome
         data.append (Operation (ladbroke [i], skybet [i]))  #
         i += 1
 
+    data.append(Operation (will_hill[len(pinnacle) - 1], will_hill[0]))
     #for item in data:
         #data1.append(item)
 
@@ -274,7 +276,10 @@ def GenFeatures(index, side, data1, match, teamsDict, teamsRecentDict, teamsHome
         index += 1
         if index in iList:
             data1.append(item)
-    
+
+    #data1.append(pinnacle[0])
+    #data1.append(pinnacle[len(pinnacle) - 1])
+    #data1.append(Operation (will_hill[len(pinnacle) - 1], will_hill[0])) # 175.63
     #if side == '1':
         #data1.append(1)
     #else:
@@ -697,9 +702,9 @@ def IsGameQualified(file_name, correct_result, wrong_result, choice):
             allQualifiedGames[int(match['game_id'])] = match
 
 years = []
-years.append("2016-2017")
-years.append("2017-")
-years.append("2017-2018")
+#years.append("2016-2017")
+#years.append("2017-")
+#years.append("2017-2018")
 years.append("2018-2019")
 
 halves = []
@@ -745,6 +750,8 @@ for year in years:
             IsGameQualified(file_name, correct_predict_result, wrong_predict_result, 'full')
             file_name = file_header + "2017-2018" + file_end
             IsGameQualified(file_name, correct_predict_result, wrong_predict_result, 'full')
+            file_name = file_header + "2018-2019" + file_end
+            IsGameQualified(file_name, correct_predict_result, wrong_predict_result, 'full')
         if year == "2018-2019" and half == "bottom":
             continue
         allowedSamples1 = max(len(correct_predict_result), len(wrong_predict_result))
@@ -786,6 +793,10 @@ for year in years:
         #for f in range(trainArr.shape[1]):
         #    print("%d. feature %d (%f)" % (f + 1, indices[f] + 1, importances[indices[f]]))
 
+        #clf = RandomizedLogisticRegression()
+        #clf.fit(trainArr, trainRes.ravel())
+        #print(clf.scores_)
+
         IsGameQualified(test_file_name, test_result, test_result, half)
         testData = matrix(test_result)
         testRes = array(testData[:,0])
@@ -809,8 +820,8 @@ for year in years:
         benmarkProb3 = 0.5
         benmarkProb4 = 1.6
 
-        #if year == "2018-2019" and half == "top":
-          #joblib.dump(rf, './src/ops/game_qualifier/nba.pkl')
+        if year == "2018-2019" and half == "top":
+          joblib.dump(rf, './src/ops/game_qualifier/nba.pkl')
 
         for prob in probability:
             result_odds = 0
@@ -839,19 +850,19 @@ for year in years:
                 #odds = odds + result_odds
             #index = index + 1
 
-        finalRoundsPnl = collections.OrderedDict(sorted(roundsPnl.items()))
-        curPnl = 0
-        for date, data in finalRoundsPnl.items():
-           curPnl = curPnl + data
-           allRoundPnl.append(curPnl)
+        #finalRoundsPnl = collections.OrderedDict(sorted(roundsPnl.items()))
+        #curPnl = 0
+        #for date, data in finalRoundsPnl.items():
+           #curPnl = curPnl + data
+           #allRoundPnl.append(curPnl)
 
-        plt.figure(1)
-        plt.plot(allRoundPnl, 'r-')
-        plt.show()
+        #plt.figure(1)
+        #plt.plot(allRoundPnl, 'r-')
+        #plt.show()
 
         print(year, half, min_odds, tree_size, timeBackOffset, min_pct, minEdge, "winR", right / (right + wrong), "betR", (right + wrong) / len(test_result), "total matches", right + wrong, "pnl", odds, "per match ret", odds / (right + wrong))
         totalPnl += odds
         perMatchPnl.append(odds / (right + wrong))
         winRate.append(right / (right + wrong))
-print("tPnl", totalPnl, "per match average", statistics.mean(perMatchPnl), "variance", statistics.variance(perMatchPnl),
-   "winRate average", statistics.mean(winRate), "variance", statistics.variance(winRate))
+#print("tPnl", totalPnl, "per match average", statistics.mean(perMatchPnl), "variance", statistics.variance(perMatchPnl),
+   #"winRate average", statistics.mean(winRate), "variance", statistics.variance(winRate))
