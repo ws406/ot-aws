@@ -2,8 +2,9 @@ import logging
 import psutil
 
 class OtLogger:
-    def __init__(self):
-        logger = logging.getLogger('ot')
+    def __init__(self, name):
+
+        logger = logging.getLogger(name)
         logger.setLevel(logging.DEBUG)
 
         # create console handler and set level to debug
@@ -24,3 +25,7 @@ class OtLogger:
     def debug(self, msg, ps_info = False):
         output = msg if ps_info is False else (msg + ' - ' + str(psutil.virtual_memory()))
         self.ot_logger.debug(output)
+
+    def exception (self, msg, ps_info = False):
+        output = msg if ps_info is False else (msg + ' - ' + str (psutil.virtual_memory ()))
+        self.ot_logger.exception(output)

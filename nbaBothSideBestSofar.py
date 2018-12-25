@@ -793,9 +793,9 @@ for year in years:
         #for f in range(trainArr.shape[1]):
         #    print("%d. feature %d (%f)" % (f + 1, indices[f] + 1, importances[indices[f]]))
 
-        #clf = RandomizedLogisticRegression()
-        #clf.fit(trainArr, trainRes.ravel())
-        #print(clf.scores_)
+        clf = RandomizedLogisticRegression()
+        clf.fit(trainArr, trainRes.ravel())
+        print(clf.scores_)
 
         IsGameQualified(test_file_name, test_result, test_result, half)
         testData = matrix(test_result)
@@ -850,15 +850,15 @@ for year in years:
                 #odds = odds + result_odds
             #index = index + 1
 
-        #finalRoundsPnl = collections.OrderedDict(sorted(roundsPnl.items()))
-        #curPnl = 0
-        #for date, data in finalRoundsPnl.items():
-           #curPnl = curPnl + data
-           #allRoundPnl.append(curPnl)
+        finalRoundsPnl = collections.OrderedDict(sorted(roundsPnl.items()))
+        curPnl = 0
+        for date, data in finalRoundsPnl.items():
+           curPnl = curPnl + data
+           allRoundPnl.append(curPnl)
 
-        #plt.figure(1)
-        #plt.plot(allRoundPnl, 'r-')
-        #plt.show()
+        plt.figure(1)
+        plt.plot(allRoundPnl, 'r-')
+        plt.show()
 
         print(year, half, min_odds, tree_size, timeBackOffset, min_pct, minEdge, "winR", right / (right + wrong), "betR", (right + wrong) / len(test_result), "total matches", right + wrong, "pnl", odds, "per match ret", odds / (right + wrong))
         totalPnl += odds

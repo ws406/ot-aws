@@ -9,9 +9,8 @@ import json
 
 class Analyser:
 
-    def __init__(self):
-        self.logger = OtLogger()
-        pass
+    def __init__(self, logger: OtLogger):
+        self.logger = logger
 
     def load_data(self, path):
         games = []
@@ -20,7 +19,7 @@ class Analyser:
             file_dir_name = path + file_name
             with open(file_dir_name) as json_file:
                 g = json.load(json_file)
-                self.logger.debug("\tAdd " + str(len(g)) + " games from file - " + file_name)
+                self.logger.debug("Add " + str(len(g)) + " games from file - " + file_name)
                 games += g
 
                 self.logger.debug(str(len(games)) + " games added", True)
@@ -39,5 +38,4 @@ class Analyser:
         selected_matches = sample_selector.get_selected_games_data(data)
         labelled_matches = data_labeler.label_data(selected_matches)
         header, analysis_ready_matches = feature_builder.get_features(labelled_matches)
-
         return algorithm.get_results(header, analysis_ready_matches)

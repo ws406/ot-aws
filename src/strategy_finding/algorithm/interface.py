@@ -1,10 +1,12 @@
 import abc
 import numpy as np
+from src.utils.logger import OtLogger
+
 
 class AlgorithmInterface(abc.ABC):
 
-    def __int__(self):
-        pass
+    def __int__(self, logger: OtLogger):
+        self.logger = logger
 
     # Use algorithm to calculate PNL
     @abc.abstractmethod
