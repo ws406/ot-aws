@@ -36,13 +36,13 @@ class NBARF1(AlgorithmInterface):
                     'X_test_full_data': featured_data ['2017-2018'][:,1:],
                     'y_test': featured_data ['2017-2018'][:,0],
                 },
-            'set 3':
-                {
-                    'X_train_full_data': np.concatenate ([featured_data ['2015-2016'] [:, 1:], featured_data ['2015-2016'] [:,1:]]),
-                    'y_train': np.concatenate ([featured_data ['2015-2016'] [:, 0], featured_data ['2015-2016'] [:, 0]]),
-                    'X_test_full_data': featured_data ['2017-2018'] [:, 1:],
-                    'y_test': featured_data ['2017-2018'] [:, 0],
-                },
+            # 'set 3':
+            #     {
+            #         'X_train_full_data': np.concatenate ([featured_data ['2015-2016'] [:, 1:], featured_data ['2015-2016'] [:,1:]]),
+            #         'y_train': np.concatenate ([featured_data ['2015-2016'] [:, 0], featured_data ['2015-2016'] [:, 0]]),
+            #         'X_test_full_data': featured_data ['2017-2018'] [:, 1:],
+            #         'y_test': featured_data ['2017-2018'] [:, 0],
+            #     },
             'set 4':
                 {
                     'X_train_full_data': featured_data ['2017-2018'] [:,1:],
@@ -50,15 +50,15 @@ class NBARF1(AlgorithmInterface):
                     'X_test_full_data': featured_data ['2018-2019'] [:,1:],
                     'y_test': featured_data ['2018-2019'] [:, 0],
                 },
-            'set 5':
-                {
-                    'X_train_full_data': np.concatenate (
-                        [featured_data ['2016-2017'] [:, 1:], featured_data ['2017-2018'] [:, 1:]]),
-                    'y_train': np.concatenate (
-                        [featured_data ['2016-2017'] [:, 0], featured_data ['2017-2018'] [:, 0]]),
-                    'X_test_full_data': featured_data ['2018-2019'] [:, 1:],
-                    'y_test': featured_data ['2018-2019'] [:, 0],
-                },
+            # 'set 5':
+            #     {
+            #         'X_train_full_data': np.concatenate (
+            #             [featured_data ['2016-2017'] [:, 1:], featured_data ['2017-2018'] [:, 1:]]),
+            #         'y_train': np.concatenate (
+            #             [featured_data ['2016-2017'] [:, 0], featured_data ['2017-2018'] [:, 0]]),
+            #         'X_test_full_data': featured_data ['2018-2019'] [:, 1:],
+            #         'y_test': featured_data ['2018-2019'] [:, 0],
+            #     },
         }
 
         for key, value in sets.items():
@@ -69,36 +69,26 @@ class NBARF1(AlgorithmInterface):
             X_test = value ['X_test_full_data'] [:, 3:]
             y_test = value ['y_test']
 
-            self.compare_algs(X_train, y_train, X_test, y_test)
-            exit()
+            self.compare_algs(X_train, y_train, X_test, y_test, value['X_test_full_data'])
 
             # Define the algorithm
-            alg = RandomForestClassifier()
-            # alg = LogisticRegression()
-            alg.fit(X_train, y_train)
-
-            y_pred = alg.predict (X_test)
-            y_prob = alg.predict_proba(X_test)
-            # self.logger.debug(y_pred)
-            # self.logger.debug(y_prob)
-
-            self.logger.debug(confusion_matrix (y_test, y_pred))
-            self.logger.debug(classification_report (y_test, y_pred))
-            self.logger.debug(accuracy_score (y_test, y_pred))
+            # self.logger.debug(confusion_matrix (y_test, y_pred))
+            # self.logger.debug(classification_report (y_test, y_pred))
+            # self.logger.debug(accuracy_score (y_test, y_pred))
 
             # Rank feature importance
-            importances = alg.feature_importances_
-            indices = np.argsort(importances)[::-1]
-            self.logger.debug("Feature ranking:")
-            for f in range(X_train.shape[1]):
-                self.logger.debug(str(f + 1) + ' feature ' + str(indices[f] + 1) + ' - ' + str(importances[indices[f]]))
+            # importances = alg.feature_importances_
+            # indices = np.argsort(importances)[::-1]
+            # self.logger.debug("Feature ranking:")
+            # for f in range(X_train.shape[1]):
+            #     self.logger.debug(str(f + 1) + ' feature ' + str(indices[f] + 1) + ' - ' + str(importances[indices[f]]))
 
-            self.calculate_results(y_prob, value ['X_test_full_data'], y_test, alg.classes_)
+            # self.calculate_results (y_prob, value ['X_test_full_data'], y_test, alg.classes_)
 
         return ''
 
 
-    def compare_algs(self, X_train, y_train, X_test, y_test):
+    def compare_algs(self, X_train, y_train, X_test, y_test, X_test_full_data):
         from sklearn.metrics import accuracy_score, log_loss
         from sklearn.neighbors import KNeighborsClassifier
         from sklearn.svm import SVC, LinearSVC, NuSVC
@@ -110,13 +100,13 @@ class NBARF1(AlgorithmInterface):
         import pandas as pd
 
         classifiers = [
-            KNeighborsClassifier (3),
-            SVC (kernel = "rbf", C = 0.025, probability = True),
+            # KNeighborsClassifier (3),
+            # SVC (kernel = "rbf", C = 0.025, probability = True),
             NuSVC (probability = True),
-            DecisionTreeClassifier (),
+            # DecisionTreeClassifier (),
             RandomForestClassifier (),
-            AdaBoostClassifier (),
-            GradientBoostingClassifier (),
+            # AdaBoostClassifier (),
+            # GradientBoostingClassifier (),
             # GaussianNB (),
             # LinearDiscriminantAnalysis (),
             # QuadraticDiscriminantAnalysis ()
@@ -135,6 +125,7 @@ class NBARF1(AlgorithmInterface):
 
             print ('****Results****')
             train_predictions = clf.predict (X_test)
+            y_prob = clf.predict_proba(X_test)
             acc = accuracy_score (y_test, train_predictions)
             print ("Accuracy: {:.4%}".format (acc))
 
@@ -144,12 +135,12 @@ class NBARF1(AlgorithmInterface):
 
             log_entry = pd.DataFrame ([[name, acc * 100, ll]], columns = log_cols)
             log = log.append (log_entry)
+            self.calculate_results (y_prob, X_test_full_data, y_test, clf.classes_)
 
         print ("=" * 30)
 
 
     def calculate_results(self, y_prob, X_test_full_data, y_test, classes):
-        self.logger.debug(classes)
 
         benmarkProb = 0.52
         i = 0
