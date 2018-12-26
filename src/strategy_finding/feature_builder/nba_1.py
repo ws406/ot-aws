@@ -18,37 +18,61 @@ class NBA1(FeatureBuilderInterface):
     def get_features(self, labelled_data: dict):
         self.logger.debug("Running feature builder - NBA1")
 
+        # TODO: this needs to be updated
         header = [
             'result',
+            'game_id'
+            'final_odds_ladbroke_1',
+            'final_odds_ladbroke_2',
             'init_prob_pinnacle_home',
             'init_prob_pinnacle_away',
             'delta_prob_pin_lad_home',
             'delta_prob_pin_lad_away'
         ]
-
-        featured_data = np.empty((0, 8))
+        empty = np.empty((0, 10))
+        featured_data = {
+            '2015-2016': empty,
+            '2016-2017': empty,
+            '2017-2018': empty,
+            '2018-2019': empty,
+        }
 
         for data in labelled_data:
 
-            if 'pinnacle' not in data['probabilities'] or 'ladbroke' not in data['probabilities']:
-                # self.logger.exception(str(data['game_id']) + ' can not be processed due to lack of prob data')
+            if 'Betfair' not in data ['probabilities'] or 'ladbroke' not in data['probabilities'] or \
+                    'SB' not in data['probabilities']:
+                # 'will_hill' not in data ['probabilities'] or
+                self.logger.exception(str(data['game_id']) + ' can not be processed due to lack of prob data')
                 continue
 
-            best_probs = list (collections.OrderedDict (sorted (data ['probabilities'] ['pinnacle'].items ())).items ())
-            worst_probs = list (collections.OrderedDict (sorted (data ['probabilities']['ladbroke'].items ())).items ())
+            best_final_probs = list (collections.OrderedDict (sorted (data ['probabilities'] ['Betfair'].items ())).items ())
+            # best_initial_probs = list (collections.OrderedDict (sorted (data ['probabilities'] ['will_hill'].items ())).items ())
+            # worst_initial_probs = list (collections.OrderedDict (sorted (data ['probabilities']['ladbroke'].items ())).items ())
+            worst_final_probs = list (collections.OrderedDict (sorted (data ['probabilities']['SB'].items ())).items ())
+            best_delta_probs = list (collections.OrderedDict (sorted (data ['probabilities'] ['Betfair'].items ())).items ())
+            # worst_delta_probs = list (collections.OrderedDict (sorted (data ['probabilities'] ['SB'].items ())).items ())
 
             benchmark_odds = list (collections.OrderedDict (sorted (data ['odds'] ['ladbroke'].items ())).items ())
+
+            if float(benchmark_odds[-1][1]['1']) < 1.3:
+                continue
 
             row = [
                 data['result'],
                 data['game_id'],
                 benchmark_odds[-1][1]['1'],
                 benchmark_odds[-1][1]['2'],
-                best_probs[-1][1]['1'],
-                best_probs[-1][1]['2'],
-                best_probs[-1][1]['1'] - worst_probs[-1][1]['1'],
-                best_probs[-1][1]['2'] - worst_probs[-1][1]['2'],
+                best_final_probs[-1][1]['1'],
+                best_final_probs[-1][1]['2'],
+                # best_initial_probs[0] [1] ['1'],
+                # best_initial_probs[0] [1] ['2'],
+                best_delta_probs[-1][1]['1']-best_delta_probs[0][1]['1'],
+                best_delta_probs[-1][1]['2']-best_delta_probs[0][1]['2'],
+                # best_initial_probs[-1][1]['1'] - worst_initial_probs[-1][1]['1'],
+                # best_initial_probs[-1][1]['2'] - worst_initial_probs[-1][1]['2'],
+                best_final_probs [-1] [1] ['1'] - worst_final_probs [-1] [1] ['1'],
+                best_final_probs [-1] [1] ['2'] - worst_final_probs [-1] [1] ['2'],
             ]
-            featured_data = np.append(featured_data, [row], axis=0)
+            featured_data[data['season']] = np.append(featured_data[data['season']], [row], axis=0)
 
         return header, featured_data

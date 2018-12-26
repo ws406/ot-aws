@@ -3,26 +3,31 @@ import glob
 import collections
 import pprint
 import matplotlib.pyplot as plt
+import pylab
 
 
-def plot_scores(scores):
+def plot_scores(bookie_list, scores):
 
-    plt.plot(scores['easybet'].keys(), scores['easybet'].values(), 'b', label='easybet')
-    plt.plot(scores['pinnacle'].keys(), scores['pinnacle'].values(), 'g', label='pinnacle')
-    plt.plot(scores['will_hill'].keys(), scores['will_hill'].values(), 'r', label='will_hill')
-    plt.plot(scores['vcbet'].keys(), scores['vcbet'].values(), 'c', label='vcbet')
-    plt.plot(scores['skybet'].keys(), scores['skybet'].values(), 'm', label='skybet')
-    plt.plot(scores['marathonbet'].keys(), scores['marathonbet'].values(), 'y', label='marathonbet')
-    plt.plot(scores['ladbroke'].keys(), scores['ladbroke'].values(), 'k', label='ladbroke')
+    cm = pylab.get_cmap ('tab20')
+    i = 0
+    for bookie_name in bookie_list:
+        color = cm (1. * i / len(bookie_list))
+        if bookie_name not in scores.keys():
+            continue
+        plt.plot(scores[bookie_name].keys(), scores[bookie_name].values(), color=color, label=bookie_name)
+        i += 1
 
-    plt.legend(bbox_to_anchor=(1.05, 1), loc=2, borderaxespad=0.)
+    plt.legend()
     plt.show()
 
 
+# Order probs and odds by timestamp by small (earliest) to big (latest)
 def sort_game_data_timestamp(bookie_list, game_data):
     probabilities = game_data['probabilities']
+    odds = game_data['odds']
     for b_name in bookie_list:
         game_data['probabilities'][b_name] = collections.OrderedDict(sorted(probabilities[b_name].items(), reverse=False))
+        game_data['odds'][b_name] = collections.OrderedDict(sorted(odds[b_name].items(), reverse=False))
     return game_data
 
 
@@ -39,8 +44,9 @@ def sort_bookies_by_prob_delta(bookie_list, bookie_scores, sorted_data):
 
     prob_delta_bookie = {}
     for bookie_name in bookie_list:
-        prob_delta_bookie[bookie_name] = list(sorted_data ['probabilities'][bookie_name].items())[0][1][game_result] - \
-                                    list(sorted_data ['probabilities'][bookie_name].items())[-1][1][game_result]
+        initial_prob = list(sorted_data ['probabilities'][bookie_name].items())[0][1][game_result]
+        final_prob = list(sorted_data ['probabilities'][bookie_name].items())[-1][1][game_result]
+        prob_delta_bookie[bookie_name] = final_prob - initial_prob
 
     _build_scores (prob_delta_bookie, bookie_scores, sorted_data)
 
@@ -59,6 +65,7 @@ def _build_scores(prob_bookie, bookie_scores, sorted_data):
     season = sorted_data ['season']
     total_points = len (bookie_list)
     i = total_points//2
+
     for (bookie, prob) in sorted (prob_bookie.items (), key = lambda kv: kv [1], reverse = True):
         if bookie in bookie_scores:
             if season in bookie_scores [bookie]:
@@ -73,16 +80,29 @@ def _build_scores(prob_bookie, bookie_scores, sorted_data):
 ############# Configuration ##################
 # Get all data from file(s)
 data_files = glob.glob("C:\\Users\wsun\\Documents\\projects\\ot-aws\\data\\basketball_all_odds_data\\*.json")
-# data_files = glob.glob("C:\\Users\wsun\\Documents\\projects\\ot-aws\\src\\strategy_finding\\bookie_ranking\\tmp.json")
+# data_files = glob.glob("C:\\Users\wsun\\Documents\\projects\\ot-aws\\src\\strategy_finding\\bookie_ranking\\test.json")
 # data_files = glob.glob("C:\\Users\wsun\\Documents\\projects\\ot-aws\\test.json")
 bookie_list = [
+    "pinnacle",  # Pinnacle
+    "will_hill",  # WH
+    # "coral",
+    "Expekt",
+    "vcbet",  # VcBet
+    "SNAI",
+    "bet365",  # Bet365
+    "betvictor",  # VcBet2
+    # "Macauslot",
+    "BWin",
+    # "ChinaSlot",
+    "SB",
+    "Betfair",
+    # "5Dimes",
+    # "Centrebet",
     "easybet",
-    "pinnacle",
-    "will_hill",
-    "vcbet",
-    "skybet",
-    "marathonbet",
     "ladbroke",
+    # "marathon",
+    # "marathonbet",
+    "skybet",
 ]
 
 ############# Functioning ##################
@@ -122,7 +142,8 @@ bookie_scores_by_prob_delta = {}
 for game_data in data:
     try:
         sorted_data = sort_game_data_timestamp(bookie_list, game_data)
-    except KeyError:
+    except KeyError as ke:
+        print(ke)
         continue
     # print(sorted_data)
     sort_bookies_by_init_prob(bookie_list, bookie_scores_by_init_prob, sorted_data)
@@ -133,9 +154,9 @@ pprint.pprint(bookie_scores_by_init_prob)
 pprint.pprint(bookie_scores_by_final_prob)
 pprint.pprint(bookie_scores_by_prob_delta)
 
-plot_scores(bookie_scores_by_init_prob)
-plot_scores(bookie_scores_by_final_prob)
-plot_scores(bookie_scores_by_prob_delta)
+plot_scores(bookie_list, bookie_scores_by_init_prob)
+plot_scores(bookie_list, bookie_scores_by_final_prob)
+plot_scores(bookie_list, bookie_scores_by_prob_delta)
 
 #### Conclusion ########
 # Most accurate initial and final probs are from: easybet, will_hill and pinnacle
