@@ -9,5 +9,5 @@ class SampleSelectorInterface(abc.ABC):
 
     # Use algorithm to calculate PNL
     @abc.abstractmethod
-    def get_selected_games_data(self, raw_data: dict):
+    def get_selected_games_data(self, raw_data: dict, dividing_threshold=None):
         pass

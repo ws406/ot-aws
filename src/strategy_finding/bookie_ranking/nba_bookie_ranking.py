@@ -1,12 +1,13 @@
 import json
 import glob
-import collections
 import pprint
 import matplotlib.pyplot as plt
 import pylab
+from src.strategy_finding.sample_selector.divide_by_pin_odds import DivideByPinOdds
+from src.utils.logger import OtLogger
 
 
-def plot_scores(bookie_list, scores):
+def plot_scores(bookie_list, scores, title):
 
     cm = pylab.get_cmap ('tab20')
     i = 0
@@ -18,17 +19,11 @@ def plot_scores(bookie_list, scores):
         i += 1
 
     plt.legend()
+    plt.title(title)
     plt.show()
 
 
-# Order probs and odds by timestamp by small (earliest) to big (latest)
-def sort_game_data_timestamp(bookie_list, game_data):
-    probabilities = game_data['probabilities']
-    odds = game_data['odds']
-    for b_name in bookie_list:
-        game_data['probabilities'][b_name] = collections.OrderedDict(sorted(probabilities[b_name].items(), reverse=False))
-        game_data['odds'][b_name] = collections.OrderedDict(sorted(odds[b_name].items(), reverse=False))
-    return game_data
+
 
 
 def sort_bookies_by_init_prob(bookie_list, bookie_scores, sorted_data):
@@ -80,13 +75,13 @@ def _build_scores(prob_bookie, bookie_scores, sorted_data):
 ############# Configuration ##################
 # Get all data from file(s)
 data_files = glob.glob("C:\\Users\wsun\\Documents\\projects\\ot-aws\\data\\basketball_all_odds_data\\*.json")
-# data_files = glob.glob("C:\\Users\wsun\\Documents\\projects\\ot-aws\\src\\strategy_finding\\bookie_ranking\\test.json")
-# data_files = glob.glob("C:\\Users\wsun\\Documents\\projects\\ot-aws\\test.json")
+# data_files = glob.glob("C:\\Users\wsun\\Documents\\projects\\ot-aws\\data\\basketball_all_odds_data\\test\\*.json")
+
 bookie_list = [
     "pinnacle",  # Pinnacle
     "will_hill",  # WH
     # "coral",
-    "Expekt",
+    # "Expekt",
     "vcbet",  # VcBet
     "SNAI",
     "bet365",  # Bet365
@@ -122,46 +117,35 @@ print (len(data), ' games to process')
 # Rank bookies on 'final odds'
 # Rank bookies on 'initial odds' - 'odds at kickoff-55 mins'
 
-# The scores look like this
-# {
-#     'vcbet': {'2014-2015': 524,
-#               '2015-2016': 940,
-#               '2016-2017': 1090,
-#               '2017-2018': 1490,
-#               '2018-2019': 312},
-#     'will_hill': {'2014-2015': 565,
-#                   '2015-2016': 1091,
-#                   '2016-2017': 1246,
-#                   '2017-2018': 1210,
-#                   '2018-2019': 256}
-# }
-bookie_scores_by_init_prob = {}
-bookie_scores_by_final_prob = {}
-bookie_scores_by_prob_delta = {}
+dividing_threshold = [
+    {'min':1.0, 'max':1.5},
+    {'min':1.5, 'max':1.95},
+    {'min':1.95, 'max':100},
+]
 
-for game_data in data:
-    try:
-        sorted_data = sort_game_data_timestamp(bookie_list, game_data)
-    except KeyError as ke:
-        print(ke)
-        continue
-    # print(sorted_data)
-    sort_bookies_by_init_prob(bookie_list, bookie_scores_by_init_prob, sorted_data)
-    sort_bookies_by_final_prob(bookie_list, bookie_scores_by_final_prob, sorted_data)
-    sort_bookies_by_prob_delta(bookie_list, bookie_scores_by_prob_delta, sorted_data)
+logger = OtLogger('ot')
 
-pprint.pprint(bookie_scores_by_init_prob)
-pprint.pprint(bookie_scores_by_final_prob)
-pprint.pprint(bookie_scores_by_prob_delta)
+data_sets = DivideByPinOdds(logger).get_sorted_game_data_sets(data, dividing_threshold, bookie_list)
 
-plot_scores(bookie_list, bookie_scores_by_init_prob)
-plot_scores(bookie_list, bookie_scores_by_final_prob)
-plot_scores(bookie_list, bookie_scores_by_prob_delta)
+for ds_name, sorted_datas in data_sets.items():
 
-#### Conclusion ########
-# Most accurate initial and final probs are from: easybet, will_hill and pinnacle
-# Least accurate initial and final probs is from: ladbrokes
-# Features selection ideas:
-#  - final_easy_bet
-#  - delta_easy_bet
-#  - final_easy_bet - final_ladbrokes
+    logger.debug('Processing ' + ds_name + ' with ' + str(len(sorted_datas)) + ' games')
+
+    bookie_scores_by_init_prob = {}
+    bookie_scores_by_final_prob = {}
+    bookie_scores_by_prob_delta = {}
+
+    # Score every game
+    for sorted_data in sorted_datas:
+        # print(sorted_data)
+        sort_bookies_by_init_prob(bookie_list, bookie_scores_by_init_prob, sorted_data)
+        sort_bookies_by_final_prob(bookie_list, bookie_scores_by_final_prob, sorted_data)
+        sort_bookies_by_prob_delta(bookie_list, bookie_scores_by_prob_delta, sorted_data)
+
+    pprint.pprint(bookie_scores_by_init_prob)
+    pprint.pprint(bookie_scores_by_final_prob)
+    pprint.pprint(bookie_scores_by_prob_delta)
+
+    plot_scores(bookie_list, bookie_scores_by_init_prob, ds_name + ' - init')
+    plot_scores(bookie_list, bookie_scores_by_final_prob, ds_name + ' - final')
+    plot_scores(bookie_list, bookie_scores_by_prob_delta, ds_name + ' - delta')
