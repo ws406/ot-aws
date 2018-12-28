@@ -6,27 +6,30 @@ import datetime
 class Main:
     # These data is used for
     bids = {
-        # 2: "interwetten", # no data for NBA
+        2: "interwetten", # no data for NBA
         17: "pinnacle",  # Pinnacle
+        19: "unibet",
         26: "will_hill",  # WH
-        # 43: "coral",
+        43: "coral",
         77: "Expekt",
         82: "vcbet",  # VcBet
+        224: "jetbull",
         317: "SNAI",
+        331: "matchbook",
         214: "bet365",  # Bet365
         506: "betvictor", # VcBet2
-        # 265: "Macauslot",
+        265: "Macauslot",
         272: "BWin",
-        # 431: "ChinaSlot",
+        431: "ChinaSlot",
         458: "SB",
         45: "Betfair",
         11: "5Dimes",
-        # 48: "Centrebet",
+        48: "Centrebet",
 
         6: "easybet",
         83: "ladbroke",
-        # 381: "marathon",
-        # 457: "marathonbet",
+        381: "marathon",
+        457: "marathonbet",
         446: "skybet",
     }
 
