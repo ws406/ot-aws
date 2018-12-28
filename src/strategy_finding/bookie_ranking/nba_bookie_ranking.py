@@ -154,8 +154,7 @@ data_sets = DivideByPinOdds(logger).get_sorted_game_data_sets(data, dividing_thr
 #   '1.5_1.95_home': {......}
 #   '1.95_100_home': {......}
 # }
-
-data_to_plot = {}
+scores_to_plot = {}
 
 for ds_name, sorted_datas in data_sets.items():
 
@@ -176,10 +175,10 @@ for ds_name, sorted_datas in data_sets.items():
     pprint.pprint(bookie_scores_by_final_prob)
     pprint.pprint(bookie_scores_by_prob_delta)
 
-    data_to_plot[ds_name] = {
+    scores_to_plot[ds_name] = {
         'init': bookie_scores_by_init_prob,
         'final': bookie_scores_by_final_prob,
         'delta': bookie_scores_by_prob_delta,
     }
 
-plot_scores(bookie_list, data_to_plot)
+plot_scores(bookie_list, scores_to_plot)
