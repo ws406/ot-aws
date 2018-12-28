@@ -5,26 +5,42 @@ import matplotlib.pyplot as plt
 import pylab
 from src.strategy_finding.sample_selector.divide_by_pin_odds import DivideByPinOdds
 from src.utils.logger import OtLogger
+from matplotlib import style
 
 
-def plot_scores(bookie_list, scores, title):
+def plot_scores(bookie_list, score_sets):
 
-    cm = pylab.get_cmap ('tab20')
-    i = 0
-    for bookie_name in bookie_list:
-        color = cm (1. * i / len(bookie_list))
-        if bookie_name not in scores.keys():
-            continue
-        plt.plot(scores[bookie_name].keys(), scores[bookie_name].values(), color=color, label=bookie_name)
-        i += 1
+    cm = pylab.get_cmap ('tab20c')
+    style.use ('fivethirtyeight')
+    num_rows = (len(score_sets.keys()) / len(score_sets.items())) * 2
+    num_cols = 3
+    fig_num = 1
+    num_bookies = len(bookie_list)
+    total_fig_in_one_plot = num_rows * num_cols
+    lines = {}
+    for ds_name, score_set in score_sets.items():
+        for when, score in score_set.items():
+            title = ds_name + '_' + when
+            plt.subplot(num_rows, num_cols, fig_num)
 
-    plt.legend()
-    plt.title(title)
-    plt.show()
+            i = 0
+            for bookie_name in bookie_list:
+                color = cm (1. * i / num_bookies)
+                if bookie_name not in score.keys():
+                    continue
+                lines[bookie_name], = (plt.plot (score [bookie_name].keys (), score [bookie_name].values (), color = color,
+                                        label = bookie_name))
+                i += 1
+            plt.title(title)
 
-
-
-
+            # If we have plotted enough in one diagram, print it and start again.
+            if fig_num % total_fig_in_one_plot == 0:
+                plt.figlegend(tuple(lines.values()), tuple(lines.keys()), ncol = num_bookies)
+                plt.show ()
+                fig_num = 1
+                lines = {}
+            else:
+                fig_num += 1
 
 def sort_bookies_by_init_prob(bookie_list, bookie_scores, sorted_data):
     _sort_by_probs(bookie_list, bookie_scores, sorted_data, 0)
@@ -32,7 +48,6 @@ def sort_bookies_by_init_prob(bookie_list, bookie_scores, sorted_data):
 
 def sort_bookies_by_final_prob(bookie_list, bookie_scores, sorted_data):
     _sort_by_probs(bookie_list, bookie_scores, sorted_data, -1)
-
 
 def sort_bookies_by_prob_delta(bookie_list, bookie_scores, sorted_data):
     game_result = "1" if sorted_data ['home_score'] - sorted_data ['away_score'] > 0 else "2"
@@ -57,7 +72,7 @@ def _sort_by_probs(bookie_list, bookie_scores, sorted_data, key):
 
 
 def _build_scores(prob_bookie, bookie_scores, sorted_data):
-    season = sorted_data ['season']
+    season = sorted_data ['season'][2:4]
     total_points = len (bookie_list)
     i = total_points//2
 
@@ -74,7 +89,7 @@ def _build_scores(prob_bookie, bookie_scores, sorted_data):
 
 ############# Configuration ##################
 # Get all data from file(s)
-data_files = glob.glob("C:\\Users\wsun\\Documents\\projects\\ot-aws\\data\\basketball_all_odds_data\\*.json")
+data_files = glob.glob("C:\\Users\wsun\\Documents\\projects\\ot-aws\\data\\basketball_all_odds_data\\backup\\*.json")
 # data_files = glob.glob("C:\\Users\wsun\\Documents\\projects\\ot-aws\\data\\basketball_all_odds_data\\test\\*.json")
 
 bookie_list = [
@@ -83,13 +98,13 @@ bookie_list = [
     # "coral",
     # "Expekt",
     "vcbet",  # VcBet
-    "SNAI",
+    # "SNAI",
     "bet365",  # Bet365
     "betvictor",  # VcBet2
     # "Macauslot",
     "BWin",
     # "ChinaSlot",
-    "SB",
+    # "SB",
     "Betfair",
     # "5Dimes",
     # "Centrebet",
@@ -97,7 +112,7 @@ bookie_list = [
     "ladbroke",
     # "marathon",
     # "marathonbet",
-    "skybet",
+    # "skybet",
 ]
 
 ############# Functioning ##################
@@ -127,6 +142,21 @@ logger = OtLogger('ot')
 
 data_sets = DivideByPinOdds(logger).get_sorted_game_data_sets(data, dividing_threshold, bookie_list)
 
+# data_to_plot = {
+#   '1.0_1.5_home': {
+#       'init': {
+#            'will_hill': 899,
+#            ......
+#       }
+#       'final': {......}
+#       'delta': {......}
+#   }
+#   '1.5_1.95_home': {......}
+#   '1.95_100_home': {......}
+# }
+
+data_to_plot = {}
+
 for ds_name, sorted_datas in data_sets.items():
 
     logger.debug('Processing ' + ds_name + ' with ' + str(len(sorted_datas)) + ' games')
@@ -146,6 +176,10 @@ for ds_name, sorted_datas in data_sets.items():
     pprint.pprint(bookie_scores_by_final_prob)
     pprint.pprint(bookie_scores_by_prob_delta)
 
-    plot_scores(bookie_list, bookie_scores_by_init_prob, ds_name + ' - init')
-    plot_scores(bookie_list, bookie_scores_by_final_prob, ds_name + ' - final')
-    plot_scores(bookie_list, bookie_scores_by_prob_delta, ds_name + ' - delta')
+    data_to_plot[ds_name] = {
+        'init': bookie_scores_by_init_prob,
+        'final': bookie_scores_by_final_prob,
+        'delta': bookie_scores_by_prob_delta,
+    }
+
+plot_scores(bookie_list, data_to_plot)

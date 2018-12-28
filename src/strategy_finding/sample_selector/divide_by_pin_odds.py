@@ -13,7 +13,6 @@ class DivideByPinOdds(SampleSelectorInterface):
         self.logger.debug("Running game selector - SelectAll")
         return raw_data
 
-
     def get_sorted_game_data_sets(self, raw_data: list, dividing_threshold_sets, bookie_list):
         self.logger.debug("Running game selector - SelectAll")
 
