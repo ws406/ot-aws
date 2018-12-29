@@ -35,7 +35,7 @@ def plot_scores(bookie_list, score_sets):
 
             # If we have plotted enough in one diagram, print it and start again.
             if fig_num % total_fig_in_one_plot == 0:
-                plt.figlegend(tuple(lines.values()), tuple(lines.keys()), ncol = num_bookies)
+                plt.figlegend(tuple(lines.values()), tuple(lines.keys()), ncol = num_bookies//2)
                 plt.show ()
                 fig_num = 1
                 lines = {}
@@ -74,7 +74,7 @@ def _sort_by_probs(bookie_list, bookie_scores, sorted_data, key):
 def _build_scores(prob_bookie, bookie_scores, sorted_data):
     season = sorted_data ['season'][2:4]
     total_points = len (bookie_list)
-    i = total_points//2
+    i = 0
 
     for (bookie, prob) in sorted (prob_bookie.items (), key = lambda kv: kv [1], reverse = True):
         if bookie in bookie_scores:
@@ -87,32 +87,31 @@ def _build_scores(prob_bookie, bookie_scores, sorted_data):
             bookie_scores [bookie][season] = total_points - i
         i += 1
 
+def get_average_score(bookie_scores, num_games_per_season):
+    print(bookie_scores)
+    print(num_games_per_season)
+    for bookie_name, scores_per_season in bookie_scores.items():
+        for season, score in scores_per_season.items():
+            bookie_scores[bookie_name][season] = score/num_games_per_season[season]
+
 ############# Configuration ##################
 # Get all data from file(s)
-data_files = glob.glob("C:\\Users\wsun\\Documents\\projects\\ot-aws\\data\\basketball_all_odds_data\\backup\\*.json")
+data_files = glob.glob("C:\\Users\wsun\\Documents\\projects\\ot-aws\\data\\basketball_all_odds_data\\*.json")
 # data_files = glob.glob("C:\\Users\wsun\\Documents\\projects\\ot-aws\\data\\basketball_all_odds_data\\test\\*.json")
 
 bookie_list = [
     "pinnacle",  # Pinnacle
     "will_hill",  # WH
-    # "coral",
-    # "Expekt",
     "vcbet",  # VcBet
-    # "SNAI",
     "bet365",  # Bet365
     "betvictor",  # VcBet2
-    # "Macauslot",
     "BWin",
-    # "ChinaSlot",
-    # "SB",
     "Betfair",
-    # "5Dimes",
-    # "Centrebet",
     "easybet",
     "ladbroke",
-    # "marathon",
-    # "marathonbet",
-    # "skybet",
+    "unibet",
+    "jetbull",
+    "matchbook",
 ]
 
 ############# Functioning ##################
@@ -140,7 +139,27 @@ dividing_threshold = [
 
 logger = OtLogger('ot')
 
+# data_sets = {
+#   '1.0_1.5_home': [game_data1, game_data2, ....]
+#   '1.5_1.95_home': {......}
+#   '1.95_100_home': {......}
+# }
 data_sets = DivideByPinOdds(logger).get_sorted_game_data_sets(data, dividing_threshold, bookie_list)
+
+# Calculate number of games per season:
+# num_games_per_season = {
+#   '14-15': 1287,
+#   '15-16': 1121,
+#    ......
+# }
+num_games_per_season = {}
+for data_set in data_sets.values():
+    for game in data_set:
+        season = game['season'][2:4]
+        if season in num_games_per_season:
+            num_games_per_season[season] += 1
+        else:
+            num_games_per_season [season] = 1
 
 # data_to_plot = {
 #   '1.0_1.5_home': {
@@ -170,6 +189,10 @@ for ds_name, sorted_datas in data_sets.items():
         sort_bookies_by_init_prob(bookie_list, bookie_scores_by_init_prob, sorted_data)
         sort_bookies_by_final_prob(bookie_list, bookie_scores_by_final_prob, sorted_data)
         sort_bookies_by_prob_delta(bookie_list, bookie_scores_by_prob_delta, sorted_data)
+
+    get_average_score(bookie_scores_by_init_prob, num_games_per_season)
+    get_average_score(bookie_scores_by_final_prob, num_games_per_season)
+    get_average_score(bookie_scores_by_prob_delta, num_games_per_season)
 
     pprint.pprint(bookie_scores_by_init_prob)
     pprint.pprint(bookie_scores_by_final_prob)
