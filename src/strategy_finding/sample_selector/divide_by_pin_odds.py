@@ -29,9 +29,8 @@ class DivideByPinOdds(SampleSelectorInterface):
             try:
                 sorted_data = self._sort_game_data_timestamp (bookie_list, data)
             except KeyError as ke:
-                print (ke)
+                # print (ke)
                 continue
-
             home_pin_final_odds = list (sorted_data ['odds'] ['pinnacle'].items ()) [-1] [1] ["1"]
             away_pin_final_odds = list (sorted_data ['odds'] ['pinnacle'].items ()) [-1] [1] ["2"]
 

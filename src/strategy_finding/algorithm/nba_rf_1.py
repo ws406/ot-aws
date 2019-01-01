@@ -24,17 +24,33 @@ class NBARF1(AlgorithmInterface):
         sets = {
             'set 1':
                 {
-                    'X_train_full_data': featured_data['2015-2016'][:,1:],
-                    'y_train': featured_data['2015-2016'][:,0],
-                    'X_test_full_data': featured_data['2016-2017'][:,1:],
-                    'y_test': featured_data['2016-2017'][:,0],
+                    'X_train_full_data': np.concatenate (
+                        (featured_data ['2014-2015'] [:, 1:], featured_data ['2015-2016'] [:, 1:])),
+                    'y_train': np.concatenate (
+                        (featured_data ['2014-2015'] [:, 0], featured_data ['2015-2016'] [:, 0])),
+                    'X_test_full_data': featured_data ['2016-2017'] [:, 1:],
+                    'y_test': featured_data ['2016-2017'] [:, 0],
                 },
             'set 2':
                 {
-                    'X_train_full_data': featured_data ['2016-2017'][:,1:],
-                    'y_train': featured_data ['2016-2017'][:,0],
-                    'X_test_full_data': featured_data ['2017-2018'][:,1:],
-                    'y_test': featured_data ['2017-2018'][:,0],
+                    'X_train_full_data': np.concatenate (
+                        (featured_data ['2014-2015'] [:, 1:], featured_data ['2015-2016'] [:, 1:]
+                         , featured_data ['2016-2017'] [:, 1:])),
+                    'y_train': np.concatenate ((featured_data ['2014-2015'] [:, 0], featured_data ['2015-2016'] [:, 0]
+                                                , featured_data ['2016-2017'] [:, 0])),
+                    'X_test_full_data': featured_data ['2017-2018'] [:, 1:],
+                    'y_test': featured_data ['2017-2018'] [:, 0],
+                },
+            'set 3':
+                {
+                    'X_train_full_data': np.concatenate (
+                        (featured_data ['2014-2015'] [:, 1:], featured_data ['2015-2016'] [:, 1:]
+                         , featured_data ['2016-2017'] [:, 1:], featured_data ['2017-2018'] [:, 1:])),
+                    'y_train': np.concatenate ((featured_data ['2014-2015'] [:, 0], featured_data ['2015-2016'] [:, 0]
+                                                , featured_data ['2016-2017'] [:, 0],
+                                                featured_data ['2017-2018'] [:, 0])),
+                    'X_test_full_data': featured_data ['2018-2019'] [:, 1:],
+                    'y_test': featured_data ['2018-2019'] [:, 0],
                 },
             # 'set 3':
             #     {
@@ -43,13 +59,13 @@ class NBARF1(AlgorithmInterface):
             #         'X_test_full_data': featured_data ['2017-2018'] [:, 1:],
             #         'y_test': featured_data ['2017-2018'] [:, 0],
             #     },
-            'set 4':
-                {
-                    'X_train_full_data': featured_data ['2017-2018'] [:,1:],
-                    'y_train': featured_data ['2017-2018'] [:, 0],
-                    'X_test_full_data': featured_data ['2018-2019'] [:,1:],
-                    'y_test': featured_data ['2018-2019'] [:, 0],
-                },
+            # 'set 4':
+            #     {
+            #         'X_train_full_data': featured_data ['2017-2018'] [:,1:],
+            #         'y_train': featured_data ['2017-2018'] [:, 0],
+            #         'X_test_full_data': featured_data ['2018-2019'] [:,1:],
+            #         'y_test': featured_data ['2018-2019'] [:, 0],
+            #     },
             # 'set 5':
             #     {
             #         'X_train_full_data': np.concatenate (
@@ -62,7 +78,7 @@ class NBARF1(AlgorithmInterface):
         }
 
         for key, value in sets.items():
-            self.logger.debug("Running algorithm - RandomForest - on " + key)
+            print("Running algorithm - RandomForest - on " + key)
 
             X_train = value['X_train_full_data'][:,3:]
             y_train = value['y_train']
@@ -100,12 +116,12 @@ class NBARF1(AlgorithmInterface):
         import pandas as pd
 
         classifiers = [
-            # KNeighborsClassifier (3),
+            KNeighborsClassifier (3),
             # SVC (kernel = "rbf", C = 0.025, probability = True),
-            NuSVC (probability = True),
-            # DecisionTreeClassifier (),
+            # NuSVC (probability = True),
+            DecisionTreeClassifier (),
             RandomForestClassifier (),
-            # AdaBoostClassifier (),
+            AdaBoostClassifier (),
             # GradientBoostingClassifier (),
             # GaussianNB (),
             # LinearDiscriminantAnalysis (),
@@ -142,7 +158,8 @@ class NBARF1(AlgorithmInterface):
 
     def calculate_results(self, y_prob, X_test_full_data, y_test, classes):
 
-        benmarkProb = 0.52
+        minBenmarkProb = 0.501
+        maxBenmarkProb = 0.52
         i = 0
         right = 0
         wrong = 0
@@ -157,22 +174,22 @@ class NBARF1(AlgorithmInterface):
                 X_benchmark_prob = X_test_full_data[i,4]
 
             y_pred = classes [bigger_value_index]
-            # if y_pred == '1':
-            #     i = i + 1
-            #     continue
+            if y_pred == '2':
+                i = i + 1
+                continue
 
             # print(prob)
             # print(y_pred)
             # print(prob[bigger_value_index])
             # print(X_benchmark_prob)
-            # if prob[bigger_value_index] <= benmarkProb:
-            # if float(prob[bigger_value_index]) <= float(X_benchmark_prob):
+            if float(maxBenmarkProb) <= float(prob[bigger_value_index]) <= float(minBenmarkProb):
                 # y_pred = classes [abs(bigger_value_index-1)]
-                # i += 1
-                # continue
+                i += 1
+                continue
 
             # print(X_test_full_data[i, :])
             odds = X_test_full_data[i, 1] if y_pred == '1' else X_test_full_data[i, 2]
+            # odds = X_test_full_data[i, 1]
             odds = float(odds)
             # print(odds)
 
@@ -187,5 +204,5 @@ class NBARF1(AlgorithmInterface):
             # print ("id", int (X_test_full_data[i, 0]), ",predict", y_pred, ",result",y_test[i],  ",return", pnl, ",prob", prob)
             i = i + 1
 
-        self.logger.debug ("win rate is " + str(right / (right + wrong)) + ", bet ratio is " + str((right + wrong) / len (y_test)) +
+        print ("win rate is " + str(right / (right + wrong)) + ", bet ratio is " + str((right + wrong) / len (y_test)) +
                ", total bet matches " + str(right + wrong) + ", pnl is " + str(total_pnl))

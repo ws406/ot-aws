@@ -7,7 +7,7 @@ from src.utils.logger import OtLogger
 
 
 # path_to_dir = '../data/basketball_all_odds_data/'
-path_to_dir = '../data/basketball_all_odds_data/test/'
+path_to_dir = '../data/basketball_all_odds_data/'
 logger = OtLogger('ot')
 
 analyser = Analyser(logger)

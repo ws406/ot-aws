@@ -6,9 +6,11 @@ import pylab
 from src.strategy_finding.sample_selector.divide_by_pin_odds import DivideByPinOdds
 from src.utils.logger import OtLogger
 from matplotlib import style
+import numpy as np
+import math
 
 
-def plot_scores(bookie_list, score_sets):
+def plot_scores_in_lines(bookie_list, score_sets):
 
     cm = pylab.get_cmap ('tab20c')
     style.use ('fivethirtyeight')
@@ -58,7 +60,7 @@ def sort_bookies_by_prob_delta(bookie_list, bookie_scores, sorted_data):
         final_prob = list(sorted_data ['probabilities'][bookie_name].items())[-1][1][game_result]
         prob_delta_bookie[bookie_name] = final_prob - initial_prob
 
-    _build_scores (prob_delta_bookie, bookie_scores, sorted_data)
+    _build_ranking_scores (prob_delta_bookie, bookie_scores, sorted_data)
 
 
 def _sort_by_probs(bookie_list, bookie_scores, sorted_data, key):
@@ -68,11 +70,27 @@ def _sort_by_probs(bookie_list, bookie_scores, sorted_data, key):
     for bookie_name in bookie_list:
         prob_bookie [bookie_name] = list (sorted_data ['probabilities'] [bookie_name].items ()) [key] [1] [game_result]
 
-    _build_scores(prob_bookie, bookie_scores, sorted_data)
+    _build_log_loss_scores(prob_bookie, bookie_scores, sorted_data)
 
 
-def _build_scores(prob_bookie, bookie_scores, sorted_data):
+def _build_log_loss_scores(prob_bookie, bookie_scores, sorted_data):
+    season = sorted_data ['season'] [2:4]
+    # season = 'all'
+
+    for (bookie, prob) in sorted (prob_bookie.items (), key = lambda kv: kv [1], reverse = True):
+        score = math.exp(math.log(prob))
+        if bookie in bookie_scores:
+            if season in bookie_scores [bookie]:
+                bookie_scores [bookie] [season] += score
+            else:
+                bookie_scores [bookie] [season] = score
+        else:
+            bookie_scores [bookie] = {}
+            bookie_scores [bookie] [season] = score
+
+def _build_ranking_scores(prob_bookie, bookie_scores, sorted_data):
     season = sorted_data ['season'][2:4]
+    # season = 'all'
     total_points = len (bookie_list)
     i = 0
 
@@ -88,7 +106,7 @@ def _build_scores(prob_bookie, bookie_scores, sorted_data):
         i += 1
 
 def get_average_score(bookie_scores, num_games_per_season):
-    print(bookie_scores)
+    # print(bookie_scores)
     print(num_games_per_season)
     for bookie_name, scores_per_season in bookie_scores.items():
         for season, score in scores_per_season.items():
@@ -132,11 +150,9 @@ print (len(data), ' games to process')
 # Rank bookies on 'initial odds' - 'odds at kickoff-55 mins'
 
 dividing_threshold = [
-    {'min':1.0, 'max':1.5},
-    {'min':1.5, 'max':1.95},
-    {'min':1.95, 'max':100},
+    {'min':1.3, 'max':1.7}, # matchbook -- betvictor
+    {'min':1.7, 'max':3}    # bet365 -- unibet
 ]
-
 logger = OtLogger('ot')
 
 # data_sets = {
@@ -156,6 +172,7 @@ num_games_per_season = {}
 for data_set in data_sets.values():
     for game in data_set:
         season = game['season'][2:4]
+        # season = 'all'
         if season in num_games_per_season:
             num_games_per_season[season] += 1
         else:
@@ -194,9 +211,8 @@ for ds_name, sorted_datas in data_sets.items():
     get_average_score(bookie_scores_by_final_prob, num_games_per_season)
     get_average_score(bookie_scores_by_prob_delta, num_games_per_season)
 
-    pprint.pprint(bookie_scores_by_init_prob)
-    pprint.pprint(bookie_scores_by_final_prob)
-    pprint.pprint(bookie_scores_by_prob_delta)
+    # pprint.pprint(sorted(bookie_scores_by_final_prob.items(), key = lambda kv: kv [1]['all'], reverse = True))
+    # pprint.pprint(sorted(bookie_scores_by_prob_delta.items(), key = lambda kv: kv [1]['all'], reverse = True))
 
     scores_to_plot[ds_name] = {
         'init': bookie_scores_by_init_prob,
@@ -204,4 +220,4 @@ for ds_name, sorted_datas in data_sets.items():
         'delta': bookie_scores_by_prob_delta,
     }
 
-plot_scores(bookie_list, scores_to_plot)
+plot_scores_in_lines(bookie_list, scores_to_plot)
