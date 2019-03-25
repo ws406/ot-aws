@@ -131,7 +131,8 @@ class QualificationCheck:
                 prediction = self.prediction_home_win
 
         except (TypeError, KeyError):
-            print("missing odds, skip...")
+            #print("missing odds, skip...")
+            None
 
         return prediction
 

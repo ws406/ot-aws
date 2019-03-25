@@ -21,7 +21,7 @@ from sklearn.linear_model import RandomizedLogisticRegression
 file_header = "./data/basketball_all_odds_data/National Basketball Association-"
 file_end = ".json"
 
-from src.win007.observers.same_direction.nba_qualification_check2 import QualificationCheck
+from src.win007.observers.same_direction.nba_qualification_check3 import QualificationCheck
 
 timeBackOffset = 0
 min_odds = 1.5
@@ -750,10 +750,16 @@ for year in years:
             IsGameQualified(file_name, correct_predict_result, wrong_predict_result, 'full')
             file_name = file_header + "2017-2018" + file_end
             IsGameQualified(file_name, correct_predict_result, wrong_predict_result, 'full')
-            file_name = file_header + "2018-2019" + file_end
-            IsGameQualified(file_name, correct_predict_result, wrong_predict_result, 'full')
+            #file_name = file_header + "2018-2019" + file_end
+            #IsGameQualified(file_name, correct_predict_result, wrong_predict_result, 'full')
         if year == "2018-2019" and half == "bottom":
-            continue
+            file_name = file_header + "2016-2017" + file_end
+            IsGameQualified(file_name, correct_predict_result, wrong_predict_result, 'full')
+            file_name = file_header + "2017-2018" + file_end
+            IsGameQualified(file_name, correct_predict_result, wrong_predict_result, 'full')
+            file_name = file_header + "2018-2019" + file_end
+            IsGameQualified(file_name, correct_predict_result, wrong_predict_result, 'top')
+            #continue
         allowedSamples1 = max(len(correct_predict_result), len(wrong_predict_result))
         allowedSamples2 = max(len(correct_predict_result), len(wrong_predict_result))
         allResult = []
@@ -793,9 +799,9 @@ for year in years:
         #for f in range(trainArr.shape[1]):
         #    print("%d. feature %d (%f)" % (f + 1, indices[f] + 1, importances[indices[f]]))
 
-        clf = RandomizedLogisticRegression()
-        clf.fit(trainArr, trainRes.ravel())
-        print(clf.scores_)
+        #clf = RandomizedLogisticRegression()
+        #clf.fit(trainArr, trainRes.ravel())
+        #print(clf.scores_)
 
         IsGameQualified(test_file_name, test_result, test_result, half)
         testData = matrix(test_result)
@@ -820,8 +826,8 @@ for year in years:
         benmarkProb3 = 0.5
         benmarkProb4 = 1.6
 
-        if year == "2018-2019" and half == "top":
-          joblib.dump(rf, './src/ops/game_qualifier/nba.pkl')
+        #if year == "2018-2019" and half == "top":
+          #joblib.dump(rf, './src/ops/game_qualifier/nba.pkl')
 
         for prob in probability:
             result_odds = 0
@@ -850,15 +856,15 @@ for year in years:
                 #odds = odds + result_odds
             #index = index + 1
 
-        finalRoundsPnl = collections.OrderedDict(sorted(roundsPnl.items()))
-        curPnl = 0
-        for date, data in finalRoundsPnl.items():
-           curPnl = curPnl + data
-           allRoundPnl.append(curPnl)
+        #finalRoundsPnl = collections.OrderedDict(sorted(roundsPnl.items()))
+        #curPnl = 0
+        #for date, data in finalRoundsPnl.items():
+           #curPnl = curPnl + data
+           #allRoundPnl.append(curPnl)
 
-        plt.figure(1)
-        plt.plot(allRoundPnl, 'r-')
-        plt.show()
+        #plt.figure(1)
+        #plt.plot(allRoundPnl, 'r-')
+        #plt.show()
 
         print(year, half, min_odds, tree_size, timeBackOffset, min_pct, minEdge, "winR", right / (right + wrong), "betR", (right + wrong) / len(test_result), "total matches", right + wrong, "pnl", odds, "per match ret", odds / (right + wrong))
         totalPnl += odds

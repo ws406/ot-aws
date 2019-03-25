@@ -31,27 +31,27 @@ class NBARF1(AlgorithmInterface):
                     'X_test_full_data': featured_data ['2016-2017'] [:, 1:],
                     'y_test': featured_data ['2016-2017'] [:, 0],
                 },
-            'set 2':
-                {
-                    'X_train_full_data': np.concatenate (
-                        (featured_data ['2014-2015'] [:, 1:], featured_data ['2015-2016'] [:, 1:]
-                         , featured_data ['2016-2017'] [:, 1:])),
-                    'y_train': np.concatenate ((featured_data ['2014-2015'] [:, 0], featured_data ['2015-2016'] [:, 0]
-                                                , featured_data ['2016-2017'] [:, 0])),
-                    'X_test_full_data': featured_data ['2017-2018'] [:, 1:],
-                    'y_test': featured_data ['2017-2018'] [:, 0],
-                },
-            'set 3':
-                {
-                    'X_train_full_data': np.concatenate (
-                        (featured_data ['2014-2015'] [:, 1:], featured_data ['2015-2016'] [:, 1:]
-                         , featured_data ['2016-2017'] [:, 1:], featured_data ['2017-2018'] [:, 1:])),
-                    'y_train': np.concatenate ((featured_data ['2014-2015'] [:, 0], featured_data ['2015-2016'] [:, 0]
-                                                , featured_data ['2016-2017'] [:, 0],
-                                                featured_data ['2017-2018'] [:, 0])),
-                    'X_test_full_data': featured_data ['2018-2019'] [:, 1:],
-                    'y_test': featured_data ['2018-2019'] [:, 0],
-                },
+            #'set 2':
+                #{
+                    #'X_train_full_data': np.concatenate (
+                        #(featured_data ['2014-2015'] [:, 1:], featured_data ['2015-2016'] [:, 1:]
+                         #, featured_data ['2016-2017'] [:, 1:])),
+                    #'y_train': np.concatenate ((featured_data ['2014-2015'] [:, 0], featured_data ['2015-2016'] [:, 0]
+                                                #, featured_data ['2016-2017'] [:, 0])),
+                    #'X_test_full_data': featured_data ['2017-2018'] [:, 1:],
+                    #'y_test': featured_data ['2017-2018'] [:, 0],
+                #},
+            #'set 3':
+                #{
+                    #'X_train_full_data': np.concatenate (
+                        #(featured_data ['2014-2015'] [:, 1:], featured_data ['2015-2016'] [:, 1:]
+                         #, featured_data ['2016-2017'] [:, 1:], featured_data ['2017-2018'] [:, 1:])),
+                    #'y_train': np.concatenate ((featured_data ['2014-2015'] [:, 0], featured_data ['2015-2016'] [:, 0]
+                                                #, featured_data ['2016-2017'] [:, 0],
+                                                #featured_data ['2017-2018'] [:, 0])),
+                    #'X_test_full_data': featured_data ['2018-2019'] [:, 1:],
+                    #'y_test': featured_data ['2018-2019'] [:, 0],
+                #},
             # 'set 3':
             #     {
             #         'X_train_full_data': np.concatenate ([featured_data ['2015-2016'] [:, 1:], featured_data ['2015-2016'] [:,1:]]),
@@ -78,14 +78,14 @@ class NBARF1(AlgorithmInterface):
         }
 
         for key, value in sets.items():
-            print("Running algorithm - RandomForest - on " + key)
+            print("Running algorithm - on " + key)
 
             X_train = value['X_train_full_data'][:,3:]
             y_train = value['y_train']
             X_test = value ['X_test_full_data'] [:, 3:]
             y_test = value ['y_test']
 
-            self.compare_algs(X_train, y_train, X_test, y_test, value['X_test_full_data'])
+            self.compare_algs(X_train, y_train, X_test, y_test, value['X_test_full_data'], np.asarray(value ['X_test_full_data'] [:, 3]))
 
             # Define the algorithm
             # self.logger.debug(confusion_matrix (y_test, y_pred))
@@ -104,8 +104,9 @@ class NBARF1(AlgorithmInterface):
         return ''
 
 
-    def compare_algs(self, X_train, y_train, X_test, y_test, X_test_full_data):
+    def compare_algs(self, X_train, y_train, X_test, y_test, X_test_full_data, benchmarkProb):
         from sklearn.metrics import accuracy_score, log_loss
+        from sklearn.linear_model import LogisticRegression
         from sklearn.neighbors import KNeighborsClassifier
         from sklearn.svm import SVC, LinearSVC, NuSVC
         from sklearn.tree import DecisionTreeClassifier
@@ -115,13 +116,15 @@ class NBARF1(AlgorithmInterface):
         from sklearn.discriminant_analysis import QuadraticDiscriminantAnalysis
         import pandas as pd
 
+        tree_size=500
         classifiers = [
-            KNeighborsClassifier (3),
+            #KNeighborsClassifier (n_jobs=-1),
             # SVC (kernel = "rbf", C = 0.025, probability = True),
             # NuSVC (probability = True),
-            DecisionTreeClassifier (),
-            RandomForestClassifier (),
-            AdaBoostClassifier (),
+            #DecisionTreeClassifier (max_features=None, random_state = 0),
+            RandomForestClassifier (n_estimators=tree_size, max_features=None, min_samples_leaf=10, random_state = 0, n_jobs=-1),
+            #AdaBoostClassifier (random_state = 0),
+            LogisticRegression (),
             # GradientBoostingClassifier (),
             # GaussianNB (),
             # LinearDiscriminantAnalysis (),
@@ -140,9 +143,15 @@ class NBARF1(AlgorithmInterface):
             print (name)
 
             print ('****Results****')
+            X_test = X_test.astype(float)
+            X_train = X_train.astype(float)
+            test_predictions = clf.predict (X_train)
+            #print(X_test.shape)
             train_predictions = clf.predict (X_test)
             y_prob = clf.predict_proba(X_test)
+            acc1 = accuracy_score (y_train, test_predictions)
             acc = accuracy_score (y_test, train_predictions)
+            print ("Train Accuracy: {:.4%}".format (acc1))
             print ("Accuracy: {:.4%}".format (acc))
 
             train_predictions = clf.predict_proba (X_test)
@@ -151,12 +160,12 @@ class NBARF1(AlgorithmInterface):
 
             log_entry = pd.DataFrame ([[name, acc * 100, ll]], columns = log_cols)
             log = log.append (log_entry)
-            self.calculate_results (y_prob, X_test_full_data, y_test, clf.classes_)
+            self.calculate_results (y_prob, X_test_full_data, y_test, clf.classes_, benchmarkProb)
 
         print ("=" * 30)
 
 
-    def calculate_results(self, y_prob, X_test_full_data, y_test, classes):
+    def calculate_results(self, y_prob, X_test_full_data, y_test, classes, benchmarkProb):
 
         minBenmarkProb = 0.501
         maxBenmarkProb = 0.52
@@ -182,8 +191,9 @@ class NBARF1(AlgorithmInterface):
             # print(y_pred)
             # print(prob[bigger_value_index])
             # print(X_benchmark_prob)
-            if float(maxBenmarkProb) <= float(prob[bigger_value_index]) <= float(minBenmarkProb):
+            #if float(maxBenmarkProb) <= float(prob[bigger_value_index]) <= float(minBenmarkProb):
                 # y_pred = classes [abs(bigger_value_index-1)]
+            if float(prob[bigger_value_index]) < float(benchmarkProb[i]):
                 i += 1
                 continue
 
@@ -201,7 +211,7 @@ class NBARF1(AlgorithmInterface):
                 pnl = -1
 
             total_pnl += pnl
-            # print ("id", int (X_test_full_data[i, 0]), ",predict", y_pred, ",result",y_test[i],  ",return", pnl, ",prob", prob)
+            #print ("id", int (X_test_full_data[i, 0]), ",predict", y_pred, ",result",y_test[i],  ",return", pnl, ",prob", prob, "benchmark", float(benchmarkProb[i]))
             i = i + 1
 
         print ("win rate is " + str(right / (right + wrong)) + ", bet ratio is " + str((right + wrong) / len (y_test)) +
