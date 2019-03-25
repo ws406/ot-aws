@@ -19,7 +19,7 @@ from sklearn.linear_model import Ridge
 from sklearn.linear_model import Lasso
 from sklearn.linear_model import LassoLars
 
-file_header = "/home/wyao/workspace/ot-aws-new/data/football_all_odds_data/"
+file_header = "/home/wyao/ot-aws/data/football_all_odds_data/"
 
 #from src.win007.observers.same_direction.qualification_check import QualificationCheck
 #from src.win007.observers.same_direction.qualification_check_lastHour import QualificationCheck
@@ -288,7 +288,7 @@ bookies.append('skybet')
 bookies.append('sportsbet')
 
 leagues = []
-leagues.append('English Premier League-')
+#leagues.append('English Premier League-')
 #leagues.append('German Bundesliga-')
 #leagues.append('German Bundesliga 2-')
 #leagues.append('England Championship-')
@@ -299,7 +299,7 @@ leagues.append('English Premier League-')
 #leagues.append('France Ligue 1-')
 #leagues.append('France Ligue 2-')
 #leagues.append('England League 1-')
-#leagues.append('England League 2-')
+leagues.append('England League 2-')
 #leagues.append('Portugal Primera Liga-')
 #leagues.append('Turkish Super Liga-')
 #leagues.append('Holland Jupiler League-')

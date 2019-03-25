@@ -1,0 +1,197 @@
+Bookie macau_slot
+Bookie pinnacle
+Bookie bet365
+Bookie will_hill
+Bookie hkjc
+probMove 0.01 time 14400 win rate 0.553030303030303 , total bet matches 132 , pnl 10.829745213942733 , per match return 0.08204352434805101
+Bookie interwetten
+Bookie ladbroke
+probMove 0.001 time 300 win rate 0.5505050505050505 , total bet matches 198 , pnl 23.20656485362289 , per match return 0.1172048729980954
+probMove 0.025 time 14400 win rate 0.38016528925619836 , total bet matches 121 , pnl -28.312908875298923 , per match return -0.23399098244048697
+probMove 0.025 time 16200 win rate 0.384 , total bet matches 125 , pnl -28.275685224913325 , per match return -0.2262054817993066
+probMove 0.025 time 18000 win rate 0.3870967741935484 , total bet matches 124 , pnl -27.275685224913325 , per match return -0.21996520342672035
+probMove 0.025 time 19800 win rate 0.3798449612403101 , total bet matches 129 , pnl -30.135685224913324 , per match return -0.23360996298382422
+probMove 0.025 time 21600 win rate 0.3851851851851852 , total bet matches 135 , pnl -29.199720583479056 , per match return -0.21629422654428931
+probMove 0.025 time 23400 win rate 0.3795620437956204 , total bet matches 137 , pnl -30.536240228036355 , per match return -0.22289226443822158
+probMove 0.025 time 25200 win rate 0.37410071942446044 , total bet matches 139 , pnl -32.536240228036355 , per match return -0.23407367070529753
+probMove 0.02 time 27000 win rate 0.3983739837398374 , total bet matches 246 , pnl -51.81744096543432 , per match return -0.21064000392452978
+probMove 0.025 time 27000 win rate 0.36363636363636365 , total bet matches 143 , pnl -36.536240228036355 , per match return -0.25549818341284164
+probMove 0.02 time 28800 win rate 0.3944223107569721 , total bet matches 251 , pnl -55.79460496047478 , per match return -0.22228926279073616
+probMove 0.025 time 28800 win rate 0.3724137931034483 , total bet matches 145 , pnl -34.77953819517251 , per match return -0.23985888410463801
+probMove 0.02 time 30600 win rate 0.39299610894941633 , total bet matches 257 , pnl -58.11763012731509 , per match return -0.22613863862768516
+probMove 0.025 time 30600 win rate 0.36054421768707484 , total bet matches 147 , pnl -38.55155419517251 , per match return -0.26225547071545924
+probMove 0.02 time 32400 win rate 0.39543726235741444 , total bet matches 263 , pnl -58.2319287384262 , per match return -0.22141417771264715
+probMove 0.025 time 32400 win rate 0.35526315789473684 , total bet matches 152 , pnl -41.901554195172515 , per match return -0.2756681197050823
+probMove 0.02 time 34200 win rate 0.39552238805970147 , total bet matches 268 , pnl -59.68764353640277 , per match return -0.22271508782239838
+probMove 0.025 time 34200 win rate 0.3584905660377358 , total bet matches 159 , pnl -42.861154370161024 , per match return -0.26956700861736493
+probMove 0.02 time 36000 win rate 0.3927272727272727 , total bet matches 275 , pnl -60.27066196024182 , per match return -0.21916604349178842
+probMove 0.025 time 36000 win rate 0.35403726708074534 , total bet matches 161 , pnl -43.7441727940001 , per match return -0.27170293660869627
+Bookie betvictor
+probMove 0.001 time 1500 win rate 0.3880597014925373 , total bet matches 268 , pnl -59.05493597990463 , per match return -0.22035423873098742
+probMove 0.002 time 1500 win rate 0.39776951672862454 , total bet matches 269 , pnl -52.804472412490085 , per match return -0.19629915394977726
+probMove 0.004 time 1500 win rate 0.3970037453183521 , total bet matches 267 , pnl -53.74770256994805 , per match return -0.20130225681628486
+probMove 0.001 time 1800 win rate 0.38489208633093525 , total bet matches 278 , pnl -65.479733805109 , per match return -0.23553861080974461
+probMove 0.002 time 1800 win rate 0.39568345323741005 , total bet matches 278 , pnl -58.34927023769445 , per match return -0.2098894612866707
+probMove 0.003 time 1800 win rate 0.3964285714285714 , total bet matches 280 , pnl -58.29119666647132 , per match return -0.20818284523739758
+probMove 0.004 time 1800 win rate 0.3971119133574007 , total bet matches 277 , pnl -57.77608365331408 , per match return -0.2085779193260436
+Bookie sb
+probMove 0.025 time 30600 win rate 0.392 , total bet matches 125 , pnl -25.190530084468183 , per match return -0.20152424067574545
+probMove 0.025 time 32400 win rate 0.3937007874015748 , total bet matches 127 , pnl -25.536139840565742 , per match return -0.20107196724854914
+probMove 0.025 time 34200 win rate 0.3969465648854962 , total bet matches 131 , pnl -26.286139840565742 , per match return -0.200657556034853
+probMove 0.025 time 36000 win rate 0.39849624060150374 , total bet matches 133 , pnl -24.819158264404802 , per match return -0.1866102125143218
+Bookie betfair
+probMove 0.015 time 9000 win rate 0.5535714285714286 , total bet matches 168 , pnl 13.634522607474198 , per match return 0.08115787266353688
+Bookie setantabet
+Bookie bwin
+Bookie coral
+probMove 0.004 time 5400 win rate 0.5521472392638037 , total bet matches 163 , pnl 18.265031211163222 , per match return 0.11205540620345535
+Bookie eurobet
+Bookie snai
+Bookie sbobet
+probMove 0.008 time 300 win rate 0.56 , total bet matches 200 , pnl 18.73239497546193 , per match return 0.09366197487730965
+probMove 0.009 time 300 win rate 0.5555555555555556 , total bet matches 171 , pnl 14.000980840886271 , per match return 0.08187708094085538
+probMove 0.01 time 300 win rate 0.5761589403973509 , total bet matches 151 , pnl 20.197501600959903 , per match return 0.13375828874807882
+probMove 0.004 time 3600 win rate 0.5634328358208955 , total bet matches 268 , pnl 34.44928906536335 , per match return 0.12854212337822146
+probMove 0.004 time 14400 win rate 0.5586592178770949 , total bet matches 179 , pnl 21.111737388932386 , per match return 0.1179426669772759
+probMove 0.004 time 16200 win rate 0.5575757575757576 , total bet matches 165 , pnl 20.647737741510216 , per match return 0.1251378044940013
+probMove 0.004 time 18000 win rate 0.5723270440251572 , total bet matches 159 , pnl 23.3650403936163 , per match return 0.14694993958249244
+probMove 0.004 time 19800 win rate 0.5827814569536424 , total bet matches 151 , pnl 26.3378430025863 , per match return 0.17442280134163113
+probMove 0.005 time 19800 win rate 0.5512820512820513 , total bet matches 234 , pnl 23.887933540162027 , per match return 0.1020851860690685
+probMove 0.004 time 21600 win rate 0.5563380281690141 , total bet matches 142 , pnl 18.934653324012046 , per match return 0.13334262904233835
+probMove 0.004 time 23400 win rate 0.5703703703703704 , total bet matches 135 , pnl 21.9047695923944 , per match return 0.1622575525362548
+probMove 0.005 time 34200 win rate 0.5534591194968553 , total bet matches 159 , pnl 18.541194605162037 , per match return 0.11661128682491848
+Bookie easybet
+Bookie smarkets
+probMove 0.003 time 900 win rate 0.38926174496644295 , total bet matches 149 , pnl -30.66770664944605 , per match return -0.2058235345600406
+probMove 0.004 time 900 win rate 0.37410071942446044 , total bet matches 139 , pnl -32.95980274253562 , per match return -0.23712088303982462
+probMove 0.005 time 900 win rate 0.3790322580645161 , total bet matches 124 , pnl -28.447123920383607 , per match return -0.22941228968051297
+probMove 0.003 time 1200 win rate 0.3988439306358382 , total bet matches 173 , pnl -32.01308502269447 , per match return -0.18504673423522813
+probMove 0.004 time 1200 win rate 0.3782051282051282 , total bet matches 156 , pnl -36.63518111578406 , per match return -0.23484090458835935
+probMove 0.005 time 1200 win rate 0.3916083916083916 , total bet matches 143 , pnl -30.279875452154844 , per match return -0.2117473807842996
+probMove 0.006 time 1200 win rate 0.3893129770992366 , total bet matches 131 , pnl -27.842460563521644 , per match return -0.2125378668971118
+probMove 0.007 time 1200 win rate 0.38016528925619836 , total bet matches 121 , pnl -27.788592226634652 , per match return -0.22965778699698058
+probMove 0.007 time 1500 win rate 0.3816793893129771 , total bet matches 131 , pnl -29.77533015378159 , per match return -0.2272925965937526
+probMove 0.008 time 1500 win rate 0.35772357723577236 , total bet matches 123 , pnl -33.59399477734805 , per match return -0.2731219087589272
+probMove 0.008 time 1800 win rate 0.36923076923076925 , total bet matches 130 , pnl -33.76664880441336 , per match return -0.2597434523416412
+probMove 0.009 time 1800 win rate 0.376 , total bet matches 125 , pnl -29.977843563620155 , per match return -0.23982274850896124
+probMove 0.003 time 9000 win rate 0.568 , total bet matches 125 , pnl 12.853689935641384 , per match return 0.10282951948513107
+probMove 0.006 time 18000 win rate 0.564935064935065 , total bet matches 154 , pnl 15.81431359768607 , per match return 0.10269034803692254
+probMove 0.006 time 21600 win rate 0.5616438356164384 , total bet matches 146 , pnl 13.757922902382495 , per match return 0.09423234864645544
+Bookie matchbook
+probMove 0.002 time 28800 win rate 0.38311688311688313 , total bet matches 154 , pnl -42.530344587325914 , per match return -0.27617106874886954
+probMove 0.003 time 28800 win rate 0.39490445859872614 , total bet matches 157 , pnl -39.47697984190228 , per match return -0.25144573147708454
+probMove 0.004 time 28800 win rate 0.37888198757763975 , total bet matches 161 , pnl -43.82758044255236 , per match return -0.2722209965375923
+probMove 0.004 time 30600 win rate 0.38181818181818183 , total bet matches 165 , pnl -45.738030219472705 , per match return -0.2772001831483194
+probMove 0.005 time 30600 win rate 0.3977272727272727 , total bet matches 176 , pnl -40.292300738077095 , per match return -0.22893352692089258
+probMove 0.004 time 32400 win rate 0.3953488372093023 , total bet matches 172 , pnl -41.06789712320652 , per match return -0.2387668437395728
+probMove 0.004 time 34200 win rate 0.3977272727272727 , total bet matches 176 , pnl -43.56962911551396 , per match return -0.24755471088360206
+Bookie betdaq
+probMove 0.001 time 7200 win rate 0.5537190082644629 , total bet matches 121 , pnl 9.958743045250355 , per match return 0.08230366153099467
+probMove 0.004 time 18000 win rate 0.5581395348837209 , total bet matches 129 , pnl 12.648215816839784 , per match return 0.098048184626665
+probMove 0.004 time 23400 win rate 0.5785123966942148 , total bet matches 121 , pnl 13.908668789925184 , per match return 0.11494767594979491
+probMove 0.005 time 27000 win rate 0.5691056910569106 , total bet matches 123 , pnl 12.789331341713291 , per match return 0.10397830359116497
+probMove 0.006 time 28800 win rate 0.5588235294117647 , total bet matches 136 , pnl 12.45223035388817 , per match return 0.09156051730800126
+probMove 0.006 time 30600 win rate 0.55 , total bet matches 140 , pnl 12.271045011182467 , per match return 0.08765032150844619
+Bookie betclick
+Bookie betfred
+probMove 0.01 time 9000 win rate 0.5642857142857143 , total bet matches 140 , pnl 15.681756976899718 , per match return 0.11201254983499799
+probMove 0.01 time 10800 win rate 0.5655172413793104 , total bet matches 145 , pnl 17.13412501614534 , per match return 0.118166379421692
+probMove 0.01 time 12600 win rate 0.5866666666666667 , total bet matches 150 , pnl 22.575393672861765 , per match return 0.15050262448574508
+probMove 0.005 time 14400 win rate 0.5536723163841808 , total bet matches 177 , pnl 15.102360913464087 , per match return 0.08532407295742422
+probMove 0.01 time 14400 win rate 0.5987261146496815 , total bet matches 157 , pnl 27.757437855483268 , per match return 0.1767989672323775
+probMove 0.003 time 16200 win rate 0.5580110497237569 , total bet matches 181 , pnl 14.971489215136296 , per match return 0.08271541002837733
+probMove 0.004 time 16200 win rate 0.5614973262032086 , total bet matches 187 , pnl 16.782806047553816 , per match return 0.08974762592274768
+probMove 0.005 time 16200 win rate 0.5628415300546448 , total bet matches 183 , pnl 17.426935845696637 , per match return 0.09522915762675757
+probMove 0.01 time 16200 win rate 0.5897435897435898 , total bet matches 156 , pnl 24.143786689911035 , per match return 0.1547678633968656
+probMove 0.01 time 18000 win rate 0.5660377358490566 , total bet matches 159 , pnl 17.825593236667583 , per match return 0.1121106492872175
+probMove 0.01 time 19800 win rate 0.5555555555555556 , total bet matches 171 , pnl 15.242922454181972 , per match return 0.08913989739287703
+probMove 0.01 time 21600 win rate 0.5632183908045977 , total bet matches 174 , pnl 19.98178806295218 , per match return 0.11483786243075966
+probMove 0.01 time 23400 win rate 0.5674157303370787 , total bet matches 178 , pnl 21.363383427598215 , per match return 0.12001900802021469
+probMove 0.01 time 25200 win rate 0.5502645502645502 , total bet matches 189 , pnl 15.573334376913325 , per match return 0.08239859458684298
+probMove 0.01 time 28800 win rate 0.5505050505050505 , total bet matches 198 , pnl 18.161687107913096 , per match return 0.09172569246420756
+probMove 0.01 time 32400 win rate 0.5507246376811594 , total bet matches 207 , pnl 17.261856445338992 , per match return 0.08339061084704827
+Bookie betway
+Bookie bodog
+Bookie bovada
+probMove 0.004 time 9000 win rate 0.5555555555555556 , total bet matches 198 , pnl 20.203679866451953 , per match return 0.10203878720430279
+probMove 0.005 time 9000 win rate 0.558974358974359 , total bet matches 195 , pnl 16.93128379619439 , per match return 0.08682709639074046
+probMove 0.008 time 9000 win rate 0.5604395604395604 , total bet matches 182 , pnl 16.746439183931866 , per match return 0.09201340210951575
+probMove 0.009 time 9000 win rate 0.5662650602409639 , total bet matches 166 , pnl 16.869253935026048 , per match return 0.10162201165678342
+probMove 0.01 time 9000 win rate 0.5693430656934306 , total bet matches 137 , pnl 14.35737944871822 , per match return 0.10479839013662934
+probMove 0.001 time 10800 win rate 0.551219512195122 , total bet matches 205 , pnl 19.571589109074512 , per match return 0.09547116638572933
+probMove 0.002 time 10800 win rate 0.5572139303482587 , total bet matches 201 , pnl 21.671910234574337 , per match return 0.10782044892823053
+probMove 0.003 time 10800 win rate 0.5532994923857868 , total bet matches 197 , pnl 18.30608191557797 , per match return 0.0929242736831369
+probMove 0.004 time 10800 win rate 0.5628140703517588 , total bet matches 199 , pnl 22.50784233258294 , per match return 0.11310473533961275
+probMove 0.005 time 10800 win rate 0.5658536585365853 , total bet matches 205 , pnl 21.139409656668136 , per match return 0.10311907149594213
+probMove 0.008 time 10800 win rate 0.5736842105263158 , total bet matches 190 , pnl 20.310711501098538 , per match return 0.10689848158472914
+probMove 0.009 time 10800 win rate 0.5747126436781609 , total bet matches 174 , pnl 18.67352625219271 , per match return 0.10731911639191212
+probMove 0.01 time 10800 win rate 0.5695364238410596 , total bet matches 151 , pnl 15.413988602738801 , per match return 0.1020793947201245
+probMove 0.004 time 12600 win rate 0.5560975609756098 , total bet matches 205 , pnl 18.190496546955668 , per match return 0.08873412949734472
+probMove 0.005 time 12600 win rate 0.5673076923076923 , total bet matches 208 , pnl 20.20068463375274 , per match return 0.09711867612381125
+probMove 0.006 time 12600 win rate 0.5615763546798029 , total bet matches 203 , pnl 17.223633290531062 , per match return 0.08484548418980818
+probMove 0.008 time 12600 win rate 0.5714285714285714 , total bet matches 203 , pnl 19.59431738470098 , per match return 0.09652373095911812
+probMove 0.009 time 12600 win rate 0.5706521739130435 , total bet matches 184 , pnl 17.723784602419933 , per match return 0.09632491631749963
+probMove 0.01 time 12600 win rate 0.5679012345679012 , total bet matches 162 , pnl 15.145626190254154 , per match return 0.09349151969292688
+probMove 0.003 time 14400 win rate 0.5527638190954773 , total bet matches 199 , pnl 16.002293896490816 , per match return 0.08041353716829555
+probMove 0.004 time 14400 win rate 0.5550239234449761 , total bet matches 209 , pnl 18.587136574017766 , per match return 0.08893366781826682
+probMove 0.005 time 14400 win rate 0.5581395348837209 , total bet matches 215 , pnl 17.739230910814822 , per match return 0.08250805074797592
+probMove 0.008 time 14400 win rate 0.568075117370892 , total bet matches 213 , pnl 21.345435076975747 , per match return 0.10021331022054342
+probMove 0.009 time 14400 win rate 0.5670103092783505 , total bet matches 194 , pnl 19.474902294694694 , per match return 0.10038609430254997
+probMove 0.01 time 14400 win rate 0.5614035087719298 , total bet matches 171 , pnl 15.445918548651706 , per match return 0.09032700905644273
+probMove 0.002 time 16200 win rate 0.5566502463054187 , total bet matches 203 , pnl 17.963927006973446 , per match return 0.08849225126587905
+probMove 0.003 time 16200 win rate 0.5603864734299517 , total bet matches 207 , pnl 18.607421967342802 , per match return 0.08989092737846764
+probMove 0.004 time 16200 win rate 0.5627906976744186 , total bet matches 215 , pnl 20.334129747509046 , per match return 0.09457734766283277
+probMove 0.005 time 16200 win rate 0.5625 , total bet matches 224 , pnl 19.344358981666808 , per match return 0.08635874545386968
+probMove 0.006 time 16200 win rate 0.5630630630630631 , total bet matches 222 , pnl 18.836571116925583 , per match return 0.08484941944561074
+probMove 0.008 time 16200 win rate 0.5707964601769911 , total bet matches 226 , pnl 23.655711816466784 , per match return 0.10467129122330436
+probMove 0.009 time 16200 win rate 0.5700483091787439 , total bet matches 207 , pnl 22.309826441593145 , per match return 0.10777693933136785
+probMove 0.01 time 16200 win rate 0.5706521739130435 , total bet matches 184 , pnl 20.15084269555016 , per match return 0.10951544943233783
+probMove 0.002 time 18000 win rate 0.5588235294117647 , total bet matches 204 , pnl 19.904172918581725 , per match return 0.09756947509108689
+probMove 0.003 time 18000 win rate 0.5625 , total bet matches 208 , pnl 20.557667878951072 , per match return 0.09883494172572631
+probMove 0.004 time 18000 win rate 0.5662100456621004 , total bet matches 219 , pnl 22.290382561528787 , per match return 0.10178256877410405
+probMove 0.006 time 18000 win rate 0.56 , total bet matches 225 , pnl 18.182823930945318 , per match return 0.08081255080420141
+probMove 0.008 time 18000 win rate 0.5677966101694916 , total bet matches 236 , pnl 23.347556996898724 , per match return 0.09893032625804545
+probMove 0.009 time 18000 win rate 0.5694444444444444 , total bet matches 216 , pnl 22.811671622025088 , per match return 0.10560959084270874
+probMove 0.01 time 18000 win rate 0.5625 , total bet matches 192 , pnl 18.422186103030576 , per match return 0.09594888595328425
+probMove 0.008 time 19800 win rate 0.569672131147541 , total bet matches 244 , pnl 25.26564241131257 , per match return 0.10354771480046135
+probMove 0.009 time 19800 win rate 0.5619469026548672 , total bet matches 226 , pnl 20.7664253908693 , per match return 0.09188683801269602
+probMove 0.01 time 19800 win rate 0.5628140703517588 , total bet matches 199 , pnl 19.376939871874796 , per match return 0.09737155714509949
+probMove 0.008 time 21600 win rate 0.5634920634920635 , total bet matches 252 , pnl 23.38396722674473 , per match return 0.09279352074105052
+probMove 0.01 time 21600 win rate 0.5533980582524272 , total bet matches 206 , pnl 16.8014991071774 , per match return 0.0815606752775602
+probMove 0.02 time 34200 win rate 0.39568345323741005 , total bet matches 139 , pnl -33.167822946887924 , per match return -0.23861743127257498
+probMove 0.02 time 36000 win rate 0.38926174496644295 , total bet matches 149 , pnl -38.11577876426642 , per match return -0.2558105957333317
+Bookie cashpoint
+Bookie championsbet
+Bookie dafabet
+probMove 0.008 time 10800 win rate 0.5535714285714286 , total bet matches 224 , pnl 18.718917233331247 , per match return 0.08356659479165736
+probMove 0.008 time 12600 win rate 0.5619469026548672 , total bet matches 226 , pnl 24.84201438886158 , per match return 0.10992041764982999
+probMove 0.008 time 14400 win rate 0.5614035087719298 , total bet matches 228 , pnl 24.19328972509988 , per match return 0.1061109198469293
+probMove 0.01 time 14400 win rate 0.5576036866359447 , total bet matches 217 , pnl 21.283667722843617 , per match return 0.09808141807762036
+probMove 0.005 time 16200 win rate 0.57 , total bet matches 200 , pnl 18.223550610976858 , per match return 0.09111775305488429
+probMove 0.008 time 16200 win rate 0.5589519650655022 , total bet matches 229 , pnl 21.31910188436894 , per match return 0.09309651477890367
+probMove 0.01 time 16200 win rate 0.5565610859728507 , total bet matches 221 , pnl 19.211185872751997 , per match return 0.08692844286313121
+probMove 0.005 time 18000 win rate 0.569377990430622 , total bet matches 209 , pnl 19.79178475435876 , per match return 0.09469753470985053
+probMove 0.006 time 18000 win rate 0.5644444444444444 , total bet matches 225 , pnl 20.744572006344132 , per match return 0.09219809780597392
+probMove 0.008 time 18000 win rate 0.5654008438818565 , total bet matches 237 , pnl 23.85665826789962 , per match return 0.10066100534978742
+probMove 0.01 time 18000 win rate 0.5545851528384279 , total bet matches 229 , pnl 18.625891315351748 , per match return 0.08133576993603384
+probMove 0.005 time 19800 win rate 0.565 , total bet matches 200 , pnl 17.54834283363438 , per match return 0.08774171416817189
+probMove 0.005 time 21600 win rate 0.5707070707070707 , total bet matches 198 , pnl 20.174934484289384 , per match return 0.10189360850651204
+probMove 0.008 time 21600 win rate 0.5565217391304348 , total bet matches 230 , pnl 18.4595579799513 , per match return 0.08025894773891869
+probMove 0.02 time 36000 win rate 0.39572192513368987 , total bet matches 187 , pnl -41.398763826065604 , per match return -0.2213837637757519
+Bookie jetbull
+probMove 0.004 time 16200 win rate 0.56 , total bet matches 125 , pnl 15.198190312246204 , per match return 0.12158552249796964
+probMove 0.004 time 18000 win rate 0.568 , total bet matches 125 , pnl 17.873194317499813 , per match return 0.1429855545399985
+probMove 0.005 time 25200 win rate 0.5785123966942148 , total bet matches 121 , pnl 14.277672829493117 , per match return 0.11799729611151336
+probMove 0.005 time 27000 win rate 0.5691056910569106 , total bet matches 123 , pnl 12.139302334824066 , per match return 0.09869351491726883
+probMove 0.005 time 28800 win rate 0.5634920634920635 , total bet matches 126 , pnl 11.590657834097758 , per match return 0.09198934788966474
+Bookie skybet
+probMove 0.007 time 7200 win rate 0.554945054945055 , total bet matches 182 , pnl 21.946919011601814 , per match return 0.12058746709671327
+probMove 0.01 time 7200 win rate 0.5594405594405595 , total bet matches 143 , pnl 18.414876217328743 , per match return 0.12877535816313807
+probMove 0.01 time 9000 win rate 0.5594405594405595 , total bet matches 143 , pnl 17.437270771306558 , per match return 0.12193895644270321
+probMove 0.01 time 10800 win rate 0.5723684210526315 , total bet matches 152 , pnl 20.880387270380126 , per match return 0.13737096888407976
+probMove 0.01 time 23400 win rate 0.5567010309278351 , total bet matches 194 , pnl 22.293946733197068 , per match return 0.11491725120204674
+probMove 0.01 time 25200 win rate 0.5707070707070707 , total bet matches 198 , pnl 26.39088616074048 , per match return 0.13328730384212362
+probMove 0.01 time 27000 win rate 0.5544554455445545 , total bet matches 202 , pnl 20.610166616896507 , per match return 0.10203052780641834
+probMove 0.01 time 32400 win rate 0.555045871559633 , total bet matches 218 , pnl 24.16062916030824 , per match return 0.11082857412985431
+Bookie sportsbet
+Best pnl 34.44928906536335
