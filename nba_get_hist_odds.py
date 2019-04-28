@@ -59,7 +59,7 @@ class Main:
 
         # Fetch historical games data league by league
         # for lid in self.league_ids:
-        num_of_seasons = 4
+        num_of_seasons = 1
         start_season_offset = 0
         replace = True
         for lid, lname in self.league_ids.items():

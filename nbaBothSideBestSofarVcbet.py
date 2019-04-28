@@ -896,7 +896,13 @@ for year in years:
             file_name = file_header + "2017-2018" + file_end
             IsGameQualified(file_name, correct_predict_result, wrong_predict_result, 'full')
         if year == "2018-2019" and half == "bottom":
-            continue
+            file_name = file_header + "2016-2017" + file_end
+            IsGameQualified(file_name, correct_predict_result, wrong_predict_result, 'full')
+            file_name = file_header + "2017-2018" + file_end
+            IsGameQualified(file_name, correct_predict_result, wrong_predict_result, 'full')
+            file_name = file_header + "2018-2019" + file_end
+            IsGameQualified(file_name, correct_predict_result, wrong_predict_result, 'top')
+            #continue
         allowedSamples1 = max(len(correct_predict_result), len(wrong_predict_result))
         allowedSamples2 = max(len(correct_predict_result), len(wrong_predict_result))
         allResult = []
@@ -935,9 +941,9 @@ for year in years:
         #for f in range(trainArr.shape[1]):
         #    print("%d. feature %d (%f)" % (f + 1, indices[f] + 1, importances[indices[f]]))
 
-        clf = RandomizedLogisticRegression()
-        clf.fit(trainArr, trainRes.ravel())
-        print(clf.scores_)
+        #clf = RandomizedLogisticRegression()
+        #clf.fit(trainArr, trainRes.ravel())
+        #print(clf.scores_)
         #if year == "2018-2019" and half == "top":
             #half = 'delete'
         IsGameQualified(test_file_name, test_result, test_result, half)
@@ -993,15 +999,15 @@ for year in years:
                #odds = odds + result_odds
             #index = index + 1
 
-        finalRoundsPnl = collections.OrderedDict(sorted(roundsPnl.items()))
-        curPnl = 0
-        for date, data in finalRoundsPnl.items():
-         curPnl = curPnl + data
-         allRoundPnl.append(curPnl)
+        #finalRoundsPnl = collections.OrderedDict(sorted(roundsPnl.items()))
+        #curPnl = 0
+        #for date, data in finalRoundsPnl.items():
+         #curPnl = curPnl + data
+         #allRoundPnl.append(curPnl)
 
-        plt.figure(1)
-        plt.plot(allRoundPnl, 'r-')
-        plt.show()
+        #plt.figure(1)
+        #plt.plot(allRoundPnl, 'r-')
+        #plt.show()
 
         print(year, half, min_odds, tree_size, min_pct, "winR", right / (right + wrong), "betR", (right + wrong) / len(test_result), "total matches", right + wrong, "pnl", odds, "per match ret", odds / (right + wrong))
         totalPnl += odds
