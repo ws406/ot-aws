@@ -114,8 +114,7 @@ class HistGamesFetcher:
                         = self.odds_fetcher.get_game_metadata(game['game_id'])
 
                     game["odds"], \
-                    game["probabilities"], \
-                    game["kelly"] \
+                    game["probabilities"] \
                         = self.odds_fetcher.get_odds(game['game_id'])
                 except StopIteration:
                     print("Skip game - " + str(game['game_id']))

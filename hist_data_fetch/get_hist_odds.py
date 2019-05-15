@@ -15,15 +15,15 @@ class Main:
     }
 
     league_ids = [
-        34,  # IT1
+        # 34,  # IT1
         # 40,  # IT2
 
-        36,  # EPL
-        37,  # ENC
+        # 36,  # EPL
+        # 37,  # ENC
         # 39,  # EFL1
         # 35,  # EFL2
 
-        31,  # ES1
+        # 31,  # ES1
         # 33,  # ES2
 
         # 8,  # GE1
@@ -31,6 +31,9 @@ class Main:
  
         # 11,  # FR1
         # 12,  # FR2
+
+        13, # FIN1
+        700, # THAI1
 
         # 16,  # HO1
         # 17,  # HO2
@@ -82,6 +85,8 @@ class Main:
         140:44,
         15: 313,
         273:462,
+        13: 1570,
+        700:442
     }
 
     def __init__(self):
