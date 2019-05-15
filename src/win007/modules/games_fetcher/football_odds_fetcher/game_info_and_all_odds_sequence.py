@@ -30,7 +30,6 @@ class GameInfoAndAllOddsSequence(AbstractOddsFetcher):
         data_rows = re.finditer(regex_pattern, open_final_odds_data)
         odds = dict()
         probability = dict()
-        kelly = dict()
         for data_row in data_rows:
             # Remove trailing and prefixing "
             data_list = data_row.group(1).split('|')
@@ -78,14 +77,7 @@ class GameInfoAndAllOddsSequence(AbstractOddsFetcher):
                 probability[bookie_name][tmp_timestamp]["x"] = implied_prob_x/overround
                 probability[bookie_name][tmp_timestamp]["2"] = implied_prob_2/overround
 
-                if bookie_name not in kelly:
-                    kelly[bookie_name] = {}
-                kelly[bookie_name][tmp_timestamp] = {}
-                kelly[bookie_name][tmp_timestamp]["1"] = tmp_array[4]
-                kelly[bookie_name][tmp_timestamp]["x"] = tmp_array[5]
-                kelly[bookie_name][tmp_timestamp]["2"] = tmp_array[6]
-
-        return odds, probability, kelly
+        return odds, probability
 
     def _get_timestamp_from_string(self, gid, datetime_string_in_hk_time):
         kickoff_timestamp = self.get_game_metadata(gid)[0]
@@ -111,11 +103,11 @@ class GameInfoAndAllOddsSequence(AbstractOddsFetcher):
         # BUT if the a game is kicked off in Jan 2018 and the odds were given in Dec 2017, assign 2018 is wrong.
         # This is to fix it!
         if datetime_in_utc > kickoff_datetime_in_utc:
-            print('-----------')
-            print(datetime_in_utc.timestamp())
-            print(kickoff_datetime_in_utc.timestamp())
-            print(str(kickoff_datetime_in_hk.year-1) + '-' + datetime_string_in_hk_time)
-            print ('-----------')
+            # print('-----------')
+            # print(datetime_in_utc.timestamp())
+            # print(kickoff_datetime_in_utc.timestamp())
+            # print(str(kickoff_datetime_in_hk.year-1) + '-' + datetime_string_in_hk_time)
+            # print ('-----------')
             datetime_in_hk_time = datetime.datetime.strptime(
                 str(kickoff_datetime_in_hk.year-1) + '-' + datetime_string_in_hk_time,
                 '%Y-%m-%d %H:%M'
@@ -126,12 +118,4 @@ class GameInfoAndAllOddsSequence(AbstractOddsFetcher):
         # Return timestamp in seconds
         return int(int(datetime_in_utc.timestamp()))
 if __name__ == '__main__':
-    bids = {
-        80: "macau_slot",  # Macao Slot
-        115: "will_hill",  # WH
-        281: "bet365",  # Bet365
-        177: "pinnacle",  # Pinnacle
-        432: "hkjc",  # HKJC
-        104: "interwetten"  # Interwetten
-    }
-    print(GameInfoAndAllOddsSequence (bids).get_odds (1709251))
+    print(GameInfoAndAllOddsSequence ({177: "pin"}).get_odds (1395288))
