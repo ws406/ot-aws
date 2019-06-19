@@ -42,7 +42,7 @@ class NBA1(FeatureBuilderInterface):
             # Home win - odds between 1.3 and 1.7
             if 'betvictor' not in data['probabilities'] or 'matchbook' not in data ['probabilities'] \
                     or 'Betfair' not in data ['probabilities']:
-                self.logger.exception(str(data['game_id']) + ' can not be processed due to lack of prob data')
+                #self.logger.exception(str(data['game_id']) + ' can not be processed due to lack of prob data')
                 continue
             best_final_probs_1 = list (collections.OrderedDict (sorted (data ['probabilities'] ['matchbook'].items ())).items ())
             worst_final_probs_1 = list (collections.OrderedDict (sorted (data ['probabilities']['betvictor'].items ())).items ())

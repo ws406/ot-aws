@@ -24,7 +24,7 @@ class Nba (GameQualifierInterface):
 	preferred_team = None
 
 	def __init__ (self):
-		self.rf = joblib.load ('./src/ops/game_qualifier/nba.pkl')
+		self.rf = joblib.load ('./src/ops/game_qualifier/nba2.pkl')
 
 	def Operation (self, data1, data2):
 		number1 = float (data1)
