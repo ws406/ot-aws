@@ -29,7 +29,7 @@ class NBA1(FeatureBuilderInterface):
             'delta_prob_pin_lad_home',
             'delta_prob_pin_lad_away'
         ]
-        empty = np.empty((0, 9))
+        empty = np.empty((0, 8))
         featured_data = {
             '2014-2015': empty,
             '2015-2016': empty,
@@ -47,7 +47,7 @@ class NBA1(FeatureBuilderInterface):
             best_final_probs_1 = list (collections.OrderedDict (sorted (data ['probabilities'] ['matchbook'].items ())).items ())
             worst_final_probs_1 = list (collections.OrderedDict (sorted (data ['probabilities']['betvictor'].items ())).items ())
             best_delta_probs = list (collections.OrderedDict (sorted (data ['probabilities']['Betfair'].items ())).items ())
-            benchmark_odds = list (collections.OrderedDict (sorted (data ['odds'] ['matchbook'].items ())).items ())
+            # benchmark_odds = list (collections.OrderedDict (sorted (data ['odds'] ['matchbook'].items ())).items ())
             benchmark_probs_1 = best_final_probs_1 [-1] [1] ['1']
             benchmark_probs_3 = worst_final_probs_1 [-1] [1] ['1']
             if float (benchmark_probs_1 - benchmark_probs_3) < 0.005 or \
@@ -72,8 +72,8 @@ class NBA1(FeatureBuilderInterface):
             row = [
                 data['result'],
                 data['game_id'],
-                benchmark_odds[-1][1]['1'],
-                benchmark_odds[-1][1]['2'],
+                best_final_probs_1[-1][1]['1'],
+                best_final_probs_1[-1][1]['2'],
                 # best_avg_final_prob_for_1,
                 # best_avg_final_prob_for_2,
                 # best_initial_probs[0] [1] ['1'],
@@ -82,7 +82,7 @@ class NBA1(FeatureBuilderInterface):
                 best_final_probs_1 [-1] [1] ['2'],
                 best_final_probs_1 [-1] [1] ['1'] - worst_final_probs_1 [-1] [1] ['1'],
                 best_final_probs_1 [-1] [1] ['2'] - worst_final_probs_1 [-1] [1] ['2'],
-                best_delta_probs[-1][1]['1']-best_delta_probs[0][1]['1'],
+                # best_delta_probs[-1][1]['1']-best_delta_probs[0][1]['1'],
                 # best_initial_probs[-1][1]['1'] - worst_initial_probs[-1][1]['1'],
                 # best_initial_probs[-1][1]['2'] - worst_initial_probs[-1][1]['2'],
                 # best_avg_final_prob_for_1 - worst_avg_final_prob_for_1,

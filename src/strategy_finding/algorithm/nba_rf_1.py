@@ -158,8 +158,8 @@ class NBARF1(AlgorithmInterface):
 
     def calculate_results(self, y_prob, X_test_full_data, y_test, classes):
 
-        minBenmarkProb = 0.501
-        maxBenmarkProb = 0.52
+        minBenmarkProb = 0.5001
+        maxBenmarkProb = 0.8
         i = 0
         right = 0
         wrong = 0
@@ -171,38 +171,32 @@ class NBARF1(AlgorithmInterface):
             X_benchmark_prob = X_test_full_data[i,3]
             if prob[1] > prob[0]:
                 bigger_value_index = 1
-                X_benchmark_prob = X_test_full_data[i,4]
 
             y_pred = classes [bigger_value_index]
             if y_pred == '2':
                 i = i + 1
                 continue
 
-            # print(prob)
-            # print(y_pred)
-            # print(prob[bigger_value_index])
-            # print(X_benchmark_prob)
-            if float(maxBenmarkProb) <= float(prob[bigger_value_index]) <= float(minBenmarkProb):
-                # y_pred = classes [abs(bigger_value_index-1)]
+            if float(maxBenmarkProb) <= float(prob[bigger_value_index]) or \
+                    float(prob[bigger_value_index]) <= float(minBenmarkProb):
                 i += 1
                 continue
 
-            # print(X_test_full_data[i, :])
-            odds = X_test_full_data[i, 1] if y_pred == '1' else X_test_full_data[i, 2]
-            # odds = X_test_full_data[i, 1]
-            odds = float(odds)
-            # print(odds)
+            betting_prob = X_test_full_data[i, 1] if y_pred == '1' else X_test_full_data[i, 2]
 
             if y_test[i] == y_pred:
                 right += 1
-                pnl = odds - 1
+                pnl = 1 - float(betting_prob)
             else:
                 wrong += 1
-                pnl = -1
+                pnl = -float(betting_prob)
 
             total_pnl += pnl
             # print ("id", int (X_test_full_data[i, 0]), ",predict", y_pred, ",result",y_test[i],  ",return", pnl, ",prob", prob)
             i = i + 1
 
-        print ("win rate is " + str(right / (right + wrong)) + ", bet ratio is " + str((right + wrong) / len (y_test)) +
-               ", total bet matches " + str(right + wrong) + ", pnl is " + str(total_pnl))
+        if (right + wrong) == 0:
+            print('*'*5, 'No game is qualified', '*'*5)
+        else :
+            print ("win rate is " + str(right / (right + wrong)) + ", bet ratio is " + str((right + wrong) / len (y_test)) +
+                   ", total bet matches " + str(right + wrong) + ", pnl is " + str(total_pnl))

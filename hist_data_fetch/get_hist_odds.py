@@ -11,19 +11,44 @@ class Main:
         281: "bet365",  # Bet365
         177: "pinnacle",  # Pinnacle
         432: "hkjc",  # HKJC
-        104: "interwetten" # Interwetten
+        255: "bwin",
+        88: "coral",
+        71: "eurobet",
+        110: "snai",
+        82: "ladbroke",
+        474: "sbobet",
+        81: "betvictor",
+        545: "sb",
+        90: "easybet",
+        2: "betfair",
+        841: "smarkets",
+        352: "matchbook",
+        54: "betdaq",
+        463: "betclick",
+        156: "betfred",
+        482: "betway",
+        136: "bodog",
+        874: "bovada",
+        695: "cashpoint",
+        961: "championsbet",
+        798: "dafabet",
+        571: "jetbull",
+        936: "setantabet",
+        167: "skybet",
+        613: "sportsbet",
+        104: "interwetten"  # Interwetten
     }
 
     league_ids = [
-        34,  # IT1
+        # 34,  # IT1
         # 40,  # IT2
 
-        36,  # EPL
-        37,  # ENC
+        # 36,  # EPL
+        # 37,  # ENC
         # 39,  # EFL1
         # 35,  # EFL2
 
-        31,  # ES1
+        # 31,  # ES1
         # 33,  # ES2
 
         # 8,  # GE1
@@ -33,7 +58,7 @@ class Main:
         # 12,  # FR2
 
         # 16,  # HO1
-        # 17,  # HO2
+        17,  # HO2
 
         # 25,  # JAP1
         # 284,  # JAP2
