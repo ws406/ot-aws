@@ -20,7 +20,9 @@ RUN pip3 install --upgrade numpy \
 		pprint \
 		psutil \
 		kafka \
-		sendgrid
+		sendgrid \
+		matplotlib \
+		pylab
 
 # Install Kafka
 ENV KAFKA_HOME /usr/local/kafka

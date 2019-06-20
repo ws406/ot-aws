@@ -42,33 +42,33 @@ class Main:
     league_ids = [
         # 34,  # IT1
         # 40,  # IT2
-
+        #
         # 36,  # EPL
         # 37,  # ENC
         # 39,  # EFL1
         # 35,  # EFL2
-
+        #
         # 31,  # ES1
         # 33,  # ES2
-
+        #
         # 8,  # GE1
         # 9,  # GE2
- 
+        #
         # 11,  # FR1
         # 12,  # FR2
-
-        13, # FIN1
-        700, # THAI1
-
+        #
+        # 13, # FIN1
+        # 700, # THAI1
+        #
         # 16,  # HO1
-        17,  # HO2
-
+        # 17,  # HO2
+        #
         # 25,  # JAP1
         # 284,  # JAP2
-
+        #
         # 4,  # BRA1
         # 358,  # BRA2
- 
+        #
         # 23,  # POTG1
         # 29,  # SCOT1
         # 30,  # TUR1
@@ -81,10 +81,10 @@ class Main:
         # 21,  # USA1
         # 415,  # CHILE1
         # 140,  # MEX1
- 
-        # 60,  # CHN1
-        # 15,  # KOR1
-        # 273,  # AUS
+
+        60,  # CHN1
+        15,  # KOR1
+        273,  # AUS
     ]
 
     sub_league_ids = {
