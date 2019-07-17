@@ -147,20 +147,20 @@ class TrueOdds(GamePredictorInterface):
         else:
             # TODO: Yao Wang, this is for you to write.
             #     return {
-			# 		"gid": data ['game_id'],
-			# 		"league_id": data ['league_id'],
-			# 		"league_name": data ['league_name'],
-			# 		"kickoff": data ['kickoff'],
-			# 		"home_team_name": data ['home_team_name'],
-			# 		"away_team_name": data ['away_team_name'],
-			# 		"home_team_id": data ['home_team_id'],
-			# 		"away_team_id": data ['away_team_id'],
+            # 		"gid": data ['game_id'],
+            # 		"league_id": data ['league_id'],
+            # 		"league_name": data ['league_name'],
+            # 		"kickoff": data ['kickoff'],
+            # 		"home_team_name": data ['home_team_name'],
+            # 		"away_team_name": data ['away_team_name'],
+            # 		"home_team_id": data ['home_team_id'],
+            # 		"away_team_id": data ['away_team_id'],
             #       "min_odds": {
             #           "1": 1.3,
             #           "x": 2.5,
             #           "2": 6.8,
             #       }
-			# 		"min_odds_to_bet_on": nonFavTeamOdds,
+            # 		"min_odds_to_bet_on": nonFavTeamOdds,
             #       "strategy": self.strategy
-			# 	}
+            # 	}
             pass
