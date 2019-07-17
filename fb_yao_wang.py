@@ -1,8 +1,8 @@
 from src.win007.subject.fb_upcoming_games import Subject as UpcomingGamesProcessor
 from src.win007.modules.games_fetcher.football_odds_fetcher.game_info_and_all_odds_sequence import \
     GameInfoAndAllOddsSequence
-from src.ops.game_qualifier.rf_6_leagues_no_hkjc import RF6LeagusNoHkjc
-from src.ops.game_qualifier.rf_6_leagues import RF6Leagus
+from src.ops.game_predictor.rf_6_leagues_no_hkjc import RF6LeagusNoHkjc
+from src.ops.game_predictor.rf_6_leagues import RF6Leagus
 import json
 
 
@@ -52,8 +52,8 @@ class Main:
         # TODO: this is a big lame! Needs to correct it.
         for data in json.loads (json.dumps (games)):
             print ("gid: ", data ['game_id'])
-            result1 = self.game_qualifier1.is_game_qualified (data)
-            result2 = self.game_qualifier2.is_game_qualified (data)
+            result1 = self.game_qualifier1.get_prediction (data)
+            result2 = self.game_qualifier2.get_prediction (data)
             print ('qualifier1:' + str (result1))
             print ('qualifier2:' + str (result2))
             if result1 or result2:

@@ -1,9 +1,9 @@
 import abc
 
 
-class GameQualifierInterface(abc.ABC):
+class GamePredictorInterface(abc.ABC):
 
     # TODO: use avro schema
     @abc.abstractmethod
-    def is_game_qualified(self, data):
+    def get_prediction(self, data):
         pass

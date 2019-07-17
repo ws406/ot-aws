@@ -28,7 +28,7 @@ import random
 
 file_header = "/home/wyao/workspace/ot-aws-new/data/football_all_odds_data/"
 
-from src.win007.observers.true_odds.qualification_check_test_efficiency import QualificationCheck
+from src.win007.observers.true_odds.qualification_check import QualificationCheck
 
 roundsPnl = {}
 allRoundPnl = []

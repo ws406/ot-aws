@@ -1,8 +1,8 @@
 from src.win007.subject.bb_upcoming_games import Subject as UpcomingGamesProcessor
 from src.win007.modules.games_fetcher.basketball_odds_fetcher.game_info_and_all_odds_sequence \
     import GameInfoAndAllOddsSequence
-from src.ops.game_qualifier.nba import Nba
-from src.ops.game_qualifier.nbaVcbet import NbaVcbet
+from src.ops.game_predictor.nba import Nba
+from src.ops.game_predictor.nbaVcbet import NbaVcbet
 import json
 
 
@@ -62,7 +62,7 @@ class Main:
             print ("gid: ", data ['game_id'])
             game_qualified = 0
             for qualifier in self.qualifiers:
-                result = qualifier.is_game_qualified (file_name, data, 'top')
+                result = qualifier.get_prediction (file_name, data, 'top')
                 print (type(qualifier).__name__ + ':' + str (result))
                 if result:
                     game_qualified += 1

@@ -1,4 +1,4 @@
-from src.ops.game_qualifier.interface import GameQualifierInterface
+from src.ops.game_predictor.interface import GamePredictorInterface
 from sklearn.externals import joblib
 from numpy import matrix
 from numpy import array
@@ -12,14 +12,14 @@ min_return = 0.5
 from src.win007.observers.same_direction.qualification_check_no_hkjc import QualificationCheck
 
 
-class RF6LeagusNoHkjc(GameQualifierInterface):
+class RF6LeagusNoHkjc(GamePredictorInterface):
 	kafka_topic = 'event-new-game'
 	rf = None
 	data = []
 	preferred_team = None
 	
 	def __init__(self):
-		self.rf = joblib.load('./src/ops/game_qualifier/rf_6_leagues_no_hkjc.pkl')
+		self.rf = joblib.load('./src/ops/game_predictor/rf_6_leagues_no_hkjc.pkl')
 
 	def Operation(self, data1, data2):
             if data1 > 0 and data2 > 0:
@@ -377,7 +377,7 @@ class RF6LeagusNoHkjc(GameQualifierInterface):
                 data.append(interwetten[0])
                 data.append(interwetten[len(interwetten) - 1])
 	
-	def is_game_qualified(self, game_data):
+	def get_prediction(self, game_data):
 		predict = QualificationCheck().is_qualified(game_data)
 		dnb_odds = 0
 		dc_odds = 0

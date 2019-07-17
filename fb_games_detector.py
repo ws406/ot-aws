@@ -10,12 +10,13 @@ import datetime
 class Main:
     # These data is used for
     bids = {
-        80: "macau_slot",  # Macao Slot
-        115: "will_hill",  # WH
         281: "bet365",  # Bet365
         177: "pinnacle",  # Pinnacle
-        432: "hkjc",  # HKJC
-        104: "interwetten"  # Interwetten
+        81:  "vcbet",  # Vcbet
+        # 80: "macau_slot",  # Macao Slot
+        # 115: "will_hill",  # WH
+        # 432: "hkjc",  # HKJC
+        # 104: "interwetten"  # Interwetten
     }
     minutes = 15
     league_ids = [

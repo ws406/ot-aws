@@ -970,7 +970,7 @@ for year in years:
         benmarkProb4 = 1.6
 
         #if year == "2018-2019" and half == "top":
-           #joblib.dump(rf, './src/ops/game_qualifier/nbaVcbet.pkl')
+           #joblib.dump(rf, './src/ops/game_predictor/nbaVcbet.pkl')
 
         for prob in probability:
             result_odds = 0

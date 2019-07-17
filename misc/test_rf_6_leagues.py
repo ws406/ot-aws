@@ -1,4 +1,4 @@
-from src.ops.game_qualifier.rf_6_leagues import RF6Leagus
+from src.ops.game_predictor.rf_6_leagues import RF6Leagus
 import json
 game_qualifier = RF6Leagus()
 
@@ -12,7 +12,7 @@ with open(file_name) as json_file:
     matches = json.load(json_file)
     for data in matches:
         print("gid: ", data['game_id'])
-        result = game_qualifier.is_game_qualified(data)
+        result = game_qualifier.get_prediction(data)
         print(result)
         if result is not False:
             i += 1

@@ -1,4 +1,4 @@
-from src.ops.game_qualifier.interface import GameQualifierInterface
+from src.ops.game_predictor.interface import GamePredictorInterface
 from sklearn.externals import joblib
 from numpy import matrix
 from numpy import array
@@ -17,14 +17,14 @@ decayRatio = 0.618
 benmarkProb1 = 0.5005
 min_odds_qualify = 1.0
 
-class Nba (GameQualifierInterface):
+class Nba (GamePredictorInterface):
 	kafka_topic = 'event-new-game'
 	rf = None
 	data = []
 	preferred_team = None
 
 	def __init__ (self):
-		self.rf = joblib.load ('./src/ops/game_qualifier/nba2.pkl')
+		self.rf = joblib.load ('./src/ops/game_predictor/nba2.pkl')
 
 	def Operation (self, data1, data2):
 		number1 = float (data1)
@@ -255,7 +255,7 @@ class Nba (GameQualifierInterface):
 		else:
 			print ("This is totally wrong! There must be a winner")
 
-	def is_game_qualified (self, file_name, game_data, choice):
+	def get_prediction (self, file_name, game_data, choice):
 		teamsDict = dict ()
 		teamsHomeDict = dict ()
 		teamsAwayDict = dict ()

@@ -1,4 +1,4 @@
-from src.ops.game_qualifier.interface import GameQualifierInterface
+from src.ops.game_predictor.interface import GamePredictorInterface
 from sklearn.externals import joblib
 from numpy import matrix
 from numpy import array
@@ -12,14 +12,14 @@ min_return = 0.5
 from src.win007.observers.same_direction.qualification_check import QualificationCheck
 
 
-class RF6Leagus(GameQualifierInterface):
+class RF6Leagus(GamePredictorInterface):
 	kafka_topic = 'event-new-game'
 	rf = None
 	data = []
 	preferred_team = None
 	
 	def __init__(self):
-		self.rf = joblib.load('./src/ops/game_qualifier/rf_6_leagues.pkl')
+		self.rf = joblib.load('./src/ops/game_predictor/rf_6_leagues.pkl')
 
 	def Operation(self, data1, data2):
 		return data1 - data2
@@ -179,7 +179,7 @@ class RF6Leagus(GameQualifierInterface):
 			else:
 				data.append(self.Operation(homeTeamRank / match['size'], awayTeamRank / match['size']))
 	
-	def is_game_qualified(self, game_data):
+	def get_prediction(self, game_data):
 		predict = QualificationCheck().is_qualified(game_data)
 		dnb_odds = 0
 		dc_odds = 0

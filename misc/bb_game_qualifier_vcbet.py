@@ -1,5 +1,5 @@
 from kafka import KafkaConsumer, KafkaProducer
-from src.ops.game_qualifier.nbaVcbet import NbaVcbet
+from src.ops.game_predictor.nbaVcbet import NbaVcbet
 import json
 
 kafka_topic_input = 'event-new-bb-game'
@@ -26,7 +26,7 @@ while True:
 	for message in consumer:
 		game_data = message.value
 
-		game_qualification_info = game_qualifier.is_game_qualified(file_name, game_data, 'top')
+		game_qualification_info = game_qualifier.get_prediction(file_name, game_data, 'top')
 		# Produce new message on Kafka if game is qualified
 		if game_qualification_info is False:
 			print ("--- Game " + str(game_data['game_id']) + " is not qualified ---")
