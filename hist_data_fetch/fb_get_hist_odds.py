@@ -39,7 +39,7 @@ class Main:
         104: "interwetten"  # Interwetten
     }
 
-    league_ids = [
+    league_ids = {
         # 34,  # IT1
         # 40,  # IT2
         #
@@ -82,10 +82,10 @@ class Main:
         # 415,  # CHILE1
         # 140,  # MEX1
 
-        60,  # CHN1
-        15,  # KOR1
-        273,  # AUS
-    ]
+        60 : "Chinese Super League",  # CHN1
+        # 15,  # KOR1
+        # 273,  # AUS
+    }
 
     sub_league_ids = {
         40: 261,
@@ -126,15 +126,20 @@ class Main:
         # for lid in self.league_ids:
         num_of_seasons = 1
         start_season_offset = 0
-        for lid in self.league_ids:
+
+        # True means replace existing data for the games that are in the file already
+        replace = False
+
+        for lid, lname in self.league_ids.items():
         # for lid in [273]:
             print("Start extracting historical games from " + str(len(self.league_ids)) + " leagues and "
                 + str(num_of_seasons) + " seasons...")
             print("Processing league - " + str(lid))
             if lid in self.sub_league_ids:
-                hist_game_fetcher.get_hist_games_by_league(lid, num_of_seasons, start_season_offset, self.sub_league_ids[lid])
+                hist_game_fetcher.get_hist_games_by_league(lid, num_of_seasons, start_season_offset, lname, replace,
+                    self.sub_league_ids[lid])
             else:
-                hist_game_fetcher.get_hist_games_by_league(lid, num_of_seasons, start_season_offset)
+                hist_game_fetcher.get_hist_games_by_league(lid, num_of_seasons, start_season_offset, lname, replace)
 
 
 if __name__ == '__main__':
