@@ -27,8 +27,13 @@ class HistGamesFetcher:
             print("num_of_seasons is expected to be a positive int instead of " + str(num_of_seasons))
             sys.exit()
 
-    def _get_all_games_from_a_season(self, season_id, league_id, sub_league_id):
-        games = []
+    def _get_all_games_from_a_season(self, season_id, league_id, sub_league_id, existing_games):
+        # Load existing games data
+        games = existing_games
+        existing_games_ids = []
+        for game in existing_games:
+            existing_games_ids.append(game['game_id'])
+
         if sub_league_id is not None:
             league_id_string = str(league_id) + '_' + str(sub_league_id)
         else:
@@ -73,17 +78,25 @@ class HistGamesFetcher:
             round_games_list = round_info[1].split('],[')
             num_games_before_this_round = len(games)
             for tmp in round_games_list:
+                game_details = re.findall(
+                    "([0-9]*),.+?,(-1|0|-14|2),.+?,.+?,.+?,'(?:([0-9]+)-([0-9]+))?','(?:([0-9]+)-([0-9]+))?'", tmp)[0]
+
+                game_id = int(game_details[0])
+
+                # Skip games that have already exist in data file
+                if game_id in existing_games_ids:
+                    print('Skip! Game ' + str(game_id) + ' exists already.')
+                    num_games_before_this_round += 1
+                    continue
+
                 # print('\t\t\t' + tmp)
                 game = dict()
+                game['game_id'] = game_id
                 game['is_played'] = 1 if re.findall(",(-1|0|-14|2),", tmp)[0] == '-1' else 0
                 if game['is_played'] == 0:
                     print('\t\t\tGame has not been played yet.')
                     continue
 
-                game_details = re.findall(
-                    "([0-9]*),.+?,(-1|0|-14|2),.+?,.+?,.+?,'(?:([0-9]+)-([0-9]+))?','(?:([0-9]+)-([0-9]+))?'", tmp)[0]
-
-                game['game_id'] = int(game_details[0])
                 game['home_score'] = int(game_details[2])
                 game['away_score'] = int(game_details[3])
                 game['home_half_score'] = int(game_details[4])
@@ -129,15 +142,27 @@ class HistGamesFetcher:
             time.sleep(2)
         return games
 
-    def get_hist_games_by_league(self, league_id, num_of_seasons, start_season_offset, sub_league_id=None):
+    def get_hist_games_by_league(self, league_id, num_of_seasons, start_season_offset, league_name, replace, sub_league_id=None):
         season_ids = self._get_season_ids(league_id, num_of_seasons, start_season_offset)
         for season_id in season_ids:
             print("\tSeason - " + str(season_id))
-            data = self._get_all_games_from_a_season(season_id, league_id, sub_league_id)
+            file_name = '../data/football_all_odds_data/' + league_name + '-' + season_id + '.json'
+            existing_games = []
+            # 'replace' is False, load existing data first
+            if replace is False:
+                try:
+                    file_content = open (file_name, 'r')
+                    existing_games = json.load(file_content)
+                    # for game in existing_games:
+                    #     existing_gids.append(game['game_id'])
+                except (FileNotFoundError):
+                    print('File does not exist, thus cannot load game data - ' + file_name)
+
+            data = self._get_all_games_from_a_season(season_id, league_id, sub_league_id, existing_games)
             if not data:
                 print("\t---Season - " + str(season_id) + ' has no game data available---')
                 continue
-            file_name = '../data/football_all_odds_data/' + data[0]['league_name'] + '-' + season_id + '.json'
+
             self._write_to_file(file_name, data)
             print(str(len(data)) + ' games saved to ' + file_name)
 
