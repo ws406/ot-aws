@@ -1,12 +1,17 @@
+import pandas as pd
+import numpy as np
+import math
+import collections
+
 from src.ops.game_predictor.interface import GamePredictorInterface
 from src.win007.observers.true_odds.qualification_check import QualificationCheck
-
 
 # This game predictor provides true odds only
 class TrueOdds(GamePredictorInterface):
 
     benchmark_bookie = 'pinnacle'
     strategy = 'true_odds'
+    marginPercent = 0.02
 
     def __init__(self):
         pass
@@ -51,9 +56,9 @@ class TrueOdds(GamePredictorInterface):
             away = (3 * away) / (3 - ((1 - returnRate) * away))
             returnRate = home * draw * away / (home * draw + draw * away + home * away)
         trueOdds = {}
-        trueOdds['1'] = home
-        trueOdds['x'] = draw
-        trueOdds['2'] = away
+        trueOdds['1'] = home * (1 + self.marginPercent)
+        trueOdds['x'] = draw * (1 + self.marginPercent)
+        trueOdds['2'] = away * (1 + self.marginPercent)
         return trueOdds
 
     def get_prediction(self, data):
