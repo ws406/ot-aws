@@ -36,6 +36,19 @@ class Main:
         936: "setantabet",
         167: "skybet",
         613: "sportsbet",
+        706: "sportsbet.au",
+        1129: "china",
+        908: "topgoal",
+        173: "bet-at-home",
+        158: "Gamebookers",
+        649: "ibcbet",
+        60: "sts",
+        450: "toto",
+        436: "5dimes",
+        808: "betcity",
+        354: "boylesports",
+        527: "tipico",
+        315: "victory",
         104: "interwetten"  # Interwetten
     }
 
@@ -63,18 +76,18 @@ class Main:
         # 16,  # HO1
         # 17,  # HO2
         #
-        # 25,  # JAP1
-        # 284,  # JAP2
+        25,  # JAP1
+        284,  # JAP2
         #
-        # 4,  # BRA1
-        # 358,  # BRA2
+        4,  # BRA1
+        358,  # BRA2
         #
         # 23,  # POTG1
         # 29,  # SCOT1
         # 30,  # TUR1
         # 5,  # BEL1
-        # 26,  # SWE1
-        # 22,  # NOR1
+        26,  # SWE1
+        22,  # NOR1
         # 27,  # SWl1
         # 10,  # RUS1
         # 2,  # ARG1
@@ -84,7 +97,7 @@ class Main:
 
         60,  # CHN1
         15,  # KOR1
-        273,  # AUS
+        #273,  # AUS
     ]
 
     sub_league_ids = {
@@ -111,7 +124,7 @@ class Main:
         15: 313,
         273:462,
         13: 1570,
-        700:442
+        700: 442
     }
 
     def __init__(self):

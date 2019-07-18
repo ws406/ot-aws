@@ -172,7 +172,7 @@ class QualificationCheck:
                     prediction = self.prediction_away_not_win
                     #prediction = self.prediction_away_win
 
-            coefficient = 0.95
+            coefficient = 0.96
             benchmarkOdds = 1.5
             benchmarkOdds2 = 3.0
             home_dc_odds = coefficient * (game_data['odds']['pinnacle']['final']['1'] * game_data['odds']['pinnacle']['final']['x'] / (game_data['odds']['pinnacle']['final']['1'] + game_data['odds']['pinnacle']['final']['x']))

@@ -11,6 +11,51 @@ class TrueOdds(GamePredictorInterface):
     def __init__(self):
         pass
 
+    def GetAverage(self, localList):
+        number = 0
+        for data in localList:
+            number = number + data
+        return number / len(localList)
+
+    def CalcTrueOdds(self, data):
+        pickedBookie = []
+        pickedBookie.append('pinnacle')
+        pickedBookie.append('bet365')
+        pickedBookie.append('betvictor')
+        trueOdds = {}
+        trueOdds['1'] = 100.0
+        trueOdds['x'] = 100.0
+        trueOdds['2'] = 100.0
+        localListHome = []
+        localListDraw = []
+        localListAway = []
+        try:
+            for bookie in pickedBookie:
+                benchmarkOdds = list(collections.OrderedDict(sorted(data['odds'][bookie].items())).values())[-1]
+                home = float(benchmarkOdds['1'])
+                draw = float(benchmarkOdds['x'])
+                away = float(benchmarkOdds['2'])
+                localListHome.append(home)
+                localListDraw.append(draw)
+                localListAway.append(away)
+        except (TypeError, KeyError):
+            return trueOdds
+
+        home = self.GetAverage(localListHome)
+        draw = self.GetAverage(localListDraw)
+        away = self.GetAverage(localListAway)
+        returnRate = home * draw * away / (home * draw + draw * away + home * away)
+        while returnRate < 0.999999:
+            home = (3 * home) / (3 - ((1 - returnRate) * home))
+            draw = (3 * draw) / (3 - ((1 - returnRate) * draw))
+            away = (3 * away) / (3 - ((1 - returnRate) * away))
+            returnRate = home * draw * away / (home * draw + draw * away + home * away)
+        trueOdds = {}
+        trueOdds['1'] = home
+        trueOdds['x'] = draw
+        trueOdds['2'] = away
+        return trueOdds
+
     def get_prediction(self, data):
         # Check if game is qualified first, if not, return
         # Data looks like:
@@ -145,16 +190,16 @@ class TrueOdds(GamePredictorInterface):
         if is_qualified == 'x':
             return False
         else:
-            # TODO: Yao Wang, this is for you to write.
-            #     return {
-            # 		"gid": data ['game_id'],
-            # 		"league_id": data ['league_id'],
-            # 		"league_name": data ['league_name'],
-            # 		"kickoff": data ['kickoff'],
-            # 		"home_team_name": data ['home_team_name'],
-            # 		"away_team_name": data ['away_team_name'],
-            # 		"home_team_id": data ['home_team_id'],
-            # 		"away_team_id": data ['away_team_id'],
+            obj = {}
+            obj['gid'] = data ['game_id']
+            obj['league_id'] = data ['league_id']
+            obj['league_name'] = data ['league_name']
+            obj['kickoff'] = data ['kickoff']
+            obj['home_team_name'] = data ['home_team_name']
+            obj['away_team_name'] = data ['away_team_name']
+            obj['home_team_id'] = data ['home_team_id']
+            obj['away_team_id'] = data ['away_team_id']
+            obj['min_odds'] = self.CalcTrueOdds(data)
             #       "min_odds": {
             #           "1": 1.3,
             #           "x": 2.5,
