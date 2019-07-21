@@ -13,15 +13,6 @@ class GamesFetcher:
 
     odds_fetcher = None
 
-    league_size = {
-	    '34': 20,  # IT1
-	    '36': 20,  # EPL
-	    '37': 24,  # ENC
-	    '31': 20,  # ES1
-	    '8' : 20,  # GE1
-	    '16': 18,  # HO1
-    }
-
     def __init__(self, odds_fetcher: AbstractOddsFetcher):
         self.odds_fetcher = odds_fetcher
         pass
@@ -65,7 +56,6 @@ class GamesFetcher:
             game["game_id"] = gid
             game["league_id"] = lid
             game["kickoff"] = kickoff
-            game["size"] = self.league_size[str(lid)]
             
             try:
                 no_use_kickoff_time, \

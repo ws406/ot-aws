@@ -1,5 +1,6 @@
 from src.ops.game_predictor.interface import GamePredictorInterface
 from src.win007.observers.true_odds.qualification_check import QualificationCheck
+import collections
 
 
 # This game predictor provides true odds only
@@ -11,50 +12,46 @@ class TrueOdds(GamePredictorInterface):
     def __init__(self):
         pass
 
-    def GetAverage(self, localList):
+    @staticmethod
+    def _get_average(local_list):
         number = 0
-        for data in localList:
+        for data in local_list:
             number = number + data
-        return number / len(localList)
+        return number / len(local_list)
 
-    def CalcTrueOdds(self, data):
-        pickedBookie = []
-        pickedBookie.append('pinnacle')
-        pickedBookie.append('bet365')
-        pickedBookie.append('betvictor')
-        trueOdds = {}
-        trueOdds['1'] = 100.0
-        trueOdds['x'] = 100.0
-        trueOdds['2'] = 100.0
-        localListHome = []
-        localListDraw = []
-        localListAway = []
+    def _calc_true_odds(self, data):
+        picked_bookie = list()
+        picked_bookie.append('pinnacle')
+        picked_bookie.append('bet365')
+        picked_bookie.append('betvictor')
+
+        odds_1 = []
+        odds_x = []
+        odds_2 = []
         try:
-            for bookie in pickedBookie:
-                benchmarkOdds = list(collections.OrderedDict(sorted(data['odds'][bookie].items())).values())[-1]
-                home = float(benchmarkOdds['1'])
-                draw = float(benchmarkOdds['x'])
-                away = float(benchmarkOdds['2'])
-                localListHome.append(home)
-                localListDraw.append(draw)
-                localListAway.append(away)
+            for bookie in picked_bookie:
+                benchmark_odds = list(collections.OrderedDict(sorted(data['odds'][bookie].items())).values())[-1]
+                odds_1.append(float(benchmark_odds['1']))
+                odds_x.append(float(benchmark_odds['x']))
+                odds_2.append(float(benchmark_odds['2']))
         except (TypeError, KeyError):
-            return trueOdds
+            return False
 
-        home = self.GetAverage(localListHome)
-        draw = self.GetAverage(localListDraw)
-        away = self.GetAverage(localListAway)
-        returnRate = home * draw * away / (home * draw + draw * away + home * away)
-        while returnRate < 0.999999:
-            home = (3 * home) / (3 - ((1 - returnRate) * home))
-            draw = (3 * draw) / (3 - ((1 - returnRate) * draw))
-            away = (3 * away) / (3 - ((1 - returnRate) * away))
-            returnRate = home * draw * away / (home * draw + draw * away + home * away)
-        trueOdds = {}
-        trueOdds['1'] = home
-        trueOdds['x'] = draw
-        trueOdds['2'] = away
-        return trueOdds
+        home = self._get_average(odds_1)
+        draw = self._get_average(odds_x)
+        away = self._get_average(odds_2)
+        return_rate = home * draw * away / (home * draw + draw * away + home * away)
+        while return_rate < 0.999999:
+            home = (3 * home) / (3 - ((1 - return_rate) * home))
+            draw = (3 * draw) / (3 - ((1 - return_rate) * draw))
+            away = (3 * away) / (3 - ((1 - return_rate) * away))
+            return_rate = home * draw * away / (home * draw + draw * away + home * away)
+
+        true_odds = dict()
+        true_odds['1'] = home
+        true_odds['x'] = draw
+        true_odds['2'] = away
+        return true_odds
 
     def get_prediction(self, data):
         # Check if game is qualified first, if not, return
@@ -190,22 +187,16 @@ class TrueOdds(GamePredictorInterface):
         if is_qualified == 'x':
             return False
         else:
-            obj = {}
-            obj['gid'] = data ['game_id']
-            obj['league_id'] = data ['league_id']
-            obj['league_name'] = data ['league_name']
-            obj['kickoff'] = data ['kickoff']
-            obj['home_team_name'] = data ['home_team_name']
-            obj['away_team_name'] = data ['away_team_name']
-            obj['home_team_id'] = data ['home_team_id']
-            obj['away_team_id'] = data ['away_team_id']
-            obj['min_odds'] = self.CalcTrueOdds(data)
-            #       "min_odds": {
-            #           "1": 1.3,
-            #           "x": 2.5,
-            #           "2": 6.8,
-            #       }
-            # 		"min_odds_to_bet_on": nonFavTeamOdds,
-            #       "strategy": self.strategy
-            # 	}
-            pass
+            return_data = dict()
+            return_data['gid'] = data ['game_id']
+            return_data['league_id'] = data ['league_id']
+            return_data['league_name'] = data ['league_name']
+            return_data['kickoff'] = data ['kickoff']
+            return_data['home_team_name'] = data ['home_team_name']
+            return_data['away_team_name'] = data ['away_team_name']
+            return_data['home_team_id'] = data ['home_team_id']
+            return_data['away_team_id'] = data ['away_team_id']
+            return_data['min_odds'] = self._calc_true_odds(data)
+            return_data['strategy'] = self.strategy
+
+            return return_data

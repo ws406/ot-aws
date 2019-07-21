@@ -18,7 +18,7 @@ class Main:
         # 432: "hkjc",  # HKJC
         # 104: "interwetten"  # Interwetten
     }
-    minutes = 15
+    minutes = 150
     league_ids = [
         34,  # IT1
         # 40,  # IT2
@@ -82,7 +82,7 @@ class Main:
             self.kafka_producer = KafkaProducer (value_serializer = lambda v: json.dumps (v).encode ('utf-8'))
         return self.kafka_producer
 
-    def execute (self):
+    def execute (self, kafka=True):
         print ("Start...")
 
         # Get required data from process
@@ -97,32 +97,41 @@ class Main:
             print ('Failed to get data from URL. Retrying....')
             return False
 
-        kafka_producer = self.get_kafka_producer ()
+        if kafka:
+            kafka_producer = self.get_kafka_producer ()
+
         for game in games:
             gid_str = str (game ['game_id'])
-            kafka_producer.send (self.kafka_topic, game, key = gid_str)
-            kafka_producer.send (self.kafka_topic, game)
-            print ("\tSend game " + gid_str + " to Kafka")
-        print (str (len (games)) + " games pushed Kafka under topic " + self.kafka_topic)
+            if kafka:
+                kafka_producer.send (self.kafka_topic, game, key = gid_str)
+                kafka_producer.send (self.kafka_topic, game)
+                print ("\tSend game " + gid_str + " to Kafka")
+            else:
+                print(game)
+
+        if kafka:
+            print(str(len(games)) + " games pushed Kafka under topic " + self.kafka_topic)
         return len(games)
 
 
 if __name__ == '__main__':
     normal_interval_in_mins = 5
+    # wait =
 
     while (True):
         try:
-            num_games = Main ().execute ()
+            num_games = Main ().execute (kafka=False)
 
             # Failed to get games from URL, retry
             if num_games is False:
                 continue
 
             if num_games == 0:
-                wait = wait = Main().minutes - normal_interval_in_mins
+                wait = Main().minutes - normal_interval_in_mins
             else:
                 wait = normal_interval_in_mins
         except Exception as e:
             print ('Exception happened.... Try again later.')
+            raise e
         print ("Next run at UTC: " + str (datetime.datetime.now () + datetime.timedelta (minutes = wait)))
         time.sleep (60 * wait)

@@ -19,7 +19,7 @@ RUN pip3 install --upgrade numpy \
 		pytz \
 		pprint \
 		psutil \
-		kafka \
+		kafka-python \
 		sendgrid \
 		matplotlib \
 		pylab

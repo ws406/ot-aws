@@ -76,18 +76,18 @@ class Main:
         # 16,  # HO1
         # 17,  # HO2
         #
-        25,  # JAP1
-        284,  # JAP2
+        # 25,  # JAP1
+        # 284,  # JAP2
         #
-        4,  # BRA1
-        358,  # BRA2
+        # 4,  # BRA1
+        # 358,  # BRA2
         #
         # 23,  # POTG1
         # 29,  # SCOT1
         # 30,  # TUR1
         # 5,  # BEL1
-        26,  # SWE1
-        22,  # NOR1
+        # 26,  # SWE1
+        # 22,  # NOR1
         # 27,  # SWl1
         # 10,  # RUS1
         # 2,  # ARG1
