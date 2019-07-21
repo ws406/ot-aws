@@ -12,7 +12,7 @@ class Main:
     bids = {
         281: "bet365",  # Bet365
         177: "pinnacle",  # Pinnacle
-        81:  "vcbet",  # Vcbet
+        81:  "betvictor",  # Bet Victor
         # 80: "macau_slot",  # Macao Slot
         # 115: "will_hill",  # WH
         # 432: "hkjc",  # HKJC
@@ -82,7 +82,7 @@ class Main:
             self.kafka_producer = KafkaProducer (value_serializer = lambda v: json.dumps (v).encode ('utf-8'))
         return self.kafka_producer
 
-    def execute (self, kafka=True):
+    def execute (self, debug_mode=True):
         print ("Start...")
 
         # Get required data from process
@@ -97,19 +97,19 @@ class Main:
             print ('Failed to get data from URL. Retrying....')
             return False
 
-        if kafka:
+        if not debug_mode:
             kafka_producer = self.get_kafka_producer ()
 
         for game in games:
             gid_str = str (game ['game_id'])
-            if kafka:
+            if not debug_mode:
                 kafka_producer.send (self.kafka_topic, game, key = gid_str)
                 kafka_producer.send (self.kafka_topic, game)
                 print ("\tSend game " + gid_str + " to Kafka")
             else:
                 print(game)
 
-        if kafka:
+        if not debug_mode:
             print(str(len(games)) + " games pushed Kafka under topic " + self.kafka_topic)
         return len(games)
 
@@ -120,7 +120,7 @@ if __name__ == '__main__':
 
     while (True):
         try:
-            num_games = Main ().execute (kafka=False)
+            num_games = Main ().execute (debug_mode=True)
 
             # Failed to get games from URL, retry
             if num_games is False:

@@ -34,7 +34,8 @@ class TrueOdds(GamePredictorInterface):
                 odds_1.append(float(benchmark_odds['1']))
                 odds_x.append(float(benchmark_odds['x']))
                 odds_2.append(float(benchmark_odds['2']))
-        except (TypeError, KeyError):
+        except KeyError as ke:
+            print(ke)
             return False
 
         home = self._get_average(odds_1)
@@ -184,7 +185,8 @@ class TrueOdds(GamePredictorInterface):
         # }
 
         is_qualified = QualificationCheck().is_qualified(data, self.benchmark_bookie)
-        if is_qualified == 'x':
+
+        if not is_qualified:
             return False
         else:
             return_data = dict()
