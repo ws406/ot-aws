@@ -61,12 +61,12 @@ class Betfair (abc.ABC):
             market_id, selection_id = self._get_match_odds_market_selection_id (response_json, bet_on_team)
 
             # TODO: next step is to check amount and make sure existing bets' amount is enough
-            if self.does_this_bet_exist (market_id, strategy):
-                print ('Bet is already made!')
-                return {
-                    'status': 'ignore',
-                    'message': 'Bet is already made!'
-                }
+            # if self.does_this_bet_exist (market_id, strategy):
+            #     print ('Bet is already made!')
+            #     return {
+            #         'status': 'ignore',
+            #         'message': 'Bet is already made!'
+            #     }
 
             if selection_id:
                 # TODO: this is not true! Because it is not guaranteed to be successful
