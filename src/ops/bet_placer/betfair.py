@@ -11,12 +11,16 @@ class Betfair (abc.ABC):
     base_url = "https://api.betfair.com/exchange/betting/json-rpc/v1"
     market_name = ''
     event_type_id = ''
+    commission_rate = 0
+    profit_margin = 0
 
     keep_alive_api = 'http://identitysso.betfair.com/api/keepAlive'
 
-    def __init__ (self, app_key, session_token):
+    def __init__ (self, app_key, session_token, commission_rate, profit_margin = 0):
         self.app_key = app_key
         self.session_token = session_token
+        self.commission_rate = commission_rate
+        self.profit_margin = profit_margin
         self.request_headers = \
             {'X-Application': app_key, 'X-Authentication': session_token, 'content-type': 'application/json'}
 
@@ -50,7 +54,7 @@ class Betfair (abc.ABC):
         pass
 
     def _place_bet (self, home_team_name, away_team_name, bet_on_team, market_type_code_match_odds, betting_amount,
-                    price, strategy=None):
+                    price, debug_mode, strategy=None):
         try:
             response_json = json.loads (
                 self._get_market_catalogue (home_team_name, away_team_name, market_type_code_match_odds))
@@ -68,7 +72,7 @@ class Betfair (abc.ABC):
                 # TODO: this is not true! Because it is not guaranteed to be successful
                 return {
                     'status': 'success',
-                    'message': self._execute_bet (market_id, selection_id, betting_amount, price, strategy)
+                    'message': self._execute_bet (market_id, selection_id, betting_amount, price, debug_mode, strategy)
                 }
             else:
                 print ("failed to place bet - cannot get selectionId'")
@@ -85,7 +89,7 @@ class Betfair (abc.ABC):
                 'message': str (ie)
             }
 
-    def _execute_bet (self, market_id, selection_id, size, price, strategy = None):
+    def _execute_bet (self, market_id, selection_id, size, price, debug_mode, strategy = None):
         parameters = {
             "marketId": market_id,
             "instructions": [
@@ -106,10 +110,14 @@ class Betfair (abc.ABC):
             parameters ['customerStrategyRef'] = strategy
 
         endpoint = "placeOrders"
-        bet_placer_response = self._call_exchange_api (json.dumps (self._order_request_builder (endpoint, parameters)))
-        print ("Bet placing result: ")
-        print (bet_placer_response)
-        return bet_placer_response
+        payload = json.dumps(self._order_request_builder (endpoint, parameters))
+        if debug_mode:
+            return payload
+        else:
+            bet_placer_response = self._call_exchange_api(payload)
+            print("Bet placing result: ")
+            print(bet_placer_response)
+            return bet_placer_response
 
         # TODO: do this properly - 1st: matched bet; 2nd: unmatched bet
         # {"jsonrpc": "2.0", "result": {"status": "SUCCESS", "marketId": "1.150300702", "instructionReports": [

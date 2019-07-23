@@ -18,7 +18,7 @@ class Main:
         # 432: "hkjc",  # HKJC
         # 104: "interwetten"  # Interwetten
     }
-    minutes = 150
+    minutes = 15
     league_ids = [
         34,  # IT1
         # 40,  # IT2
@@ -120,7 +120,7 @@ if __name__ == '__main__':
 
     while (True):
         try:
-            num_games = Main ().execute (debug_mode=True)
+            num_games = Main().execute(debug_mode=False)
 
             # Failed to get games from URL, retry
             if num_games is False:
