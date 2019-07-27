@@ -214,10 +214,8 @@ class Betfair (abc.ABC):
         elif odds < 4:
             # odds = round(odds, 2)
             return round (odds * 20) / 20
-        elif odds < 6:
-            return round (odds, 1)
         else:
-            return odds
+            return round (odds, 1)
 
     @staticmethod
     def _query_request_builder (endpoint, filters):
