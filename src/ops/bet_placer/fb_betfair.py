@@ -78,10 +78,9 @@ class FBBetfair(Betfair):
         # Belgium 1
         'Mechelen': 'Yellow-Red Mechelen',
         'Standard Liege': 'Standard',
-        'Sint-Truidense': 'Sint Truidense',
         'Mouscron Peruwelz': 'Royal Mouscron-peruwelz',
         'Red Star Waasland': 'Waasland-Beveren',
-        'Sint Truidense': 'Sint Truiden',
+        'Sint-Truidense': 'Sint Truiden',
     }
 
     def place_match_odds_bet(self, game_data, betting_amount, debug_mode=False):
