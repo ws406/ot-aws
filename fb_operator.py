@@ -114,7 +114,6 @@ class Main:
             return False
 
         for game_data in games:
-            print(game_data)
             betting_details = self.gamePredictor.get_prediction(game_data)
             if betting_details is False:
                 print ("--- Game " + str(game_data['game_id']) + " is not qualified. ---")
