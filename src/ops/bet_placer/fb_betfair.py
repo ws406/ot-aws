@@ -65,13 +65,23 @@ class FBBetfair(Betfair):
         'Heidenheimer': 'FC Heidenheim',
         'IK Sirius FK': 'Sirius',
         'AIK Solna': 'AIK',
+        'GIF Sundsvall': 'Sundsvall',
+        'AFC Eskilstuna': 'AFC Utd',
+        'Falkenberg': 'Falkenbergs',
 
 
         # Russian Super League
         'Spartak Tambov': 'FK Tambov',
+        'FK Sochi': 'Sochi',
+        'FC Krasnodar': 'FK Krasnodar',
 
         # Belgium 1
         'Mechelen': 'Yellow-Red Mechelen',
+        'Standard Liege': 'Standard',
+        'Sint-Truidense': 'Sint Truidense',
+        'Mouscron Peruwelz': 'Royal Mouscron-peruwelz',
+        'Red Star Waasland': 'Waasland-Beveren',
+        'Sint Truidense': 'Sint Truiden',
     }
 
     def place_match_odds_bet(self, game_data, betting_amount, debug_mode=False):
