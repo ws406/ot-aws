@@ -104,7 +104,6 @@ class Main:
             gid_str = str (game ['game_id'])
             if not debug_mode:
                 kafka_producer.send (self.kafka_topic, game, key = gid_str)
-                kafka_producer.send (self.kafka_topic, game)
                 print ("\tSend game " + gid_str + " to Kafka")
             else:
                 print(game)
@@ -115,7 +114,7 @@ class Main:
 
 
 if __name__ == '__main__':
-    normal_interval_in_mins = 5
+    normal_interval_in_mins = 2
     # wait =
 
     while (True):

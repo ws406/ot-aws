@@ -9,23 +9,69 @@ class FBBetfair(Betfair):
     runner_name_draw = 'The Draw'
 
     team_names_mapping = {
+
         'AS Roma': 'Roma',
+
         'Tottenham Hotspur': 'Tottenham',
         'West Ham United' : 'West Ham',
         'Brighton   Hove Albion': 'Brighton',
         'Leicester City': 'Leicester',
-        'Wigan Athletic': 'Wigan',
         'Norwich City': 'Norwich',
-        'TSG Hoffenheim': 'Hoffenheim',
         'Crystal Palace': 'C Palace',
-        'Bayer Leverkusen': 'Leverkusen',
         'Newcastle United': 'Newcastle',
+
+        'Wigan Athletic': 'Wigan',
+
+        'TSG Hoffenheim': 'Hoffenheim',
+        'Bayer Leverkusen': 'Leverkusen',
+
         'Parana PR': 'Parana',
         'Operario Ferroviario PR': 'Operario PR',
         'Guarani SP': 'Guarani',
         'Coritiba PR': 'Coritiba',
         'Bragantino': 'Bragantino SP',
-        'Atletico Clube Goianiense': 'Atletico Go'
+        'Atletico Clube Goianiense': 'Atletico Go',
+        'Sport Club Recife PE': 'Sport Recife',
+
+        'Atlanta United': 'Atlanta Utd',
+
+        'Ventforet Kofu': 'Kofu',
+        'Fagiano Okayama': 'Okayama',
+        'JEF United Ichihara Chiba': 'Jef Utd Chiba',
+        'Kashiwa Reysol': 'Kashiwa',
+        'Kawasaki Frontale': 'Kawasaki',
+        'Oita Trinita': 'Oita',
+        'Ehime FC': 'Ehime',
+        'Zweigen Kanazawa FC': 'Kanazawa',
+        'Kagoshima United': 'Kagoshima Utd',
+        'V-Varen Nagasaki': 'Nagasaki',
+        'Tokyo Verdy': 'Tokyo-V',
+        'Machida Zelvia': 'FC Machida',
+        'Avispa Fukuoka': 'Fukuoka',
+        'Mito Hollyhock': 'Mito',
+        'Montedio Yamagata': 'Yamagata',
+        'Tokushima Vortis': 'Tokushima',
+        'Kyoto Sanga': 'Kyoto',
+        'Omiya Ardija': 'Omiya',
+
+        'Hebei HX Xingfu': 'Hebei CFFC',
+        'Chongqing SWM Motors': 'Chongqing Lifan',
+        'Dalian Aerbin': 'Dalian Yifang',
+        'Henan Jianye': 'Henan',
+        'Guangzhou Fuli FC': 'Guangzhou R&F',
+
+        # Swedish Super League
+        'VfL Osnabruck': 'VFL Osnabruck',
+        'Heidenheimer': 'FC Heidenheim',
+        'IK Sirius FK': 'Sirius',
+        'AIK Solna': 'AIK',
+
+
+        # Russian Super League
+        'Spartak Tambov': 'FK Tambov',
+
+        # Belgium 1
+        'Mechelen': 'Yellow-Red Mechelen',
     }
 
     def place_match_odds_bet(self, game_data, betting_amount, debug_mode=False):

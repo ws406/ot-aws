@@ -11,7 +11,7 @@ class Main():
     kafka_topic_error = 'event-error'
 
     amount = 2
-    mins_before_kickoff = 5
+    mins_before_kickoff = 2
     commission_rate = 0.05
     profit_margin = 0.02 # ensure we win something!
 
