@@ -139,6 +139,14 @@ class Main:
 
                 else:
                     print(result)
+
+        result = self.gameBetPlacer.keep_session_alive()
+        if result ['status'] == 'error':
+            # producer.send (kafka_topic_error, result)
+            print(result)
+        else:
+            print ("Session renewed at " + str (datetime.datetime.now ()))
+
         return len(games)
 
 
