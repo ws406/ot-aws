@@ -12,15 +12,13 @@ class Betfair (abc.ABC):
     market_name = ''
     event_type_id = ''
     commission_rate = 0
-    profit_margin = 0
 
     keep_alive_api = 'http://identitysso.betfair.com/api/keepAlive'
 
-    def __init__ (self, app_key, session_token, commission_rate, profit_margin = 0):
+    def __init__ (self, app_key, session_token, commission_rate):
         self.app_key = app_key
         self.session_token = session_token
         self.commission_rate = commission_rate
-        self.profit_margin = profit_margin
         self.request_headers = \
             {'X-Application': app_key, 'X-Authentication': session_token, 'content-type': 'application/json'}
 

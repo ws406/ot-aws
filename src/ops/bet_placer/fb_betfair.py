@@ -158,7 +158,7 @@ class FBBetfair(Betfair):
 
             # Add the BetFair commission and profit margin on top of the min_odds_to_bet_on
             price = self._round_up_odds (
-                (bet_on_odds * (1 + self.profit_margin) - 1)
+                (bet_on_odds - 1)
                 /
                 (1-self.commission_rate)
                 +
