@@ -8,7 +8,6 @@ class TrueOdds(GamePredictorInterface):
 
     benchmark_bookie = 'pinnacle'
     strategy = 'true_odds'
-    marginPercent = 0.02
 
     def __init__(self):
         pass
@@ -53,9 +52,9 @@ class TrueOdds(GamePredictorInterface):
             away = (3 * away) / (3 - ((1 - return_rate) * away))
             return_rate = home * draw * away / (home * draw + draw * away + home * away)
         true_odds = dict()
-        true_odds['1'] = home * (1 + self.marginPercent)
-        true_odds['x'] = draw * (1 + self.marginPercent)
-        true_odds['2'] = away * (1 + self.marginPercent)
+        true_odds['1'] = home
+        true_odds['x'] = draw
+        true_odds['2'] = away
         return true_odds
 
     def get_prediction(self, data):
