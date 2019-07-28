@@ -73,7 +73,6 @@ class Main:
     amount = 10
     mins_before_kickoff = 2
     commission_rate = 0.05
-    profit_margin = 0.02 # ensure we win something!
 
     gameDetector = None
     gamePredictor = None
@@ -96,7 +95,7 @@ class Main:
             app_key = sys.argv [1]
             session_token = sys.argv [2]
 
-        self.gameBetPlacer = FBBetfair (app_key, session_token, self.commission_rate, self.profit_margin)
+        self.gameBetPlacer = FBBetfair (app_key, session_token, self.commission_rate)
 
     def execute (self, debug_mode):
         print ("Start...")
