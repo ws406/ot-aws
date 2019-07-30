@@ -78,7 +78,6 @@ class HistGamesFetcher:
             round_games_list = round_info[1].split('],[')
             num_games_before_this_round = len(games)
             for tmp in round_games_list:
-                print(tmp)
                 game_details = re.findall(
                     "([0-9]*),.+?,(-1|0|-14|2),.+?,.+?,.+?,'(.+?)','(.+?)'", tmp)[0]
 
