@@ -78,8 +78,11 @@ class HistGamesFetcher:
             round_games_list = round_info[1].split('],[')
             num_games_before_this_round = len(games)
             for tmp in round_games_list:
+                print(tmp)
                 game_details = re.findall(
-                    "([0-9]*),.+?,(-1|0|-14|2),.+?,.+?,.+?,'(?:([0-9]+)-([0-9]+))?','(?:([0-9]+)-([0-9]+))?'", tmp)[0]
+                    "([0-9]*),.+?,(-1|0|-14|2),.+?,.+?,.+?,'(.+?)','(.+?)'", tmp)[0]
+
+                # (?:([0-9]+)-([0-9]+))?
 
                 game_id = int(game_details[0])
 
@@ -96,11 +99,13 @@ class HistGamesFetcher:
                 if game['is_played'] == 0:
                     print('\t\t\tGame has not been played yet.')
                     continue
-
-                game['home_score'] = int(game_details[2])
-                game['away_score'] = int(game_details[3])
-                game['home_half_score'] = int(game_details[4])
-                game['away_half_score'] = int(game_details[5])
+                if game['is_played'] == 1:
+                    full_time_scores = re.findall("([0-9]+)-([0-9]+)", game_details[2])[0]
+                    half_time_scores = re.findall("([0-9]+)-([0-9]+)", game_details[3])[0]
+                    game['home_score'] = int(full_time_scores[0])
+                    game['away_score'] = int(full_time_scores[1])
+                    game['home_half_score'] = int(half_time_scores[0])
+                    game['away_half_score'] = int(half_time_scores[1])
 
                 game['rounds'] = rounds
 
@@ -139,7 +144,7 @@ class HistGamesFetcher:
                 print('Process all games played!')
                 break
             # Sleep 10 seconds after grabbing data from each round
-            time.sleep(2)
+            # time.sleep(2)
         return games
 
     def get_hist_games_by_league(self, league_id, num_of_seasons, start_season_offset, league_name, replace, sub_league_id=None):
