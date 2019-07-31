@@ -112,23 +112,28 @@ class Main:
             print ('Failed to get data from URL. Retrying....')
             return False
 
-        for game_data in games:
-            betting_details = self.gamePredictor.get_prediction(game_data)
+        games_not_bet = []
+        for game in games:
+            betting_details = self.gamePredictor.get_prediction(game)
             if betting_details is False:
-                print ("--- Game " + str(game_data['game_id']) + " is not qualified. ---")
+                print ("--- Game " + str(game['game_id']) + " is not qualified. ---")
                 continue
             else:
-                actual_kickoff = datetime.datetime.fromtimestamp (game_data ['kickoff'])
+                actual_kickoff = datetime.datetime.fromtimestamp (game ['kickoff'])
 
                 # Handle MLS
                 # if betting_details['league_id'] == 21:
-                #     # Kickoff is always 10 mins after the official kickoff time in game_data.
+                #     # Kickoff is always 10 mins after the official kickoff time in game.
                 #     actual_kickoff = datetime.datetime.fromtimestamp(betting_details['kickoff']) + datetime.timedelta(minutes = 10)
 
                 # If actual_kickoff is more than mins_before_kickoff mins away, do not place bet
                 if actual_kickoff - datetime.datetime.now() > datetime.timedelta(minutes = self.mins_before_kickoff):
+
                     print ("Too early to place bet for game " + ' ' + betting_details ['home_team_name'] + ' vs ' +
                            betting_details ['away_team_name'])
+
+                    # Append this game to the list, so that it can be used to determine next runtime.
+                    games_not_bet.append(game)
                     continue
 
                 result = self.gameBetPlacer.place_match_odds_bet(betting_details, self.amount, debug_mode)
@@ -146,28 +151,46 @@ class Main:
         else:
             print ("Session renewed at " + str (datetime.datetime.now ()))
 
-        return len(games)
+        return games_not_bet
+
+    @staticmethod
+    def find_next_run_time(games):
+        kickoff_times = []
+        for game in games:
+            print(game)
+            kickoff_times.append(game['kickoff'])
+
+        return sorted(kickoff_times)[0]
 
 
 if __name__ == '__main__':
     normal_interval_in_mins = 2
     operator = Main()
-    wait = operator.get_games_in_minutes
+    wait = operator.get_games_in_minutes * 60
 
     while (True):
         try:
-            num_games = operator.execute(debug_mode=False)
+            games = operator.execute(debug_mode=False)
+            # Test data
+            # games = [
+            #     {'game_id': 1691236, 'league_id': 358, 'kickoff': 1564613390, 'home_team_name': 'Sport Club Recife PE', 'away_team_name': 'Coritiba PR', 'home_team_id': 4176, 'away_team_id': 350, 'home_team_rank': 5, 'away_team_rank': 4, 'league_name': 'Brazil Serie B', 'odds': {}, 'probabilities': {}},
+            #     {'game_id': 1691237, 'league_id': 358, 'kickoff': 1564613690, 'home_team_name': 'A Sport Club Recife PE', 'away_team_name': 'A Coritiba PR', 'home_team_id': 4176, 'away_team_id': 350, 'home_team_rank': 5, 'away_team_rank': 4, 'league_name': 'Brazil Serie B', 'odds': {}, 'probabilities': {}}
+            # ]
 
             # Failed to get games from URL, retry
-            if num_games is False:
+            if games is False:
                 continue
 
-            if num_games == 0:
-                wait = operator.get_games_in_minutes - normal_interval_in_mins
+            if len(games) > 0:
+                # Find out the earliest kickoff time of the next matches
+                earliest_game_kickoff = operator.find_next_run_time(games)
+                # Start running the application "normal_interval_in_mins" before the earliest kickoff time
+                wait = earliest_game_kickoff - time.time() - (normal_interval_in_mins * 60)
             else:
-                wait = normal_interval_in_mins
+                wait = (operator.get_games_in_minutes - normal_interval_in_mins) * 60
         except Exception as e:
             print ('Exception happened.... Try again later.')
             raise e
-        print ("Next run at UTC: " + str (datetime.datetime.now () + datetime.timedelta (minutes = wait)))
-        time.sleep (60 * wait)
+
+        print ("Next run at UTC: " + str (datetime.datetime.now () + datetime.timedelta (seconds = wait)))
+        time.sleep (wait)

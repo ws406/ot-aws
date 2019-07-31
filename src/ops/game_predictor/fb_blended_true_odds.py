@@ -189,7 +189,7 @@ class TrueOdds(GamePredictorInterface):
         # }
 
         is_qualified = QualificationCheck().is_qualified(data, self.benchmark_bookie)
-        if is_qualified == 'x':
+        if not is_qualified:
             return False
         else:
             return_data = dict()
