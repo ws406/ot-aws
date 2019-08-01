@@ -6,6 +6,47 @@ import datetime
 
 class FbOperatorTrueOdds (FbOperator):
 
+        # These data is used for
+    bids = {
+        281: "bet365",  # Bet365
+        177: "pinnacle",  # Pinnacle
+        81:  "betvictor",  # Bet Victor
+        80: "macau_slot",  # Macao Slot
+        90: "easybet",  # EasyBet
+        545: "sb",
+        82: "ladbroke",
+        474: "sbobet",
+        115: "will_hill",  # WH
+        432: "hkjc",  # HKJC
+        # 104: "interwetten"  # Interwetten
+        156: "betfred",
+        110: "snai",
+        463: "betclick",
+        167: "skybet",
+    }
+
+    league_ids = [
+        36,  # EPL
+        37,  # ENC
+        16,  # HO1
+        273,  # AUS
+        8,  # GE1
+        9,  # GE2
+        # 17,  # HO2
+        34,  # IT1
+        31,  # ES1
+        11,  # FR1
+        12,  # FR2
+        29,  # SCOT1
+        5,  # BEL1
+        10,  # RUS1
+        60,  # CHN1
+        15,  # KOR1
+        25,  # JAP1
+        4,  # BRA1
+        22,  # NOR1
+    ]
+
     # get_games_in_minutes = 800
     # amount = 10
     # mins_before_kickoff = 800
