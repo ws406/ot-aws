@@ -4,7 +4,7 @@ from src.win007.observers.informed_odds.qualification_check import Qualification
 
 class InformedOdds(GamePredictorInterface):
 
-    benchmark_bookie = 'pinnacle'
+    benchmark_bookie = 'bet365'
     strategy = 'informed_odds'
     allChoices = {}
 
@@ -198,6 +198,30 @@ class InformedOdds(GamePredictorInterface):
         self.allChoices['J-League Division 1']['hkjc'] = data
         #print("Here", self.allChoices)
 
+    def _calc_odds(self, data, directionCode):
+        if benchmark_bookie in data['odds'].keys():
+            odds = list(collections.OrderedDict(sorted(data['odds'][benchmark_bookie].items())).values())[-1]
+            if benchmark_bookie == 'pinnacle':
+                 # this is because pinnacle odds also has added OPEN and FINAL in the odds map
+                odds = list(collections.OrderedDict(sorted(data['odds'][benchmark_bookie].items())).values())[-3]
+            home = float(odds['1'])
+            draw = float(odds['x'])
+            away = float(odds['2'])
+            if directionCode == '1':
+                return home
+            elif directionCode == '2':
+                return away
+            elif directionCode == '3':
+                away_dc_odds = away * draw / (away + draw)
+                return 1 + 1 / (away_dc_odds - 1)
+            elif directionCode == '4':
+                home_dc_odds = home * draw / (home + draw)
+                return 1 + 1 / (home_dc_odds - 1)
+            else:
+                return False
+        else:
+            return False
+
     # return_data['bet_direction'] could have values of:
     # '1' predict_home_win
     # '2' predict_away_win 
@@ -224,6 +248,7 @@ class InformedOdds(GamePredictorInterface):
                         return_data['home_team_id'] = data ['home_team_id']
                         return_data['away_team_id'] = data ['away_team_id']
                         return_data['bet_direction'] = is_qualified
+                        return_data['bet_odds'] = self._calc_odds(data, is_qualified)
                         return_data['strategy'] = self.strategy
 
                         return return_data

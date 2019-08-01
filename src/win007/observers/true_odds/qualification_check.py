@@ -19,7 +19,7 @@ class QualificationCheck:
             away = float(benchmark['2'])
             returnRate = home * draw * away / (home * draw + draw * away + home * away)
 
-            print(returnRate)
+            #print(returnRate)
 
             # Disqualify the game if return_rate is too low or too high
             if returnRate >= 0.9 and returnRate <= 1:
