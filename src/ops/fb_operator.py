@@ -6,9 +6,10 @@ import time
 import datetime
 from src.ops.bet_placer.fb_betfair import FBBetfair
 import sys
+import abc
 
 
-class Main:
+class FbOperator (abc.ABC):
     # These data is used for
     bids = {
         281: "bet365",  # Bet365
@@ -80,7 +81,6 @@ class Main:
 
     def __init__ (self):
         self.gameDetector = UpcomingGamesProcessor (GameInfoAndAllOddsSequence (self.bids))
-        self.gamePredictor = TrueOdds()
         self._set_up_betfair_instance()
 
     def _set_up_betfair_instance(self):
@@ -117,6 +117,7 @@ class Main:
             betting_details = self.gamePredictor.get_prediction(game)
             if betting_details is False:
                 print ("--- Game " + str(game['game_id']) + " is not qualified. ---")
+                games_not_bet.append(game)
                 continue
             else:
                 actual_kickoff = datetime.datetime.fromtimestamp (game ['kickoff'])
@@ -165,7 +166,7 @@ class Main:
 
 if __name__ == '__main__':
     normal_interval_in_mins = 2
-    operator = Main()
+    operator = FbOperator()
     wait = operator.get_games_in_minutes * 60
 
     while (True):
@@ -184,8 +185,12 @@ if __name__ == '__main__':
             if len(games) > 0:
                 # Find out the earliest kickoff time of the next matches
                 earliest_game_kickoff = operator.find_next_run_time(games)
+                now = time.time()
                 # Start running the application "normal_interval_in_mins" before the earliest kickoff time
-                wait = earliest_game_kickoff - time.time() - (normal_interval_in_mins * 60)
+                if earliest_game_kickoff < now:
+                    wait = 0
+                else:
+                    wait = earliest_game_kickoff - now - (normal_interval_in_mins * 60)
             else:
                 wait = (operator.get_games_in_minutes - normal_interval_in_mins) * 60
         except Exception as e:

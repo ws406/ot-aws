@@ -12,6 +12,8 @@ class Betfair (abc.ABC):
     market_name = ''
     event_type_id = ''
     commission_rate = 0
+    back_bet = 'BACK'
+    lay_bet = 'LAY'
 
     keep_alive_api = 'http://identitysso.betfair.com/api/keepAlive'
 
@@ -52,7 +54,7 @@ class Betfair (abc.ABC):
         pass
 
     def _place_bet (self, home_team_name, away_team_name, bet_on_team, market_type_code_match_odds, betting_amount,
-                    price, debug_mode, strategy=None):
+                    price, debug_mode, back_lay, strategy=None):
         try:
             response_json = json.loads (
                 self._get_market_catalogue (home_team_name, away_team_name, market_type_code_match_odds))
@@ -70,7 +72,7 @@ class Betfair (abc.ABC):
                 # TODO: this is not true! Because it is not guaranteed to be successful
                 return {
                     'status': 'success',
-                    'message': self._execute_bet (market_id, selection_id, betting_amount, price, debug_mode, strategy)
+                    'message': self._execute_bet (market_id, selection_id, betting_amount, price, debug_mode, back_lay, strategy)
                 }
             else:
                 print ("failed to place bet - cannot get selectionId'")
@@ -87,14 +89,14 @@ class Betfair (abc.ABC):
                 'message': str (ie)
             }
 
-    def _execute_bet (self, market_id, selection_id, size, price, debug_mode, strategy = None):
+    def _execute_bet (self, market_id, selection_id, size, price, debug_mode, back_lay, strategy = None):
         parameters = {
             "marketId": market_id,
             "instructions": [
                 {
                     "selectionId": selection_id,
                     "handicap": "0",
-                    "side": "BACK",
+                    "side": back_lay,
                     "orderType": "LIMIT",
                     "limitOrder": {
                         "size": size,

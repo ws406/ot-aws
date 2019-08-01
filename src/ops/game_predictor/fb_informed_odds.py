@@ -199,11 +199,11 @@ class InformedOdds(GamePredictorInterface):
         #print("Here", self.allChoices)
 
     def _calc_odds(self, data, directionCode):
-        if benchmark_bookie in data['odds'].keys():
-            odds = list(collections.OrderedDict(sorted(data['odds'][benchmark_bookie].items())).values())[-1]
-            if benchmark_bookie == 'pinnacle':
+        if self.benchmark_bookie in data['odds'].keys():
+            odds = list(collections.OrderedDict(sorted(data['odds'][self.benchmark_bookie].items())).values())[-1]
+            if self.benchmark_bookie == 'pinnacle':
                  # this is because pinnacle odds also has added OPEN and FINAL in the odds map
-                odds = list(collections.OrderedDict(sorted(data['odds'][benchmark_bookie].items())).values())[-3]
+                odds = list(collections.OrderedDict(sorted(data['odds'][self.benchmark_bookie].items())).values())[-3]
             home = float(odds['1'])
             draw = float(odds['x'])
             away = float(odds['2'])
@@ -234,8 +234,8 @@ class InformedOdds(GamePredictorInterface):
                     probMove = self.allChoices[data['league_name']][key][0]
                     lookbackTime = self.allChoices[data['league_name']][key][1]
                     movements = {}
-                    is_qualified = QualificationCheck().is_qualified(data, lookbackTime, probMove, key, movements)
-                    if is_qualified == 'x':
+                    is_qualified = QualificationCheck().is_qualified(data, lookbackTime, probMove, key)
+                    if not is_qualified:
                         return False
                     else:
                         return_data = dict()
