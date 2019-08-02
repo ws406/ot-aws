@@ -235,9 +235,7 @@ class InformedOdds(GamePredictorInterface):
                     lookbackTime = self.allChoices[data['league_name']][key][1]
                     movements = {}
                     is_qualified = QualificationCheck().is_qualified(data, lookbackTime, probMove, key)
-                    if not is_qualified:
-                        return False
-                    else:
+                    if is_qualified:
                         return_data = dict()
                         return_data['gid'] = data ['game_id']
                         return_data['league_id'] = data ['league_id']
