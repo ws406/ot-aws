@@ -28,7 +28,7 @@ class FbOperator (abc.ABC):
         36,  # EPL
         37,  # ENC
         39,  # EFL1
-        35,  # EFL2
+        # 35,  # EFL2
         #
         31,  # ES1
         33,  # ES2

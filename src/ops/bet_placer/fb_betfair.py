@@ -25,6 +25,39 @@ class FBBetfair(Betfair):
 
         'Wigan Athletic': 'Wigan',
         'Luton Town': 'Luton',
+        'Cardiff City': 'Cardiff',
+        'Stoke City': 'Stoke',
+        'Queens Park Rangers (QPR)': 'QPR',
+        'Blackburn Rovers': 'Blackburn',
+        'Charlton Athletic': 'Charlton',
+        'Birmingham City': 'Birmingham',
+        'Sheffield Wednesday': 'Sheff Wed',
+        'Swansea City': 'Swansea',
+        'Hull City': 'Hull',
+        'Preston North End': 'Preston',
+        'Sunderland A.F.C': 'Sunderland',
+        'Oxford United': 'Oxford Utd',
+        'Wycombe Wanderers': 'Wycombe',
+        'Bolton Wanderers': 'Bolton',
+        'Nottingham Forest': 'Nottm Forest',
+        'West Bromwich(WBA)': 'West Brom',
+
+        'Stevenage Borough': 'Stevenage',
+        'Rotherham United': 'Rotherham',
+        'Peterborough United': 'Peterborough',
+        'Shrewsbury Town': 'Shrewsbury',
+        'Coventry City': 'Coventry',
+        'Southend United': 'Southend',
+        'Milton Keynes Dons': 'MK Dons',
+        'Exeter City': 'Exeter',
+        'Macclesfield Town': 'Macclesfield',
+        'Mansfield Town': 'Mansfield',
+        'Dynamo Moscow': 'Dinamo Moscow',
+
+        # Scot 1
+        'Saint Mirren': 'St Mirren',
+        'Saint Johnstone': 'St Johnstone',
+
 
         # GE 1 & 2
         'TSG Hoffenheim': 'Hoffenheim',
@@ -35,6 +68,8 @@ class FBBetfair(Betfair):
         'SV Wehen Wiesbaden': 'Wehen Wiesbaden',
         'Karlsruher SC': 'Karlsruhe',
         'St. Pauli': 'St Pauli',
+        'Hannover 96': 'Hannover',
+
 
         # BR 1 & 2
         'Parana PR': 'Parana',
@@ -58,6 +93,7 @@ class FBBetfair(Betfair):
         'Avai FC SC': 'Avai',
         'Corinthians Paulista (SP)': 'Corinthians',
         'Atletico Mineiro': 'Atletico MG',
+        'CRB AL': 'CRB',
 
         # USA
         'Atlanta United': 'Atlanta Utd',
@@ -67,6 +103,11 @@ class FBBetfair(Betfair):
         'Minnesota United FC': 'Minnesota Utd',
         'Philadelphia Union': 'Philadelphia',
         'Colorado Rapids': 'Colorado',
+        'New York City Football Club': 'New York City',
+
+        # KOR 1
+        'Jeju United': 'Jeju Utd',
+        'Ulsan Hyundai FC': 'Ulsan Hyundai Horang-i',
 
         # JAP 1 & 2
         'Ventforet Kofu': 'Kofu',
@@ -89,6 +130,15 @@ class FBBetfair(Betfair):
         'Omiya Ardija': 'Omiya',
         'Vissel Kobe': 'Kobe',
         'Gamba Osaka': 'G-Osaka',
+        'Yokohama Marinos': 'Yokohama FM',
+        'Shimizu S-Pulse': 'Shimizu',
+        'Hiroshima Sanfrecce': 'Hiroshima',
+        'Consadole Sapporo': 'Sapporo',
+        'Shonan Bellmare': 'Shonan',
+        'Kashima Antlers': 'Kashima',
+        'Vegalta Sendai': 'Sendai',
+        'Jubilo Iwata': 'Iwata',
+        'Cerezo Osaka': 'C-Osaka',
 
         # CHINA 1
         'Hebei HX Xingfu': 'Hebei CFFC',
@@ -112,6 +162,7 @@ class FBBetfair(Betfair):
         'AFC Eskilstuna': 'AFC Utd',
         'Falkenberg': 'Falkenbergs',
         'IFK Norrkoping FK': 'Norrkoping',
+        'Helsingborg': 'Helsingborgs',
 
 
         # Russian Super League
@@ -122,6 +173,7 @@ class FBBetfair(Betfair):
         'Zenit St. Petersburg': 'Zenit St Petersburg',
         'Rostov FK': 'Rostov',
         'Lokomotiv Moscow': 'Lokomotiv',
+        'Ural Sverdlovsk Oblast': 'Ural',
 
         # Belgium 1
         'Mechelen': 'Yellow-Red Mechelen',
@@ -133,6 +185,7 @@ class FBBetfair(Betfair):
         'KAA Gent': 'Gent',
         'KAS Eupen': 'Eupen',
         'Royal Antwerp': 'Antwerp',
+        'Racing Genk': 'Genk',
 
         # FR 1 & 2
         'AJ Auxerre': 'Auxerre',
@@ -143,6 +196,16 @@ class FBBetfair(Betfair):
         'Orleans US 45': 'Orleans',
         'Chambly FC': 'Chambly Oise',
 
+
+        # Nor1
+        'Sarpsborg 08': 'Sarpsborg',
+        'Odd Grenland': 'Odds BK',
+
+        # HO 1
+        'AFC Ajax': 'Ajax',
+        'Groningen': 'FC GRONINGEN',
+        'FC Twente Enschede': 'FC Twente',
+        'PSV Eindhoven': 'PSV',
     }
 
     def place_match_odds_bet(self, game_data, betting_amount, debug_mode=False):

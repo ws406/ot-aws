@@ -5,6 +5,7 @@ import json
 import datetime
 import sys
 import abc
+import math
 
 
 class Betfair (abc.ABC):
@@ -207,15 +208,19 @@ class Betfair (abc.ABC):
     @staticmethod
     def _round_up_odds (odds):
         if odds < 2:
-            return round (odds, 2)
+            return math.floor(odds * 100) / 100 + 0.01
         elif odds < 3:
-            # odds = round(odds, 2)
-            return round (odds * 50) / 50
+            return math.floor(odds * 50) / 50 + 0.02
         elif odds < 4:
-            # odds = round(odds, 2)
-            return round (odds * 20) / 20
+            return math.floor(odds * 20) / 20 + 0.05
+        elif odds < 6:
+            return math.floor(odds * 10) / 10 + 0.1
+        elif odds < 10:
+            return math.floor(odds * 5) / 5 + 0.2
+        elif odds < 20:
+            return math.floor(odds * 2) / 2 + 0.5
         else:
-            return round (odds, 1)
+            return math.floor(odds) + 1
 
     @staticmethod
     def _query_request_builder (endpoint, filters):
