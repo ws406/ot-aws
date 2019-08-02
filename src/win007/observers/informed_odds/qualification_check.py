@@ -193,7 +193,6 @@ class QualificationCheck:
 
         except Exception as e:
             print("missing odds, skip...")
-            raise e
 
 
         return prediction
