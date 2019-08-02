@@ -76,8 +76,8 @@ class Main:
         # 16,  # HO1
         # 17,  # HO2
         #
-        # 25,  # JAP1
-        284: 'J-League Division 2',  # JAP2
+        25: "J-League Division 1",  # JAP1
+        284: "J-League Division 2",  # JAP2
         #
         # 4,  # BRA1
         # 358,  # BRA2
@@ -94,8 +94,8 @@ class Main:
         # 21,  # USA1
         # 415,  # CHILE1
         # 140,  # MEX1
-        # 60 : "Chinese Super League",  # CHN1
-        # 15,  # KOR1
+        60 : "Chinese Super League",  # CHN1
+        15: "Korea League",  # KOR1
         # 273,  # AUS
     }
 
