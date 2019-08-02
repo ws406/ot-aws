@@ -72,13 +72,19 @@ class AbstractOddsFetcher(abc.ABC):
             data = self.game_page_data[gid]
         else:
             url = str.replace(self.odds_url_pattern, '%game_id%', str(gid))
-            try:
-                data = BrowserRequests.get(url)
-            except:
-                print("Can't get data from URL - " + url)
+            retry = 1
+            data = None
+            while retry <= 3:
+                try:
+                    data = BrowserRequests.get(url)
+                except:
+                    print("Can't get data from URL - " + url + ", retry = " + str(retry))
+                    retry += 1
+                    continue
+                break
+            if data is None:
                 return None
 
-            # TODO bring this back later
             self.game_page_data[gid] = data
 
         return BeautifulSoup(data.text, "lxml")
