@@ -81,8 +81,8 @@ if __name__ == '__main__':
                 earliest_game_kickoff = operator.find_next_run_time(games)
                 now = time.time()
                 # Start running the application "normal_interval_in_mins" before the earliest kickoff time
-                if earliest_game_kickoff < now:
-                    wait = 0
+                if earliest_game_kickoff < (now +  - (normal_interval_in_mins * 60)):
+                    wait = 30
                 else:
                     wait = earliest_game_kickoff - now - (normal_interval_in_mins * 60)
             else:
