@@ -81,16 +81,16 @@ if __name__ == '__main__':
                 earliest_game_kickoff = operator.find_next_run_time(games)
                 now = time.time()
                 # Start running the application "normal_interval_in_mins" before the earliest kickoff time
-                if earliest_game_kickoff < (now +  - (normal_interval_in_mins * 60)):
-                    wait = 30
-                else:
-                    wait = earliest_game_kickoff - now - (normal_interval_in_mins * 60)
+                wait = earliest_game_kickoff - now - (normal_interval_in_mins * 60)
             else:
                 wait = (operator.get_games_in_minutes - normal_interval_in_mins) * 60
 
         except Exception as e:
             print ('Exception happened.... Try again later.')
             raise e
+
+        if wait <= 0:
+            wait = 30
 
         print ("Next run at UTC: " + str (datetime.datetime.now () + datetime.timedelta (seconds = wait)))
         time.sleep (wait)

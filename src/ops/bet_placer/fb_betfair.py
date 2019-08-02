@@ -162,24 +162,6 @@ class FBBetfair(Betfair):
         away_team_name = self._unify_team_name(game_data['away_team_name'])
         bet_on_odds = game_data['bet_odds']
 
-        print(game_data)
-
-        if game_data['bet_direction'] == InformedOddsQualCheck.prediction_home_win:
-            bet_on_team = home_team_name
-            back_lay = self.back_bet
-        elif game_data['bet_direction'] == InformedOddsQualCheck.prediction_away_win:
-            bet_on_team = away_team_name
-            back_lay = self.back_bet
-        elif game_data['bet_direction'] == InformedOddsQualCheck.prediction_home_not_win:
-            bet_on_team = home_team_name
-            back_lay = self.lay_bet
-        elif game_data['bet_direction'] == InformedOddsQualCheck.prediction_away_not_win:
-            bet_on_team = away_team_name
-            back_lay = self.lay_bet
-        else:
-            print('*** Wrong bet_direction! bet_direction = ' + game_data['bet_direction'] + ' ***')
-            return
-
         # Add the BetFair commission and profit margin on top of the min_odds_to_bet_on
         price = self._round_up_odds (
             (bet_on_odds - 1)
@@ -188,12 +170,35 @@ class FBBetfair(Betfair):
             +
             1
         )
+
+        amount = betting_amount
+
+        if game_data['bet_direction'] == InformedOddsQualCheck.prediction_home_win:
+            bet_on_team = home_team_name
+            back_lay = self.back_bet
+
+        elif game_data['bet_direction'] == InformedOddsQualCheck.prediction_away_win:
+            bet_on_team = away_team_name
+            back_lay = self.back_bet
+        elif game_data['bet_direction'] == InformedOddsQualCheck.prediction_home_not_win:
+            bet_on_team = home_team_name
+            back_lay = self.lay_bet
+            # for laybet: winning = liability / (odds - 1), while liability = betting_amount
+            amount = betting_amount / (price - 1)
+        elif game_data['bet_direction'] == InformedOddsQualCheck.prediction_away_not_win:
+            bet_on_team = away_team_name
+            back_lay = self.lay_bet
+            amount = betting_amount / (price - 1)
+        else:
+            print('*** Wrong bet_direction! bet_direction = ' + game_data['bet_direction'] + ' ***')
+            return
+
         return self._place_bet(
             home_team_name,
             away_team_name,
             bet_on_team,
             self.market_type_code_match_odds,
-            betting_amount,
+            amount,
             price,
             debug_mode,
             back_lay
