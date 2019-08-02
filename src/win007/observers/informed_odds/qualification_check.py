@@ -28,8 +28,8 @@ class QualificationCheck:
                 probOpenTime = itemTime
             if probFinalTime < itemTime:
                 probFinalTime = itemTime
-        timeList.append(str(probOpenTime))
-        timeList.append(str(probFinalTime))
+        timeList.append(int(probOpenTime))
+        timeList.append(int(probFinalTime))
         #print("Time 1 is ", timeList[0], ", time 2 is ", timeList[1])
         return timeList
 
@@ -73,7 +73,7 @@ class QualificationCheck:
                         lastRecord[0] = time
             curTime = int(lastRecord[0])
             if curTime > 0:
-                qualifiedData[curTime] = game_data['probabilities'][bookie][str(curTime)]
+                qualifiedData[curTime] = game_data['probabilities'][bookie][int(curTime)]
 
             qualifiedDataInSeq = collections.OrderedDict(sorted(qualifiedData.items()))
             #if game_data['game_id'] == 1395221:
@@ -191,8 +191,10 @@ class QualificationCheck:
             elif prediction == self.prediction_away_not_win and (home_dc_odds < benchmarkOdds or home_dc_odds >= benchmarkOdds2):
                 return self.disqualified
 
-        except (TypeError, KeyError):
+        except Exception as e:
             print("missing odds, skip...")
+            raise e
+
 
         return prediction
 
