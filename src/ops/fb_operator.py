@@ -28,7 +28,7 @@ class FbOperator (abc.ABC):
         36,  # EPL
         37,  # ENC
         39,  # EFL1
-        # 35,  # EFL2
+        35,  # EFL2
         #
         31,  # ES1
         33,  # ES2
@@ -71,7 +71,7 @@ class FbOperator (abc.ABC):
 
     get_games_in_minutes = 15
 
-    amount = 10
+    amount = 20
     mins_before_kickoff = 2
     commission_rate = 0.05
 
@@ -114,34 +114,34 @@ class FbOperator (abc.ABC):
 
         games_not_bet = []
         for game in games:
-            betting_details = self.gamePredictor.get_prediction(game)
-            if betting_details is False:
-                print ("--- Game " + str(game['game_id']) + " is not qualified. ---")
+            actual_kickoff = datetime.datetime.fromtimestamp (game ['kickoff'])
+
+            # Handle MLS
+            # if betting_details['league_id'] == 21:
+            #     # Kickoff is always 10 mins after the official kickoff time in game.
+            #     actual_kickoff = datetime.datetime.fromtimestamp(betting_details['kickoff']) + datetime.timedelta(minutes = 10)
+
+            # If actual_kickoff is more than mins_before_kickoff mins away, do not place bet
+            if actual_kickoff - datetime.datetime.now() > datetime.timedelta(minutes = self.mins_before_kickoff):
+
+                print ("Too early to place bet for game " + ' ' + game['home_team_name'] + ' vs ' +
+                       game['away_team_name'])
+
+                # Append this game to the list, so that it can be used to determine next runtime.
                 games_not_bet.append(game)
                 continue
             else:
-                actual_kickoff = datetime.datetime.fromtimestamp (game ['kickoff'])
-
-                # Handle MLS
-                # if betting_details['league_id'] == 21:
-                #     # Kickoff is always 10 mins after the official kickoff time in game.
-                #     actual_kickoff = datetime.datetime.fromtimestamp(betting_details['kickoff']) + datetime.timedelta(minutes = 10)
-
-                # If actual_kickoff is more than mins_before_kickoff mins away, do not place bet
-                if actual_kickoff - datetime.datetime.now() > datetime.timedelta(minutes = self.mins_before_kickoff):
-
-                    print ("Too early to place bet for game " + ' ' + betting_details ['home_team_name'] + ' vs ' +
-                           betting_details ['away_team_name'])
-
-                    # Append this game to the list, so that it can be used to determine next runtime.
+                betting_details = self.gamePredictor.get_prediction(game)
+                if betting_details is False:
+                    print ("--- Game " + str(game['game_id']) + " is not qualified. ---")
                     games_not_bet.append(game)
                     continue
 
+                print ("+++ Game " + str(game['game_id']) + " is qualified. +++")
                 result = self.gameBetPlacer.place_match_odds_bet(betting_details, self.amount, debug_mode)
                 if debug_mode:
                     print('(debug_mode) - bet_placing_request_pay_load:')
                     print(result)
-
                 else:
                     print(result)
 

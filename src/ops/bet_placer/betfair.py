@@ -2,9 +2,8 @@ import urllib
 import urllib.request
 import urllib.error
 import json
-import datetime
-import sys
 import abc
+import math
 
 
 class Betfair (abc.ABC):

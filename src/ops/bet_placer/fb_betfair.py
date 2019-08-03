@@ -52,12 +52,20 @@ class FBBetfair(Betfair):
         'Exeter City': 'Exeter',
         'Macclesfield Town': 'Macclesfield',
         'Mansfield Town': 'Mansfield',
-        'Dynamo Moscow': 'Dinamo Moscow',
+        'Lincoln City': 'Lincoln',
+        'Accrington Stanley': 'Accrington',
+        'Burton Albion': 'Burton',
+        'Ipswich Town': 'Ipswich',
+        'Doncaster Rovers': 'Doncaster',
+        'Tranmere Rovers': 'Tranmere',
+        'Leeds United': 'Leeds',
 
         # Scot 1
         'Saint Mirren': 'St Mirren',
         'Saint Johnstone': 'St Johnstone',
-
+        'Celtic FC': 'Celtic',
+        'Glasgow Rangers': 'Rangers',
+        'Heart of Midlothian': 'Hearts',
 
         # GE 1 & 2
         'TSG Hoffenheim': 'Hoffenheim',
@@ -69,7 +77,8 @@ class FBBetfair(Betfair):
         'Karlsruher SC': 'Karlsruhe',
         'St. Pauli': 'St Pauli',
         'Hannover 96': 'Hannover',
-
+        'Heidenheimer': 'FC Heidenheim',
+        'VfB Stuttgart': 'Stuttgart',
 
         # BR 1 & 2
         'Parana PR': 'Parana',
@@ -94,6 +103,7 @@ class FBBetfair(Betfair):
         'Corinthians Paulista (SP)': 'Corinthians',
         'Atletico Mineiro': 'Atletico MG',
         'CRB AL': 'CRB',
+        'Centro Sportivo Alagoano': 'CSA',
 
         # USA
         'Atlanta United': 'Atlanta Utd',
@@ -104,10 +114,13 @@ class FBBetfair(Betfair):
         'Philadelphia Union': 'Philadelphia',
         'Colorado Rapids': 'Colorado',
         'New York City Football Club': 'New York City',
+        'FC Kansas City': 'Kansas City',
 
         # KOR 1
         'Jeju United': 'Jeju Utd',
         'Ulsan Hyundai FC': 'Ulsan Hyundai Horang-i',
+        'Sangju Sangmu Phoenix': 'Sangju Sangmu',
+        'Gyeongnam FC': 'Gyeongnam',
 
         # JAP 1 & 2
         'Ventforet Kofu': 'Kofu',
@@ -139,6 +152,10 @@ class FBBetfair(Betfair):
         'Vegalta Sendai': 'Sendai',
         'Jubilo Iwata': 'Iwata',
         'Cerezo Osaka': 'C-Osaka',
+        'Urawa Red Diamonds': 'Urawa',
+        'Nagoya Grampus': 'Nagoya',
+        'Matsumoto Yamaga FC': 'Matsumoto',
+        'Sagan Tosu': 'Tosu',
 
         # CHINA 1
         'Hebei HX Xingfu': 'Hebei CFFC',
@@ -155,7 +172,6 @@ class FBBetfair(Betfair):
 
         # Swedish Super League
         'VfL Osnabruck': 'VFL Osnabruck',
-        'Heidenheimer': 'FC Heidenheim',
         'IK Sirius FK': 'Sirius',
         'AIK Solna': 'AIK',
         'GIF Sundsvall': 'Sundsvall',
@@ -163,6 +179,7 @@ class FBBetfair(Betfair):
         'Falkenberg': 'Falkenbergs',
         'IFK Norrkoping FK': 'Norrkoping',
         'Helsingborg': 'Helsingborgs',
+        'Kalmar': 'Kalmar FF',
 
 
         # Russian Super League
@@ -174,6 +191,7 @@ class FBBetfair(Betfair):
         'Rostov FK': 'Rostov',
         'Lokomotiv Moscow': 'Lokomotiv',
         'Ural Sverdlovsk Oblast': 'Ural',
+        'Dynamo Moscow': 'Dinamo Moscow',
 
         # Belgium 1
         'Mechelen': 'Yellow-Red Mechelen',
@@ -200,12 +218,18 @@ class FBBetfair(Betfair):
         # Nor1
         'Sarpsborg 08': 'Sarpsborg',
         'Odd Grenland': 'Odds BK',
+        'Tromso IL': 'Tromso',
+        'Mjondalen IF': 'Mjondalen',
+        'Kristiansund BK': 'Kristiansund',
 
         # HO 1
         'AFC Ajax': 'Ajax',
         'Groningen': 'FC GRONINGEN',
         'FC Twente Enschede': 'FC Twente',
         'PSV Eindhoven': 'PSV',
+        'Heracles Almelo': 'Heracles',
+        'SC Heerenveen': 'Heerenveen',
+        'AZ Alkmaar': 'Az Alkmaar',
     }
 
     def place_match_odds_bet(self, game_data, betting_amount, debug_mode=False):
@@ -247,11 +271,11 @@ class FBBetfair(Betfair):
             bet_on_team = home_team_name
             back_lay = self.lay_bet
             # for laybet: winning = liability / (odds - 1), while liability = betting_amount
-            amount = betting_amount / (price - 1)
+            amount = round(betting_amount / (price - 1), 2)
         elif game_data['bet_direction'] == InformedOddsQualCheck.prediction_away_not_win:
             bet_on_team = away_team_name
             back_lay = self.lay_bet
-            amount = betting_amount / (price - 1)
+            amount = round(betting_amount / (price - 1), 2)
         else:
             print('*** Wrong bet_direction! bet_direction = ' + game_data['bet_direction'] + ' ***')
             return
