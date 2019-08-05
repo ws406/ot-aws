@@ -1,6 +1,7 @@
 import collections
 from src.ops.game_predictor.interface import GamePredictorInterface
 from src.win007.observers.informed_odds.qualification_check import QualificationCheck
+#from src.win007.observers.same_direction.qualification_check_lastHourSingleBookie import QualificationCheck
 
 class InformedOdds(GamePredictorInterface):
 
@@ -69,14 +70,14 @@ class InformedOdds(GamePredictorInterface):
 
         bookmaker = {}
         data = []
-        data.append(0.016)
-        data.append(2700)
-        bookmaker['bet365'] = data
-        self.allChoices['German Bundesliga 2'] = bookmaker
-        data = []
         data.append(0.003)
         data.append(2700)
-        self.allChoices['German Bundesliga 2']['sbobet'] = data
+        bookmaker['sbobet'] = data
+        self.allChoices['German Bundesliga 2'] = bookmaker
+        data = []
+        data.append(0.016)
+        data.append(2700)
+        self.allChoices['German Bundesliga 2']['bet365'] = data
 
         bookmaker = {}
         data = []
@@ -229,29 +230,35 @@ class InformedOdds(GamePredictorInterface):
     # '4' predict_away_not_win, namely lay away
     def get_prediction(self, data):
         if data['league_name'] in self.allChoices.keys():
+            cached_result = False
             for key, bookmaker in self.allChoices[data['league_name']].items():
                 if key in data['probabilities'].keys():
                     probMove = self.allChoices[data['league_name']][key][0]
                     lookbackTime = self.allChoices[data['league_name']][key][1]
                     movements = {}
-                    is_qualified = QualificationCheck().is_qualified(data, lookbackTime, probMove, key)
-                    if is_qualified:
-                        return_data = dict()
-                        return_data['gid'] = data ['game_id']
-                        return_data['league_id'] = data ['league_id']
-                        return_data['league_name'] = data ['league_name']
-                        return_data['kickoff'] = data ['kickoff']
-                        return_data['home_team_name'] = data ['home_team_name']
-                        return_data['away_team_name'] = data ['away_team_name']
-                        return_data['home_team_id'] = data ['home_team_id']
-                        return_data['away_team_id'] = data ['away_team_id']
-                        return_data['bet_direction'] = is_qualified
-                        return_data['bet_odds'] = self._calc_odds(data, is_qualified)
-                        return_data['strategy'] = self.strategy
+                    is_qualified = QualificationCheck().is_qualified(data, lookbackTime, probMove, key, movements)
+                    if is_qualified != False:
+                        if cached_result == False:
+                            cached_result = is_qualified
+                        elif is_qualified != cached_result:
+                            #print(data['game_id'], data['league_name'], is_qualified, cached_result)
+                            return False
+            if cached_result:
+                return_data = dict()
+                return_data['gid'] = data ['game_id']
+                return_data['league_id'] = data ['league_id']
+                return_data['league_name'] = data ['league_name']
+                return_data['kickoff'] = data ['kickoff']
+                return_data['home_team_name'] = data ['home_team_name']
+                return_data['away_team_name'] = data ['away_team_name']
+                return_data['home_team_id'] = data ['home_team_id']
+                return_data['away_team_id'] = data ['away_team_id']
+                return_data['bet_direction'] = cached_result
+                return_data['bet_odds'] = self._calc_odds(data, cached_result)
+                return_data['strategy'] = self.strategy
 
-                        return return_data
-                else:
-                    continue
-            return False
+                return return_data
+            else:
+                return False
         else:
             return False

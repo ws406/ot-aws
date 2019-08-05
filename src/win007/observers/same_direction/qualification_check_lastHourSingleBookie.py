@@ -27,7 +27,7 @@ class QualificationCheck:
     prediction_away_win = '2'
     prediction_home_not_win = '3'
     prediction_away_not_win = '4'
-    disqualified = 'x'
+    disqualified = False
     notset = '0'
 
     def __init__(self):
