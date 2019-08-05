@@ -9,9 +9,32 @@ class TrueOdds(GamePredictorInterface):
     benchmark_bookie = 'pinnacle'
     strategy = 'true_odds'
     profit_margin = 0.02 # This is to ensure we win something.
+    leagueDivOne = []
+    leagueNoBet = []
 
     def __init__(self):
-        pass
+        leagueDivOne.append('Holland Eredivisie')
+        leagueDivOne.append('Russia Premier League')
+        leagueDivOne.append('England Championship')
+        leagueDivOne.append('Belgian Pro League')
+        leagueDivOne.append('English Premier League')
+        leagueDivOne.append('German Bundesliga')
+        leagueDivOne.append('Spanish La Liga')
+        leagueDivOne.append('Spanish Segunda Division')
+        leagueDivOne.append('France Ligue 1')
+        leagueDivOne.append('Italian Serie A')
+        leagueDivOne.append('Holland Jupiler League')
+        leagueDivOne.append('Turkish Super Liga')
+        leagueDivOne.append('USA Major League Soccer')
+        leagueDivOne.append('J-League Division 2')
+        leagueDivOne.append('J-League Division 1')
+        leagueDivOne.append('Norwegian Tippeligaen')
+        # backtest shows no benefit betting on the following leagues
+        leagueNoBet.append('Chinese Super League')
+        leagueNoBet.append('Korea League')
+        leagueNoBet.append('Brazil Serie B')
+        leagueNoBet.append('Swedish Allsvenskan')
+        leagueNoBet.append('Finland Veikkausliga')
 
     def _get_average(self, localList):
         number = 0
@@ -23,7 +46,8 @@ class TrueOdds(GamePredictorInterface):
         picked_bookie = list()
         picked_bookie.append('pinnacle')
         picked_bookie.append('bet365')
-        picked_bookie.append('betvictor')
+        if data['league_name'] in self.leagueDivOne:
+            picked_bookie.append('betvictor')
         true_odds = dict()
         true_odds['1'] = 100.0
         true_odds['x'] = 100.0
@@ -190,6 +214,8 @@ class TrueOdds(GamePredictorInterface):
 
         is_qualified = QualificationCheck().is_qualified(data, self.benchmark_bookie)
         if not is_qualified:
+            return False
+        elif data['league_name'] in self.leagueNoBet:
             return False
         else:
             return_data = dict()
