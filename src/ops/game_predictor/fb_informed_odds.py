@@ -1,7 +1,7 @@
 import collections
 from src.ops.game_predictor.interface import GamePredictorInterface
-from src.win007.observers.informed_odds.qualification_check import QualificationCheck
-#from src.win007.observers.same_direction.qualification_check_lastHourSingleBookie import QualificationCheck
+# from src.win007.observers.informed_odds.qualification_check import QualificationCheck
+from src.win007.observers.same_direction.qualification_check_lastHourSingleBookie import QualificationCheck
 
 class InformedOdds(GamePredictorInterface):
 

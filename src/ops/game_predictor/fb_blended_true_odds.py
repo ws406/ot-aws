@@ -9,32 +9,32 @@ class TrueOdds(GamePredictorInterface):
     benchmark_bookie = 'pinnacle'
     strategy = 'true_odds'
     profit_margin = 0.02 # This is to ensure we win something.
-    leagueDivOne = []
-    leagueNoBet = []
+    leagueDivOne = list()
+    leagueNoBet = list()
 
     def __init__(self):
-        leagueDivOne.append('Holland Eredivisie')
-        leagueDivOne.append('Russia Premier League')
-        leagueDivOne.append('England Championship')
-        leagueDivOne.append('Belgian Pro League')
-        leagueDivOne.append('English Premier League')
-        leagueDivOne.append('German Bundesliga')
-        leagueDivOne.append('Spanish La Liga')
-        leagueDivOne.append('Spanish Segunda Division')
-        leagueDivOne.append('France Ligue 1')
-        leagueDivOne.append('Italian Serie A')
-        leagueDivOne.append('Holland Jupiler League')
-        leagueDivOne.append('Turkish Super Liga')
-        leagueDivOne.append('USA Major League Soccer')
-        leagueDivOne.append('J-League Division 2')
-        leagueDivOne.append('J-League Division 1')
-        leagueDivOne.append('Norwegian Tippeligaen')
+        self.leagueDivOne.append('Holland Eredivisie')
+        self.leagueDivOne.append('Russia Premier League')
+        self.leagueDivOne.append('England Championship')
+        self.leagueDivOne.append('Belgian Pro League')
+        self.leagueDivOne.append('English Premier League')
+        self.leagueDivOne.append('German Bundesliga')
+        self.leagueDivOne.append('Spanish La Liga')
+        self.leagueDivOne.append('Spanish Segunda Division')
+        self.leagueDivOne.append('France Ligue 1')
+        self.leagueDivOne.append('Italian Serie A')
+        self.leagueDivOne.append('Holland Jupiler League')
+        self.leagueDivOne.append('Turkish Super Liga')
+        self.leagueDivOne.append('USA Major League Soccer')
+        self.leagueDivOne.append('J-League Division 2')
+        self.leagueDivOne.append('J-League Division 1')
+        self.leagueDivOne.append('Norwegian Tippeligaen')
         # backtest shows no benefit betting on the following leagues
-        leagueNoBet.append('Chinese Super League')
-        leagueNoBet.append('Korea League')
-        leagueNoBet.append('Brazil Serie B')
-        leagueNoBet.append('Swedish Allsvenskan')
-        leagueNoBet.append('Finland Veikkausliga')
+        self.leagueNoBet.append('Chinese Super League')
+        self.leagueNoBet.append('Korea League')
+        self.leagueNoBet.append('Brazil Serie B')
+        self.leagueNoBet.append('Swedish Allsvenskan')
+        self.leagueNoBet.append('Finland Veikkausliga')
 
     def _get_average(self, localList):
         number = 0

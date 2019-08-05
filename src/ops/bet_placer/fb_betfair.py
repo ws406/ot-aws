@@ -59,6 +59,8 @@ class FBBetfair(Betfair):
         'Doncaster Rovers': 'Doncaster',
         'Tranmere Rovers': 'Tranmere',
         'Leeds United': 'Leeds',
+        'Huddersfield Town': 'Huddersfield',
+        'Derby County': 'Derby',
 
         # Scot 1
         'Saint Mirren': 'St Mirren',
@@ -104,6 +106,7 @@ class FBBetfair(Betfair):
         'Atletico Mineiro': 'Atletico MG',
         'CRB AL': 'CRB',
         'Centro Sportivo Alagoano': 'CSA',
+        'Gremio (RS)': 'Gremio',
 
         # USA
         'Atlanta United': 'Atlanta Utd',
@@ -192,6 +195,7 @@ class FBBetfair(Betfair):
         'Lokomotiv Moscow': 'Lokomotiv',
         'Ural Sverdlovsk Oblast': 'Ural',
         'Dynamo Moscow': 'Dinamo Moscow',
+        'Terek Grozny': 'Akhmat Grozny',
 
         # Belgium 1
         'Mechelen': 'Yellow-Red Mechelen',

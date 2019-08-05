@@ -187,7 +187,7 @@ class QualificationCheck:
                 return self.disqualified
 
         except (TypeError, KeyError):
-            #print("missing odds, skip...")
+            print("missing odds, skip...")
             None
 
         return prediction
