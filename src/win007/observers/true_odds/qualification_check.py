@@ -25,6 +25,7 @@ class QualificationCheck:
             if returnRate >= 0.9 and returnRate <= 1:
                 is_qualified = True
         except (TypeError, KeyError):
-            print("missing odds, skip...")
+            #print("missing odds, skip...")
+            None
 
         return is_qualified

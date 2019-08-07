@@ -197,6 +197,24 @@ class InformedOdds(GamePredictorInterface):
         data.append(0.004)
         data.append(3600)
         self.allChoices['J-League Division 1']['hkjc'] = data
+
+        bookmaker = {}
+        data = []
+        data.append(0.025)
+        data.append(2700)
+        bookmaker['ladbroke'] = data
+        self.allChoices['Denmark Super League'] = bookmaker
+
+        bookmaker = {}
+        data = []
+        data.append(0.025)
+        data.append(2700)
+        bookmaker['ladbroke'] = data
+        self.allChoices['Poland Super League'] = bookmaker
+        data = []
+        data.append(0.004)
+        data.append(120)
+        self.allChoices['Poland Super League']['sb'] = data
         #print("Here", self.allChoices)
 
     def _calc_odds(self, data, directionCode):

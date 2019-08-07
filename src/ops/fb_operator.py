@@ -67,6 +67,8 @@ class FbOperator (abc.ABC):
         60,  # CHN1
         15,  # KOR1
         273,  # AUS
+        7, # Denmark
+        6, # Poland1
     ]
 
     get_games_in_minutes = 15
