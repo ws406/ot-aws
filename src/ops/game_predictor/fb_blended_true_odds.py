@@ -11,8 +11,16 @@ class TrueOdds(GamePredictorInterface):
     profit_margin = 0.02 # This is to ensure we win something.
     leagueDivOne = list()
     leagueNoBet = list()
+    benchmark_bookie = list()
 
     def __init__(self):
+        # we choose the following liquid bookmakers odds as our filter
+        self.benchmark_bookie.append('pinnacle')
+        self.benchmark_bookie.append('bet365')
+        self.benchmark_bookie.append('sb')
+        self.benchmark_bookie.append('easybet')
+        self.benchmark_bookie.append('sbobet')
+        # leagues we can use the below three bookmakers to gen true odds
         self.leagueDivOne.append('Holland Eredivisie')
         self.leagueDivOne.append('Russia Premier League')
         self.leagueDivOne.append('England Championship')
@@ -55,6 +63,11 @@ class TrueOdds(GamePredictorInterface):
         local_list_home = []
         local_list_draw = []
         local_list_away = []
+        compareBestOdds = list()
+        compareBestOdds.append(0)
+        compareBestOdds.append(0)
+        compareBestOdds.append(0)
+
         try:
             for bookie in picked_bookie:
                 benchmark_odds = list(collections.OrderedDict(sorted(data['odds'][bookie].items())).values())[-1]
@@ -64,6 +77,14 @@ class TrueOdds(GamePredictorInterface):
                 local_list_home.append(home)
                 local_list_draw.append(draw)
                 local_list_away.append(away)
+            for bookie in self.benchmark_bookie:
+                compareOdds = list(collections.OrderedDict(sorted(data['odds'][bookie].items())).values())[-1]
+                if float(compareOdds['1']) > compareBestOdds[0]:
+                    compareBestOdds[0] = float(compareOdds['1'])
+                if float(compareOdds['x']) > compareBestOdds[1]:
+                    compareBestOdds[1] = float(compareOdds['x'])
+                if float(compareOdds['2']) > compareBestOdds[2]:
+                    compareBestOdds[2] = float(compareOdds['2'])
         except (TypeError, KeyError):
             return true_odds
 
@@ -80,6 +101,16 @@ class TrueOdds(GamePredictorInterface):
         true_odds['1'] = home * (1 + self.profit_margin)
         true_odds['x'] = draw * (1 + self.profit_margin)
         true_odds['2'] = away * (1 + self.profit_margin)
+
+        # we only bet at calc true odds, when benchmark bookmaker odds is better than our calc ones
+        # the reason we want to do this, is try to avoid adverse selection
+        if compareBestOdds[0] < true_odds['1']:
+            true_odds['1'] = 100.0
+        if compareBestOdds[1] < true_odds['x']:
+            true_odds['x'] = 100.0
+        if compareBestOdds[2] < true_odds['2']:
+            true_odds['2'] = 100.0
+
         return true_odds
 
     def get_prediction(self, data):

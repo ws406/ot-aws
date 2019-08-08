@@ -13,208 +13,229 @@ class InformedOdds(GamePredictorInterface):
         self.gen_map()
 
     def gen_map(self):
+        # 'English Premier League' - 36
         bookmaker = {}
         data = []
         data.append(0.007)
         data.append(25 * 60)
         bookmaker['macau_slot'] = data
-        self.allChoices['English Premier League'] = bookmaker
+        self.allChoices[36] = bookmaker
         data = []
         data.append(0.003)
         data.append(2700)
-        self.allChoices['English Premier League']['sb'] = data
+        self.allChoices[36]['sb'] = data
 
+        # 'England Championship' - 37
         bookmaker = {}
         data = []
         data.append(0.02)
         data.append(3600)
         bookmaker['easybet'] = data
-        self.allChoices['England Championship'] = bookmaker
+        self.allChoices[37] = bookmaker
 
+        # 'Holland Eredivisie' - 16
         bookmaker = {}
         data = []
         data.append(0.002)
         data.append(1500)
         bookmaker['easybet'] = data
-        self.allChoices['Holland Eredivisie'] = bookmaker
+        self.allChoices[16] = bookmaker
         data = []
         data.append(0.005)
         data.append(900)
-        self.allChoices['Holland Eredivisie']['ladbroke'] = data
+        self.allChoices[16]['ladbroke'] = data
         data = []
         data.append(0.003)
         data.append(1500)
-        self.allChoices['Holland Eredivisie']['sbobet'] = data
+        self.allChoices[16]['sbobet'] = data
 
+        # 'Australia A-League' - 273
         bookmaker = {}
         data = []
         data.append(0.008)
         data.append(2700)
         bookmaker['will_hill'] = data
-        self.allChoices['Australia A-League'] = bookmaker
+        self.allChoices[273] = bookmaker
         data = []
         data.append(0.007)
         data.append(3600)
-        self.allChoices['Australia A-League']['ladbroke'] = data
+        self.allChoices[273]['ladbroke'] = data
 
+        # 'German Bundesliga' - 8
         bookmaker = {}
         data = []
         data.append(0.007)
         data.append(1200)
         bookmaker['macau_slot'] = data
-        self.allChoices['German Bundesliga'] = bookmaker
+        self.allChoices[8] = bookmaker
         data = []
         data.append(0.014)
         data.append(1800)
-        self.allChoices['German Bundesliga']['sb'] = data
+        self.allChoices[8]['sb'] = data
 
+        # 'German Bundesliga 2' - 9
         bookmaker = {}
         data = []
         data.append(0.003)
         data.append(2700)
         bookmaker['sbobet'] = data
-        self.allChoices['German Bundesliga 2'] = bookmaker
+        self.allChoices[9] = bookmaker
         data = []
         data.append(0.016)
         data.append(2700)
-        self.allChoices['German Bundesliga 2']['bet365'] = data
+        self.allChoices[9]['bet365'] = data
 
+        # 'Holland Jupiler League' - 17
         bookmaker = {}
         data = []
         data.append(0.03)
         data.append(3600)
         bookmaker['bet365'] = data
-        self.allChoices['Holland Jupiler League'] = bookmaker
+        self.allChoices[17] = bookmaker
 
+        # 'Spanish La Liga' - 31
         bookmaker = {}
         data = []
         data.append(0.004)
         data.append(3600)
         bookmaker['pinnacle'] = data
-        self.allChoices['Spanish La Liga'] = bookmaker
+        self.allChoices[31] = bookmaker
         data = []
         data.append(0.005)
         data.append(3600)
-        self.allChoices['Spanish La Liga']['hkjc'] = data
+        self.allChoices[31]['hkjc'] = data
 
+        # 'Italian Serie A' - 34
         bookmaker = {}
         data = []
         data.append(0.008)
         data.append(900)
         bookmaker['bet365'] = data
-        self.allChoices['Italian Serie A'] = bookmaker
+        self.allChoices[34] = bookmaker
         data = []
         data.append(0.006)
         data.append(900)
-        self.allChoices['Italian Serie A']['sb'] = data
+        self.allChoices[34]['sb'] = data
 
+        # 'France Ligue 1' - 11
         bookmaker = {}
         data = []
         data.append(0.018)
         data.append(7200)
         bookmaker['betfred'] = data
-        self.allChoices['France Ligue 1'] = bookmaker
+        self.allChoices[11] = bookmaker
 
+        # 'France Ligue 2' - 12
         bookmaker = {}
         data = []
         data.append(0.018)
         data.append(2700)
         bookmaker['sbobet'] = data
-        self.allChoices['France Ligue 2'] = bookmaker
+        self.allChoices[12] = bookmaker
 
+        # 'Scottish Premier League' - 29
         bookmaker = {}
         data = []
         data.append(0.006)
         data.append(9000)
         bookmaker['ladbroke'] = data
-        self.allChoices['Scottish Premier League'] = bookmaker
+        self.allChoices[29] = bookmaker
 
+        # 'Russia Premier League' - 10
         bookmaker = {}
         data = []
         data.append(0.012)
         data.append(600)
         bookmaker['sbobet'] = data
-        self.allChoices['Russia Premier League'] = bookmaker
+        self.allChoices[10] = bookmaker
         data = []
         data.append(0.015)
         data.append(3600)
-        self.allChoices['Russia Premier League']['betvictor'] = data
+        self.allChoices[10]['betvictor'] = data
 
+        # 'Belgian Pro League' - 5
         bookmaker = {}
         data = []
         data.append(0.013)
         data.append(3600)
         bookmaker['snai'] = data
-        self.allChoices['Belgian Pro League'] = bookmaker
+        self.allChoices[5] = bookmaker
         data = []
         data.append(0.002)
         data.append(1800)
-        self.allChoices['Belgian Pro League']['betvictor'] = data
+        self.allChoices[5]['betvictor'] = data
 
+        # 'Chinese Super League' - 60
         bookmaker = {}
         data = []
         data.append(0.012)
         data.append(1800)
         bookmaker['sb'] = data
-        self.allChoices['Chinese Super League'] = bookmaker
+        self.allChoices[60] = bookmaker
 
+        # 'Korea League' - 15
         bookmaker = {}
         data = []
         data.append(0.002)
         data.append(1800)
         bookmaker['sbobet'] = data
-        self.allChoices['Korea League'] = bookmaker
+        self.allChoices[15] = bookmaker
 
+        # 'Norwegian Tippeligaen' - 22
         bookmaker = {}
         data = []
         data.append(0.001)
         data.append(1500)
         bookmaker['sb'] = data
-        self.allChoices['Norwegian Tippeligaen'] = bookmaker
+        self.allChoices[22] = bookmaker
         data = []
         data.append(0.02)
         data.append(3600)
-        self.allChoices['Norwegian Tippeligaen']['pinnacle'] = data
+        self.allChoices[22]['pinnacle'] = data
         data = []
         data.append(0.008)
         data.append(5400)
-        self.allChoices['Norwegian Tippeligaen']['betclick'] = data
+        self.allChoices[22]['betclick'] = data
 
+        # 'Brazil Serie A' - 4
         bookmaker = {}
         data = []
         data.append(0.002)
         data.append(300)
         bookmaker['sb'] = data
-        self.allChoices['Brazil Serie A'] = bookmaker
+        self.allChoices[4] = bookmaker
 
+        # 'J-League Division 1' - 25
         bookmaker = {}
         data = []
         data.append(0.025)
         data.append(7200)
         bookmaker['skybet'] = data
-        self.allChoices['J-League Division 1'] = bookmaker
+        self.allChoices[25] = bookmaker
         data = []
         data.append(0.004)
         data.append(3600)
-        self.allChoices['J-League Division 1']['hkjc'] = data
+        self.allChoices[25]['hkjc'] = data
 
+        # 'Denmark Super League' - 7
         bookmaker = {}
         data = []
         data.append(0.025)
         data.append(2700)
         bookmaker['ladbroke'] = data
-        self.allChoices['Denmark Super League'] = bookmaker
+        self.allChoices[7] = bookmaker
 
+        # 'Poland Super League' - 6
         bookmaker = {}
         data = []
         data.append(0.025)
         data.append(2700)
         bookmaker['ladbroke'] = data
-        self.allChoices['Poland Super League'] = bookmaker
+        self.allChoices[6] = bookmaker
         data = []
         data.append(0.004)
         data.append(120)
-        self.allChoices['Poland Super League']['sb'] = data
+        self.allChoices[6]['sb'] = data
         #print("Here", self.allChoices)
 
     def _calc_odds(self, data, directionCode):
@@ -247,12 +268,12 @@ class InformedOdds(GamePredictorInterface):
     # '3' predict_home_not_win, namely lay home
     # '4' predict_away_not_win, namely lay away
     def get_prediction(self, data):
-        if data['league_name'] in self.allChoices.keys():
+        if data['league_id'] in self.allChoices.keys():
             cached_result = False
-            for key, bookmaker in self.allChoices[data['league_name']].items():
+            for key, bookmaker in self.allChoices[data['league_id']].items():
                 if key in data['probabilities'].keys():
-                    probMove = self.allChoices[data['league_name']][key][0]
-                    lookbackTime = self.allChoices[data['league_name']][key][1]
+                    probMove = self.allChoices[data['league_id']][key][0]
+                    lookbackTime = self.allChoices[data['league_id']][key][1]
                     movements = {}
                     is_qualified = QualificationCheck().is_qualified(data, lookbackTime, probMove, key, movements)
                     if is_qualified != False:
