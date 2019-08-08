@@ -50,13 +50,12 @@ class TrueOdds(GamePredictorInterface):
             number = number + data
         return number / len(localList)
 
-    def _calc_true_odds(self, data):
+    def _calc_true_odds(self, data, true_odds):
         picked_bookie = list()
         picked_bookie.append('pinnacle')
         picked_bookie.append('bet365')
         if data['league_name'] in self.leagueDivOne:
             picked_bookie.append('betvictor')
-        true_odds = dict()
         true_odds['1'] = 100.0
         true_odds['x'] = 100.0
         true_odds['2'] = 100.0
@@ -86,8 +85,9 @@ class TrueOdds(GamePredictorInterface):
                 if float(compareOdds['2']) > compareBestOdds[2]:
                     compareBestOdds[2] = float(compareOdds['2'])
         except (TypeError, KeyError):
-            return true_odds
+            return False
 
+        result = False
         home = self._get_average(local_list_home)
         draw = self._get_average(local_list_draw)
         away = self._get_average(local_list_away)
@@ -106,12 +106,17 @@ class TrueOdds(GamePredictorInterface):
         # the reason we want to do this, is try to avoid adverse selection
         if compareBestOdds[0] < true_odds['1']:
             true_odds['1'] = 100.0
+        else:
+            result = True
         if compareBestOdds[1] < true_odds['x']:
             true_odds['x'] = 100.0
+        else:
+            result = True
         if compareBestOdds[2] < true_odds['2']:
             true_odds['2'] = 100.0
-
-        return true_odds
+        else:
+            result = True
+        return result
 
     def get_prediction(self, data):
         # Check if game is qualified first, if not, return
@@ -249,16 +254,21 @@ class TrueOdds(GamePredictorInterface):
         elif data['league_name'] in self.leagueNoBet:
             return False
         else:
-            return_data = dict()
-            return_data['gid'] = data ['game_id']
-            return_data['league_id'] = data ['league_id']
-            return_data['league_name'] = data ['league_name']
-            return_data['kickoff'] = data ['kickoff']
-            return_data['home_team_name'] = data ['home_team_name']
-            return_data['away_team_name'] = data ['away_team_name']
-            return_data['home_team_id'] = data ['home_team_id']
-            return_data['away_team_id'] = data ['away_team_id']
-            return_data['true_odds'] = self._calc_true_odds(data)
-            return_data['strategy'] = "true_odds"
-
-            return return_data
+            true_odds = dict()
+            result = self._calc_true_odds(data, true_odds)
+            if result:
+                return_data = dict()
+                return_data['true_odds'] = true_odds
+                return_data['gid'] = data ['game_id']
+                return_data['league_id'] = data ['league_id']
+                return_data['league_name'] = data ['league_name']
+                return_data['kickoff'] = data ['kickoff']
+                return_data['home_team_name'] = data ['home_team_name']
+                return_data['away_team_name'] = data ['away_team_name']
+                return_data['home_team_id'] = data ['home_team_id']
+                return_data['away_team_id'] = data ['away_team_id']
+                return_data['true_odds']
+                return_data['strategy'] = "true_odds"
+                return return_data
+            else:
+                return False
