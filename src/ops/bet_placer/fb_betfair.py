@@ -22,6 +22,8 @@ class FBBetfair(Betfair):
         'Norwich City': 'Norwich',
         'Crystal Palace': 'C Palace',
         'Newcastle United': 'Newcastle',
+        'Manchester City': 'Manchester',
+        'Sheffield United': 'Sheff Utd',
 
         'Wigan Athletic': 'Wigan',
         'Luton Town': 'Luton',
@@ -68,6 +70,8 @@ class FBBetfair(Betfair):
         'Celtic FC': 'Celtic',
         'Glasgow Rangers': 'Rangers',
         'Heart of Midlothian': 'Hearts',
+        'Hamilton Academical': 'Hamilton',
+        'Ross County': 'Ross Co',
 
         # GE 1 & 2
         'TSG Hoffenheim': 'Hoffenheim',
@@ -217,6 +221,8 @@ class FBBetfair(Betfair):
         'Chamois Niortais': 'Niort',
         'Orleans US 45': 'Orleans',
         'Chambly FC': 'Chambly Oise',
+        'Stade Brestois': 'Brest',
+        'Saint Etienne': 'St Etienne',
 
 
         # Nor1

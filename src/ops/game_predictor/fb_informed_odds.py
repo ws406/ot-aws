@@ -1,7 +1,6 @@
 import collections
 from src.ops.game_predictor.interface import GamePredictorInterface
-# from src.win007.observers.informed_odds.qualification_check import QualificationCheck
-from src.win007.observers.same_direction.qualification_check_lastHourSingleBookie import QualificationCheck
+from src.win007.observers.informed_odds.qualification_check import QualificationCheck
 
 class InformedOdds(GamePredictorInterface):
 
@@ -274,8 +273,7 @@ class InformedOdds(GamePredictorInterface):
                 if key in data['probabilities'].keys():
                     probMove = self.allChoices[data['league_id']][key][0]
                     lookbackTime = self.allChoices[data['league_id']][key][1]
-                    movements = {}
-                    is_qualified = QualificationCheck().is_qualified(data, lookbackTime, probMove, key, movements)
+                    is_qualified = QualificationCheck().is_qualified(data, lookbackTime, probMove, key)
                     if is_qualified != False:
                         if cached_result == False:
                             cached_result = is_qualified
