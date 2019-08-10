@@ -101,6 +101,7 @@ class FbOperator (abc.ABC):
                     continue
 
                 print ("+++ Game " + str(game['game_id']) + " is qualified. +++")
+                print(betting_details)
                 result = self.gameBetPlacer.place_match_odds_bet(betting_details, self.amount, debug_mode)
                 if debug_mode:
                     print('(debug_mode) - bet_placing_request_pay_load:')
