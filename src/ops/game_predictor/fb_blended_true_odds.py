@@ -267,7 +267,6 @@ class TrueOdds(GamePredictorInterface):
                 return_data['away_team_name'] = data ['away_team_name']
                 return_data['home_team_id'] = data ['home_team_id']
                 return_data['away_team_id'] = data ['away_team_id']
-                return_data['true_odds']
                 return_data['strategy'] = "true_odds"
                 return return_data
             else:

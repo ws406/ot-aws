@@ -15,10 +15,18 @@ class FbOperator (abc.ABC):
         281: "bet365",  # Bet365
         177: "pinnacle",  # Pinnacle
         81:  "betvictor",  # Bet Victor
-        # 80: "macau_slot",  # Macao Slot
-        # 115: "will_hill",  # WH
-        # 432: "hkjc",  # HKJC
+        80: "macau_slot",  # Macao Slot
+        90: "easybet",  # EasyBet
+        545: "sb",
+        82: "ladbroke",
+        474: "sbobet",
+        115: "will_hill",  # WH
+        432: "hkjc",  # HKJC
         # 104: "interwetten"  # Interwetten
+        156: "betfred",
+        110: "snai",
+        463: "betclick",
+        167: "skybet",
     }
 
     league_ids = [

@@ -45,6 +45,8 @@ class FbOperatorTrueOdds (FbOperator):
         25,  # JAP1
         4,  # BRA1
         22,  # NOR1
+        6, # Poland1
+        7, # Denmark1
     ]
 
     # get_games_in_minutes = 800
