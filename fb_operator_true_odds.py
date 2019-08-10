@@ -15,7 +15,7 @@ class FbOperatorTrueOdds (FbOperator):
         # 40,  # IT2
         #
         36,  # EPL
-        # 37,  # ENC
+        37,  # ENC
         # 39,  # EFL1
         # 35,  # EFL2
         #

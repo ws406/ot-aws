@@ -32,7 +32,7 @@ class FbOperatorTrueOdds (FbOperator):
         273,  # AUS
         8,  # GE1
         9,  # GE2
-        # 17,  # HO2
+        17,  # HO2
         34,  # IT1
         31,  # ES1
         11,  # FR1

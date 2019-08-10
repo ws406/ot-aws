@@ -20,22 +20,22 @@ class TrueOdds(GamePredictorInterface):
         self.filter_bookies.append('easybet')
         self.filter_bookies.append('sbobet')
         # leagues we can use the below three bookmakers to gen true odds
-        self.leagueDivOne.append('Holland Eredivisie')
-        self.leagueDivOne.append('Russia Premier League')
-        self.leagueDivOne.append('England Championship')
-        self.leagueDivOne.append('Belgian Pro League')
-        self.leagueDivOne.append('English Premier League')
-        self.leagueDivOne.append('German Bundesliga')
-        self.leagueDivOne.append('Spanish La Liga')
-        self.leagueDivOne.append('Spanish Segunda Division')
-        self.leagueDivOne.append('France Ligue 1')
-        self.leagueDivOne.append('Italian Serie A')
-        self.leagueDivOne.append('Holland Jupiler League')
-        self.leagueDivOne.append('Turkish Super Liga')
-        self.leagueDivOne.append('USA Major League Soccer')
-        self.leagueDivOne.append('J-League Division 2')
-        self.leagueDivOne.append('J-League Division 1')
-        self.leagueDivOne.append('Norwegian Tippeligaen')
+        self.leagueDivOne.append(16) # Holland 1
+        self.leagueDivOne.append(10) # Russia 1
+        self.leagueDivOne.append(37) # English Championship
+        self.leagueDivOne.append(5) # Belgium 1
+        self.leagueDivOne.append(36) # English Premier league
+        self.leagueDivOne.append(8) # Germany 1
+        self.leagueDivOne.append(31) # Spain 1
+        self.leagueDivOne.append(33) # Spain 2
+        self.leagueDivOne.append(11) # France 1
+        self.leagueDivOne.append(34) # Italy 1
+        self.leagueDivOne.append(17) # Holland 2
+        self.leagueDivOne.append(30) # Turkey 1
+        self.leagueDivOne.append(21) # USA
+        self.leagueDivOne.append(284) # Japan 1
+        self.leagueDivOne.append(25) # Japan 2
+        self.leagueDivOne.append(22) # Norway 1
 
     def _get_average(self, localList):
         number = 0
@@ -47,7 +47,7 @@ class TrueOdds(GamePredictorInterface):
         picked_bookie = list()
         picked_bookie.append('pinnacle')
         picked_bookie.append('bet365')
-        if data['league_name'] in self.leagueDivOne:
+        if data['league_id'] in self.leagueDivOne:
             picked_bookie.append('betvictor')
         local_list_home = []
         local_list_draw = []
