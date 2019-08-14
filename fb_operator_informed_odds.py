@@ -47,6 +47,14 @@ class FbOperatorTrueOdds (FbOperator):
         22,  # NOR1
         6, # Poland1
         7, # Denmark1
+
+        27, # Swiss Super League
+        3, # Austria Leagie 1
+        119, # Ukrainian Premier League
+        137, # Czech First League
+        32, # Greece Super League
+        136, # Hungary NB I
+        133, # Croatia Super League
     ]
 
     # get_games_in_minutes = 800

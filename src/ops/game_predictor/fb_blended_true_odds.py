@@ -10,6 +10,7 @@ class TrueOdds(GamePredictorInterface):
     strategy = 'true_odds'
     profit_margin = 0.02 # This is to ensure we win something.
     leagueDivOne = list()
+    leagueDivTwo = list()
     filter_bookies = list()
 
     def __init__(self):
@@ -36,6 +37,16 @@ class TrueOdds(GamePredictorInterface):
         self.leagueDivOne.append(284) # Japan 1
         self.leagueDivOne.append(25) # Japan 2
         self.leagueDivOne.append(22) # Norway 1
+        self.leagueDivOne.append(27) # Swiss 1
+
+        self.leagueDivTwo.append(4) # Brazil 1
+        self.leagueDivTwo.append(9) # Germany 2
+        self.leagueDivTwo.append(273) # Australia
+        self.leagueDivTwo.append(23) # Portugal Primera Liga
+        self.leagueDivTwo.append(29) # Scottish Premier League
+        self.leagueDivTwo.append(12) # France Ligue 2
+        self.leagueDivTwo.append(6) # Poland Super League
+        self.leagueDivTwo.append(7) # Denmark Super League
 
     def _get_average(self, localList):
         number = 0
@@ -46,7 +57,8 @@ class TrueOdds(GamePredictorInterface):
     def _calc_true_odds(self, data):
         picked_bookie = list()
         picked_bookie.append('pinnacle')
-        picked_bookie.append('bet365')
+        if data['league_id'] in self.leagueDivOne or data['league_id'] in self.leagueDivTwo:
+            picked_bookie.append('bet365')
         if data['league_id'] in self.leagueDivOne:
             picked_bookie.append('betvictor')
         local_list_home = []

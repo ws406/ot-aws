@@ -44,7 +44,6 @@ class FbOperatorTrueOdds (FbOperator):
         30,  # TUR1
         5,  # BEL1
         22,  # NOR1
-        # 27,  # SWl1
         10,  # RUS1
         # 2,  # ARG1
         21,  # USA1
@@ -54,6 +53,13 @@ class FbOperatorTrueOdds (FbOperator):
         273,  # AUS
         7, # Denmark
         6, # Poland1
+
+        27, # Swiss Super League
+
+        # not entirely sure if we want to bet on these leagues
+        #358, # BRA2
+        #3, # Austria Leagie 1
+        #124, # Romanian Liga I
     ]
 
     def __init__(self):

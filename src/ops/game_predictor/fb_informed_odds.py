@@ -1,6 +1,7 @@
 import collections
 from src.ops.game_predictor.interface import GamePredictorInterface
-from src.win007.observers.informed_odds.qualification_check import QualificationCheck
+#from src.win007.observers.informed_odds.qualification_check import QualificationCheck
+from src.win007.observers.same_direction.qualification_check_informed_odds import QualificationCheck
 
 class InformedOdds(GamePredictorInterface):
 
@@ -235,7 +236,78 @@ class InformedOdds(GamePredictorInterface):
         data.append(0.004)
         data.append(120)
         self.allChoices[6]['sb'] = data
-        #print("Here", self.allChoices)
+
+        # 'Swiss Super League' - 27
+        bookmaker = {}
+        data = []
+        data.append(0.002)
+        data.append(900)
+        bookmaker['betvictor'] = data
+        self.allChoices[27] = bookmaker
+
+        # 'Austria Leagie 1' - 3
+        bookmaker = {}
+        data = []
+        data.append(0.02)
+        data.append(2700)
+        bookmaker['will_hill'] = data
+        self.allChoices[3] = bookmaker
+        data = []
+        data.append(0.01)
+        data.append(420)
+        self.allChoices[3]['easybet'] = data
+        data = []
+        data.append(0.01)
+        data.append(480)
+        self.allChoices[3]['sbobet'] = data
+
+        # 'Ukrainian Premier League' - 119
+        bookmaker = {}
+        data = []
+        data.append(0.004)
+        data.append(1800)
+        bookmaker['snai'] = data
+        self.allChoices[119] = bookmaker
+        data = []
+        data.append(0.01)
+        data.append(540)
+        self.allChoices[119]['easybet'] = data
+
+        # 'Czech First League' - 137
+        bookmaker = {}
+        data = []
+        data.append(0.012)
+        data.append(2700)
+        bookmaker['easybet'] = data
+        self.allChoices[137] = bookmaker
+
+        # 'Greece Super League' - 32
+        bookmaker = {}
+        data = []
+        data.append(0.035)
+        data.append(5400)
+        bookmaker['will_hill'] = data
+        self.allChoices[32] = bookmaker
+        data = []
+        data.append(0.018)
+        data.append(5400)
+        self.allChoices[32]['easybet'] = data
+
+        # 'Hungary NB I' - 136
+        bookmaker = {}
+        data = []
+        data.append(0.03)
+        data.append(3600)
+        bookmaker['easybet'] = data
+        self.allChoices[136] = bookmaker
+
+        # 'Croatia Super League' - 133
+        bookmaker = {}
+        data = []
+        data.append(0.014)
+        data.append(1800)
+        bookmaker['sb'] = data
+        self.allChoices[133] = bookmaker
 
     def _calc_odds(self, data, directionCode):
         if self.benchmark_bookie in data['odds'].keys():
