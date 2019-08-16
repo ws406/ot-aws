@@ -97,7 +97,6 @@ class FbOperator (abc.ABC):
                 betting_details = self.gamePredictor.get_prediction(game)
                 if betting_details is False:
                     print ("--- Game " + str(game['game_id']) + " is not qualified. ---")
-                    print(game)
                     continue
 
                 print ("+++ Game " + str(game['game_id']) + " is qualified. +++")

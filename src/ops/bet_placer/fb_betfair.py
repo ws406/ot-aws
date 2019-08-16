@@ -85,6 +85,7 @@ class FBBetfair(Betfair):
         'Hannover 96': 'Hannover',
         'Heidenheimer': 'FC Heidenheim',
         'VfB Stuttgart': 'Stuttgart',
+        'Bayern Munchen': 'Bayern Munich',
 
         # BR 1 & 2
         'Parana PR': 'Parana',
@@ -240,6 +241,13 @@ class FBBetfair(Betfair):
         'Heracles Almelo': 'Heracles',
         'SC Heerenveen': 'Heerenveen',
         'AZ Alkmaar': 'Az Alkmaar',
+
+        # PO 1
+        'FC Famalicao': 'Famalicao',
+
+        # ES 1
+        'FC Barcelona': 'Barcelona',
+
     }
 
     def place_match_odds_bet(self, game_data, betting_amount, debug_mode=False):
