@@ -121,7 +121,6 @@ class FbOperator (abc.ABC):
     def find_next_run_time(games):
         kickoff_times = []
         for game in games:
-            print(game)
             kickoff_times.append(game['kickoff'])
 
         return sorted(kickoff_times)[0]
