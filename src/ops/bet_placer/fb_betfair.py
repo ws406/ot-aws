@@ -86,6 +86,9 @@ class FBBetfair(Betfair):
         'Heidenheimer': 'FC Heidenheim',
         'VfB Stuttgart': 'Stuttgart',
         'Bayern Munchen': 'Bayern Munich',
+        'VfL Wolfsburg': 'Wolfsburg',
+        'SC Freiburg': 'Freiburg',
+        'FSV Mainz 05': 'Mainz',
 
         # BR 1 & 2
         'Parana PR': 'Parana',
@@ -129,6 +132,7 @@ class FBBetfair(Betfair):
         'Ulsan Hyundai FC': 'Ulsan Hyundai Horang-i',
         'Sangju Sangmu Phoenix': 'Sangju Sangmu',
         'Gyeongnam FC': 'Gyeongnam',
+        'Suwon Samsung Bluewings': 'Suwon Bluewings',
 
         # JAP 1 & 2
         'Ventforet Kofu': 'Kofu',
