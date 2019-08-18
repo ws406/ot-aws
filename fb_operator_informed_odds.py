@@ -2,6 +2,7 @@ from src.ops.game_predictor.fb_informed_odds import InformedOdds
 from src.ops.fb_operator import FbOperator
 import time
 import datetime
+from src.utils.logger import OtLogger
 
 
 class FbOperatorTrueOdds (FbOperator):
@@ -61,14 +62,16 @@ class FbOperatorTrueOdds (FbOperator):
     # amount = 10
     # mins_before_kickoff = 800
 
-    def __init__(self):
+    def __init__(self, logger: OtLogger):
+        self.logger = logger
         self.gamePredictor = InformedOdds()
-        FbOperator.__init__(self)
+        FbOperator.__init__(self, self.logger)
 
 
 if __name__ == '__main__':
     normal_interval_in_mins = 3
-    operator = FbOperatorTrueOdds()
+    logger = OtLogger('./logs/ops.log')
+    operator = FbOperatorTrueOdds(logger)
     wait = operator.get_games_in_minutes * 60
 
     while (True):
@@ -84,8 +87,6 @@ if __name__ == '__main__':
             if games is False:
                 continue
 
-            print(len(games))
-
             if len(games) > 0:
                 # Find out the earliest kickoff time of the next matches
                 earliest_game_kickoff = operator.find_next_run_time(games)
@@ -99,11 +100,11 @@ if __name__ == '__main__':
                 wait = (operator.get_games_in_minutes - normal_interval_in_mins) * 60
 
         except Exception as e:
-            print ('Exception happened.... Try again later.')
+            logger.exception('Exception happened.... Try again later.')
             raise e
 
         if wait <= 0:
             wait = 30
 
-        print ("Next run at UTC: " + str (datetime.datetime.now () + datetime.timedelta (seconds = wait)))
-        time.sleep (wait)
+        logger.log("Next run at UTC: " + str (datetime.datetime.now () + datetime.timedelta (seconds = wait)))
+        time.sleep(wait)

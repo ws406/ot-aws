@@ -1,6 +1,6 @@
 from src.win007.modules.misc.football_hist_games_fetcher import HistGamesFetcher
-# from lib.win007.modules.games_fetcher.football_odds_fetcher.game_info_and_open_final_odds import GameInfoAndOpenFinalOddsFetcher
 from src.win007.modules.games_fetcher.football_odds_fetcher.game_info_and_all_odds_sequence import GameInfoAndAllOddsSequence
+from src.utils.logger import OtLogger
 
 
 class Main:
@@ -126,13 +126,14 @@ class Main:
         700: 442
     }
 
-    def __init__(self):
+    def __init__(self, logger: OtLogger):
+        self.logger = logger
         pass
 
     def execute(self):
         # football_odds_fetcher = GameInfoAndOpenFinalOddsFetcher(self.bids)
-        odds_fetcher = GameInfoAndAllOddsSequence(self.bids)
-        hist_game_fetcher = HistGamesFetcher(odds_fetcher)
+        odds_fetcher = GameInfoAndAllOddsSequence(self.bids, self.logger)
+        hist_game_fetcher = HistGamesFetcher(odds_fetcher, self.logger)
 
         # Fetch historical games data league by league
         # for lid in self.league_ids:
@@ -155,4 +156,5 @@ class Main:
 
 
 if __name__ == '__main__':
-    Main().execute()
+    logger = OtLogger('../logs/hist.log')
+    Main(logger).execute()

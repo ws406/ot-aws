@@ -2,9 +2,9 @@ from bs4 import BeautifulSoup
 import re
 from src.utils.browser_requests import BrowserRequests
 from pytz import timezone
-import sys
 from src.win007.modules.games_fetcher.football_odds_fetcher.abstract_odds_fetcher import AbstractOddsFetcher
 import datetime
+from src.utils.logger import OtLogger
 
 
 class GamesFetcher:
@@ -13,7 +13,8 @@ class GamesFetcher:
 
     odds_fetcher = None
 
-    def __init__(self, odds_fetcher: AbstractOddsFetcher):
+    def __init__(self, odds_fetcher: AbstractOddsFetcher, logger:OtLogger):
+        self.logger = logger
         self.odds_fetcher = odds_fetcher
         pass
 
@@ -25,9 +26,9 @@ class GamesFetcher:
 
     def _get_games_with_conditions(self, minutes, league_ids=None):
         try:
-            response = BrowserRequests.get(self.url_games_list)
+            response = BrowserRequests.get(self.url_games_list, self.logger)
         except:
-            print("Can't process url - " + self.url_games_list)
+            self.logger.exception("Can't process url - " + self.url_games_list)
             return False
 
         soup = BeautifulSoup(response.content.decode('gb2312', 'ignore'), "html5lib")
@@ -87,7 +88,7 @@ class GamesFetcher:
             try:
                 league_id = int(re.search('.[=|/]([0-9]+)', league_info_a.attrs['href']).group(1))
             except AttributeError as ae:
-                print("error while extracting 'league id'")
+                self.logger.exception("error while extracting 'league id'")
                 raise ae
         else:
             league_id = None
@@ -110,7 +111,7 @@ class GamesFetcher:
             kickoff = timezone('Asia/Chongqing').localize(datetime_obj)
             rtn = kickoff.timestamp()
         except AttributeError as ae:
-            print("error while extracting 'kickoff'")
+            self.logger.log("error while extracting 'kickoff'")
             raise ae
 
         return rtn
@@ -120,7 +121,7 @@ class GamesFetcher:
         try:
             game_id = int(re.search('/([0-9]+).', tds[12].find("a").attrs['href']).group(1))
         except AttributeError as ae:
-            print("error while extracting 'game id'")
+            self.logger.exception("error while extracting 'game id'")
             raise ae
 
         return game_id

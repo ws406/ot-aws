@@ -3,8 +3,8 @@ import re
 from src.utils.browser_requests import BrowserRequests
 import sys
 from src.win007.modules.games_fetcher.basketball_odds_fetcher.abstract_odds_fetcher import AbstractOddsFetcher
-import time
 import json
+from src.utils.logger import OtLogger
 
 
 class HistGamesFetcher:
@@ -12,18 +12,19 @@ class HistGamesFetcher:
     url_league_info = 'http://nba.nowgoal.com/jsData/matchResult/%season_id%/l%league_id%_1_%year_month%.js'
     odds_fetcher = None
 
-    def __init__(self, odds_fetcher: AbstractOddsFetcher):
+    def __init__(self, odds_fetcher: AbstractOddsFetcher, logger: OtLogger):
+        self.logger = logger
         self.odds_fetcher = odds_fetcher
         pass
 
     def _get_season_ids(self, league_id, num_of_seasons, start_season_offset):
         season_ids_url = str.replace(self.url_season_ids, '%league_id%', str(league_id))
-        season_ids_soup = BeautifulSoup(BrowserRequests.get(season_ids_url).text, "lxml")
+        season_ids_soup = BeautifulSoup(BrowserRequests.get(season_ids_url, self.logger).text, "lxml")
         league_ids = re.findall('\'([0-9\-]+)\'', season_ids_soup.text)
         if num_of_seasons >= 1:
             return league_ids[start_season_offset:num_of_seasons+start_season_offset]
         else:
-            print("num_of_seasons is expected to be a positive int instead of " + str(num_of_seasons))
+            self.logger.log("num_of_seasons is expected to be a positive int instead of " + str(num_of_seasons))
             sys.exit()
 
     def _get_all_games_from_a_season(self, season_id, league_id, years_months, existing_games):
@@ -53,7 +54,7 @@ class HistGamesFetcher:
                     )
                 )
 
-            content = BeautifulSoup(BrowserRequests.get(url).text, "lxml").text
+            content = BeautifulSoup(BrowserRequests.get(url, self.logger).text, "lxml").text
             # Split the content by 'var ', so it breaks into smaller segments
             # segments = re.findall('', content)
 
@@ -96,13 +97,13 @@ class HistGamesFetcher:
                 game = dict()
                 # game['is_played'] = 1 if re.findall(",(-1|0|-14|2),", game_data)[0] == '-1' else 0
                 # if game['is_played'] == 0:
-                #     print('\t\t\tGame has not been played yet.')
+                #     self.logger.log('\t\t\tGame has not been played yet.')
                 #     continue
 
                 game['game_id'] = int(game_data[0])
 
                 if game['game_id'] in existing_games_ids:
-                    print('Skip! Game ' + str(game['game_id']) + ' exists already.')
+                    self.logger.log('Skip! Game ' + str(game['game_id']) + ' exists already.')
                     continue
 
                 game['home_score'] = int(game_data[3])
@@ -132,7 +133,7 @@ class HistGamesFetcher:
                         = self.odds_fetcher.get_odds(game['game_id'])
 
                 except StopIteration:
-                    print("Skip game - " + str(game['game_id']))
+                    self.logger.log("Skip game - " + str(game['game_id']))
                     continue
 
                 games.append(game)
@@ -142,7 +143,7 @@ class HistGamesFetcher:
         season_ids = self._get_season_ids(league_id, num_of_seasons, start_season_offset)
         games = []
         for season_id in season_ids:
-            print("\tSeason - " + str(season_id))
+            self.logger.log("\tSeason - " + str(season_id))
             file_name = './data/basketball_all_odds_data/' + league_name + '-' + season_id + '.json'
             existing_games = []
             # 'replace' is False, load existing data first
@@ -153,15 +154,15 @@ class HistGamesFetcher:
                     # for game in existing_games:
                     #     existing_gids.append(game['game_id'])
                 except (FileNotFoundError):
-                    print('File does not exist, thus cannot load game data - ' + file_name)
+                    self.logger.exception('File does not exist, thus cannot load game data - ' + file_name)
 
             data = self._get_all_games_from_a_season(season_id, league_id, year_month, existing_games)
             if not data:
-                print("\t---Season - " + str(season_id) + ' has no game data available---')
+                self.logger.log("\t---Season - " + str(season_id) + ' has no game data available---')
                 continue
 
             self._write_to_file(file_name, data)
-            print(str(len(data)) + ' games saved to ' + file_name)
+            self.logger.log(str(len(data)) + ' games saved to ' + file_name)
             games.append(data)
 
     def _write_to_file(self, file_name, data):

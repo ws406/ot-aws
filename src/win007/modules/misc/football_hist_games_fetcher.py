@@ -3,8 +3,8 @@ import re
 from src.utils.browser_requests import BrowserRequests
 import sys
 from src.win007.modules.games_fetcher.football_odds_fetcher.abstract_odds_fetcher import AbstractOddsFetcher
-import time
 import json
+from src.utils.logger import OtLogger
 
 
 class HistGamesFetcher:
@@ -13,18 +13,19 @@ class HistGamesFetcher:
     url_league_info = 'http://info.nowgoal.com/jsData/matchResult/%season_id%/s%league_id%.js'
     odds_fetcher = None
 
-    def __init__(self, odds_fetcher: AbstractOddsFetcher):
+    def __init__(self, odds_fetcher: AbstractOddsFetcher, logger: OtLogger):
+        self.logger = logger
         self.odds_fetcher = odds_fetcher
         pass
 
     def _get_season_ids(self, league_id, num_of_seasons, start_season_offset):
         season_ids_url = str.replace(self.url_season_ids, '%league_id%', str(league_id))
-        season_ids_soup = BeautifulSoup(BrowserRequests.get(season_ids_url).text, "lxml")
+        season_ids_soup = BeautifulSoup(BrowserRequests.get(season_ids_url, self.logger).text, "lxml")
         league_ids = re.findall('\'([0-9\-]+)\'', season_ids_soup.text)
         if num_of_seasons >= 1:
             return league_ids[start_season_offset:num_of_seasons+start_season_offset]
         else:
-            print("num_of_seasons is expected to be a positive int instead of " + str(num_of_seasons))
+            self.logger.log("num_of_seasons is expected to be a positive int instead of " + str(num_of_seasons))
             sys.exit()
 
     def _get_all_games_from_a_season(self, season_id, league_id, sub_league_id, existing_games):
@@ -43,7 +44,7 @@ class HistGamesFetcher:
             '%season_id%',
             str(season_id)
         )
-        content = BeautifulSoup(BrowserRequests.get(url).text, "lxml").text
+        content = BeautifulSoup(BrowserRequests.get(url, self.logger).text, "lxml").text
         # Split the content by 'var ', so it breaks into smaller segments
         # segments = re.findall('', content)
 
@@ -72,7 +73,7 @@ class HistGamesFetcher:
         rounds_segment = re.findall('jh\["R_(\d+)"\] = \[(.+?)\];', content)
         for round_info in rounds_segment:
             rounds = round_info[0]
-            print("\t\tRound - " + str(rounds))
+            self.logger.log("\t\tRound - " + str(rounds))
             # tmp is like
             #  "1394661,36,-1,'2017-08-12 02:45',19,59,'4-3','2-2','5','12',1.25,0.5,'3','1/1.5',1,1,1,1,0,0,'','5','12'"
             round_games_list = round_info[1].split('],[')
@@ -87,16 +88,15 @@ class HistGamesFetcher:
 
                 # Skip games that have already exist in data file
                 if game_id in existing_games_ids:
-                    print('Skip! Game ' + str(game_id) + ' exists already.')
+                    self.logger.log('Skip! Game ' + str(game_id) + ' exists already.')
                     num_games_before_this_round += 1
                     continue
 
-                # print('\t\t\t' + tmp)
                 game = dict()
                 game['game_id'] = game_id
                 game['is_played'] = 1 if re.findall(",(-1|0|-14|2),", tmp)[0] == '-1' else 0
                 if game['is_played'] == 0:
-                    print('\t\t\tGame has not been played yet.')
+                    self.logger.log('\t\t\tGame has not been played yet.')
                     continue
                 if game['is_played'] == 1:
                     full_time_scores = re.findall("([0-9]+)-([0-9]+)", game_details[2])[0]
@@ -134,13 +134,13 @@ class HistGamesFetcher:
                     game["probabilities"] \
                         = self.odds_fetcher.get_odds(game['game_id'])
                 except StopIteration:
-                    print("Skip game - " + str(game['game_id']))
+                    self.logger.exception("Skip game - " + str(game['game_id']))
                     continue
 
                 games.append(game)
             # If no game in this round has been played, do not process!
             if num_games_before_this_round == len(games):
-                print('Process all games played!')
+                self.logger.log('Process all games played!')
                 break
             # Sleep 10 seconds after grabbing data from each round
             # time.sleep(2)
@@ -149,7 +149,7 @@ class HistGamesFetcher:
     def get_hist_games_by_league(self, league_id, num_of_seasons, start_season_offset, league_name, replace, sub_league_id=None):
         season_ids = self._get_season_ids(league_id, num_of_seasons, start_season_offset)
         for season_id in season_ids:
-            print("\tSeason - " + str(season_id))
+            self.logger.log("\tSeason - " + str(season_id))
             file_name = '../data/football_all_odds_data/' + league_name + '-' + season_id + '.json'
             existing_games = []
             # 'replace' is False, load existing data first
@@ -160,15 +160,15 @@ class HistGamesFetcher:
                     # for game in existing_games:
                     #     existing_gids.append(game['game_id'])
                 except (FileNotFoundError):
-                    print('File does not exist, thus cannot load game data - ' + file_name)
+                    self.logger.exception('File does not exist, thus cannot load game data - ' + file_name)
 
             data = self._get_all_games_from_a_season(season_id, league_id, sub_league_id, existing_games)
             if not data:
-                print("\t---Season - " + str(season_id) + ' has no game data available---')
+                self.logger.log("\t---Season - " + str(season_id) + ' has no game data available---')
                 continue
 
             self._write_to_file(file_name, data)
-            print(str(len(data)) + ' games saved to ' + file_name)
+            self.logger.log(str(len(data)) + ' games saved to ' + file_name)
 
     def _write_to_file(self, file_name, data):
         file = open(file_name, 'w+')

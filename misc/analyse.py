@@ -5,7 +5,7 @@ from src.utils.logger import OtLogger
 
 # path_to_dir = '../data/basketball_all_odds_data/'
 path_to_dir = '../data/analysing/'
-logger = OtLogger('ot')
+logger = OtLogger('../logs/analysis.log')
 
 analyser = Analyser(logger)
 feature_builder = ThreeWaysKeyBookies(logger)

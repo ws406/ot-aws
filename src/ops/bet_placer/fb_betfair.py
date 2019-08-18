@@ -323,7 +323,7 @@ class FBBetfair(Betfair):
         else:
             # Add other strategies later
             # bet_on_team = home_team_name if game_data['preferred_team'] == 'home' else away_team_name
-            print('*** No strategy is found. Skip placing bets. ***')
+            self.logger.exception('*** No strategy is found. Skip placing bets. ***')
             pass
 
     def _place_bet_for_informed_odds(self, game_data, betting_amount, debug_mode):
@@ -359,7 +359,7 @@ class FBBetfair(Betfair):
             back_lay = self.lay_bet
             amount = round(betting_amount / (price - 1), 2)
         else:
-            print('*** Wrong bet_direction! bet_direction = ' + game_data['bet_direction'] + ' ***')
+            self.logger.exception('*** Wrong bet_direction! bet_direction = ' + game_data['bet_direction'] + ' ***')
             return
 
         return self._place_bet(
@@ -378,7 +378,7 @@ class FBBetfair(Betfair):
         away_team_name = self._unify_team_name(game_data['away_team_name'])
 
         bet_placing_outcome = dict()
-        print(game_data)
+        # self.logger.log(game_data)
 
         for key, bet_on_odds in game_data['true_odds'].items():
             if key == '1':
@@ -388,7 +388,7 @@ class FBBetfair(Betfair):
             elif key == 'x':
                 bet_on_team = self.runner_name_draw
             else:
-                print('*** Wrong key! key = ' + key + ' ***')
+                self.logger.exception('*** Wrong key! key = ' + key + ' ***')
                 continue
 
             # Add the BetFair commission and profit margin on top of the min_odds_to_bet_on

@@ -5,6 +5,7 @@ from src.utils.browser_requests import BrowserRequests
 from datetime import datetime
 from pytz import timezone
 import sys
+from src.utils.logger import OtLogger
 
 
 class AbstractOddsFetcher(abc.ABC):
@@ -14,7 +15,8 @@ class AbstractOddsFetcher(abc.ABC):
     game_page_data = dict()
     lower_league_ranking_prefix = 100
 
-    def __init__(self, bids):
+    def __init__(self, bids, logger: OtLogger):
+        self.logger = logger
         self.bids = bids
 
     @abc.abstractmethod
@@ -62,7 +64,7 @@ class AbstractOddsFetcher(abc.ABC):
             kickoff = timezone('utc').localize(datetime_obj)
             rtn = kickoff.timestamp()
         except AttributeError:
-            print("error while extracting 'kickoff'")
+            self.logger.exception("error while extracting 'kickoff'")
             sys.exit(1)
 
         return rtn
@@ -76,9 +78,9 @@ class AbstractOddsFetcher(abc.ABC):
             data = None
             while retry <= 3:
                 try:
-                    data = BrowserRequests.get(url)
+                    data = BrowserRequests.get(url, self.logger)
                 except:
-                    print("Can't get data from URL - " + url + ", retry = " + str(retry))
+                    self.logger.exception("Can't get data from URL - " + url + ", retry = " + str(retry))
                     retry += 1
                     continue
                 break

@@ -5,6 +5,7 @@ from pytz import timezone
 import sys
 from src.win007.modules.games_fetcher.basketball_odds_fetcher.abstract_odds_fetcher import AbstractOddsFetcher
 import datetime
+from src.utils.logger import OtLogger
 
 
 class GamesFetcher:
@@ -17,8 +18,9 @@ class GamesFetcher:
         'NBA': 30,  # NBA
     }
 
-    def __init__ (self, odds_fetcher: AbstractOddsFetcher):
+    def __init__ (self, odds_fetcher: AbstractOddsFetcher, logger: OtLogger):
         self.odds_fetcher = odds_fetcher
+        self.logger = logger
         pass
 
     def get_games_by_kickoff (self, minutes):
@@ -29,9 +31,9 @@ class GamesFetcher:
 
     def _get_games_with_conditions (self, minutes, league_names = None):
         try:
-            response = BrowserRequests.get (self.url_games_list)
+            response = BrowserRequests.get (self.url_games_list, self.logger)
         except:
-            print ("Can't process url - " + self.url_games_list)
+            self.logger.log("Can't process url - " + self.url_games_list)
             return False
 
         soup = BeautifulSoup (response.content.decode ('gb2312', 'ignore'), "html5lib")

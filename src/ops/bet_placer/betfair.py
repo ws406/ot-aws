@@ -4,6 +4,7 @@ import urllib.error
 import json
 import abc
 import math
+from src.utils.logger import OtLogger
 
 
 class Betfair (abc.ABC):
@@ -16,7 +17,8 @@ class Betfair (abc.ABC):
 
     keep_alive_api = 'http://identitysso.betfair.com/api/keepAlive'
 
-    def __init__ (self, app_key, session_token, commission_rate):
+    def __init__ (self, app_key, session_token, commission_rate, logger: OtLogger):
+        self.logger = logger
         self.app_key = app_key
         self.session_token = session_token
         self.commission_rate = commission_rate
@@ -30,7 +32,7 @@ class Betfair (abc.ABC):
             req = urllib.request.Request (url = self.keep_alive_api, headers = headers)
             response = urllib.request.urlopen (req)
             jsonResponse = json.loads (response.read ().decode ('utf-8'))
-            print (jsonResponse)
+            self.logger.log(jsonResponse)
 
             if jsonResponse ['status'] == 'SUCCESS':
                 return {
@@ -61,7 +63,7 @@ class Betfair (abc.ABC):
 
             # TODO: next step is to check amount and make sure existing bets' amount is enough
             # if self.does_this_bet_exist (market_id, strategy):
-            #     print ('Bet is already made!')
+            #     self.logger.log ('Bet is already made!')
             #     return {
             #         'status': 'ignore',
             #         'message': 'Bet is already made!'
@@ -74,15 +76,15 @@ class Betfair (abc.ABC):
                     'message': self._execute_bet (market_id, selection_id, betting_amount, price, debug_mode, back_lay, strategy)
                 }
             else:
-                print ("failed to place bet - cannot get selectionId'")
+                self.logger.log("failed to place bet - cannot get selectionId'")
                 # todo: check if it is success
-                print (response_json)
+                self.logger.log(response_json)
                 return {
                     'status': 'error',
                     'message': response_json
                 }
         except IndexError as ie:
-            print ("failed to place bet - cannot get selectionId'")
+            self.logger.log("failed to place bet - cannot get selectionId'")
             return {
                 'status': 'error',
                 'message': str (ie)
@@ -115,8 +117,8 @@ class Betfair (abc.ABC):
             return payload
         else:
             bet_placer_response = self._call_exchange_api(payload)
-            print("Bet placing result: ")
-            print(bet_placer_response)
+            self.logger.log("Bet placing result: ")
+            self.logger.log(bet_placer_response)
             return bet_placer_response
 
         # TODO: do this properly - 1st: matched bet; 2nd: unmatched bet
@@ -161,7 +163,7 @@ class Betfair (abc.ABC):
             "marketTypeCodes": [market_types],
             "textQuery": home_team_name + ' ' + away_team_name
         }
-        print (filters)
+        # self.logger(filters)
         endpoint = "listMarketCatalogue"
         return self._call_exchange_api (json.dumps (self._query_request_builder (endpoint, filters)))
 
@@ -174,10 +176,10 @@ class Betfair (abc.ABC):
             params ['customerStrategyRefs'] = [strategy]
 
         endpoint = "listCurrentOrders"
-        print (self._query_request_builder (endpoint, params))
+        # self.logger.log(self._query_request_builder (endpoint, params))
         response = json.loads (self._call_exchange_api (json.dumps (self._order_request_builder (endpoint, params))))
 
-        print (response)
+        self.logger.log(response)
 
         try:
             bets = response ['result'] ['currentOrders']
