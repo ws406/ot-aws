@@ -12,9 +12,7 @@ class FBBetfair(Betfair):
     runner_name_draw = 'The Draw'
 
     team_names_mapping = {
-
-        'AS Roma': 'Roma',
-
+        # EPL & EC
         'Tottenham Hotspur': 'Tottenham',
         'West Ham United' : 'West Ham',
         'Brighton   Hove Albion': 'Brighton',
@@ -24,6 +22,8 @@ class FBBetfair(Betfair):
         'Newcastle United': 'Newcastle',
         'Manchester City': 'Manchester',
         'Sheffield United': 'Sheff Utd',
+        'Manchester United': 'Man Utd',
+        'Bournemouth AFC': 'Bournemouth',
 
         'Wigan Athletic': 'Wigan',
         'Luton Town': 'Luton',
@@ -89,6 +89,9 @@ class FBBetfair(Betfair):
         'VfL Wolfsburg': 'Wolfsburg',
         'SC Freiburg': 'Freiburg',
         'FSV Mainz 05': 'Mainz',
+        'Borussia Dortmund': 'Dortmund',
+        'Borussia Monchengladbach': 'Mgladbach',
+        'SC Paderborn 07': 'Paderborn',
 
         # BR 1 & 2
         'Parana PR': 'Parana',
@@ -228,6 +231,7 @@ class FBBetfair(Betfair):
         'Chambly FC': 'Chambly Oise',
         'Stade Brestois': 'Brest',
         'Saint Etienne': 'St Etienne',
+        'Paris Saint Germain (PSG)': 'Paris St-G',
 
 
         # Nor1
@@ -248,10 +252,43 @@ class FBBetfair(Betfair):
 
         # PO 1
         'FC Famalicao': 'Famalicao',
+        'Legia Warszawa': 'Legia Warsaw',
+
 
         # ES 1
         'FC Barcelona': 'Barcelona',
+        'Real Valladolid': 'Valladolid',
+        'Real Betis': 'Betis',
+        'RCD Espanyol': 'Espanyol',
+        'Real Sociedad': 'Sociedad',
+        'Granada CF': 'Granada',
 
+        # ES 2
+        'Real Zaragoza': 'Zaragoza',
+        'Deportivo La Coruna': 'Deportivo',
+        'Real Oviedo': 'Oviedo',
+        'AD Alcorcon': 'Alcorcon',
+        'SD Huesca': 'Huesca',
+
+        # POR 1
+        'Vitoria Setubal': 'Setubal',
+        'Boavista FC': 'Boavista',
+        'Sporting Braga': 'Braga',
+        'FC Porto': 'Porto',
+        'Rio Ave': 'Aves',
+        'Vitoria Guimaraes': 'Guimaraes',
+        'Pacos de Ferreira': 'Pacos Ferreira',
+
+        # IT 1
+        'Inter Milan': 'Inter',
+        'AS Roma': 'Roma',
+
+        # DEN 1
+        'Randers FC': 'Randers',
+        'Odense BK': 'Odense',
+        'Brondby IF': 'Brondby',
+        'Nordsjaelland': 'FC Nordsjaelland',
+        'Aarhus AGF': 'Aarhus',
     }
 
     def place_match_odds_bet(self, game_data, betting_amount, debug_mode=False):
