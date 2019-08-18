@@ -44,6 +44,7 @@ class TrueOdds(GamePredictorInterface):
         self.leagueDivTwo.append(29) # Scottish Premier League
         self.leagueDivTwo.append(6) # Poland Super League
         self.leagueDivTwo.append(7) # Denmark Super League
+        #self.leagueDivTwo.append(35) # English League 2 # may consider doing it later
 
         self.profitChoice2List.append(11)
         self.profitChoice2List.append(17)
