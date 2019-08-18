@@ -23,10 +23,10 @@ class FbOperatorTrueOdds (FbOperator):
         33,  # ES2
         #
         8,  # GE1
-        9,  # GE2
+        #9,  # GE2
         #
         11,  # FR1
-        12,  # FR2
+        #12,  # FR2
         #
         # 13, # FIN1
         # 700, # THAI1
@@ -37,11 +37,11 @@ class FbOperatorTrueOdds (FbOperator):
         25,  # JAP1
         284,  # JAP2
         #
-        4,  # BRA1
+        #4,  # BRA1
         #
-        23,  # POTG1
+        #23,  # POTG1
         29,  # SCOT1
-        30,  # TUR1
+        #30,  # TUR1
         5,  # BEL1
         22,  # NOR1
         10,  # RUS1

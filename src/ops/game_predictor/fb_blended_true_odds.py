@@ -8,7 +8,9 @@ class TrueOdds(GamePredictorInterface):
 
     benchmark_bookie = 'pinnacle'
     strategy = 'true_odds'
-    profit_margin = 0 # This is to ensure we win something.
+    profit_margin = 0.01 # This is to ensure we win something.
+    profit_margin2 = 0.02
+    profitChoice2List = list()
     leagueDivOne = list()
     leagueDivTwo = list()
     filter_bookies = list()
@@ -23,30 +25,33 @@ class TrueOdds(GamePredictorInterface):
         # leagues we can use the below three bookmakers to gen true odds
         self.leagueDivOne.append(16) # Holland 1
         self.leagueDivOne.append(10) # Russia 1
-        self.leagueDivOne.append(37) # English Championship
-        self.leagueDivOne.append(5) # Belgium 1
         self.leagueDivOne.append(36) # English Premier league
-        self.leagueDivOne.append(8) # Germany 1
         self.leagueDivOne.append(31) # Spain 1
         self.leagueDivOne.append(33) # Spain 2
         self.leagueDivOne.append(11) # France 1
         self.leagueDivOne.append(34) # Italy 1
         self.leagueDivOne.append(17) # Holland 2
-        self.leagueDivOne.append(30) # Turkey 1
         self.leagueDivOne.append(21) # USA
-        self.leagueDivOne.append(284) # Japan 1
-        self.leagueDivOne.append(25) # Japan 2
-        self.leagueDivOne.append(22) # Norway 1
-        self.leagueDivOne.append(27) # Swiss 1
+        self.leagueDivOne.append(25) # Japan 1
 
-        self.leagueDivTwo.append(4) # Brazil 1
-        self.leagueDivTwo.append(9) # Germany 2
+        self.leagueDivTwo.append(284) # Japan 2
+        self.leagueDivTwo.append(22) # Norway 1
+        self.leagueDivTwo.append(5) # Belgium 1
+        self.leagueDivTwo.append(27) # Swiss 1
+        self.leagueDivTwo.append(37) # English Championship
+        self.leagueDivTwo.append(8) # Germany 1
         self.leagueDivTwo.append(273) # Australia
-        self.leagueDivTwo.append(23) # Portugal Primera Liga
         self.leagueDivTwo.append(29) # Scottish Premier League
-        self.leagueDivTwo.append(12) # France Ligue 2
         self.leagueDivTwo.append(6) # Poland Super League
         self.leagueDivTwo.append(7) # Denmark Super League
+
+        self.profitChoice2List.append(11)
+        self.profitChoice2List.append(17)
+        self.profitChoice2List.append(21)
+        self.profitChoice2List.append(25)
+        self.profitChoice2List.append(31)
+        self.profitChoice2List.append(37)
+        self.profitChoice2List.append(273)
 
     def _get_average(self, localList):
         number = 0
@@ -98,13 +103,16 @@ class TrueOdds(GamePredictorInterface):
             away = (3 * away) / (3 - ((1 - return_rate) * away))
             return_rate = home * draw * away / (home * draw + draw * away + home * away)
         true_odds = dict()
-        home = home * (1 + self.profit_margin)
-        draw = draw * (1 + self.profit_margin)
-        away = away * (1 + self.profit_margin)
+        localProfitMargin = self.profit_margin
+        if data['league_id'] in self.profitChoice2List:
+            localProfitMargin = self.profit_margin2
+        home = home * (1 + localProfitMargin)
+        draw = draw * (1 + localProfitMargin)
+        away = away * (1 + localProfitMargin)
 
         # we only bet at calc true odds, when benchmark bookmaker odds is better than our calc ones
         # the reason we want to do this, is try to avoid adverse selection
-        print('compareBestOdds: ', compareBestOdds)
+        print(data['game_id'], 'compareBestOdds: ', compareBestOdds)
         print('home: ', home, 'draw: ', draw, 'away: ', away)
         if compareBestOdds[0] >= home:
             true_odds['1'] = home
