@@ -289,6 +289,29 @@ class FBBetfair(Betfair):
         'Brondby IF': 'Brondby',
         'Nordsjaelland': 'FC Nordsjaelland',
         'Aarhus AGF': 'Aarhus',
+
+        # Swiss
+
+        # Austria
+        'Austria Wien': 'Austria Vienna',
+        'Trenkwalder Admira Wacker': 'Admira Wacker',
+        'Rapid Wien': 'Rapid Vienna',
+        'TSV Hartberg': 'Hartberg',
+        'Rheindorf Altach': 'SCR Altach',
+
+        # Ukrain
+        'FC Shakhtar Donetsk': 'Shakhtar',
+        'FC Karpaty Lviv': 'Karpaty',
+        'Olimpic Donetsk': 'Olimpik Donetsk',
+        'PFC Oleksandria': 'Oleksandria',
+
+        # Czech
+        'Sparta Praha': 'Sparta Prague',
+        'Baumit Jablonec': 'FK Jablonec',
+        'FC Viktoria Plzen': 'Plzen',
+
+        # Croatia
+        'ZNK Osijek': 'Osijek',
     }
 
     def place_match_odds_bet(self, game_data, betting_amount, debug_mode=False):
