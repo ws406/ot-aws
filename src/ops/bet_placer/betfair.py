@@ -59,6 +59,7 @@ class Betfair (abc.ABC):
         try:
             response_json = json.loads (
                 self._get_market_catalogue (home_team_name, away_team_name, market_type_code_match_odds))
+            self.logger.log(response_json)
             market_id, selection_id = self._get_match_odds_market_selection_id (response_json, bet_on_team)
 
             # TODO: next step is to check amount and make sure existing bets' amount is enough
