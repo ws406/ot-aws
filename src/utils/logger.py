@@ -12,7 +12,7 @@ class OtLogger:
                             format='%(asctime)s %(name)-12s %(levelname)-8s %(message)s',
                             datefmt='%m-%d %H:%M',
                             filename=log_file_path,
-                            filemode='w'
+                            filemode='a'
                             )
 
         # create console handler and set level to debug
