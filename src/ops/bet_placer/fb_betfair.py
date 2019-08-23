@@ -249,6 +249,15 @@ class FBBetfair(Betfair):
         'SC Heerenveen': 'Heerenveen',
         'AZ Alkmaar': 'Az Alkmaar',
 
+        # HO 2
+        'Dordrecht': 'FC Dordrecht',
+        'SC Cambuur': 'Cambuur Leeuwarden',
+        'Volendam': 'FC Volendam',
+        'Almere City FC': 'Almere City',
+        'Jong Ajax (Youth)': 'Jong Ajax Amsterdam',
+        'FC Utrecht (Youth)': 'Jong FC Utrecht',
+        'AZ Alkmaar (Youth)': 'Jong AZ Alkmaar',
+
         # PO 1
         'FC Famalicao': 'Famalicao',
         'Legia Warszawa': 'Legia Warsaw',
@@ -268,6 +277,8 @@ class FBBetfair(Betfair):
         'Real Oviedo': 'Oviedo',
         'AD Alcorcon': 'Alcorcon',
         'SD Huesca': 'Huesca',
+        'CD Lugo': 'Lugo',
+        'Extremadura': 'Extremadura UD',
 
         # POR 1
         'Vitoria Setubal': 'Setubal',
@@ -340,6 +351,13 @@ class FBBetfair(Betfair):
         'Istra 1961 Pula': 'NK Istra',
         'NK Lokomotiva Zagreb': 'Lokomotiva',
         'Slaven Koprivnica': 'Slaven Belupo',
+
+        # Turkey
+        'Besiktas JK': 'Besiktas',
+        'Yeni Malatyaspor': 'Malatyaspor',
+        'Caykur Rizespor': 'Rizespor',
+        'Gaziantep Buyuksehir Belediyesi': 'Gaziantep FK',
+        'Istanbul Buyuksehir Belediyesi': 'Basaksehir',
     }
 
     def place_match_odds_bet(self, game_data, betting_amount, debug_mode=False):
