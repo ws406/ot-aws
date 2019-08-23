@@ -233,7 +233,6 @@ class FBBetfair(Betfair):
         'Saint Etienne': 'St Etienne',
         'Paris Saint Germain (PSG)': 'Paris St-G',
 
-
         # Nor1
         'Sarpsborg 08': 'Sarpsborg',
         'Odd Grenland': 'Odds BK',
@@ -291,6 +290,9 @@ class FBBetfair(Betfair):
         'Aarhus AGF': 'Aarhus',
 
         # Swiss
+        'St. Gallen': 'St Gallen',
+        'Basel': 'FC Basel',
+        'FC Sion': 'Sion',
 
         # Austria
         'Austria Wien': 'Austria Vienna',
@@ -298,20 +300,46 @@ class FBBetfair(Betfair):
         'Rapid Wien': 'Rapid Vienna',
         'TSV Hartberg': 'Hartberg',
         'Rheindorf Altach': 'SCR Altach',
+        'St.Polten': 'St Polten',
 
         # Ukrain
         'FC Shakhtar Donetsk': 'Shakhtar',
         'FC Karpaty Lviv': 'Karpaty',
         'Olimpic Donetsk': 'Olimpik Donetsk',
         'PFC Oleksandria': 'Oleksandria',
+        'Dynamo Kyiv': 'Dynamo Kiev',
+        'Desna Chernihiv': 'FK Desna Chernihiv',
+        'FC Vorskla Poltava': 'Vorskla',
 
         # Czech
         'Sparta Praha': 'Sparta Prague',
         'Baumit Jablonec': 'FK Jablonec',
         'FC Viktoria Plzen': 'Plzen',
+        'Slavia Praha': 'Slavia Prague',
+        'Synot Slovacko': 'Slovacko',
+        'Tescoma Zlin': 'Zlin',
+        'Dynamo Ceske Budejovice': 'Ceske Budejovice',
+        'Opava': 'SFC Opava',
+        'Marila Pribram': 'Pribram',
+
+        # Hungary:
+        'Debrecin VSC': 'Debrecen',
+        'Ferencvarosi TC': 'Ferencvaros',
+        'ZalaegerzsegTE': 'Zalaegerszeg',
+        'Diosgyor VTK': 'Diosgyori',
+        'Budapest Honved': 'Honved',
+        'Paksi SE Honlapja': 'Paks',
+        'Mezokovesd Zsory': 'Mezokovesd-Zsory',
+        'Videoton Puskas Akademia': 'PUSKAS AKADEMIA',
+        'Fehervar Videoton': 'MOL Vidi',
+        'Varda SE': 'Kisvarda',
 
         # Croatia
         'ZNK Osijek': 'Osijek',
+        'NK Varteks Varazdin': 'Varazdin',
+        'Istra 1961 Pula': 'NK Istra',
+        'NK Lokomotiva Zagreb': 'Lokomotiva',
+        'Slaven Koprivnica': 'Slaven Belupo',
     }
 
     def place_match_odds_bet(self, game_data, betting_amount, debug_mode=False):
