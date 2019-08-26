@@ -107,14 +107,14 @@ class FBBetfair(Betfair):
         'Fluminense RJ': 'Fluminense',
         'Ceara': 'Ceara SC Fortaleza',
         'Internacional RS': 'Internacional',
-        'Cruzeiro (MG)': 'Cruzeiro MG',
-        'Atletico Paranaense': 'Atletico PR',
+        'Cruzeiro (MG)': 'Cruzeiro',
+        #'Atletico Paranaense': 'Atletico PR',
         'Chapecoense SC': 'Chapecoense',
         'Bahia BA': 'Bahia',
         'Botafogo RJ': 'Botafogo',
         'Avai FC SC': 'Avai',
         'Corinthians Paulista (SP)': 'Corinthians',
-        'Atletico Mineiro': 'Atletico MG',
+        #'Atletico Mineiro': 'Atletico MG',
         'CRB AL': 'CRB',
         'Centro Sportivo Alagoano': 'CSA',
         'Gremio (RS)': 'Gremio',
@@ -248,6 +248,7 @@ class FBBetfair(Betfair):
         'Heracles Almelo': 'Heracles',
         'SC Heerenveen': 'Heerenveen',
         'AZ Alkmaar': 'Az Alkmaar',
+        'Jong PSV Eindhoven (Youth)': 'Jong PSV Eindhoven',
 
         # HO 2
         'Dordrecht': 'FC Dordrecht',
@@ -295,10 +296,12 @@ class FBBetfair(Betfair):
 
         # DEN 1
         'Randers FC': 'Randers',
-        'Odense BK': 'Odense',
+        'Odense BK': 'OB',
         'Brondby IF': 'Brondby',
         'Nordsjaelland': 'FC Nordsjaelland',
-        'Aarhus AGF': 'Aarhus',
+        'Aarhus AGF': 'AGF',
+        'Sonderjyske': 'SonderjyskE',
+        'Aalborg': 'AaB',
 
         # Swiss
         'St. Gallen': 'St Gallen',
