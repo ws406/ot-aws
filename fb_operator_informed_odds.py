@@ -69,7 +69,7 @@ class FbOperatorTrueOdds (FbOperator):
 
 
 if __name__ == '__main__':
-    normal_interval_in_mins = 1.5
+    normal_interval_in_mins = 1
     logger = OtLogger('./logs/ops_informed_odds.log')
     operator = FbOperatorTrueOdds(logger)
     wait = operator.get_games_in_minutes * 60
