@@ -64,7 +64,7 @@ class FbOperatorTrueOdds (FbOperator):
     ]
 
     def __init__(self, logger: OtLogger):
-        self.gamePredictor = TrueOdds()
+        self.gamePredictor = TrueOdds(logger)
         FbOperator.__init__(self, logger)
 
 
