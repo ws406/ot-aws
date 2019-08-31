@@ -14,7 +14,7 @@ class QualificationCheck:
 
         try:
             print(game_data['odds'][bookie])
-            benchmark = list(collections.OrderedDict(sorted(game_data['odds'][bookie].items())).values())[1]
+            benchmark = list(collections.OrderedDict(sorted(game_data['odds'][bookie].items())).values())[-1]
             home = float(benchmark['1'])
             draw = float(benchmark['x'])
             away = float(benchmark['2'])
