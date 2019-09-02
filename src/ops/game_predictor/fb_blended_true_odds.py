@@ -23,6 +23,7 @@ class TrueOdds(GamePredictorInterface):
         self.filter_bookies.append('bet365')
         self.filter_bookies.append('sb')
         self.filter_bookies.append('sbobet')
+        self.filter_bookies.append('easybet')
         # leagues we can use the below three bookmakers to gen true odds
         self.leagueDivOne.append(16) # Holland 1
         self.leagueDivOne.append(10) # Russia 1
