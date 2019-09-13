@@ -11,9 +11,12 @@ class TrueOdds(GamePredictorInterface):
     strategy = 'true_odds'
     profit_margin = 0.01 # This is to ensure we win something.
     profit_margin2 = 0.02
+    profit_margin3 = 0.05
     profitChoice2List = list()
+    profitChoice3List = list()
     leagueDivOne = list()
     leagueDivTwo = list()
+    leagueDivThree = list()
     filter_bookies = list()
 
     def __init__(self, logger: OtLogger):
@@ -24,6 +27,7 @@ class TrueOdds(GamePredictorInterface):
         self.filter_bookies.append('sb')
         self.filter_bookies.append('sbobet')
         self.filter_bookies.append('easybet')
+        self.filter_bookies.append('betclick')
         # leagues we can use the below three bookmakers to gen true odds
         self.leagueDivOne.append(16) # Holland 1
         self.leagueDivOne.append(10) # Russia 1
@@ -48,6 +52,9 @@ class TrueOdds(GamePredictorInterface):
         self.leagueDivTwo.append(7) # Denmark Super League
         #self.leagueDivTwo.append(35) # English League 2 # may consider doing it later
 
+        self.leagueDivThree.append(40) # Italy 2
+        self.leagueDivThree.append(60) # China
+
         self.profitChoice2List.append(11)
         self.profitChoice2List.append(17)
         self.profitChoice2List.append(21)
@@ -55,6 +62,9 @@ class TrueOdds(GamePredictorInterface):
         self.profitChoice2List.append(31)
         self.profitChoice2List.append(37)
         self.profitChoice2List.append(273)
+
+        self.profitChoice3List.append(40)
+        self.profitChoice3List.append(60)
 
     def _get_average(self, localList):
         number = 0
@@ -65,10 +75,12 @@ class TrueOdds(GamePredictorInterface):
     def _calc_true_odds(self, data):
         picked_bookie = list()
         picked_bookie.append('pinnacle')
-        if data['league_id'] in self.leagueDivOne or data['league_id'] in self.leagueDivTwo:
+        if data['league_id'] in self.leagueDivOne or data['league_id'] in self.leagueDivTwo or data['league_id'] in self.leagueDivThree:
             picked_bookie.append('bet365')
-        if data['league_id'] in self.leagueDivOne:
+        if data['league_id'] in self.leagueDivOne or data['league_id'] in self.leagueDivThree:
             picked_bookie.append('betvictor')
+        if data['league_id'] in self.leagueDivThree:
+            picked_bookie.append('will_hill')
         local_list_home = []
         local_list_draw = []
         local_list_away = []
@@ -109,6 +121,8 @@ class TrueOdds(GamePredictorInterface):
         localProfitMargin = self.profit_margin
         if data['league_id'] in self.profitChoice2List:
             localProfitMargin = self.profit_margin2
+        if data['league_id'] in self.profitChoice3List:
+            localProfitMargin = self.profit_margin3
         home = home * (1 + localProfitMargin)
         draw = draw * (1 + localProfitMargin)
         away = away * (1 + localProfitMargin)

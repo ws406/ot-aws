@@ -13,7 +13,7 @@ class FbOperatorTrueOdds (FbOperator):
 
     league_ids = [
         34,  # IT1
-        # 40,  # IT2
+        40,  # IT2
         #
         36,  # EPL
         37,  # ENC
@@ -37,6 +37,7 @@ class FbOperatorTrueOdds (FbOperator):
         #
         25,  # JAP1
         284,  # JAP2
+        60,  # China
         #
         #4,  # BRA1
         #
