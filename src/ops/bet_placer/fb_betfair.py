@@ -196,7 +196,6 @@ class FBBetfair(Betfair):
         'Helsingborg': 'Helsingborgs',
         'Kalmar': 'Kalmar FF',
 
-
         # Russian Super League
         'Spartak Tambov': 'FK Tambov',
         'FK Sochi': 'Sochi',
@@ -258,6 +257,8 @@ class FBBetfair(Betfair):
         'Jong Ajax (Youth)': 'Jong Ajax Amsterdam',
         'FC Utrecht (Youth)': 'Jong FC Utrecht',
         'AZ Alkmaar (Youth)': 'Jong AZ Alkmaar',
+        'Excelsior SBV' : 'Excelsior',
+        'Jong PSV Eindhoven (Youth)' : 'Jong PSV Eindhoven',
 
         # PO 1
         'FC Famalicao': 'Famalicao',
@@ -293,6 +294,10 @@ class FBBetfair(Betfair):
         # IT 1
         'Inter Milan': 'Inter',
         'AS Roma': 'Roma',
+
+        # IT 2
+        'Pordenone Calcio SSD' : 'Pordenone',
+        'ACD Virtus Entella' : 'Entella',
 
         # DEN 1
         'Randers FC': 'Randers',
