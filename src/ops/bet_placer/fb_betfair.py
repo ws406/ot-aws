@@ -106,8 +106,9 @@ class FBBetfair(Betfair):
         'Vasco da Gama': 'Vasco Da Gama',
         'Fluminense RJ': 'Fluminense',
         'Ceara': 'Ceara SC Fortaleza',
+        'Fortaleza': 'Fortaleza EC',
         'Internacional RS': 'Internacional',
-        'Cruzeiro (MG)': 'Cruzeiro',
+        'Cruzeiro (MG)': 'Cruzeiro MG',
         'Atletico Paranaense': 'Atletico PR',
         'Chapecoense SC': 'Chapecoense',
         'Bahia BA': 'Bahia',
@@ -264,7 +265,6 @@ class FBBetfair(Betfair):
         'FC Famalicao': 'Famalicao',
         'Legia Warszawa': 'Legia Warsaw',
 
-
         # ES 1
         'FC Barcelona': 'Barcelona',
         'Real Valladolid': 'Valladolid',
@@ -366,6 +366,17 @@ class FBBetfair(Betfair):
         'Caykur Rizespor': 'Rizespor',
         'Gaziantep Buyuksehir Belediyesi': 'Gaziantep FK',
         'Istanbul Buyuksehir Belediyesi': 'Basaksehir',
+
+        # Romania
+        'CS Universitatea Craiova': 'Universitatea Craiova',
+        'Sepsi': 'ACS Sepsi OSK',
+        'AFC Hermannstadt': 'Hermannstadt',
+        'Dinamo Bucuresti': 'Dinamo Bucharest',
+        'FC Astra Giurgiu': 'Astra Giurgiu',
+        'CS Voluntari': 'FC Voluntari',
+        'FC Viitorul Constanta': 'Viitorul Constanta',
+        'Politehnica Iasi': 'CSMS Iasi',
+        'Steaua Bucuresti': 'FCSB',
     }
 
     def place_match_odds_bet(self, game_data, betting_amount, debug_mode=False):
@@ -453,6 +464,7 @@ class FBBetfair(Betfair):
                 +
                 1
             )
+            #print(bet_on_team, price)
             bet_placing_outcome[key] = self._place_bet (
                 home_team_name,
                 away_team_name,
