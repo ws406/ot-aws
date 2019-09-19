@@ -17,6 +17,9 @@ class TrueOdds(GamePredictorInterface):
     leagueDivOne = list()
     leagueDivTwo = list()
     leagueDivThree = list()
+    leagueDivFour = list()
+    leagueDivFive = list()
+    leagueDivSix = list()
     filter_bookies = list()
 
     def __init__(self, logger: OtLogger):
@@ -55,6 +58,16 @@ class TrueOdds(GamePredictorInterface):
         self.leagueDivThree.append(40) # Italy 2
         self.leagueDivThree.append(60) # China
 
+        self.leagueDivFour.append(124) # Romania
+        self.leagueDivFour.append(23) # Portugal
+        self.leagueDivFour.append(9) # Germany 2
+        self.leagueDivFour.append(26) # Sweden
+
+        self.leagueDivFive.append(4) # Brazil A
+        self.leagueDivFive.append(358) # Brazil B
+
+        self.leagueDivSix.append(3) # Austria
+
         self.profitChoice2List.append(11)
         self.profitChoice2List.append(17)
         self.profitChoice2List.append(21)
@@ -65,6 +78,13 @@ class TrueOdds(GamePredictorInterface):
 
         self.profitChoice3List.append(40)
         self.profitChoice3List.append(60)
+        self.profitChoice3List.append(124)
+        self.profitChoice3List.append(23)
+        self.profitChoice3List.append(9)
+        self.profitChoice3List.append(26)
+        self.profitChoice3List.append(3)
+        self.profitChoice3List.append(4)
+        self.profitChoice3List.append(358)
 
     def _get_average(self, localList):
         number = 0
@@ -74,13 +94,16 @@ class TrueOdds(GamePredictorInterface):
 
     def _calc_true_odds(self, data):
         picked_bookie = list()
-        picked_bookie.append('pinnacle')
-        if data['league_id'] in self.leagueDivOne or data['league_id'] in self.leagueDivTwo or data['league_id'] in self.leagueDivThree:
-            picked_bookie.append('bet365')
-        if data['league_id'] in self.leagueDivOne or data['league_id'] in self.leagueDivThree:
-            picked_bookie.append('betvictor')
-        if data['league_id'] in self.leagueDivThree:
+        if data['league_id'] in self.leagueDivSix:
             picked_bookie.append('will_hill')
+        else:
+            picked_bookie.append('pinnacle')
+            if data['league_id'] in self.leagueDivOne or data['league_id'] in self.leagueDivTwo or data['league_id'] in self.leagueDivThree:
+                picked_bookie.append('bet365')
+            if data['league_id'] in self.leagueDivOne or data['league_id'] in self.leagueDivThree or data['league_id'] in self.leagueDivFour:
+                picked_bookie.append('betvictor')
+            if data['league_id'] in self.leagueDivThree or data['league_id'] in self.leagueDivFive:
+                picked_bookie.append('will_hill')
         local_list_home = []
         local_list_draw = []
         local_list_away = []

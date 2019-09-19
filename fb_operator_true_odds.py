@@ -24,7 +24,7 @@ class FbOperatorTrueOdds (FbOperator):
         33,  # ES2
         #
         8,  # GE1
-        #9,  # GE2
+        9,  # GE2
         #
         11,  # FR1
         #12,  # FR2
@@ -39,9 +39,10 @@ class FbOperatorTrueOdds (FbOperator):
         284,  # JAP2
         60,  # China
         #
-        #4,  # BRA1
+        4,  # BRA1
+        358, # BRA2
         #
-        #23,  # POTG1
+        23,  # POTG1
         29,  # SCOT1
         #30,  # TUR1
         5,  # BEL1
@@ -49,6 +50,7 @@ class FbOperatorTrueOdds (FbOperator):
         10,  # RUS1
         # 2,  # ARG1
         21,  # USA1
+        26,  # Sweden
         # 415,  # CHILE1
         # 140,  # MEX1
 
@@ -58,10 +60,8 @@ class FbOperatorTrueOdds (FbOperator):
 
         27, # Swiss Super League
 
-        # not entirely sure if we want to bet on these leagues
-        #358, # BRA2
-        #3, # Austria Leagie 1
-        #124, # Romanian Liga I
+        3, # Austria Leagie 1
+        124, # Romanian Liga I
     ]
 
     def __init__(self, logger: OtLogger):
