@@ -150,7 +150,8 @@ class TrueOdds(GamePredictorInterface):
 
         try:
             for bookie in picked_bookie:
-                benchmark_odds = self.FindOddsWithOffsetTime(data, bookie, 0)
+                benchmark_odds = list(collections.OrderedDict(sorted(data['odds'][bookie].items())).values())[-1]
+                #benchmark_odds = self.FindOddsWithOffsetTime(data, bookie, 0)
                 home = float(benchmark_odds['1'])
                 draw = float(benchmark_odds['x'])
                 away = float(benchmark_odds['2'])
@@ -158,7 +159,8 @@ class TrueOdds(GamePredictorInterface):
                 local_list_draw.append(draw)
                 local_list_away.append(away)
             for bookie in self.filter_bookies:
-                compareOdds = self.FindOddsWithOffsetTime(data, bookie, 0)
+                compareOdds = list(collections.OrderedDict(sorted(data['odds'][bookie].items())).values())[-1]
+                #compareOdds = self.FindOddsWithOffsetTime(data, bookie, 0)
                 if float(compareOdds['1']) > compareBestOdds[0]:
                     compareBestOdds[0] = float(compareOdds['1'])
                 if float(compareOdds['x']) > compareBestOdds[1]:
