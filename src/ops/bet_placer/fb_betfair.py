@@ -64,6 +64,42 @@ class FBBetfair(Betfair):
         'Huddersfield Town': 'Huddersfield',
         'Derby County': 'Derby',
 
+        # England League 1
+        'Accrington Stanley': 'Accrington',
+        'Bolton Wanderers': 'Bolton',
+        'Sunderland A.F.C': 'Sunderland',
+        'Doncaster Rovers': 'Doncaster',
+        'Peterborough United': 'Peterborough',
+        'Ipswich Town': 'Ipswich',
+        'Lincoln City': 'Lincoln',
+        'Oxford United': 'Oxford Utd',
+        'Milton Keynes Dons': 'MK Dons',
+        'Southend United': 'Southend',
+        'Rotherham United': 'Rotherham',
+        'Shrewsbury Town': 'Shrewsbury',
+        'Tranmere Rovers': 'Tranmere',
+        'Burton Albion': 'Burton',
+        'Wycombe Wanderers': 'Wycombe',
+
+        # England League 2
+        'Bradford City': 'Bradford',
+        'Carlisle United': 'Carlisle',
+        'Cambridge United': 'Cambridge Utd',
+        'Swindon Town': 'Swindon',
+        'Colchester United': 'Colchester',
+        'Crewe Alexandra': 'Crewe',
+        'Forest Green Rovers': 'Forest Green',
+        'Stevenage Borough': 'Stevenage',
+        'Grimsby Town': 'Grimsby',
+        'Macclesfield Town': 'Macclesfield',
+        'Exeter City': 'Exeter',
+        'Northampton Town': 'Northampton',
+        'Oldham Athletic': 'Oldham',
+        'Plymouth Argyle': 'Plymouth',
+        'Cheltenham Town': 'Cheltenham',
+        'Mansfield Town': 'Mansfield',
+        'Scunthorpe United': 'Scunthorpe',
+
         # Scot 1
         'Saint Mirren': 'St Mirren',
         'Saint Johnstone': 'St Johnstone',
@@ -377,6 +413,13 @@ class FBBetfair(Betfair):
         'FC Viitorul Constanta': 'Viitorul Constanta',
         'Politehnica Iasi': 'CSMS Iasi',
         'Steaua Bucuresti': 'FCSB',
+
+        # Finland
+        'Vaasa VPS': 'VPS',
+        'Honka Espoo': 'Honka',
+        'SJK Seinajoen': 'SJK',
+        'Inter Turku': 'FC Inter',
+        'Ilves Tampere': 'Ilves',
     }
 
     def place_match_odds_bet(self, game_data, betting_amount, debug_mode=False):

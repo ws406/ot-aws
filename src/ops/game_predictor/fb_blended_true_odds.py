@@ -20,6 +20,8 @@ class TrueOdds(GamePredictorInterface):
     leagueDivFour = list()
     leagueDivFive = list()
     leagueDivSix = list()
+    leagueDivSeven = list()
+    leagueDivEight = list()
     filter_bookies = list()
 
     def __init__(self, logger: OtLogger):
@@ -53,7 +55,7 @@ class TrueOdds(GamePredictorInterface):
         self.leagueDivTwo.append(29) # Scottish Premier League
         self.leagueDivTwo.append(6) # Poland Super League
         self.leagueDivTwo.append(7) # Denmark Super League
-        #self.leagueDivTwo.append(35) # English League 2 # may consider doing it later
+        self.leagueDivTwo.append(39) # English League 1
 
         self.leagueDivThree.append(40) # Italy 2
         self.leagueDivThree.append(60) # China
@@ -68,6 +70,10 @@ class TrueOdds(GamePredictorInterface):
 
         self.leagueDivSix.append(3) # Austria
 
+        self.leagueDivSeven.append(35) # England League 2
+
+        self.leagueDivEight.append(13) # Finland
+
         self.profitChoice2List.append(11)
         self.profitChoice2List.append(17)
         self.profitChoice2List.append(21)
@@ -75,6 +81,8 @@ class TrueOdds(GamePredictorInterface):
         self.profitChoice2List.append(31)
         self.profitChoice2List.append(37)
         self.profitChoice2List.append(273)
+        self.profitChoice2List.append(35)
+        self.profitChoice2List.append(13)
 
         self.profitChoice3List.append(40)
         self.profitChoice3List.append(60)
@@ -85,6 +93,30 @@ class TrueOdds(GamePredictorInterface):
         self.profitChoice3List.append(3)
         self.profitChoice3List.append(4)
         self.profitChoice3List.append(358)
+        self.profitChoice3List.append(39)
+
+    def FindOddsWithOffsetTime(self, game_data, bookie, lookbackTime):
+        matchInSeq = collections.OrderedDict(sorted(game_data['odds'][bookie].items()))
+        kickoffTime = int(game_data['kickoff'])
+        lastRecord = []
+        lastRecord.append(0)
+        lastRecord.append(0)
+        for timeStr, prob in matchInSeq.items():
+            time = int(float(timeStr))
+            if timeStr == "final" or timeStr == "open" or time > kickoffTime:
+                continue
+            if time <= kickoffTime - lookbackTime:
+                if time > lastRecord[0]:
+                    lastRecord[0] = time
+            if time <= kickoffTime:
+                if time > lastRecord[1]:
+                    lastRecord[1] = time
+        if lastRecord[1] != 0:
+            game_data['odds'][bookie][str(int(game_data['kickoff']))] = game_data['odds'][bookie][str(int(lastRecord[1]))]
+        if lastRecord[0] != 0:
+            return game_data['odds'][bookie][str(int(lastRecord[0]))]
+        else:
+            return None
 
     def _get_average(self, localList):
         number = 0
@@ -96,6 +128,12 @@ class TrueOdds(GamePredictorInterface):
         picked_bookie = list()
         if data['league_id'] in self.leagueDivSix:
             picked_bookie.append('will_hill')
+        elif data['league_id'] in self.leagueDivSeven:
+            picked_bookie.append('bet365')
+        elif data['league_id'] in self.leagueDivEight:
+            picked_bookie.append('bet365')
+            picked_bookie.append('betvictor')
+            picked_bookie.append('ladbroke')
         else:
             picked_bookie.append('pinnacle')
             if data['league_id'] in self.leagueDivOne or data['league_id'] in self.leagueDivTwo or data['league_id'] in self.leagueDivThree:
@@ -112,7 +150,7 @@ class TrueOdds(GamePredictorInterface):
 
         try:
             for bookie in picked_bookie:
-                benchmark_odds = list(collections.OrderedDict(sorted(data['odds'][bookie].items())).values())[-1]
+                benchmark_odds = self.FindOddsWithOffsetTime(data, bookie, 0)
                 home = float(benchmark_odds['1'])
                 draw = float(benchmark_odds['x'])
                 away = float(benchmark_odds['2'])
@@ -120,7 +158,7 @@ class TrueOdds(GamePredictorInterface):
                 local_list_draw.append(draw)
                 local_list_away.append(away)
             for bookie in self.filter_bookies:
-                compareOdds = list(collections.OrderedDict(sorted(data['odds'][bookie].items())).values())[-1]
+                compareOdds = self.FindOddsWithOffsetTime(data, bookie, 0)
                 if float(compareOdds['1']) > compareBestOdds[0]:
                     compareBestOdds[0] = float(compareOdds['1'])
                 if float(compareOdds['x']) > compareBestOdds[1]:

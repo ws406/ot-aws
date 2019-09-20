@@ -17,8 +17,8 @@ class FbOperatorTrueOdds (FbOperator):
         #
         36,  # EPL
         37,  # ENC
-        # 39,  # EFL1
-        # 35,  # EFL2
+        39,  # EFL1
+        35,  # EFL2
         #
         31,  # ES1
         33,  # ES2
@@ -29,7 +29,7 @@ class FbOperatorTrueOdds (FbOperator):
         11,  # FR1
         #12,  # FR2
         #
-        # 13, # FIN1
+        13, # FIN1
         # 700, # THAI1
         #
         16,  # HO1
