@@ -507,7 +507,7 @@ class FBBetfair(Betfair):
                 +
                 1
             )
-            #print(bet_on_team, price)
+            #print("BET:", bet_on_team, price)
             bet_placing_outcome[key] = self._place_bet (
                 home_team_name,
                 away_team_name,
