@@ -80,6 +80,7 @@ class FBBetfair(Betfair):
         'Tranmere Rovers': 'Tranmere',
         'Burton Albion': 'Burton',
         'Wycombe Wanderers': 'Wycombe',
+        'Coventry City': 'Coventry',
 
         # England League 2
         'Bradford City': 'Bradford',
@@ -420,6 +421,8 @@ class FBBetfair(Betfair):
         'SJK Seinajoen': 'SJK',
         'Inter Turku': 'FC Inter',
         'Ilves Tampere': 'Ilves',
+        'RoPS Rovaniemi': 'RoPS',
+        'KuPs': 'KuPS',
     }
 
     def place_match_odds_bet(self, game_data, betting_amount, debug_mode=False):

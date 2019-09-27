@@ -28,6 +28,7 @@ class TrueOdds(GamePredictorInterface):
     leagueDivTen = list()
     leagueDiv11 = list()
     leagueDiv12 = list()
+    leagueDiv13 = list()
     filter_bookies = list()
 
     def __init__(self, logger: OtLogger):
@@ -42,30 +43,29 @@ class TrueOdds(GamePredictorInterface):
         # leagues we can use the below three bookmakers to gen true odds
         self.leagueDivOne.append(10) # Russia 1
         self.leagueDivOne.append(31) # Spain 1
-        #self.leagueDivOne.append(34) # Italy 1
         self.leagueDivOne.append(17) # Holland 2
-        #self.leagueDivOne.append(21) # USA
         self.leagueDivOne.append(25) # Japan 1
+        self.leagueDivOne.append(11) # France 1
+        #self.leagueDivOne.append(34) # Italy 1
+        #self.leagueDivOne.append(21) # USA
 
         #self.leagueDivTwo.append(37) # English Championship
         #self.leagueDivTwo.append(29) # Scottish Premier League
+        #self.leagueDivTwo.append(7) # Denmark Super League
         self.leagueDivTwo.append(22) # Norway 1
-        self.leagueDivTwo.append(5) # Belgium 1
         self.leagueDivTwo.append(27) # Swiss 1
         self.leagueDivTwo.append(8) # Germany 1
         self.leagueDivTwo.append(273) # Australia
         self.leagueDivTwo.append(6) # Poland Super League
-        #self.leagueDivTwo.append(7) # Denmark Super League
         self.leagueDivTwo.append(39) # English League 1
 
         #self.leagueDivThree.append(40) # Italy 2
         self.leagueDivThree.append(60) # China
 
         self.leagueDivFour.append(124) # Romania
-        self.leagueDivFour.append(23) # Portugal
         self.leagueDivFour.append(9) # Germany 2
         self.leagueDivFour.append(26) # Sweden
-        self.leagueDivFour.append(11) # France 1
+        self.leagueDivFour.append(5) # Belgium 1
 
         self.leagueDivFive.append(4) # Brazil A
         self.leagueDivFive.append(358) # Brazil B
@@ -84,6 +84,8 @@ class TrueOdds(GamePredictorInterface):
 
         self.leagueDiv12.append(33) # Spain 2
 
+        self.leagueDiv13.append(23) # Portugal
+
         self.profitChoice2List.append(33)
         self.profitChoice2List.append(10)
         self.profitChoice2List.append(17)
@@ -94,6 +96,7 @@ class TrueOdds(GamePredictorInterface):
         self.profitChoice2List.append(273)
         self.profitChoice2List.append(35)
         self.profitChoice2List.append(13)
+        self.profitChoice2List.append(5)
 
         self.profitChoice3List.append(40)
         self.profitChoice3List.append(60)
@@ -171,6 +174,8 @@ class TrueOdds(GamePredictorInterface):
                 picked_bookie.append('will_hill')
             if data['league_id'] in self.leagueDiv12:
                 picked_bookie.append('betway')
+            if data['league_id'] in self.leagueDiv13:
+                picked_bookie.append('skybet')
         local_list_home = []
         local_list_draw = []
         local_list_away = []
