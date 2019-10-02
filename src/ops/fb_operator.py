@@ -35,7 +35,7 @@ class FbOperator (abc.ABC):
 
     amount = 20
     mins_before_kickoff = 2
-    commission_rate = 0.05
+    commission_rate = 0.02
 
     gameDetector = None
     gamePredictor = None
