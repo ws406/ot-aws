@@ -64,6 +64,43 @@ class FBBetfair(Betfair):
         'Huddersfield Town': 'Huddersfield',
         'Derby County': 'Derby',
 
+        # England League 1
+        'Accrington Stanley': 'Accrington',
+        'Bolton Wanderers': 'Bolton',
+        'Sunderland A.F.C': 'Sunderland',
+        'Doncaster Rovers': 'Doncaster',
+        'Peterborough United': 'Peterborough',
+        'Ipswich Town': 'Ipswich',
+        'Lincoln City': 'Lincoln',
+        'Oxford United': 'Oxford Utd',
+        'Milton Keynes Dons': 'MK Dons',
+        'Southend United': 'Southend',
+        'Rotherham United': 'Rotherham',
+        'Shrewsbury Town': 'Shrewsbury',
+        'Tranmere Rovers': 'Tranmere',
+        'Burton Albion': 'Burton',
+        'Wycombe Wanderers': 'Wycombe',
+        'Coventry City': 'Coventry',
+
+        # England League 2
+        'Bradford City': 'Bradford',
+        'Carlisle United': 'Carlisle',
+        'Cambridge United': 'Cambridge Utd',
+        'Swindon Town': 'Swindon',
+        'Colchester United': 'Colchester',
+        'Crewe Alexandra': 'Crewe',
+        'Forest Green Rovers': 'Forest Green',
+        'Stevenage Borough': 'Stevenage',
+        'Grimsby Town': 'Grimsby',
+        'Macclesfield Town': 'Macclesfield',
+        'Exeter City': 'Exeter',
+        'Northampton Town': 'Northampton',
+        'Oldham Athletic': 'Oldham',
+        'Plymouth Argyle': 'Plymouth',
+        'Cheltenham Town': 'Cheltenham',
+        'Mansfield Town': 'Mansfield',
+        'Scunthorpe United': 'Scunthorpe',
+
         # Scot 1
         'Saint Mirren': 'St Mirren',
         'Saint Johnstone': 'St Johnstone',
@@ -106,8 +143,9 @@ class FBBetfair(Betfair):
         'Vasco da Gama': 'Vasco Da Gama',
         'Fluminense RJ': 'Fluminense',
         'Ceara': 'Ceara SC Fortaleza',
+        'Fortaleza': 'Fortaleza EC',
         'Internacional RS': 'Internacional',
-        'Cruzeiro (MG)': 'Cruzeiro',
+        'Cruzeiro (MG)': 'Cruzeiro MG',
         'Atletico Paranaense': 'Atletico PR',
         'Chapecoense SC': 'Chapecoense',
         'Bahia BA': 'Bahia',
@@ -196,7 +234,6 @@ class FBBetfair(Betfair):
         'Helsingborg': 'Helsingborgs',
         'Kalmar': 'Kalmar FF',
 
-
         # Russian Super League
         'Spartak Tambov': 'FK Tambov',
         'FK Sochi': 'Sochi',
@@ -258,11 +295,12 @@ class FBBetfair(Betfair):
         'Jong Ajax (Youth)': 'Jong Ajax Amsterdam',
         'FC Utrecht (Youth)': 'Jong FC Utrecht',
         'AZ Alkmaar (Youth)': 'Jong AZ Alkmaar',
+        'Excelsior SBV' : 'Excelsior',
+        'Jong PSV Eindhoven (Youth)' : 'Jong PSV Eindhoven',
 
         # PO 1
         'FC Famalicao': 'Famalicao',
         'Legia Warszawa': 'Legia Warsaw',
-
 
         # ES 1
         'FC Barcelona': 'Barcelona',
@@ -293,6 +331,10 @@ class FBBetfair(Betfair):
         # IT 1
         'Inter Milan': 'Inter',
         'AS Roma': 'Roma',
+
+        # IT 2
+        'Pordenone Calcio SSD' : 'Pordenone',
+        'ACD Virtus Entella' : 'Entella',
 
         # DEN 1
         'Randers FC': 'Randers',
@@ -361,6 +403,26 @@ class FBBetfair(Betfair):
         'Caykur Rizespor': 'Rizespor',
         'Gaziantep Buyuksehir Belediyesi': 'Gaziantep FK',
         'Istanbul Buyuksehir Belediyesi': 'Basaksehir',
+
+        # Romania
+        'CS Universitatea Craiova': 'Universitatea Craiova',
+        'Sepsi': 'ACS Sepsi OSK',
+        'AFC Hermannstadt': 'Hermannstadt',
+        'Dinamo Bucuresti': 'Dinamo Bucharest',
+        'FC Astra Giurgiu': 'Astra Giurgiu',
+        'CS Voluntari': 'FC Voluntari',
+        'FC Viitorul Constanta': 'Viitorul Constanta',
+        'Politehnica Iasi': 'CSMS Iasi',
+        'Steaua Bucuresti': 'FCSB',
+
+        # Finland
+        'Vaasa VPS': 'VPS',
+        'Honka Espoo': 'Honka',
+        'SJK Seinajoen': 'SJK',
+        'Inter Turku': 'FC Inter',
+        'Ilves Tampere': 'Ilves',
+        'RoPS Rovaniemi': 'RoPS',
+        'KuPs': 'KuPS',
     }
 
     def place_match_odds_bet(self, game_data, betting_amount, debug_mode=False):
@@ -448,6 +510,7 @@ class FBBetfair(Betfair):
                 +
                 1
             )
+            #print("BET:", bet_on_team, price)
             bet_placing_outcome[key] = self._place_bet (
                 home_team_name,
                 away_team_name,

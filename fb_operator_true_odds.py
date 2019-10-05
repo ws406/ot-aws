@@ -12,24 +12,24 @@ class FbOperatorTrueOdds (FbOperator):
     # mins_before_kickoff = 2
 
     league_ids = [
-        34,  # IT1
-        # 40,  # IT2
+        #34,  # IT1
+        #40,  # IT2
         #
         36,  # EPL
-        37,  # ENC
-        # 39,  # EFL1
-        # 35,  # EFL2
+        #37,  # ENC
+        39,  # EFL1
+        35,  # EFL2
         #
         31,  # ES1
         33,  # ES2
         #
         8,  # GE1
-        #9,  # GE2
+        9,  # GE2
         #
         11,  # FR1
         #12,  # FR2
         #
-        # 13, # FIN1
+        13, # FIN1
         # 700, # THAI1
         #
         16,  # HO1
@@ -37,30 +37,31 @@ class FbOperatorTrueOdds (FbOperator):
         #
         25,  # JAP1
         284,  # JAP2
+        60,  # China
         #
-        #4,  # BRA1
+        4,  # BRA1
+        358, # BRA2
         #
-        #23,  # POTG1
-        29,  # SCOT1
+        23,  # POTG1
+        #29,  # SCOT1
         #30,  # TUR1
         5,  # BEL1
         22,  # NOR1
         10,  # RUS1
         # 2,  # ARG1
-        21,  # USA1
+        #21,  # USA1
+        26,  # Sweden
         # 415,  # CHILE1
         # 140,  # MEX1
 
         273,  # AUS
-        7, # Denmark
+        #7, # Denmark
         6, # Poland1
 
         27, # Swiss Super League
 
-        # not entirely sure if we want to bet on these leagues
-        #358, # BRA2
-        #3, # Austria Leagie 1
-        #124, # Romanian Liga I
+        3, # Austria Leagie 1
+        124, # Romanian Liga I
     ]
 
     def __init__(self, logger: OtLogger):
