@@ -98,13 +98,7 @@ class TrueOdds(GamePredictorInterface):
         home = self._get_average(local_list_home)
         draw = self._get_average(local_list_draw)
         away = self._get_average(local_list_away)
-        return_rate = home * draw * away / (home * draw + draw * away + home * away)
-        while return_rate < 0.999999:
-            home = (3 * home) / (3 - ((1 - return_rate) * home))
-            draw = (3 * draw) / (3 - ((1 - return_rate) * draw))
-            away = (3 * away) / (3 - ((1 - return_rate) * away))
-            return_rate = home * draw * away / (home * draw + draw * away + home * away)
-        true_odds = dict()
+
         localProfitMargin = self.profit_margin
         if data['league_id'] in self.profitChoice2List:
             localProfitMargin = self.profit_margin2
@@ -112,25 +106,34 @@ class TrueOdds(GamePredictorInterface):
         draw = draw * (1 + localProfitMargin)
         away = away * (1 + localProfitMargin)
 
+        true_odds = dict()
+
         # we only bet at calc true odds, when benchmark bookmaker odds is better than our calc ones
         # the reason we want to do this, is try to avoid adverse selection
-        self.logger.log(str(data['game_id']), 'compareBestOdds: ')
-        self.logger.log(compareBestOdds)
-        self.logger.log('home: ' + str(home) + ', draw: ' + str(draw) + ',  away: '+ str(away))
-        if compareBestOdds[0] >= home:
-            true_odds['1'] = home
-            is_qualifed = True
-        if compareBestOdds[1] >= draw:
-            true_odds['x'] = draw
-            is_qualifed = True
-        if compareBestOdds[2] >= away:
-            true_odds['2'] = away
-            is_qualifed = True
+        # self.logger.log(str(data['game_id']), 'compareBestOdds: ')
+        # self.logger.log(compareBestOdds)
+        # self.logger.log('home: ' + str(home) + ', draw: ' + str(draw) + ',  away: '+ str(away))
 
-        if is_qualifed:
-            return true_odds
-        else:
-            return False
+        # if compareBestOdds[0] >= home:
+        #     true_odds['1'] = home
+        #     is_qualifed = True
+        # if compareBestOdds[1] >= draw:
+        #     true_odds['x'] = draw
+        #     is_qualifed = True
+        # if compareBestOdds[2] >= away:
+        #     true_odds['2'] = away
+        #     is_qualifed = True
+        #
+        # if is_qualifed:
+        #     return true_odds
+        # else:
+        #     return False
+
+        true_odds['1'] = home
+        true_odds['x'] = draw
+        true_odds['2'] = away
+
+        return true_odds
 
     def get_prediction(self, data):
         # Check if game is qualified first, if not, return
