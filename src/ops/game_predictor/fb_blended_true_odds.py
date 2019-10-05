@@ -192,15 +192,15 @@ class TrueOdds(GamePredictorInterface):
                 local_list_home.append(home)
                 local_list_draw.append(draw)
                 local_list_away.append(away)
-            for bookie in self.filter_bookies:
-                compareOdds = list(collections.OrderedDict(sorted(data['odds'][bookie].items())).values())[-1]
-                #compareOdds = self.FindOddsWithOffsetTime(data, bookie, 0)
-                if float(compareOdds['1']) > compareBestOdds[0]:
-                    compareBestOdds[0] = float(compareOdds['1'])
-                if float(compareOdds['x']) > compareBestOdds[1]:
-                    compareBestOdds[1] = float(compareOdds['x'])
-                if float(compareOdds['2']) > compareBestOdds[2]:
-                    compareBestOdds[2] = float(compareOdds['2'])
+            # for bookie in self.filter_bookies:
+            #     compareOdds = list(collections.OrderedDict(sorted(data['odds'][bookie].items())).values())[-1]
+            #     #compareOdds = self.FindOddsWithOffsetTime(data, bookie, 0)
+            #     if float(compareOdds['1']) > compareBestOdds[0]:
+            #         compareBestOdds[0] = float(compareOdds['1'])
+            #     if float(compareOdds['x']) > compareBestOdds[1]:
+            #         compareBestOdds[1] = float(compareOdds['x'])
+            #     if float(compareOdds['2']) > compareBestOdds[2]:
+            #         compareBestOdds[2] = float(compareOdds['2'])
         except Exception as e:
             self.logger.log('missing odds - ' + str(e))
             return is_qualifed
