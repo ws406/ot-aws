@@ -9,7 +9,7 @@ class TrueOdds(GamePredictorInterface):
 
     benchmark_bookie = 'pinnacle'
     strategy = 'true_odds'
-    profit_margin = 0.07 # This is to ensure we win something.
+    profit_margin = 0.05 # This is to ensure we win something.
     profitChoice2List = list()
     profitChoice3List = list()
     profitChoice4List = list()
