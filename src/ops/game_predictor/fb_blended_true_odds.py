@@ -10,9 +10,6 @@ class TrueOdds(GamePredictorInterface):
     benchmark_bookie = 'pinnacle'
     strategy = 'true_odds'
     profit_margin = 0.07 # This is to ensure we win something.
-    profit_margin2 = 0.07
-    profit_margin4 = 0.07
-    profit_margin3 = 0.07
     profitChoice2List = list()
     profitChoice3List = list()
     profitChoice4List = list()
@@ -46,12 +43,12 @@ class TrueOdds(GamePredictorInterface):
         self.leagueDivOne.append(17) # Holland 2
         self.leagueDivOne.append(25) # Japan 1
         self.leagueDivOne.append(11) # France 1
-        #self.leagueDivOne.append(34) # Italy 1
+        self.leagueDivOne.append(34) # Italy 1
         #self.leagueDivOne.append(21) # USA
 
-        #self.leagueDivTwo.append(37) # English Championship
-        #self.leagueDivTwo.append(29) # Scottish Premier League
-        #self.leagueDivTwo.append(7) # Denmark Super League
+        self.leagueDivTwo.append(37) # English Championship
+        self.leagueDivTwo.append(29) # Scottish Premier League
+        self.leagueDivTwo.append(7) # Denmark Super League
         self.leagueDivTwo.append(22) # Norway 1
         self.leagueDivTwo.append(27) # Swiss 1
         self.leagueDivTwo.append(8) # Germany 1
@@ -59,7 +56,7 @@ class TrueOdds(GamePredictorInterface):
         self.leagueDivTwo.append(6) # Poland Super League
         self.leagueDivTwo.append(39) # English League 1
 
-        #self.leagueDivThree.append(40) # Italy 2
+        self.leagueDivThree.append(40) # Italy 2
         self.leagueDivThree.append(60) # China
 
         self.leagueDivFour.append(124) # Romania
@@ -86,57 +83,6 @@ class TrueOdds(GamePredictorInterface):
 
         self.leagueDiv13.append(23) # Portugal
 
-        self.profitChoice2List.append(33)
-        self.profitChoice2List.append(10)
-        self.profitChoice2List.append(17)
-        self.profitChoice2List.append(21)
-        self.profitChoice2List.append(25)
-        self.profitChoice2List.append(31)
-        #self.profitChoice2List.append(37)
-        self.profitChoice2List.append(273)
-        self.profitChoice2List.append(35)
-        self.profitChoice2List.append(13)
-        self.profitChoice2List.append(5)
-
-        self.profitChoice3List.append(40)
-        self.profitChoice3List.append(60)
-        self.profitChoice3List.append(124)
-        self.profitChoice3List.append(23)
-        self.profitChoice3List.append(9)
-        self.profitChoice3List.append(26)
-        self.profitChoice3List.append(3)
-        self.profitChoice3List.append(4)
-        self.profitChoice3List.append(358)
-        self.profitChoice3List.append(39)
-        self.profitChoice3List.append(8)
-        self.profitChoice3List.append(16)
-        self.profitChoice3List.append(11)
-
-        self.profitChoice4List.append(284)
-        self.profitChoice4List.append(36)
-
-    def FindOddsWithOffsetTime(self, game_data, bookie, lookbackTime):
-        matchInSeq = collections.OrderedDict(sorted(game_data['odds'][bookie].items()))
-        kickoffTime = int(game_data['kickoff'])
-        lastRecord = []
-        lastRecord.append(0)
-        lastRecord.append(0)
-        for timeStr, prob in matchInSeq.items():
-            time = int(float(timeStr))
-            if timeStr == "final" or timeStr == "open" or time > kickoffTime:
-                continue
-            if time <= kickoffTime - lookbackTime:
-                if time > lastRecord[0]:
-                    lastRecord[0] = time
-            if time <= kickoffTime:
-                if time > lastRecord[1]:
-                    lastRecord[1] = time
-        if lastRecord[1] != 0:
-            game_data['odds'][bookie][str(int(game_data['kickoff']))] = game_data['odds'][bookie][str(int(lastRecord[1]))]
-        if lastRecord[0] != 0:
-            return game_data['odds'][bookie][str(int(lastRecord[0]))]
-        else:
-            return None
 
     def _get_average(self, localList):
         number = 0
@@ -185,22 +131,12 @@ class TrueOdds(GamePredictorInterface):
         try:
             for bookie in picked_bookie:
                 benchmark_odds = list(collections.OrderedDict(sorted(data['odds'][bookie].items())).values())[-1]
-                #benchmark_odds = self.FindOddsWithOffsetTime(data, bookie, 0)
                 home = float(benchmark_odds['1'])
                 draw = float(benchmark_odds['x'])
                 away = float(benchmark_odds['2'])
                 local_list_home.append(home)
                 local_list_draw.append(draw)
                 local_list_away.append(away)
-            # for bookie in self.filter_bookies:
-            #     compareOdds = list(collections.OrderedDict(sorted(data['odds'][bookie].items())).values())[-1]
-            #     #compareOdds = self.FindOddsWithOffsetTime(data, bookie, 0)
-            #     if float(compareOdds['1']) > compareBestOdds[0]:
-            #         compareBestOdds[0] = float(compareOdds['1'])
-            #     if float(compareOdds['x']) > compareBestOdds[1]:
-            #         compareBestOdds[1] = float(compareOdds['x'])
-            #     if float(compareOdds['2']) > compareBestOdds[2]:
-            #         compareBestOdds[2] = float(compareOdds['2'])
         except Exception as e:
             self.logger.log('missing odds - ' + str(e))
             return is_qualifed
@@ -210,38 +146,11 @@ class TrueOdds(GamePredictorInterface):
         away = self._get_average(local_list_away)
 
         localProfitMargin = self.profit_margin
-        if data['league_id'] in self.profitChoice2List:
-            localProfitMargin = self.profit_margin2
-        if data['league_id'] in self.profitChoice3List:
-            localProfitMargin = self.profit_margin3
-        if data['league_id'] in self.profitChoice4List:
-            localProfitMargin = self.profit_margin4
         home = home * (1 + localProfitMargin)
         draw = draw * (1 + localProfitMargin)
         away = away * (1 + localProfitMargin)
 
         true_odds = dict()
-
-        # we only bet at calc true odds, when benchmark bookmaker odds is better than our calc ones
-        # the reason we want to do this, is try to avoid adverse selection
-        # self.logger.log(str(data['game_id']), 'compareBestOdds: ')
-        # self.logger.log(compareBestOdds)
-        # self.logger.log('home: ' + str(home) + ', draw: ' + str(draw) + ',  away: '+ str(away))
-
-        # if compareBestOdds[0] >= home:
-        #     true_odds['1'] = home
-        #     is_qualifed = True
-        # if compareBestOdds[1] >= draw:
-        #     true_odds['x'] = draw
-        #     is_qualifed = True
-        # if compareBestOdds[2] >= away:
-        #     true_odds['2'] = away
-        #     is_qualifed = True
-        #
-        # if is_qualifed:
-        #     return true_odds
-        # else:
-        #     return False
 
         true_odds['1'] = home
         true_odds['x'] = draw
