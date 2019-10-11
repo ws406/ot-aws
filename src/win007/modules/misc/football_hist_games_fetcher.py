@@ -67,10 +67,11 @@ class HistGamesFetcher:
 
         league_size_segment = re.findall('arrTeam = \[(.+?)\];', content)[0]
         shared_game_info["size"] = len(re.findall('(\[.+?\])', league_size_segment.split(';')[0]))
+        print(shared_game_info)
 
         # 2: get individual game details from games page
         # Please do not try to understand it!!!
-        rounds_segment = re.findall('jh\["R_(\d+)"\] = \[(.+?)\];', content)
+        rounds_segment = re.findall('jh\["R_(\d+)"\] =\[(.+?)\];', content)
         for round_info in rounds_segment:
             rounds = round_info[0]
             self.logger.log("\t\tRound - " + str(rounds))
