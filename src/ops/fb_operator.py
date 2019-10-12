@@ -6,6 +6,7 @@ from src.ops.bet_placer.fb_betfair import FBBetfair
 import sys
 import abc
 from src.utils.logger import OtLogger
+import time
 
 
 class FbOperator (abc.ABC):
@@ -73,6 +74,7 @@ class FbOperator (abc.ABC):
         # Return false to indicate that this needs to be return
         if games is False:
             self.logger.log('Failed to get data from URL. Retrying....')
+            time.sleep (2000)
             return False
 
         games_not_bet = []

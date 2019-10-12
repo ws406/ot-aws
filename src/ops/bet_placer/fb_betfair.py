@@ -203,6 +203,9 @@ class FBBetfair(Betfair):
         'Wuhan ZALL': 'Wuhan Zall',
         'Shanghai East Asia FC': 'Shanghai East Asia',
 
+        # Australia
+        'Sydney FC': 'Sydney',
+
         # Swedish Super League
         'VfL Osnabruck': 'VFL Osnabruck',
         'IK Sirius FK': 'Sirius',
