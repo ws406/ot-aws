@@ -74,7 +74,7 @@ class FbOperator (abc.ABC):
         # Return false to indicate that this needs to be return
         if games is False:
             self.logger.log('Failed to get data from URL. Retrying....')
-            time.sleep (2000)
+            time.sleep (2)
             return False
 
         games_not_bet = []
