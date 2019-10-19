@@ -205,6 +205,8 @@ class FBBetfair(Betfair):
 
         # Australia
         'Sydney FC': 'Sydney',
+        'Adelaide United FC': 'Adelaide United',
+        
 
         # Swedish Super League
         'VfL Osnabruck': 'VFL Osnabruck',
