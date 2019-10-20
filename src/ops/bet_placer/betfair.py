@@ -116,7 +116,7 @@ class Betfair (abc.ABC):
                         "size": size,
                         "price": price,
                         # "persistenceType": "PERSIST", # keep the bet
-                        "persistenceType": "LAPSE" # do not keep the bet
+                        # "persistenceType": "LAPSE" # do not keep the bet
                     }
                 }
             ]
