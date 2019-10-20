@@ -115,7 +115,7 @@ class Betfair (abc.ABC):
                     "limitOrder": {
                         "size": size,
                         "price": price,
-                        # "persistenceType": "PERSIST", # keep the bet
+                        "persistenceType": "PERSIST", # keep the bet
                         # "persistenceType": "LAPSE" # do not keep the bet
                     }
                 }
@@ -137,6 +137,8 @@ class Betfair (abc.ABC):
             return payload
         else:
             bet_placer_response = self._call_exchange_api(payload)
+            self.logger.log("Bet placing request: ")
+            self.logger.log(payload)
             self.logger.log("Bet placing result: ")
             self.logger.log(bet_placer_response)
             return bet_placer_response
