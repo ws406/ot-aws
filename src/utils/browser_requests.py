@@ -9,10 +9,9 @@ class BrowserRequests:
     @staticmethod
     def get(url, logger: OtLogger):
         logger.log('Handling URL - ' +  url)
-        params = {
-            "User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/77.0.3865.90 Safari/537.36"
-        }
-        response = requests.get(url, params=params, timeout=10)
+        headers = {
+            'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/39.0.2171.95 Safari/537.36'}
+        response = requests.get(url, headers=headers, timeout=10)
         if response.status_code != 200:
             raise requests.HTTPError
 
