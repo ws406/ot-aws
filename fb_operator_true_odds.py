@@ -1,4 +1,4 @@
-from src.ops.game_predictor.fb_blended_true_odds import TrueOdds
+from src.ops.game_predictor.fb_blended_true_odds_2_lowest_odds import TrueOddsLower2
 from src.ops.fb_operator import FbOperator
 import time
 import datetime
@@ -65,7 +65,7 @@ class FbOperatorTrueOdds (FbOperator):
     ]
 
     def __init__(self, logger: OtLogger):
-        self.gamePredictor = TrueOdds(logger)
+        self.gamePredictor = TrueOddsLower2(logger)
         FbOperator.__init__(self, logger)
 
 

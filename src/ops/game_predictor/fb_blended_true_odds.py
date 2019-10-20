@@ -9,7 +9,7 @@ class TrueOdds(GamePredictorInterface):
 
     benchmark_bookie = 'pinnacle'
     strategy = 'true_odds'
-    profit_margin = 0.03 # This is to ensure we win something.
+    profit_margin = 0.07 # This is to ensure we win something.
     profitChoice2List = list()
     profitChoice3List = list()
     profitChoice4List = list()
@@ -90,7 +90,7 @@ class TrueOdds(GamePredictorInterface):
             number = number + data
         return number / len(localList)
 
-    def _calc_true_odds(self, data):
+    def _calc_raw_true_odds(self, data, localProfitMargin):
         picked_bookie = list()
         if data['league_id'] in self.leagueDivSix:
             picked_bookie.append('will_hill')
@@ -145,26 +145,28 @@ class TrueOdds(GamePredictorInterface):
         draw = self._get_average(local_list_draw)
         away = self._get_average(local_list_away)
 
-        localProfitMargin = self.profit_margin
         home = home * (1 + localProfitMargin)
         draw = draw * (1 + localProfitMargin)
         away = away * (1 + localProfitMargin)
 
-        true_odds = dict()
+        raw_true_odds = {}
+        raw_true_odds['1'] = home
+        raw_true_odds['x'] = draw
+        raw_true_odds['2'] = away
 
-        true_odds['1'] = home
-        true_odds['x'] = draw
-        true_odds['2'] = away
+        return raw_true_odds
 
-        return true_odds
+    def _calc_true_odds(self, data, localProfitMargin):
+        return self._calc_raw_true_odds(data, localProfitMargin)
 
-    def get_prediction(self, data):
+    def get_prediction(self, data, profit_margin = None):
         # Check if game is qualified first, if not, return
         is_qualified = QualificationCheck().is_qualified(data, self.benchmark_bookie)
         if not is_qualified:
             return False
         else:
-            true_odds = self._calc_true_odds(data)
+            local_profit_margin = profit_margin if profit_margin is not None else self.profit_margin
+            true_odds = self._calc_true_odds(data, local_profit_margin)
             if true_odds is not False:
                 return_data = dict()
                 return_data['true_odds'] = true_odds
