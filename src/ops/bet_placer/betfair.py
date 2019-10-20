@@ -103,8 +103,8 @@ class Betfair (abc.ABC):
                     "limitOrder": {
                         "size": size,
                         "price": price,
-                        # "persistenceType": "PERSIST", # keep the bet
-                        "persistenceType": "LAPSE" # do not keep the bet
+                        "persistenceType": "PERSIST", # keep the bet
+                        # "persistenceType": "LAPSE" # do not keep the bet
                     }
                 }
             ]
