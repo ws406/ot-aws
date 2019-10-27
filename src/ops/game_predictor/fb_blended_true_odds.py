@@ -64,7 +64,8 @@ class TrueOdds(GamePredictorInterface):
 
         raw_true_odds['1'] = raw_true_odds['1'] * (1+localProfitMargin)
         raw_true_odds['2'] = raw_true_odds['2'] * (1+localProfitMargin)
-        raw_true_odds['x'] = raw_true_odds['x'] * (1+localProfitMargin)
+        # Trail: do not apply profit margin for draw
+        # raw_true_odds['x'] = raw_true_odds['x'] * (1+localProfitMargin)
 
         return raw_true_odds
 
