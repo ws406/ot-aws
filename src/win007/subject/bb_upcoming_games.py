@@ -1,15 +1,16 @@
 from src.win007.modules.games_fetcher.bb_games_fetcher import GamesFetcher
 from src.win007.subject.interface import SubjectInterface
 from src.win007.modules.games_fetcher.basketball_odds_fetcher.abstract_odds_fetcher import AbstractOddsFetcher
+from src.utils.logger import OtLogger
 
 
 class Subject(SubjectInterface):
 
     games_fetcher = None
 
-    def __init__(self, odds_fetcher: AbstractOddsFetcher):
-        self.games_fetcher = GamesFetcher(odds_fetcher)
-        pass
+    def __init__(self, odds_fetcher: AbstractOddsFetcher, logger: OtLogger):
+        self.logger = logger
+        self.games_fetcher = GamesFetcher(odds_fetcher, self.logger)
 
     # Get games that are taking place in the next 'minutes' minutes
     def get_games(self, minutes, league_names):

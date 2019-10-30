@@ -1,77 +1,29 @@
-from src.ops.game_predictor.fb_informed_odds import InformedOdds
-from src.ops.fb_operator import FbOperator
+from src.ops.game_predictor.bb_blended_true_odds import TrueOdds
+from src.ops.bb_operator import BbOperator
 import time
 import datetime
 from src.utils.logger import OtLogger
 
 
-class FbOperatorTrueOdds (FbOperator):
+class BbOperatorTrueOdds (BbOperator):
 
-        # These data is used for
-    bids = {
-        281: "bet365",  # Bet365
-        177: "pinnacle",  # Pinnacle
-        81:  "betvictor",  # Bet Victor
-        80: "macau_slot",  # Macao Slot
-        90: "easybet",  # EasyBet
-        545: "sb",
-        82: "ladbroke",
-        474: "sbobet",
-        115: "will_hill",  # WH
-        432: "hkjc",  # HKJC
-        # 104: "interwetten"  # Interwetten
-        156: "betfred",
-        110: "snai",
-        463: "betclick",
-        167: "skybet",
+    get_games_in_minutes = 15
+    amount = 20
+    mins_before_kickoff = 2
+
+    league_names = {
+        'NBA': 1,
     }
 
-    league_ids = [
-        36,  # EPL
-        37,  # ENC
-        16,  # HO1
-        273,  # AUS
-        8,  # GE1
-        9,  # GE2
-        17,  # HO2
-        34,  # IT1
-        31,  # ES1
-        11,  # FR1
-        12,  # FR2
-        29,  # SCOT1
-        5,  # BEL1
-        10,  # RUS1
-        60,  # CHN1
-        15,  # KOR1
-        25,  # JAP1
-        4,  # BRA1
-        22,  # NOR1
-        6, # Poland1
-        7, # Denmark1
-
-        27, # Swiss Super League
-        3, # Austria Leagie 1
-        119, # Ukrainian Premier League
-        137, # Czech First League
-        32, # Greece Super League
-        136, # Hungary NB I
-        133, # Croatia Super League
-    ]
-
-    # get_games_in_minutes = 800
-    # amount = 10
-    # mins_before_kickoff = 800
-
     def __init__(self, logger: OtLogger):
-        self.logger = logger
-        self.gamePredictor = InformedOdds()
-        FbOperator.__init__(self, self.logger)
+        self.gamePredictor = TrueOdds(logger)
+        BbOperator.__init__(self, logger)
 
 
 if __name__ == '__main__':
-    normal_interval_in_mins = 1
-    logger = OtLogger('./logs/ops_informed_odds.log')
-    operator = FbOperatorTrueOdds(logger)
+    normal_interval_in_mins = 2
+    logger = OtLogger('./logs/ops_bb_true_odds.log')
+    operator = BbOperatorTrueOdds(logger)
     wait = operator.get_games_in_minutes * 60
 
     while (True):
@@ -103,8 +55,5 @@ if __name__ == '__main__':
             logger.exception('Exception happened.... Try again later.')
             raise e
 
-        if wait <= 0:
-            wait = 30
-
         logger.log("Next run at UTC: " + str (datetime.datetime.now () + datetime.timedelta (seconds = wait)))
-        time.sleep(wait)
+        time.sleep (wait)

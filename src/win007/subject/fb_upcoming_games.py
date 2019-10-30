@@ -11,7 +11,6 @@ class Subject(SubjectInterface):
     def __init__(self, odds_fetcher: AbstractOddsFetcher, logger: OtLogger):
         self.logger = logger
         self.games_fetcher = GamesFetcher(odds_fetcher, self.logger)
-        pass
 
     # Get games that are taking place in the next 'minutes' minutes
     def get_games(self, minutes, league_ids):

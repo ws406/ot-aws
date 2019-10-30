@@ -1,5 +1,4 @@
 from src.ops.bet_placer.betfair import Betfair
-from src.ops.game_predictor.fb_informed_odds import InformedOdds
 from src.ops.game_predictor.fb_blended_true_odds import TrueOdds
 from src.win007.observers.informed_odds.qualification_check import QualificationCheck as InformedOddsQualCheck
 
@@ -270,7 +269,6 @@ class FBBetfair(Betfair):
         'Heracles Almelo': 'Heracles',
         'SC Heerenveen': 'Heerenveen',
         'AZ Alkmaar': 'Az Alkmaar',
-        'Jong PSV Eindhoven (Youth)': 'Jong PSV Eindhoven',
 
         # HO 2
         'Dordrecht': 'FC Dordrecht',
@@ -414,60 +412,11 @@ class FBBetfair(Betfair):
 
         if game_data['strategy'] == TrueOdds.strategy:
             return self._place_bet_for_true_odds(game_data, betting_amount, debug_mode)
-        elif game_data['strategy'] == InformedOdds.strategy:
-            return self._place_bet_for_informed_odds(game_data, betting_amount, debug_mode)
         else:
             # Add other strategies later
             # bet_on_team = home_team_name if game_data['preferred_team'] == 'home' else away_team_name
             self.logger.exception('*** No strategy is found. Skip placing bets. ***')
             pass
-
-    def _place_bet_for_informed_odds(self, game_data, betting_amount, debug_mode):
-        home_team_name = self._unify_team_name(game_data['home_team_name'])
-        away_team_name = self._unify_team_name(game_data['away_team_name'])
-        bet_on_odds = game_data['bet_odds']
-
-        # Add the BetFair commission and profit margin on top of the min_odds_to_bet_on
-        price = self._round_up_odds (
-            (bet_on_odds - 1)
-            /
-            (1-self.commission_rate)
-            +
-            1
-        )
-
-        amount = betting_amount
-
-        if game_data['bet_direction'] == InformedOddsQualCheck.prediction_home_win:
-            bet_on_team = home_team_name
-            back_lay = self.back_bet
-
-        elif game_data['bet_direction'] == InformedOddsQualCheck.prediction_away_win:
-            bet_on_team = away_team_name
-            back_lay = self.back_bet
-        elif game_data['bet_direction'] == InformedOddsQualCheck.prediction_home_not_win:
-            bet_on_team = home_team_name
-            back_lay = self.lay_bet
-            # for laybet: winning = liability / (odds - 1), while liability = betting_amount
-            amount = round(betting_amount / (price - 1), 2)
-        elif game_data['bet_direction'] == InformedOddsQualCheck.prediction_away_not_win:
-            bet_on_team = away_team_name
-            back_lay = self.lay_bet
-            amount = round(betting_amount / (price - 1), 2)
-        else:
-            self.logger.exception('*** Wrong bet_direction! bet_direction = ' + game_data['bet_direction'] + ' ***')
-            return
-
-        return self._place_bet(
-            home_team_name,
-            away_team_name,
-            bet_on_team,
-            self.market_type_code_match_odds,
-            amount,
-            price,
-            debug_mode,
-            back_lay
-        )
 
     def _place_bet_for_true_odds(self, game_data, betting_amount, debug_mode):
         home_team_name = self._unify_team_name(game_data['home_team_name'])

@@ -23,7 +23,8 @@ class QualificationCheck:
             #print(returnRate)
 
             # Disqualify the game if return_rate is too low or too high
-            if returnRate >= 0.9 and returnRate <= 1:
+            # if returnRate >= 0.9 and returnRate <= 1:
+            if returnRate >= 0.9:
                 is_qualified = True
         except Exception as e:
             print("missing odds, skip... " + str(e))

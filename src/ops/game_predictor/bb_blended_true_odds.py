@@ -1,6 +1,6 @@
 import collections
 from src.ops.game_predictor.interface import GamePredictorInterface
-from src.win007.observers.true_odds.fb_qualification_check import QualificationCheck
+from src.win007.observers.true_odds.bb_qualification_check import QualificationCheck
 from src.utils.logger import OtLogger
 from src.utils.true_odds_calculator import TrueOddsCalculator
 
@@ -10,7 +10,7 @@ class TrueOdds(GamePredictorInterface):
 
     benchmark_bookie = 'pinnacle'
     strategy = 'true_odds'
-    profit_margin = 0.02 # This is to ensure we win something.
+    profit_margin = 0.05 # This is to ensure we win something.
 
     def __init__(self, logger: OtLogger):
         self.logger = logger
@@ -25,46 +25,36 @@ class TrueOdds(GamePredictorInterface):
         picked_bookie = list()
 
         picked_bookie.append('pinnacle')
-        # picked_bookie.append('bet365')
-        # picked_bookie.append('betvictor')
-        # picked_bookie.append('pinnacle')
-        # picked_bookie.append('pinnacle')
-        # picked_bookie.append('pinnacle')
 
         local_list_home = []
-        local_list_draw = []
         local_list_away = []
         is_qualifed = False
 
         try:
             for bookie in picked_bookie:
-                # {'1533924960': {'1': '1.55', 'x': '4.01', '2': '7.84'}, '1533922980': {'1': '1.58', 'x': '3.92', '2': '7.41'}, ...}
+                # {'1533924960': {'1': '1.55', '2': '7.84'}, '1533922980': {'1': '1.58', '2': '7.41'}, ...}
                 latestOddsDict = collections.OrderedDict(sorted(data['odds'][bookie].items(), reverse=True))
                 latestOdds = latestOddsDict[list(latestOddsDict)[0]]
 
                 home = float(latestOdds['1'])
-                draw = float(latestOdds['x'])
                 away = float(latestOdds['2'])
                 local_list_home.append(home)
-                local_list_draw.append(draw)
                 local_list_away.append(away)
         except Exception as e:
             self.logger.log('missing odds - ' + str(e))
             return is_qualifed
 
         home = self._get_average(local_list_home)
-        draw = self._get_average(local_list_draw)
         away = self._get_average(local_list_away)
 
         true_odds_calculator = TrueOddsCalculator()
 
         raw_true_odds = {}
-        raw_true_odds['1'], raw_true_odds['2'], raw_true_odds['x'] = \
-            true_odds_calculator.calculate_3_way_margin_prop(home, away, draw)
+        raw_true_odds['1'], raw_true_odds['2'] = \
+            true_odds_calculator.calculate_2_way_margin_prop(home, away)
 
         raw_true_odds['1'] = raw_true_odds['1'] * (1+localProfitMargin)
         raw_true_odds['2'] = raw_true_odds['2'] * (1+localProfitMargin)
-        raw_true_odds['x'] = raw_true_odds['x'] * (1+localProfitMargin)
 
         return raw_true_odds
 
