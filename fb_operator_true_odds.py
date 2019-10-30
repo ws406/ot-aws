@@ -19,6 +19,7 @@ class FbOperatorTrueOdds (FbOperator):
         37,  # ENC
         39,  # EFL1
         35,  # EFL2
+        84,  # English League Cup
         #
         31,  # ES1
         33,  # ES2
