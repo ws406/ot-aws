@@ -1,12 +1,15 @@
 import json
 import glob
+from matplotlib import style
+import numpy as np
+import math
 from src.utils.logger import OtLogger
-from src.ops.game_predictor.bb_blended_true_odds import TrueOdds
+from src.ops.game_predictor.fb_blended_true_odds import TrueOdds
 
 
 ############# Configuration ##################
 # Get all data from file(s)
-data_files = glob.glob("./data/basketball_all_odds_data/*.json")
+data_files = glob.glob("./data/football_all_odds_data/*.json")
 
 bids = {
     281: "bet365",  # Bet365
@@ -53,14 +56,18 @@ def rank(data):
         # print(game['game_id'])
         # 1: lowest odds, 3: highest odds
 
-        profit_margin = 0
+        profit_margin = 1
         while profit_margin <= 10:
             # print("profit_margin: ", profit_margin/100)
             if profit_margin not in results_matrix:
                 results_matrix[profit_margin] = {
                     'pnl_1': 0,
                     'pnl_2': 0,
+                    'pnl_3': 0,
                     'pnl_12': 0,
+                    'pnl_13': 0,
+                    'pnl_32': 0,
+                    'pnl_123': 0,
                 }
             betting_details = gamePredictor.get_prediction(game, profit_margin/100)
 
@@ -77,8 +84,12 @@ def rank(data):
             odds_to_bet_2 = sorted_odds[1][1]
             result_to_bet_2 = sorted_odds[1][0]
 
+            odds_to_bet_3 = sorted_odds[2][1]
+            result_to_bet_3 = sorted_odds[2][0]
 
-            if game['home_score'] > game['away_score']:
+            if game['home_score'] == game['away_score']:
+                result = 'x'
+            elif game['home_score'] > game['away_score']:
                 result = '1'
             else:
                 result = '2'
@@ -87,12 +98,22 @@ def rank(data):
                 results_matrix[profit_margin]['pnl_1'] = \
                     results_matrix[profit_margin]['pnl_1'] + (odds_to_bet_1 - 1) * (1 - bf_commission)
                 results_matrix[profit_margin]['pnl_2'] = results_matrix[profit_margin]['pnl_2'] - 1
-            else:
+                results_matrix[profit_margin]['pnl_3'] = results_matrix[profit_margin]['pnl_3'] - 1
+            elif result_to_bet_2 == result:
                 results_matrix[profit_margin]['pnl_1'] = results_matrix[profit_margin]['pnl_1'] - 1
                 results_matrix[profit_margin]['pnl_2'] = \
                     results_matrix[profit_margin]['pnl_2'] + (odds_to_bet_2 - 1) * (1 - bf_commission)
+                results_matrix[profit_margin]['pnl_3'] = results_matrix[profit_margin]['pnl_3'] - 1
+            else:
+                results_matrix[profit_margin]['pnl_1'] = results_matrix[profit_margin]['pnl_1'] - 1
+                results_matrix[profit_margin]['pnl_2'] = results_matrix[profit_margin]['pnl_2'] - 1
+                results_matrix[profit_margin]['pnl_3'] = \
+                    results_matrix[profit_margin]['pnl_3'] + (odds_to_bet_3 - 1) * (1 - bf_commission)
 
             results_matrix[profit_margin]['pnl_12'] = results_matrix[profit_margin]['pnl_1'] + results_matrix[profit_margin]['pnl_2']
+            results_matrix[profit_margin]['pnl_13'] = results_matrix[profit_margin]['pnl_1'] + results_matrix[profit_margin]['pnl_3']
+            results_matrix[profit_margin]['pnl_32'] = results_matrix[profit_margin]['pnl_3'] + results_matrix[profit_margin]['pnl_2']
+            results_matrix[profit_margin]['pnl_123'] = results_matrix[profit_margin]['pnl_2'] + results_matrix[profit_margin]['pnl_13']
 
             profit_margin += 1
         if move_on:
