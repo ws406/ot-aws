@@ -144,7 +144,7 @@ class HistGamesFetcher:
         games = []
         for season_id in season_ids:
             self.logger.log("\tSeason - " + str(season_id))
-            file_name = './data/basketball_all_odds_data/' + league_name + '-' + season_id + '.json'
+            file_name = '../data/basketball_all_odds_data/' + league_name + '-' + season_id + '.json'
             existing_games = []
             # 'replace' is False, load existing data first
             if replace is False:

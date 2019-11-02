@@ -33,6 +33,10 @@ class TrueOdds(GamePredictorInterface):
         try:
             for bookie in picked_bookie:
                 # {'1533924960': {'1': '1.55', '2': '7.84'}, '1533922980': {'1': '1.58', '2': '7.41'}, ...}
+                print(bookie)
+                # print(data['odds'][bookie])
+                # print(data)
+                print(data['odds'])
                 latestOddsDict = collections.OrderedDict(sorted(data['odds'][bookie].items(), reverse=True))
                 latestOdds = latestOddsDict[list(latestOddsDict)[0]]
 
@@ -41,6 +45,7 @@ class TrueOdds(GamePredictorInterface):
                 local_list_home.append(home)
                 local_list_away.append(away)
         except Exception as e:
+            raise e
             self.logger.log('missing odds - ' + str(e))
             return is_qualifed
 

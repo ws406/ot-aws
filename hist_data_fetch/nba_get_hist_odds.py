@@ -2,6 +2,7 @@ from src.win007.modules.misc.basketball_hist_games_fetcher import HistGamesFetch
 from src.win007.modules.games_fetcher.basketball_odds_fetcher.game_info_and_all_odds_sequence import GameInfoAndAllOddsSequence
 import time
 import datetime
+from src.utils.logger import OtLogger
 
 class Main:
     # These data is used for
@@ -49,13 +50,14 @@ class Main:
         ]
     }
 
-    def __init__(self):
+    def __init__(self, logger: OtLogger):
+        self.logger = logger
         pass
 
     def execute(self):
         # football_odds_fetcher = GameInfoAndOpenFinalOddsFetcher(self.bids)
-        odds_fetcher = GameInfoAndAllOddsSequence(self.bids)
-        hist_game_fetcher = HistGamesFetcher(odds_fetcher)
+        odds_fetcher = GameInfoAndAllOddsSequence(self.bids, self.logger)
+        hist_game_fetcher = HistGamesFetcher(odds_fetcher, self.logger)
 
         # Fetch historical games data league by league
         # for lid in self.league_ids:
@@ -76,15 +78,16 @@ class Main:
                 replace # if True, it will re-gather odds for existing games
             )
 
-
 if __name__ == '__main__':
-    Main().execute()
+    logger = OtLogger('../logs/hist.log')
+
     wait_in_hours = 12
 
     while (True):
         try:
-            num_games = Main ().execute ()
+            num_games = Main(logger).execute()
         except Exception as e:
+            raise e
             print ('Exception happened.... Try again later.')
         print ("Next run at UTC: " + str (datetime.datetime.now () + datetime.timedelta (hours = wait_in_hours)))
         time.sleep (60 * 60 * wait_in_hours)

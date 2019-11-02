@@ -67,11 +67,6 @@ class BbOperator (abc.ABC):
         for game in games:
             actual_kickoff = datetime.datetime.fromtimestamp (game ['kickoff'])
 
-            # Handle MLS
-            # if betting_details['league_id'] == 21:
-            #     # Kickoff is always 10 mins after the official kickoff time in game.
-            #     actual_kickoff = datetime.datetime.fromtimestamp(betting_details['kickoff']) + datetime.timedelta(minutes = 10)
-
             # If actual_kickoff is more than mins_before_kickoff mins away, do not place bet
             if actual_kickoff - datetime.datetime.now() > datetime.timedelta(minutes = self.mins_before_kickoff):
 
