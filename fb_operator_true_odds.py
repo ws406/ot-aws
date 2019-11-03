@@ -7,9 +7,9 @@ from src.utils.logger import OtLogger
 
 class FbOperatorTrueOdds (FbOperator):
 
-    # get_games_in_minutes = 800
-    # amount = 10
-    # mins_before_kickoff = 2
+    # get_games_in_minutes = 15
+    # amount = 2
+    # mins_before_kickoff = 15
 
     league_ids = [
         34,  # IT1

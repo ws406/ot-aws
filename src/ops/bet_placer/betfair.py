@@ -95,7 +95,7 @@ class Betfair (abc.ABC):
         payload = json.dumps(self._order_request_builder (endpoint, parameters))
 
         get_market_version_response = json.loads (self._call_exchange_api(payload))
-        self.logger.log("Get market version result: " + get_market_version_response)
+        self.logger.log("Get market version result: " + str(get_market_version_response))
         return get_market_version_response['result'][0]['version']
 
     def _execute_bet (self, market_id, selection_id, size, price, debug_mode, back_lay, strategy = None):
@@ -132,8 +132,8 @@ class Betfair (abc.ABC):
             return payload
         else:
             bet_placer_response = self._call_exchange_api(payload)
-            self.logger.log("Bet placing request: " + payload)
-            self.logger.log("Bet placing result: " + bet_placer_response)
+            self.logger.log("Bet placing request: " + str(payload))
+            self.logger.log("Bet placing result: " + str(bet_placer_response))
             return bet_placer_response
 
         # TODO: do this properly - 1st: matched bet; 2nd: unmatched bet
@@ -160,6 +160,7 @@ class Betfair (abc.ABC):
     def _get_match_odds_market_selection_id (self, response_json, bet_on_team):
         # Assert required fields
         # Assert values
+        self.logger.log("Get market details response: " + str(response_json))
         get = response_json ['result'] [0] ['marketName']
         expect = self.market_name
         error_string = "'marketName' is" + get + " instead of " + self.market_name
@@ -178,7 +179,7 @@ class Betfair (abc.ABC):
             "marketTypeCodes": [market_types],
             "textQuery": home_team_name + ' ' + away_team_name
         }
-        # self.logger(filters)
+        self.logger.log("Get market details request: " + str(filters))
         endpoint = "listMarketCatalogue"
         return self._call_exchange_api (json.dumps (self._query_request_builder (endpoint, filters)))
 
