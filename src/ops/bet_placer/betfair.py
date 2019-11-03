@@ -32,7 +32,6 @@ class Betfair (abc.ABC):
             req = urllib.request.Request (url = self.keep_alive_api, headers = headers)
             response = urllib.request.urlopen (req)
             jsonResponse = json.loads (response.read ().decode ('utf-8'))
-            self.logger.log(jsonResponse)
 
             if jsonResponse ['status'] == 'SUCCESS':
                 return {
@@ -59,7 +58,6 @@ class Betfair (abc.ABC):
         try:
             response_json = json.loads (
                 self._get_market_catalogue (home_team_name, away_team_name, market_type_code_match_odds))
-            self.logger.log(response_json)
             market_id, selection_id = self._get_match_odds_market_selection_id (response_json, bet_on_team)
 
             # TODO: next step is to check amount and make sure existing bets' amount is enough
@@ -78,8 +76,6 @@ class Betfair (abc.ABC):
                 }
             else:
                 self.logger.log("failed to place bet - cannot get selectionId'")
-                # todo: check if it is success
-                self.logger.log(response_json)
                 return {
                     'status': 'error',
                     'message': response_json
@@ -99,8 +95,7 @@ class Betfair (abc.ABC):
         payload = json.dumps(self._order_request_builder (endpoint, parameters))
 
         get_market_version_response = json.loads (self._call_exchange_api(payload))
-        self.logger.log("Get market version result: ")
-        self.logger.log(get_market_version_response)
+        self.logger.log("Get market version result: " + get_market_version_response)
         return get_market_version_response['result'][0]['version']
 
     def _execute_bet (self, market_id, selection_id, size, price, debug_mode, back_lay, strategy = None):
@@ -137,10 +132,8 @@ class Betfair (abc.ABC):
             return payload
         else:
             bet_placer_response = self._call_exchange_api(payload)
-            self.logger.log("Bet placing request: ")
-            self.logger.log(payload)
-            self.logger.log("Bet placing result: ")
-            self.logger.log(bet_placer_response)
+            self.logger.log("Bet placing request: " + payload)
+            self.logger.log("Bet placing result: " + bet_placer_response)
             return bet_placer_response
 
         # TODO: do this properly - 1st: matched bet; 2nd: unmatched bet
@@ -198,10 +191,7 @@ class Betfair (abc.ABC):
             params ['customerStrategyRefs'] = [strategy]
 
         endpoint = "listCurrentOrders"
-        # self.logger.log(self._query_request_builder (endpoint, params))
         response = json.loads (self._call_exchange_api (json.dumps (self._order_request_builder (endpoint, params))))
-
-        self.logger.log(response)
 
         try:
             bets = response ['result'] ['currentOrders']

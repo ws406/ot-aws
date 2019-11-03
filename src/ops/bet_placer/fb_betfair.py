@@ -17,7 +17,7 @@ class FBBetfair(Betfair):
         'Brighton   Hove Albion': 'Brighton',
         'Leicester City': 'Leicester',
         'Norwich City': 'Norwich',
-        'Crystal Palace': 'C Palace',
+        'Crystal Palace': 'Crystal Palace',
         'Newcastle United': 'Newcastle',
         'Manchester City': 'Man City',
         'Sheffield United': 'Sheff Utd',
@@ -444,7 +444,6 @@ class FBBetfair(Betfair):
                 +
                 1
             )
-            #print("BET:", bet_on_team, price)
             bet_placing_outcome[key] = self._place_bet (
                 home_team_name,
                 away_team_name,
