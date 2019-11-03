@@ -310,6 +310,7 @@ class FBBetfair(Betfair):
         'Rio Ave': 'Aves',
         'Vitoria Guimaraes': 'Guimaraes',
         'Pacos de Ferreira': 'Pacos Ferreira',
+        'CD Tondela': 'Tondela',
 
         # IT 1
         'Inter Milan': 'Inter',
