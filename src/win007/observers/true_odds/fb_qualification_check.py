@@ -27,6 +27,7 @@ class QualificationCheck:
             if returnRate >= 0.9:
                 is_qualified = True
         except Exception as e:
-            print("missing odds, skip... " + str(e))
+            #print("missing odds, skip... " + str(game_data['game_id']) + str(e))
+            None
 
         return is_qualified
