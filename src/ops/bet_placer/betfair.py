@@ -14,6 +14,8 @@ class Betfair (abc.ABC):
     commission_rate = 0
     back_bet = 'BACK'
     lay_bet = 'LAY'
+    persistence_persist = 'PERSIST'
+    persistence_lapse = 'LAPSE'
 
     keep_alive_api = 'http://identitysso.betfair.com/api/keepAlive'
 
@@ -54,7 +56,7 @@ class Betfair (abc.ABC):
         pass
 
     def _place_bet (self, home_team_name, away_team_name, bet_on_team, market_type_code_match_odds, betting_amount,
-                    price, debug_mode, back_lay, strategy=None):
+                    price, debug_mode, back_lay, strategy, persist):
         try:
             response_json = json.loads (
                 self._get_market_catalogue (home_team_name, away_team_name, market_type_code_match_odds))
@@ -72,7 +74,7 @@ class Betfair (abc.ABC):
                 # TODO: this is not true! Because it is not guaranteed to be successful
                 return {
                     'status': 'success',
-                    'message': self._execute_bet (market_id, selection_id, betting_amount, price, debug_mode, back_lay, strategy)
+                    'message': self._execute_bet (market_id, selection_id, betting_amount, price, debug_mode, back_lay, strategy, persist)
                 }
             else:
                 self.logger.log("failed to place bet - cannot get selectionId'")
@@ -98,7 +100,7 @@ class Betfair (abc.ABC):
         self.logger.log("Get market version result: " + str(get_market_version_response))
         return get_market_version_response['result'][0]['version']
 
-    def _execute_bet (self, market_id, selection_id, size, price, debug_mode, back_lay, strategy = None):
+    def _execute_bet (self, market_id, selection_id, size, price, debug_mode, back_lay, strategy, persistence):
         parameters = {
             "marketId": market_id,
             "instructions": [
@@ -107,11 +109,13 @@ class Betfair (abc.ABC):
                     "handicap": "0",
                     "side": back_lay,
                     "orderType": "LIMIT",
+                    "CustomerStrategyRef": strategy,
                     "limitOrder": {
                         "size": size,
                         "price": price,
                         # "persistenceType": "PERSIST", # keep the bet
-                        "persistenceType": "LAPSE" # do not keep the bet
+                        # "persistenceType": "LAPSE" # do not keep the bet
+                        "persistenceType": persistence
                     }
                 }
             ]

@@ -5,7 +5,7 @@ from src.utils.true_odds_calculator import TrueOddsCalculator
 
 # This game predictor provides true odds only
 class TrueOddsInplay(TrueOddsSuper):
-    strategy = 'true_odds_inplay'
+    strategy = 'tO_inplay'
     def _calc_raw_true_odds(self, data, localProfitMargin):
         picked_bookie = list()
         picked_bookie.append('pinnacle')
