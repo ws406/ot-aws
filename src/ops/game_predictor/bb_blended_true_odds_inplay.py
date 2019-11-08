@@ -1,26 +1,11 @@
+from src.ops.game_predictor.bb_blended_true_odds import TrueOdds as TrueOddsSuper
 import collections
-from src.ops.game_predictor.interface import GamePredictorInterface
-from src.win007.observers.true_odds.bb_qualification_check import QualificationCheck
-from src.utils.logger import OtLogger
 from src.utils.true_odds_calculator import TrueOddsCalculator
 
 
 # This game predictor provides true odds only
-class TrueOdds(GamePredictorInterface):
-
-    benchmark_bookie = 'pinnacle'
-    strategy = 'true_odds'
-    profit_margin = 0 # This is to ensure we win something.
-
-    def __init__(self, logger: OtLogger):
-        self.logger = logger
-
-    def _get_average(self, localList):
-        number = 0
-        for data in localList:
-            number = number + data
-        return number / len(localList)
-
+class TrueOddsInplay(TrueOddsSuper):
+    strategy = 'true_odds_inplay'
     def _calc_raw_true_odds(self, data, localProfitMargin):
         picked_bookie = list()
         picked_bookie.append('pinnacle')
@@ -88,30 +73,3 @@ class TrueOdds(GamePredictorInterface):
             return true_odds
         else:
             return False
-
-    def _calc_true_odds(self, data, localProfitMargin):
-        return self._calc_raw_true_odds(data, localProfitMargin)
-
-    def get_prediction(self, data, profit_margin = None):
-        # Check if game is qualified first, if not, return
-        is_qualified = QualificationCheck().is_qualified(data, self.benchmark_bookie)
-        if not is_qualified:
-            return False
-        else:
-            local_profit_margin = profit_margin if profit_margin is not None else self.profit_margin
-            true_odds = self._calc_true_odds(data, local_profit_margin)
-            if true_odds is not False:
-                return_data = dict()
-                return_data['true_odds'] = true_odds
-                return_data['gid'] = data ['game_id']
-                return_data['league_id'] = data ['league_id']
-                return_data['league_name'] = data ['league_name']
-                return_data['kickoff'] = data ['kickoff']
-                return_data['home_team_name'] = data ['home_team_name']
-                return_data['away_team_name'] = data ['away_team_name']
-                return_data['home_team_id'] = data ['home_team_id']
-                return_data['away_team_id'] = data ['away_team_id']
-                return_data['strategy'] = "true_odds"
-                return return_data
-            else:
-                return False

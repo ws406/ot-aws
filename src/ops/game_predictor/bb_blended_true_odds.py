@@ -10,7 +10,7 @@ class TrueOdds(GamePredictorInterface):
 
     benchmark_bookie = 'pinnacle'
     strategy = 'true_odds'
-    profit_margin = 0 # This is to ensure we win something.
+    profit_margin = 0.1 # This is to ensure we win something.
 
     def __init__(self, logger: OtLogger):
         self.logger = logger
@@ -80,7 +80,7 @@ class TrueOdds(GamePredictorInterface):
                 return_data['away_team_name'] = data ['away_team_name']
                 return_data['home_team_id'] = data ['home_team_id']
                 return_data['away_team_id'] = data ['away_team_id']
-                return_data['strategy'] = "true_odds"
+                return_data['strategy'] = self.strategy
                 return return_data
             else:
                 return False

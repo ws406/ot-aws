@@ -3,21 +3,21 @@ class TrueOddsCalculator:
         pass
 
     def calculate_3_way_margin_prop(self, home, away, draw):
-        return_rate = home * draw * away / (home * draw + draw * away + home * away)
-        while return_rate < 0.999999:
-            home = (3 * home) / (3 - ((1 - return_rate) * home))
-            draw = (3 * draw) / (3 - ((1 - return_rate) * draw))
-            away = (3 * away) / (3 - ((1 - return_rate) * away))
-            return_rate = home * draw * away / (home * draw + draw * away + home * away)
-        return home, away, draw
+        margin = (1/home + 1/draw + 1/away) - 1
+
+        home_fair = 3*home / (3-home*margin)
+        away_fair = 3*away / (3-away*margin)
+        draw_fair = 3*draw / (3-draw*margin)
+
+        return home_fair, away_fair, draw_fair
 
     def calculate_2_way_margin_prop(self, home, away):
-        return_rate = 1 / ( 1 / home + 1 / away)
-        while returnRate < 0.999999:
-            home = (2 * home) / (2 - ((1 - return_rate) * home))
-            away = (2 * away) / (2 - ((1 - return_rate) * away))
-            return_rate = 1 / ( 1 / home + 1 / away)
-        return home, away
+        margin = (1/home + 1/away) - 1
+
+        home_fair = 2*home / (2-home*margin)
+        away_fair = 2*away / (2-away*margin)
+
+        return home_fair, away_fair
 
 if __name__ == "__main__":
     trueOddsCalculator = TrueOddsCalculator()

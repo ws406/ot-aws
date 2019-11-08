@@ -3,13 +3,16 @@ from src.utils.logger import OtLogger
 
 # This game predictor provides true odds only
 class TrueOddsHighest(TrueOddsSuper):
+    strategy = 'true_odds_highest'
 
     def _calc_true_odds(self, data, localProfitMargin):
 
         true_odds = self._calc_raw_true_odds(data, localProfitMargin)
+        self.logger.debug('full true odds: ' + str(true_odds))
         if true_odds is not False:
             # only return lower two odds
             true_odds.pop(min(true_odds, key=true_odds.get))
+        self.logger.debug('highest true odds: ' + str(true_odds))
         return true_odds
 
 if __name__ == '__main__':
