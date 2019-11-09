@@ -13,6 +13,14 @@ class BbOperator (abc.ABC):
     # These data is used for
     bids = {
         17: "pinnacle",  # Pinnacle
+        26: "will_hill",
+        43: "coral",
+        77: "Expekt",
+        82: "vcbet",
+        214: "bet365",  # Bet365
+        506: "betvictor",
+        458: "SB",
+        11: "5Dimes",
     }
 
     # Leave this for sub classes to set
