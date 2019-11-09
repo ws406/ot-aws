@@ -1,6 +1,6 @@
 from src.ops.game_predictor.bb_blended_true_odds_highest_odds import TrueOddsHighest
 from src.ops.game_predictor.bb_blended_true_odds_inplay import TrueOddsInplay
-from src.ops.bb_operator import BbOperator
+from src.ops.operator.bb_operator import BbOperator
 import time
 import datetime
 from src.utils.logger import OtLogger

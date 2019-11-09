@@ -1,6 +1,6 @@
 from src.ops.bet_placer.betfair import Betfair
-from src.ops.game_predictor.fb_blended_true_odds import TrueOdds
-from src.win007.observers.informed_odds.qualification_check import QualificationCheck as InformedOddsQualCheck
+from src.ops.game_predictor.bb_blended_true_odds_highest_odds import TrueOddsHighest
+from src.ops.game_predictor.bb_blended_true_odds_inplay import TrueOddsInplay
 
 
 class FBBetfair(Betfair):
@@ -205,7 +205,6 @@ class FBBetfair(Betfair):
         # Australia
         'Sydney FC': 'Sydney',
         'Adelaide United FC': 'Adelaide United',
-        
 
         # Swedish Super League
         'VfL Osnabruck': 'VFL Osnabruck',
@@ -398,6 +397,7 @@ class FBBetfair(Betfair):
         'FC Viitorul Constanta': 'Viitorul Constanta',
         'Politehnica Iasi': 'CSMS Iasi',
         'Steaua Bucuresti': 'FCSB',
+        'FC Clinceni': 'Academica Clinceni',
 
         # Finland
         'Vaasa VPS': 'VPS',
@@ -411,17 +411,22 @@ class FBBetfair(Betfair):
 
     def place_match_odds_bet(self, game_data, betting_amount, debug_mode=False):
 
-        if game_data['strategy'] == TrueOdds.strategy:
-            return self._place_bet_for_true_odds(game_data, betting_amount, debug_mode)
+        strategy = game_data['strategy']
+
+        if strategy == TrueOddsInplay.strategy:
+            return self._place_bet_for_true_odds(game_data, betting_amount, self.persistence_persist, debug_mode)
+        elif strategy == TrueOddsHighest.strategy:
+            return self._place_bet_for_true_odds(game_data, betting_amount, self.persistence_lapse, debug_mode)
         else:
             # Add other strategies later
             # bet_on_team = home_team_name if game_data['preferred_team'] == 'home' else away_team_name
             self.logger.exception('*** No strategy is found. Skip placing bets. ***')
             pass
 
-    def _place_bet_for_true_odds(self, game_data, betting_amount, debug_mode):
+    def _place_bet_for_true_odds(self, game_data, betting_amount, persistence, debug_mode):
         home_team_name = self._unify_team_name(game_data['home_team_name'])
         away_team_name = self._unify_team_name(game_data['away_team_name'])
+        strategy = game_data['strategy']
 
         bet_placing_outcome = dict()
         # self.logger.log(game_data)
@@ -453,7 +458,9 @@ class FBBetfair(Betfair):
                 betting_amount,
                 price,
                 debug_mode,
-                self.back_bet
+                self.back_bet,
+                strategy,
+                persistence
             )
         return bet_placing_outcome
 

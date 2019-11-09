@@ -27,6 +27,7 @@ class FbOperator (abc.ABC):
         110: "snai",
         463: "betclick",
         167: "skybet",
+        88: "coral",
     }
 
     # Leave this for sub classes to set
@@ -39,7 +40,7 @@ class FbOperator (abc.ABC):
     commission_rate = 0.02
 
     gameDetector = None
-    gamePredictor = None
+    gamePredictors = []
     gameBetPlacer = None
 
     def __init__ (self, logger: OtLogger):
@@ -62,7 +63,6 @@ class FbOperator (abc.ABC):
         self.gameBetPlacer = FBBetfair (app_key, session_token, self.commission_rate, self.logger)
 
     def execute (self, debug_mode):
-        self.logger.log("Start..." + str(self.gamePredictor))
 
         # Get required data from process
         msg = "Getting games that will start in the next " + str (self.get_games_in_minutes) + " mins"
@@ -96,19 +96,22 @@ class FbOperator (abc.ABC):
                 games_not_bet.append(game)
                 continue
             else:
-                betting_details = self.gamePredictor.get_prediction(game)
-                if betting_details is False:
-                    self.logger.log ("--- Game " + str(game['game_id']) + " is not qualified. ---")
-                    continue
 
-                self.logger.log("+++ Game " + str(game['game_id']) + " is qualified. +++")
-                self.logger.log("Calculated betting details: " + str(betting_details))
-                result = self.gameBetPlacer.place_match_odds_bet(betting_details, self.amount, debug_mode)
-                if debug_mode:
-                    self.logger.log('(debug_mode) - bet_placing_request_pay_load:')
-                    self.logger.log(result)
-                else:
-                    self.logger.log(result)
+                for game_predictor in self.gamePredictors:
+                    self.logger.log("Game predictor:" + str(game_predictor))
+                    betting_details = game_predictor.get_prediction(game)
+                    if betting_details is False:
+                        self.logger.log ("--- Game " + str(game['game_id']) + " is not qualified. ---")
+                        continue
+
+                    self.logger.log ("+++ Game " + str(game['game_id']) + " is qualified. +++")
+                    self.logger.log(betting_details)
+                    result = self.gameBetPlacer.place_match_odds_bet(betting_details, self.amount, debug_mode)
+                    if debug_mode:
+                        self.logger.log('(debug_mode) - bet_placing_request_pay_load:')
+                        self.logger.log(result)
+                    else:
+                        self.logger.log(result)
 
         return games_not_bet
 

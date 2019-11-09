@@ -1,24 +1,23 @@
 import collections
-from src.ops.game_predictor.interface import GamePredictorInterface
-from src.win007.observers.true_odds.fb_qualification_check import QualificationCheck
 from src.utils.logger import OtLogger
+from src.ops.game_predictor.fb_blended_true_odds import TrueOdds as TrueOddsSuper
 
 # This game predictor provides true odds only
-class TrueOdds(GamePredictorInterface):
+class TrueOddsInplay(TrueOddsSuper):
 
     benchmark_bookie = 'pinnacle'
-    strategy = 'true_odds'
+    strategy = 'to_inplay'
     profit_margin = 0.02 # This is to ensure we win something.
     profit_margin2 = 0.01
     profitChoice2List = list()
-    leagueDivOne = list()
     leagueDivTwo = list()
     leagueDivThree = list()
     leagueDivFour = list()
     filter_bookies = list()
 
     def __init__(self, logger: OtLogger):
-        self.logger = logger
+        super().__init__(logger)
+
         # we choose the following liquid bookmakers odds as our filter
         self.filter_bookies.append('pinnacle')
         self.filter_bookies.append('bet365')
@@ -29,23 +28,6 @@ class TrueOdds(GamePredictorInterface):
         self.filter_bookies.append('skybet')
         self.filter_bookies.append('coral')
 
-        self.leagueDivOne.append(31) # Spain 1
-        self.leagueDivOne.append(10) # Russia 1
-        self.leagueDivOne.append(17) # Holland 2
-        self.leagueDivOne.append(11) # France 1
-        self.leagueDivOne.append(16) # Holland 1
-        self.leagueDivOne.append(27) # Swiss 1
-        self.leagueDivOne.append(39) # English League 1
-        self.leagueDivOne.append(35) # England League 2
-        self.leagueDivOne.append(9) # Germany 2
-        self.leagueDivOne.append(273) # Australia
-        self.leagueDivOne.append(29) # Scottish Premier League
-        self.leagueDivOne.append(34) # Italy 1
-        self.leagueDivOne.append(12) # France 2
-        self.leagueDivOne.append(60) # China
-        self.leagueDivOne.append(21) # USA
-        self.leagueDivOne.append(25) # Japan 1
-        self.leagueDivOne.append(284) # Japan 2
 
         self.leagueDivTwo.append(36) # English Premier league
         self.leagueDivTwo.append(8) # Germany 1
@@ -60,6 +42,7 @@ class TrueOdds(GamePredictorInterface):
         self.profitChoice2List.append(12)
         self.profitChoice2List.append(29)
         self.profitChoice2List.append(34)
+
 
     def FindOddsWithOffsetTime(self, game_data, bookie, lookbackTime):
         matchInSeq = collections.OrderedDict(sorted(game_data['odds'][bookie].items()))
@@ -84,13 +67,7 @@ class TrueOdds(GamePredictorInterface):
         else:
             return None
 
-    def _get_average(self, localList):
-        number = 0
-        for data in localList:
-            number = number + data
-        return number / len(localList)
-
-    def _calc_true_odds(self, data):
+    def _calc_true_odds(self, data, localProfitMargin):
         picked_bookie = list()
         if data['league_id'] in self.leagueDivTwo:
             picked_bookie.append('betvictor')
@@ -150,7 +127,6 @@ class TrueOdds(GamePredictorInterface):
             away = (3 * away) / (3 - ((1 - return_rate) * away))
             return_rate = home * draw * away / (home * draw + draw * away + home * away)
         true_odds = dict()
-        localProfitMargin = self.profit_margin
         if data['league_id'] in self.profitChoice2List:
             localProfitMargin = self.profit_margin2
         home = home * (1 + localProfitMargin)
@@ -176,26 +152,3 @@ class TrueOdds(GamePredictorInterface):
             return true_odds
         else:
             return False
-
-    def get_prediction(self, data):
-        # Check if game is qualified first, if not, return
-        is_qualified = QualificationCheck().is_qualified(data, self.benchmark_bookie)
-        if not is_qualified:
-            return False
-        else:
-            true_odds = self._calc_true_odds(data)
-            if true_odds is not False:
-                return_data = dict()
-                return_data['true_odds'] = true_odds
-                return_data['gid'] = data ['game_id']
-                return_data['league_id'] = data ['league_id']
-                return_data['league_name'] = data ['league_name']
-                return_data['kickoff'] = data ['kickoff']
-                return_data['home_team_name'] = data ['home_team_name']
-                return_data['away_team_name'] = data ['away_team_name']
-                return_data['home_team_id'] = data ['home_team_id']
-                return_data['away_team_id'] = data ['away_team_id']
-                return_data['strategy'] = "true_odds"
-                return return_data
-            else:
-                return False
