@@ -319,6 +319,7 @@ class FBBetfair(Betfair):
         # IT 2
         'Pordenone Calcio SSD' : 'Pordenone',
         'ACD Virtus Entella' : 'Entella',
+        'Cosenza Calcio 1914': 'Cosenza',
 
         # DEN 1
         'Randers FC': 'Randers',
