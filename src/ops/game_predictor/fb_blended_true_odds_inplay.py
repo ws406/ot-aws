@@ -114,7 +114,7 @@ class TrueOddsInplay(TrueOddsSuper):
                 if float(compareOdds['2']) > compareBestOdds[2]:
                     compareBestOdds[2] = float(compareOdds['2'])
         except Exception as e:
-            #self.logger.log('missing odds - ' + str(e))
+            self.logger.log('Why is the game disqualified? - ' + str(e))
             return is_qualifed
 
         home = self._get_average(local_list_home)
@@ -135,9 +135,8 @@ class TrueOddsInplay(TrueOddsSuper):
 
         # we only bet at calc true odds, when benchmark bookmaker odds is better than our calc ones
         # the reason we want to do this, is try to avoid adverse selection
-        #self.logger.log(str(data['game_id']), 'compareBestOdds: ')
-        #self.logger.log(compareBestOdds)
-        #self.logger.log('home: ' + str(home) + ', draw: ' + str(draw) + ',  away: '+ str(away))
+        self.logger.log('CompareBestOdds: ' + str(compareBestOdds))
+        self.logger.log('Calculated odds: home: ' + str(home) + ', draw: ' + str(draw) + ',  away: '+ str(away))
         if compareBestOdds[0] >= home:
             true_odds['1'] = home
             is_qualifed = True
