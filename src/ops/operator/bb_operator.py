@@ -21,6 +21,7 @@ class BbOperator (abc.ABC):
         506: "betvictor",
         458: "SB",
         11: "5Dimes",
+        6: "easybet",
     }
 
     # Leave this for sub classes to set
