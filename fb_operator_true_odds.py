@@ -51,7 +51,7 @@ class FbOperatorTrueOdds (FbOperator):
         22,  # NOR1
         10,  # RUS1
         # 2,  # ARG1
-        #21,  # USA1
+        21,  # USA1
         26,  # Sweden
         # 415,  # CHILE1
         # 140,  # MEX1

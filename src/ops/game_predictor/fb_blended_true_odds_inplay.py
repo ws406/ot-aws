@@ -10,6 +10,7 @@ class TrueOddsInplay(TrueOddsSuper):
     profit_margin = 0.02 # This is to ensure we win something.
     profit_margin2 = 0.01
     profitChoice2List = list()
+    leagueDivOne = list()
     leagueDivTwo = list()
     leagueDivThree = list()
     leagueDivFour = list()
@@ -21,21 +22,38 @@ class TrueOddsInplay(TrueOddsSuper):
         # we choose the following liquid bookmakers odds as our filter
         self.filter_bookies.append('pinnacle')
         self.filter_bookies.append('bet365')
-        self.filter_bookies.append('sb')
-        self.filter_bookies.append('sbobet')
         self.filter_bookies.append('easybet')
         self.filter_bookies.append('betclick')
         self.filter_bookies.append('skybet')
-        self.filter_bookies.append('coral')
+        self.filter_bookies.append('setantabet')
+        self.filter_bookies.append('championsbet')
+        self.filter_bookies.append('betfred')
+        self.filter_bookies.append('tipico')
+        self.filter_bookies.append('bodog')
+        self.filter_bookies.append('bovada')
+        self.filter_bookies.append('cashpoint')
 
+        self.leagueDivOne.append(31) # Spain 1
+        self.leagueDivOne.append(10) # Russia
+        self.leagueDivOne.append(17) # Holland Jupiler League
+        self.leagueDivOne.append(11) # France 1
+        self.leagueDivOne.append(16) # Holland Eredivisie
+        self.leagueDivOne.append(35) # England League 2
+        self.leagueDivOne.append(9) # German Bundesliga 2
+        self.leagueDivOne.append(34) # Italian Serie A
+        self.leagueDivOne.append(12) # France Ligue 2
+        self.leagueDivOne.append(37) # England League 1
+        self.leagueDivOne.append(3) # Austria Leagie 1
+        self.leagueDivOne.append(7) # Denmark Super League
+        self.leagueDivOne.append(60) # Chinese Super League
+        self.leagueDivOne.append(21) # USA Major League Soccer
+        self.leagueDivOne.append(25) # J-League Division 1
 
         self.leagueDivTwo.append(36) # English Premier league
         self.leagueDivTwo.append(8) # Germany 1
 
         self.leagueDivThree.append(5) # Belgium 1
         self.leagueDivThree.append(13) # Finland
-        self.leagueDivThree.append(4) # Brazil A
-        self.leagueDivThree.append(358) # Brazil B
 
         self.leagueDivFour.append(26) # Sweden
 
@@ -78,10 +96,12 @@ class TrueOddsInplay(TrueOddsSuper):
             picked_bookie.append('sb')
         elif data['league_id'] in self.leagueDivFour:
             picked_bookie.append('pinnacle')
-        else:
+        elif data['league_id'] in self.leagueDivOne:
             picked_bookie.append('pinnacle')
             picked_bookie.append('bet365')
             picked_bookie.append('betvictor')
+        else:
+            return false
         local_list_home = []
         local_list_draw = []
         local_list_away = []

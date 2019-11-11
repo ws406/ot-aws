@@ -26,6 +26,12 @@ class Operator (abc.ABC):
         156: "betfred",
         110: "snai",
         463: "betclick",
+        936: "setantabet",
+        961: "championsbet",
+        527: "tipico",
+        136: "bodog",
+        874: "bovada",
+        695: "cashpoint",
         167: "skybet",
         88: "coral",
     }

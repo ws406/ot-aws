@@ -28,6 +28,12 @@ class FbOperator (abc.ABC):
         463: "betclick",
         167: "skybet",
         88: "coral",
+        936: "setantabet",
+        961: "championsbet",
+        527: "tipico",
+        136: "bodog",
+        874: "bovada",
+        695: "cashpoint",
     }
 
     # Leave this for sub classes to set
