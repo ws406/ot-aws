@@ -62,6 +62,8 @@ class TrueOddsInplay(TrueOddsSuper):
         self.leagueDivThree.append(13) # Finland
 
         self.leagueDivFour.append(26) # Sweden
+        self.leagueDivFour.append(60) # Australia A-League
+        self.leagueDivFour.append(124) # Romanian Liga I
 
         self.profitChoice2List.append(12)
         self.profitChoice2List.append(29)
