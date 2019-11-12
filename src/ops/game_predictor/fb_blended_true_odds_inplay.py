@@ -9,7 +9,9 @@ class TrueOddsInplay(TrueOddsSuper):
     strategy = 'to_inplay'
     profit_margin = 0.02 # This is to ensure we win something.
     profit_margin2 = 0.01
+    profit_margin3 = 0.05
     profitChoice2List = list()
+    profitChoice3List = list()
     leagueDivOne = list()
     leagueDivTwo = list()
     leagueDivThree = list()
@@ -48,6 +50,10 @@ class TrueOddsInplay(TrueOddsSuper):
         self.leagueDivOne.append(60) # Chinese Super League
         self.leagueDivOne.append(21) # USA Major League Soccer
         self.leagueDivOne.append(25) # J-League Division 1
+        self.leagueDivOne.append(4) # Brazil A
+        self.leagueDivOne.append(27) # Swiss Super League
+        self.leagueDivOne.append(30) # Turkish Super Liga
+        self.leagueDivOne.append(136) # Hungary NB I
 
         self.leagueDivTwo.append(36) # English Premier league
         self.leagueDivTwo.append(8) # Germany 1
@@ -61,6 +67,10 @@ class TrueOddsInplay(TrueOddsSuper):
         self.profitChoice2List.append(29)
         self.profitChoice2List.append(34)
 
+        self.profitChoice3List.append(4)
+        self.profitChoice3List.append(27)
+        self.profitChoice3List.append(30)
+        self.profitChoice3List.append(136)
 
     def FindOddsWithOffsetTime(self, game_data, bookie, lookbackTime):
         matchInSeq = collections.OrderedDict(sorted(game_data['odds'][bookie].items()))
@@ -149,6 +159,8 @@ class TrueOddsInplay(TrueOddsSuper):
         true_odds = dict()
         if data['league_id'] in self.profitChoice2List:
             localProfitMargin = self.profit_margin2
+        if data['league_id'] in self.profitChoice3List:
+            localProfitMargin = self.profit_margin3
         home = home * (1 + localProfitMargin)
         draw = draw * (1 + localProfitMargin)
         away = away * (1 + localProfitMargin)
