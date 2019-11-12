@@ -34,6 +34,10 @@ class FbOperator (abc.ABC):
         136: "bodog",
         874: "bovada",
         695: "cashpoint",
+        354: "boylesports",
+        315: "victory",
+        482: "betway",
+        808: "betcity",
     }
 
     # Leave this for sub classes to set

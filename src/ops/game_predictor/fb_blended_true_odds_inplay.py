@@ -8,7 +8,7 @@ class TrueOddsInplay(TrueOddsSuper):
     benchmark_bookie = 'pinnacle'
     strategy = 'to_inplay'
     profit_margin = 0.02 # This is to ensure we win something.
-    profit_margin2 = 0.01
+    profit_margin2 = 0.15
     profit_margin3 = 0.05
     profitChoice2List = list()
     profitChoice3List = list()
@@ -23,37 +23,36 @@ class TrueOddsInplay(TrueOddsSuper):
 
         # we choose the following liquid bookmakers odds as our filter
         self.filter_bookies.append('pinnacle')
-        self.filter_bookies.append('bet365')
         self.filter_bookies.append('easybet')
         self.filter_bookies.append('betclick')
-        self.filter_bookies.append('skybet')
         self.filter_bookies.append('setantabet')
         self.filter_bookies.append('championsbet')
+        self.filter_bookies.append('skybet')
         self.filter_bookies.append('betfred')
         self.filter_bookies.append('tipico')
-        self.filter_bookies.append('bodog')
-        self.filter_bookies.append('bovada')
-        self.filter_bookies.append('cashpoint')
+        self.filter_bookies.append('boylesports')
+        self.filter_bookies.append('sbobet')
+        self.filter_bookies.append('betway')
+        self.filter_bookies.append('victory')
+        self.filter_bookies.append('will_hill')
+        self.filter_bookies.append('betcity')
 
         self.leagueDivOne.append(31) # Spain 1
         self.leagueDivOne.append(10) # Russia
-        self.leagueDivOne.append(17) # Holland Jupiler League
         self.leagueDivOne.append(11) # France 1
         self.leagueDivOne.append(16) # Holland Eredivisie
         self.leagueDivOne.append(35) # England League 2
-        self.leagueDivOne.append(9) # German Bundesliga 2
-        self.leagueDivOne.append(34) # Italian Serie A
-        self.leagueDivOne.append(12) # France Ligue 2
-        self.leagueDivOne.append(37) # England League 1
+        self.leagueDivOne.append(39) # England League 1
         self.leagueDivOne.append(3) # Austria Leagie 1
-        self.leagueDivOne.append(7) # Denmark Super League
         self.leagueDivOne.append(60) # Chinese Super League
         self.leagueDivOne.append(21) # USA Major League Soccer
         self.leagueDivOne.append(25) # J-League Division 1
-        self.leagueDivOne.append(4) # Brazil A
         self.leagueDivOne.append(27) # Swiss Super League
         self.leagueDivOne.append(30) # Turkish Super Liga
         self.leagueDivOne.append(136) # Hungary NB I
+        self.leagueDivOne.append(17) # Holland Jupiler League
+        self.leagueDivOne.append(4) # Brazil A
+        #self.leagueDivOne.append(34) # Italian Serie A
 
         self.leagueDivTwo.append(36) # English Premier league
         self.leagueDivTwo.append(8) # Germany 1
@@ -62,14 +61,44 @@ class TrueOddsInplay(TrueOddsSuper):
         self.leagueDivThree.append(13) # Finland
 
         self.leagueDivFour.append(26) # Sweden
-        self.leagueDivFour.append(60) # Australia A-League
         self.leagueDivFour.append(124) # Romanian Liga I
+        self.leagueDivFour.append(7) # Denmark Super League
+        self.leagueDivFour.append(12) # France Ligue 2
+        self.leagueDivFour.append(9) # German Bundesliga 2
+        self.leagueDivFour.append(273) # Australia A-League
+        self.leagueDivFour.append(29) # Scottish Premier League
+        self.leagueDivFour.append(23) # Portugal Primera Liga
+        self.leagueDivFour.append(137) # Czech First League
+        self.leagueDivFour.append(133) # Croatia Super League
+        self.leagueDivFour.append(37) # England Championship
+        self.leagueDivFour.append(32) # Greece Super League
+        self.leagueDivFour.append(33) # Spanish Segunda Division
+        self.leagueDivFour.append(40) # Italian Serie B
+        self.leagueDivFour.append(119) # Ukrainian Premier League
+        self.leagueDivFour.append(6) # Poland Super League
+        self.leagueDivFour.append(284) # J-League Division 2
+        self.leagueDivFour.append(358) # Brazil Serie B
+        self.leagueDivFour.append(22) # Norwegian Tippeligaen
 
         self.profitChoice2List.append(12)
         self.profitChoice2List.append(29)
-        self.profitChoice2List.append(34)
+        self.profitChoice2List.append(23)
+        self.profitChoice2List.append(137)
+        self.profitChoice2List.append(133)
+        self.profitChoice2List.append(7)
+        self.profitChoice2List.append(37)
+        self.profitChoice2List.append(32)
+        self.profitChoice2List.append(9)
+        self.profitChoice2List.append(33)
+        self.profitChoice2List.append(40)
+        self.profitChoice2List.append(119)
+        self.profitChoice2List.append(6)
+        self.profitChoice2List.append(284)
+        self.profitChoice2List.append(358)
+        self.profitChoice2List.append(22)
 
         self.profitChoice3List.append(4)
+        self.profitChoice3List.append(17)
         self.profitChoice3List.append(27)
         self.profitChoice3List.append(30)
         self.profitChoice3List.append(136)
