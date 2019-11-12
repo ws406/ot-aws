@@ -29,7 +29,7 @@ class TrueOddsInplay(TrueOddsSuper):
                 local_list_home.append(home)
                 local_list_away.append(away)
         except Exception as e:
-            self.logger.log('missing odds - ' + str(e))
+            self.logger.log('Exception - ' + str(e))
             return is_qualifed
 
         home = self._get_average(local_list_home)
@@ -54,7 +54,8 @@ class TrueOddsInplay(TrueOddsSuper):
         for bookie in filter_bookies:
             try:
                 compareOdds = list(collections.OrderedDict(sorted(data['odds'][bookie].items())).values())[-1]
-            except (TypeError, KeyError):
+            except Exception as e:
+                self.logger.log('Exception - ' + str(e))
                 compareOdds = {}
                 compareOdds['1'] = 1.0
                 compareOdds['2'] = 1.0

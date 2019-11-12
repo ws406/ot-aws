@@ -142,7 +142,7 @@ class TrueOddsInplay(TrueOddsSuper):
             picked_bookie.append('bet365')
             picked_bookie.append('betvictor')
         else:
-            return false
+            return False
         local_list_home = []
         local_list_draw = []
         local_list_away = []
