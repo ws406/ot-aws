@@ -193,7 +193,7 @@ class TrueOddsInplay(TrueOddsSuper):
             away = (3 * away) / (3 - ((1 - return_rate) * away))
             return_rate = home * draw * away / (home * draw + draw * away + home * away)
         true_odds = dict()
-        localProfitMargin = profit_margin
+        localProfitMargin = self.profit_margin
         if data['league_id'] in self.profitChoice2List:
             localProfitMargin = self.profit_margin2
         if data['league_id'] in self.profitChoice3List:
