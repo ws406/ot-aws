@@ -63,11 +63,11 @@ class TrueOddsInplay(TrueOddsSuper):
                 compareBestOdds[0] = float(compareOdds['1'])
             if float(compareOdds['2']) > compareBestOdds[1]:
                 compareBestOdds[1] = float(compareOdds['2'])
-        if compareBestOdds[0] >= home:
-            true_odds['1'] = home
+        if compareBestOdds[0] >= raw_true_odds['1']:
+            true_odds['1'] = raw_true_odds['1']
             is_qualifed = True
-        if compareBestOdds[1] >= away:
-            true_odds['2'] = away
+        if compareBestOdds[1] >= raw_true_odds['2']:
+            true_odds['2'] = raw_true_odds['2']
             is_qualifed = True
 
         if is_qualifed:
