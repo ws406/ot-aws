@@ -27,6 +27,7 @@ class FbOperatorTrueOdds (FbOperator):
         #
         8,  # GE1
         9,  # GE2
+        693,  # GE3
         #
         11,  # FR1
         12,  # FR2

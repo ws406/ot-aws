@@ -47,6 +47,7 @@ class TrueOddsInplay(TrueOddsSuper):
         self.leagueDivOne.append(10) # Russia
         self.leagueDivOne.append(7) # Denmark Super League
         self.leagueDivOne.append(9) # German Bundesliga 2
+        self.leagueDivOne.append(693) # German Bundesliga 3
         self.leagueDivOne.append(119) # Ukrainian Premier League
         self.leagueDivOne.append(6) # Poland Super League
         self.leagueDivOne.append(133) # Croatia Super League
@@ -107,6 +108,7 @@ class TrueOddsInplay(TrueOddsSuper):
         self.profitChoice3List.append(3) # Austria Leagie 1
         self.profitChoice3List.append(7) # Denmark Super League
         self.profitChoice3List.append(9) # German Bundesliga 2
+        self.profitChoice3List.append(693) # German Bundesliga 3
         self.profitChoice3List.append(119) # Ukrainian Premier League
         self.profitChoice3List.append(6) # Poland Super League
         self.profitChoice3List.append(133) # Croatia Super League
