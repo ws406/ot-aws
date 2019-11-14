@@ -65,6 +65,8 @@ class FbOperatorTrueOdds (FbOperator):
 
         3, # Austria Leagie 1
         124, # Romanian Liga I
+
+        67, # Euro Cup
     ]
 
     def __init__(self, logger: OtLogger):
