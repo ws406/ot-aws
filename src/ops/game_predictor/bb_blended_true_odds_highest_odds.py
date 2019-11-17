@@ -4,6 +4,7 @@ from src.utils.logger import OtLogger
 # This game predictor provides true odds only
 class TrueOddsHighest(TrueOddsSuper):
     strategy = 'to_highest'
+    profit_margin = 0.03 # This is to ensure we win something.
 
     def _calc_true_odds(self, data, localProfitMargin):
 
