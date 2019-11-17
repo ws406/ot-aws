@@ -68,7 +68,6 @@ class TrueOddsInplay(TrueOddsSuper):
 
         self.leagueDivFour.append(26) # Sweden
         self.leagueDivFour.append(124) # Romanian Liga I
-        self.leagueDivFour.append(273) # Australia A-League
         self.leagueDivFour.append(29) # Scottish Premier League
         self.leagueDivFour.append(23) # Portugal Primera Liga
         self.leagueDivFour.append(37) # England Championship
@@ -79,6 +78,9 @@ class TrueOddsInplay(TrueOddsSuper):
         self.leagueDivFour.append(358) # Brazil Serie B
         self.leagueDivFour.append(22) # Norwegian Tippeligaen
         self.leagueDivFour.append(15) # Korea League
+
+        self.leagueDivThree.append(273) # Australia A-League
+        self.leagueDivThree.append(136) # Hungary NB I
 
         self.profitChoice2List.append(12) # France Ligue 2
         self.profitChoice2List.append(29) # Scottish Premier League
@@ -99,6 +101,7 @@ class TrueOddsInplay(TrueOddsSuper):
         self.profitChoice2List.append(136) # Hungary NB I
         self.profitChoice2List.append(8) # Germany 1
         self.profitChoice2List.append(15) # Korea League
+        self.profitChoice2List.append(273) # Australia A-League
 
         self.profitChoice3List.append(4) # Brazil A
         self.profitChoice3List.append(17) # Holland Jupiler League
@@ -142,6 +145,8 @@ class TrueOddsInplay(TrueOddsSuper):
         picked_bookie = list()
         if data['league_id'] in self.leagueDivTwo:
             picked_bookie.append('betvictor')
+        elif data['league_id'] in self.leagueDivThree:
+            picked_bookie.append('bet365')
         elif data['league_id'] in self.leagueDivFour:
             picked_bookie.append('pinnacle')
         elif data['league_id'] in self.leagueDivOne:
