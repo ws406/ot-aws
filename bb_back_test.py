@@ -6,7 +6,7 @@ from src.ops.game_predictor.bb_blended_true_odds import TrueOdds
 
 ############# Configuration ##################
 # Get all data from file(s)
-data_files = glob.glob("./data/basketball_all_odds_data/*.json")
+data_files = glob.glob("./data/basketball_all_odds_data/National Basketball Association-2017-2018.json")
 
 bids = {
     281: "bet365",  # Bet365

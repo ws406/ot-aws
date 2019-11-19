@@ -1,4 +1,4 @@
-from src.ops.game_predictor.bb_blended_true_odds_highest_odds import TrueOddsHighest
+from src.ops.game_predictor.bb_blended_true_odds import TrueOdds
 from src.ops.game_predictor.bb_blended_true_odds_inplay import TrueOddsInplay
 from src.ops.operator.bb_operator import BbOperator
 import time
@@ -17,7 +17,7 @@ class BbOperatorTrueOdds (BbOperator):
     }
 
     def __init__(self, logger: OtLogger):
-        self.gamePredictors = [TrueOddsHighest(logger), TrueOddsInplay(logger)]
+        self.gamePredictors = [TrueOdds(logger), TrueOddsInplay(logger)]
         BbOperator.__init__(self, logger)
 
 
