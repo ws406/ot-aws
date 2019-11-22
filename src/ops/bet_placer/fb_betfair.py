@@ -206,6 +206,7 @@ class FBBetfair(Betfair):
         # Australia
         'Sydney FC': 'Sydney',
         'Adelaide United FC': 'Adelaide United',
+        'Western Sydney': 'Western Sydney Wanderers',
 
         # Swedish Super League
         'VfL Osnabruck': 'VFL Osnabruck',
@@ -320,6 +321,7 @@ class FBBetfair(Betfair):
         'Pordenone Calcio SSD' : 'Pordenone',
         'ACD Virtus Entella' : 'Entella',
         'Cosenza Calcio 1914': 'Cosenza',
+        'Cremonese': 'US Cremonese',
 
         # DEN 1
         'Randers FC': 'Randers',

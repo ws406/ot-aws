@@ -82,11 +82,12 @@ class Betfair (abc.ABC):
                     'status': 'error',
                     'message': response_json
                 }
-        except IndexError as ie:
+        except Exception as e:
             self.logger.log("failed to place bet - cannot get selectionId'")
             return {
                 'status': 'error',
-                'message': str (ie)
+                'message': str (e),
+                'details': ' '.join([home_team_name, away_team_name])
             }
 
     def _get_market_version_from_market_id (self, market_id):

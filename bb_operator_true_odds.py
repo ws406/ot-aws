@@ -10,7 +10,7 @@ class BbOperatorTrueOdds (BbOperator):
 
     get_games_in_minutes = 15
     amount = 20
-    mins_before_kickoff = 2
+    mins_before_kickoff = 1
 
     league_names = {
         'NBA': 1,
@@ -22,7 +22,7 @@ class BbOperatorTrueOdds (BbOperator):
 
 
 if __name__ == '__main__':
-    normal_interval_in_mins = 2
+    normal_interval_in_mins = 1
     logger = OtLogger('./logs/ops_bb_true_odds.log')
     operator = BbOperatorTrueOdds(logger)
     wait = operator.get_games_in_minutes * 60
