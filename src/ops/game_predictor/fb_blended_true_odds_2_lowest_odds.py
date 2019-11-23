@@ -4,6 +4,7 @@ from src.ops.game_predictor.fb_blended_true_odds import TrueOdds as TrueOddsSupe
 # This game predictor provides true odds only
 class TrueOddsLower2(TrueOddsSuper):
     strategy = 'to_lower2'
+    profit_margin = 0.03 # This is to ensure we win something.
 
     def _calc_true_odds(self, data, localProfitMargin):
 
