@@ -6,7 +6,7 @@ from src.ops.game_predictor.bb_blended_true_odds import TrueOdds
 
 ############# Configuration ##################
 # Get all data from file(s)
-data_files = glob.glob("./data/basketball_all_odds_data/National Basketball Association-2019-2020.json")
+data_files = glob.glob("./data/basketball_all_odds_data/National Basketball Association-2018-2019.json")
 
 bids = {
     281: "bet365",  # Bet365
@@ -48,7 +48,8 @@ def rank(data):
     results_matrix = {}
     results_matrix['number_of_games'] = 0
     move_on = False
-    max_odds = 3.5
+    max_odds = 3
+    min_odss = 1.5
 
     for game in data:
 
@@ -79,7 +80,7 @@ def rank(data):
             odds_to_bet_2 = sorted_odds[1][1]
             result_to_bet_2 = sorted_odds[1][0]
 
-            if odds_to_bet_2 > max_odds or odds_to_bet_1 > max_odds:
+            if not (min_odss <= odds_to_bet_2 <= max_odds or min_odss <= odds_to_bet_1 <= max_odds):
                 logger.log ("--- Game " + str(game['game_id']) + " is not qualified. Odds too high ---")
                 move_on = True
                 break
@@ -90,13 +91,17 @@ def rank(data):
                 result = '2'
 
             if result_to_bet_1 == result:
-                results_matrix[profit_margin]['pnl_1'] = \
-                    results_matrix[profit_margin]['pnl_1'] + (odds_to_bet_1 - 1) * (1 - bf_commission)
-                results_matrix[profit_margin]['pnl_2'] = results_matrix[profit_margin]['pnl_2'] - 1
+                if min_odss <= odds_to_bet_1 <= max_odds:
+                    results_matrix[profit_margin]['pnl_1'] = \
+                        results_matrix[profit_margin]['pnl_1'] + (odds_to_bet_1 - 1) * (1 - bf_commission)
+                if min_odss <= odds_to_bet_2 <= max_odds:
+                    results_matrix[profit_margin]['pnl_2'] = results_matrix[profit_margin]['pnl_2'] - 1
             else:
-                results_matrix[profit_margin]['pnl_1'] = results_matrix[profit_margin]['pnl_1'] - 1
-                results_matrix[profit_margin]['pnl_2'] = \
-                    results_matrix[profit_margin]['pnl_2'] + (odds_to_bet_2 - 1) * (1 - bf_commission)
+                if min_odss <= odds_to_bet_1 <= max_odds:
+                    results_matrix[profit_margin]['pnl_1'] = results_matrix[profit_margin]['pnl_1'] - 1
+                if min_odss <= odds_to_bet_2 <= max_odds:
+                    results_matrix[profit_margin]['pnl_2'] = \
+                        results_matrix[profit_margin]['pnl_2'] + (odds_to_bet_2 - 1) * (1 - bf_commission)
 
             results_matrix[profit_margin]['pnl_12'] = results_matrix[profit_margin]['pnl_1'] + results_matrix[profit_margin]['pnl_2']
 

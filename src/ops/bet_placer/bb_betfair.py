@@ -2,6 +2,7 @@ from src.ops.bet_placer.betfair import Betfair
 from src.ops.game_predictor.bb_blended_true_odds import TrueOdds
 from src.ops.game_predictor.bb_blended_true_odds_highest_odds import TrueOddsHighest
 from src.ops.game_predictor.bb_blended_true_odds_inplay import TrueOddsInplay
+from src.ops.game_predictor.bb_blended_true_odds_between_range import TrueOddsBetweenRange
 
 
 class BBBetfair (Betfair):
@@ -15,7 +16,7 @@ class BBBetfair (Betfair):
 
         strategy = game_data['strategy']
 
-        if strategy == TrueOddsInplay.strategy:
+        if strategy == TrueOddsInplay.strategy or strategy == TrueOddsBetweenRange.strategy:
             return self._place_bet_for_true_odds(game_data, betting_amount, self.persistence_persist, debug_mode)
         elif strategy == TrueOddsHighest.strategy or strategy == TrueOdds.strategy:
             return self._place_bet_for_true_odds(game_data, betting_amount, self.persistence_lapse, debug_mode)

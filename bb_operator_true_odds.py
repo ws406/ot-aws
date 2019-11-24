@@ -1,4 +1,4 @@
-from src.ops.game_predictor.bb_blended_true_odds_below_max import TrueOddsBelowMax
+from src.ops.game_predictor.bb_blended_true_odds_between_range import TrueOddsBetweenRange
 from src.ops.operator.bb_operator import BbOperator
 import time
 import datetime
@@ -16,7 +16,7 @@ class BbOperatorTrueOdds (BbOperator):
     }
 
     def __init__(self, logger: OtLogger):
-        self.gamePredictors = [TrueOddsBelowMax(logger)]
+        self.gamePredictors = [TrueOddsBetweenRange(logger)]
         BbOperator.__init__(self, logger)
 
 
