@@ -1,4 +1,4 @@
-from src.ops.game_predictor.bb_blended_true_odds import TrueOdds
+from src.ops.game_predictor.bb_blended_true_odds_below_max import TrueOddsBelowMax
 from src.ops.operator.bb_operator import BbOperator
 import time
 import datetime
@@ -9,19 +9,19 @@ class BbOperatorTrueOdds (BbOperator):
 
     get_games_in_minutes = 15
     amount = 20
-    mins_before_kickoff = 1
+    mins_before_kickoff = 2
 
     league_names = {
         'NBA': 1,
     }
 
     def __init__(self, logger: OtLogger):
-        self.gamePredictors = [TrueOdds(logger)]
+        self.gamePredictors = [TrueOddsBelowMax(logger)]
         BbOperator.__init__(self, logger)
 
 
 if __name__ == '__main__':
-    normal_interval_in_mins = 1
+    normal_interval_in_mins = 2
     logger = OtLogger('./logs/ops_bb_true_odds.log')
     operator = BbOperatorTrueOdds(logger)
     wait = operator.get_games_in_minutes * 60

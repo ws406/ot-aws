@@ -6,7 +6,7 @@ from src.ops.game_predictor.bb_blended_true_odds import TrueOdds
 
 ############# Configuration ##################
 # Get all data from file(s)
-data_files = glob.glob("./data/basketball_all_odds_data/National Basketball Association-2017-2018.json")
+data_files = glob.glob("./data/basketball_all_odds_data/National Basketball Association-2019-2020.json")
 
 bids = {
     281: "bet365",  # Bet365
@@ -46,7 +46,9 @@ bf_commission = 0.02
 
 def rank(data):
     results_matrix = {}
+    results_matrix['number_of_games'] = 0
     move_on = False
+    max_odds = 3.5
 
     for game in data:
 
@@ -77,6 +79,10 @@ def rank(data):
             odds_to_bet_2 = sorted_odds[1][1]
             result_to_bet_2 = sorted_odds[1][0]
 
+            if odds_to_bet_2 > max_odds or odds_to_bet_1 > max_odds:
+                logger.log ("--- Game " + str(game['game_id']) + " is not qualified. Odds too high ---")
+                move_on = True
+                break
 
             if game['home_score'] > game['away_score']:
                 result = '1'
@@ -98,6 +104,8 @@ def rank(data):
         if move_on:
             move_on = False
             continue
+        else:
+            results_matrix['number_of_games'] += 1
 
     logger.log(results_matrix)
 
