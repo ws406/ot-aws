@@ -90,17 +90,6 @@ class Betfair (abc.ABC):
                 'details': ' '.join([home_team_name, away_team_name])
             }
 
-    def _get_market_version_from_market_id (self, market_id):
-        endpoint = "listMarketBook"
-        parameters = {
-            "marketIds": [market_id]
-        }
-        payload = json.dumps(self._order_request_builder (endpoint, parameters))
-
-        get_market_version_response = json.loads (self._call_exchange_api(payload))
-        self.logger.log("Get market version result: " + str(get_market_version_response))
-        return get_market_version_response['result'][0]['version']
-
     def _execute_bet (self, market_id, selection_id, size, price, debug_mode, back_lay, strategy, persistence):
         parameters = {
             "marketId": market_id,
@@ -110,26 +99,14 @@ class Betfair (abc.ABC):
                     "handicap": "0",
                     "side": back_lay,
                     "orderType": "LIMIT",
-                    "CustomerStrategyRef": strategy,
                     "limitOrder": {
                         "size": size,
                         "price": price,
-                        # "persistenceType": "PERSIST", # keep the bet
-                        # "persistenceType": "LAPSE" # do not keep the bet
-                        "persistenceType": persistence
+                        "persistenceType": persistence # "PERSIST" or "LAPSE"
                     }
                 }
             ]
         }
-
-        market_version = self._get_market_version_from_market_id(market_id)
-        if market_version is not None:
-            parameters['marketVersion'] = {
-                'version': market_version
-            }
-
-        if strategy is not None:
-            parameters ['customerStrategyRef'] = strategy
 
         endpoint = "placeOrders"
         payload = json.dumps(self._order_request_builder (endpoint, parameters))
@@ -193,8 +170,6 @@ class Betfair (abc.ABC):
         params = {
             "marketIds": [str (market_id)]
         }
-        if strategy is not None:
-            params ['customerStrategyRefs'] = [strategy]
 
         endpoint = "listCurrentOrders"
         response = json.loads (self._call_exchange_api (json.dumps (self._order_request_builder (endpoint, params))))
