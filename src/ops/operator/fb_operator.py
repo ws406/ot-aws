@@ -38,6 +38,7 @@ class FbOperator (abc.ABC):
         315: "victory",
         482: "betway",
         808: "betcity",
+        798: "dafabet",
     }
 
     # Leave this for sub classes to set
@@ -46,7 +47,7 @@ class FbOperator (abc.ABC):
     get_games_in_minutes = 15
 
     amount = 20
-    mins_before_kickoff = 3
+    mins_before_kickoff = 0.5
     commission_rate = 0.02
 
     gameDetector = None

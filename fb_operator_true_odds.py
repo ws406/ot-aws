@@ -1,4 +1,5 @@
-from src.ops.game_predictor.fb_blended_true_odds_2_lowest_odds import TrueOddsLower2
+#from src.ops.game_predictor.fb_blended_true_odds_2_lowest_odds import TrueOddsLower2
+from src.ops.game_predictor.fb_blended_true_odds_inplay import TrueOddsInplay
 from src.ops.operator.fb_operator import FbOperator
 import time
 import datetime
@@ -46,7 +47,7 @@ class FbOperatorTrueOdds (FbOperator):
         #
         23,  # POTG1
         29,  # SCOT1
-        #30,  # TUR1
+        30,  # TUR1
         5,  # BEL1
         22,  # NOR1
         10,  # RUS1
@@ -65,16 +66,18 @@ class FbOperatorTrueOdds (FbOperator):
         3, # Austria Leagie 1
         124, # Romanian Liga I
 
-        # 67, # Euro Cup
+        67, # Euro Cup
+        113, # Europa League
+        103, # Champions League
     ]
 
     def __init__(self, logger: OtLogger):
-        self.gamePredictors = [TrueOddsLower2(logger)]
+        self.gamePredictors = [TrueOddsInplay(logger)]
         FbOperator.__init__(self, logger)
 
 
 if __name__ == '__main__':
-    normal_interval_in_mins = 3
+    normal_interval_in_mins = 0.5
     logger = OtLogger('./logs/ops_true_odds.log')
     operator = FbOperatorTrueOdds(logger)
     wait = operator.get_games_in_minutes * 60

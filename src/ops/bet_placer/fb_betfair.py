@@ -90,7 +90,7 @@ class FBBetfair(Betfair):
         'Hamilton Academical': 'Hamilton',
         'Ross County': 'Ross Co',
 
-        # GE 1 & 2
+        # GE 1 & 2 & 3
         'TSG Hoffenheim': 'Hoffenheim',
         'Bayer Leverkusen': 'Leverkusen',
         'Darmstadt': 'SV Darmstadt',
@@ -109,6 +109,16 @@ class FBBetfair(Betfair):
         'Borussia Dortmund': 'Dortmund',
         'Borussia Monchengladbach': 'Mgladbach',
         'SC Paderborn 07': 'Paderborn',
+        'TSV 1860 Munchen': '1860 Munich',
+        'MSV Duisburg': 'Duisburg',
+        'Preuben Munster': 'Preussen Munster',
+        'Eintracht Braunschweig': 'Braunschweig',
+        'Uerdingen KFC 05': 'Uerdingen',
+        'Magdeburg': 'FC Magdeburg',
+        'SV Waldhof Mannheim': 'Waldhof Mannheim',
+        'Zwickau': 'FSV Zwickau',
+        'SG Sonnenhof Grossaspach': 'SG Sonnenhof',
+        'Viktoria koln': 'Viktoria Koln',
 
         # BR 1 & 2
         'Parana PR': 'Parana',
