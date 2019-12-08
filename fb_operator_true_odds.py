@@ -66,7 +66,7 @@ class FbOperatorTrueOdds (FbOperator):
         3, # Austria Leagie 1
         124, # Romanian Liga I
 
-        67, # Euro Cup
+        # 67, # Euro Cup
         113, # Europa League
         103, # Champions League
     ]
