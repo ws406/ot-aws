@@ -15,6 +15,7 @@ class TrueOddsInplay(TrueOddsSuper):
     leagueDivOne = list()
     leagueDivTwo = list()
     filter_bookies = list()
+    benchmarkBetOdds = 1.5 # if odds is less than 1.5, it means we are risking 1 unit in return for 0.5, may not worth it
 
     def __init__(self, logger: OtLogger):
         super().__init__(logger)
@@ -32,7 +33,6 @@ class TrueOddsInplay(TrueOddsSuper):
         self.filter_bookies.append('will_hill')
         self.filter_bookies.append('betcity')
         self.filter_bookies.append('bodog')
-        self.filter_bookies.append('coral')
         self.filter_bookies.append('betfred')
         self.filter_bookies.append('skybet')
         self.filter_bookies.append('snai')
@@ -216,13 +216,13 @@ class TrueOddsInplay(TrueOddsSuper):
         # the reason we want to do this, is try to avoid adverse selection
         self.logger.log('CompareBestOdds: ' + str(compareBestOdds))
         self.logger.log('Calculated odds: home: ' + str(home) + ', draw: ' + str(draw) + ',  away: '+ str(away))
-        if compareBestOdds[0] >= home:
+        if compareBestOdds[0] >= self.benchmarkBetOdds and compareBestOdds[0] >= home:
             true_odds['1'] = home
             is_qualifed = True
-        if compareBestOdds[1] >= draw:
+        if compareBestOdds[1] >= self.benchmarkBetOdds and compareBestOdds[1] >= draw:
             true_odds['x'] = draw
             is_qualifed = True
-        if compareBestOdds[2] >= away:
+        if compareBestOdds[2] >= self.benchmarkBetOdds and compareBestOdds[2] >= away:
             true_odds['2'] = away
             is_qualifed = True
 
