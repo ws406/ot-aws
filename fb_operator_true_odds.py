@@ -46,7 +46,9 @@ class FbOperatorTrueOdds (FbOperator):
         358, # BRA2
         #
         23,  # POTG1
+        157,  # POTG2
         29,  # SCOT1
+        150,  # SCOT2
         30,  # TUR1
         5,  # BEL1
         22,  # NOR1

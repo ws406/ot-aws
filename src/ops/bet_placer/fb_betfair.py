@@ -81,7 +81,7 @@ class FBBetfair(Betfair):
         'Mansfield Town': 'Mansfield',
         'Scunthorpe United': 'Scunthorpe',
 
-        # Scot 1
+        # Scot 1 && 2
         'Saint Mirren': 'St Mirren',
         'Saint Johnstone': 'St Johnstone',
         'Celtic FC': 'Celtic',
@@ -89,6 +89,13 @@ class FBBetfair(Betfair):
         'Heart of Midlothian': 'Hearts',
         'Hamilton Academical': 'Hamilton',
         'Ross County': 'Ross Co',
+        'Dundee United': 'Dundee Utd',
+        'Ayr United': 'Ayr',
+        'Alloa Athletic': 'Alloa',
+        'Dunfermline Athletic': 'Dunfermline',
+        'Greenock Morton': 'Morton',
+        'Partick Thistle': 'Partick',
+        'Inverness': 'Inverness CT',
 
         # GE 1 & 2 & 3
         'TSG Hoffenheim': 'Hoffenheim',
@@ -119,6 +126,7 @@ class FBBetfair(Betfair):
         'Zwickau': 'FSV Zwickau',
         'SG Sonnenhof Grossaspach': 'SG Sonnenhof',
         'Viktoria koln': 'Viktoria Koln',
+        'Bayern Munchen (Youth)': 'Bayern Munich II',
 
         # BR 1 & 2
         'Parana PR': 'Parana',
@@ -217,6 +225,7 @@ class FBBetfair(Betfair):
         'Sydney FC': 'Sydney',
         'Adelaide United FC': 'Adelaide United',
         'Western Sydney': 'Western Sydney Wanderers',
+        'Western United FC': 'Western United'
 
         # Swedish Super League
         'VfL Osnabruck': 'VFL Osnabruck',
@@ -313,7 +322,7 @@ class FBBetfair(Betfair):
         'CD Lugo': 'Lugo',
         'Extremadura': 'Extremadura UD',
 
-        # POR 1
+        # POR 1 && 2
         'Vitoria Setubal': 'Setubal',
         'Boavista FC': 'Boavista',
         'Sporting Braga': 'Braga',
@@ -322,6 +331,14 @@ class FBBetfair(Betfair):
         'Vitoria Guimaraes': 'Guimaraes',
         'Pacos de Ferreira': 'Pacos Ferreira',
         'CD Tondela': 'Tondela',
+        'Viseu': 'Academico de Viseu',
+        'Cova Piedade': 'Cova da Piedade',
+        'GD Chaves': 'Chaves',
+        'SL Benfica B': 'Benfica B',
+        'Estoril': 'Estoril Praia',
+        'Nacional da Madeira': 'CD Nacional Funchal',
+        'Casa Pia AC': 'Casa Pia',
+        'CD Mafra': 'Mafra',
 
         # IT 1
         'Inter Milan': 'Inter',

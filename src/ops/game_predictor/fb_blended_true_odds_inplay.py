@@ -73,6 +73,8 @@ class TrueOddsInplay(TrueOddsSuper):
         self.leagueDivOne.append(33) # Spanish Segunda Division
         self.leagueDivOne.append(40) # Italian Serie B
         self.leagueDivOne.append(22) # Norwegian Tippeligaen
+        self.leagueDivOne.append(157) # Portugal Segunda Liga
+        self.leagueDivOne.append(150) # Scottish Championship
 
         self.leagueDivOne.append(273) # Australia A-League
         self.leagueDivOne.append(136) # Hungary NB I
