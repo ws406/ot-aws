@@ -225,7 +225,7 @@ class FBBetfair(Betfair):
         'Sydney FC': 'Sydney',
         'Adelaide United FC': 'Adelaide United',
         'Western Sydney': 'Western Sydney Wanderers',
-        'Western United FC': 'Western United'
+        'Western United FC': 'Western United',
 
         # Swedish Super League
         'VfL Osnabruck': 'VFL Osnabruck',
