@@ -339,6 +339,9 @@ class FBBetfair(Betfair):
         'Nacional da Madeira': 'CD Nacional Funchal',
         'Casa Pia AC': 'Casa Pia',
         'CD Mafra': 'Mafra',
+        'Academica Coimbra': 'Academica',
+        'SC Covilha': 'Covilha',
+        'SC Farense': 'Farense',
 
         # IT 1
         'Inter Milan': 'Inter',
