@@ -63,6 +63,7 @@ class TrueOddsInplay(TrueOddsSuper):
         self.leagueDivOne.append(8) # Germany 1
         self.leagueDivOne.append(13) # Finland
         self.leagueDivOne.append(16) # Holland Eredivisie
+        self.leagueDivOne.append(84) # English League Cup
 
         self.leagueDivOne.append(26) # Sweden
         self.leagueDivOne.append(124) # Romanian Liga I
@@ -119,6 +120,7 @@ class TrueOddsInplay(TrueOddsSuper):
         self.profitChoice2List.append(13) # Finland
         self.profitChoice2List.append(103) # champions League
         self.profitChoice2List.append(113) # Europa League
+        self.profitChoice2List.append(84) # English League Cup
 
         self.profitChoice3List.append(5) # Belgian Pro League
         self.profitChoice3List.append(15) # Korea League

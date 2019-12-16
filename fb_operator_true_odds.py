@@ -58,16 +58,16 @@ class FbOperatorTrueOdds (FbOperator):
         26,  # Sweden
         # 415,  # CHILE1
         # 140,  # MEX1
-
+        133, # Croatia Super League
         273,  # AUS
         7, # Denmark
         6, # Poland1
-
+        119, # Ukrainian Premier League
         27, # Swiss Super League
-
+        137, # Czech First League
         3, # Austria Leagie 1
         124, # Romanian Liga I
-
+        136, # Hungary NB I
         # 67, # Euro Cup
         113, # Europa League
         103, # Champions League
