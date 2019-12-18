@@ -8,7 +8,7 @@ from src.utils.logger import OtLogger
 class BbOperatorTrueOdds (BbOperator):
 
     get_games_in_minutes = 15
-    amount = 20
+    amount = 100
     mins_before_kickoff = 2
 
     league_names = {
