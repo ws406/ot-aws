@@ -441,6 +441,15 @@ class FBBetfair(Betfair):
         'Ilves Tampere': 'Ilves',
         'RoPS Rovaniemi': 'RoPS',
         'KuPs': 'KuPS',
+
+        # Greece
+        'SKODA Xanthi': 'Xanthi',
+        'Panaitolikos Agrinio': 'Panaitolikos',
+        'OFI Crete': 'OFI',
+        'Atromitos Athens': 'Atromitos',
+        'Aris Thessaloniki': 'Aris',
+        'Volos NFC': 'NFC Volos',
+        'PAOK Saloniki': 'PAOK',
     }
 
     def place_match_odds_bet(self, game_data, betting_amount, debug_mode=False):

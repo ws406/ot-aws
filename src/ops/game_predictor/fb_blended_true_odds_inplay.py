@@ -58,13 +58,10 @@ class TrueOddsInplay(TrueOddsSuper):
         self.leagueDivOne.append(35) # England League 2
         self.leagueDivOne.append(39) # England League 1
         self.leagueDivOne.append(30) # Turkish Super Liga
-
         self.leagueDivOne.append(36) # English Premier league
         self.leagueDivOne.append(8) # Germany 1
         self.leagueDivOne.append(13) # Finland
         self.leagueDivOne.append(16) # Holland Eredivisie
-        self.leagueDivOne.append(84) # English League Cup
-
         self.leagueDivOne.append(26) # Sweden
         self.leagueDivOne.append(124) # Romanian Liga I
         self.leagueDivOne.append(29) # Scottish Premier League
@@ -76,17 +73,30 @@ class TrueOddsInplay(TrueOddsSuper):
         self.leagueDivOne.append(22) # Norwegian Tippeligaen
         self.leagueDivOne.append(157) # Portugal Segunda Liga
         self.leagueDivOne.append(150) # Scottish Championship
-
         self.leagueDivOne.append(273) # Australia A-League
         self.leagueDivOne.append(136) # Hungary NB I
         self.leagueDivOne.append(103) # champions League
         self.leagueDivOne.append(113) # Europa League
+        self.leagueDivOne.append(84) # English League Cup
+        self.leagueDivOne.append(146) # English Nation League
+        self.leagueDivOne.append(221) # Poland League 1
+        self.leagueDivOne.append(121) # Swiss Challenge League
+        self.leagueDivOne.append(308) # South Africa Premier League
+        self.leagueDivOne.append(321) # Morocco Pro 1
+        self.leagueDivOne.append(122) # Sweden Superettan
+        self.leagueDivOne.append(700) # Thai Premier League
 
         self.leagueDivTwo.append(5) # Belgian Pro League
         self.leagueDivTwo.append(15) # Korea League
         self.leagueDivTwo.append(137) # Czech First League
         self.leagueDivTwo.append(284) # J-League Division 2
         self.leagueDivTwo.append(358) # Brazil Serie B
+        self.leagueDivTwo.append(235) # Russia League 1
+        self.leagueDivTwo.append(193) # Algeria
+        self.leagueDivTwo.append(138) # Belgian Second Division
+        self.leagueDivTwo.append(1) # Ireland Premier Division
+        self.leagueDivTwo.append(140) # Mexico Primera Division
+        self.leagueDivTwo.append(766) # Vietnam
 
         self.profitChoice2List.append(12) # France Ligue 2
         self.profitChoice2List.append(29) # Scottish Premier League
@@ -118,15 +128,28 @@ class TrueOddsInplay(TrueOddsSuper):
         self.profitChoice2List.append(133) # Croatia Super League
         self.profitChoice2List.append(25) # J-League Division 1
         self.profitChoice2List.append(13) # Finland
+        self.profitChoice2List.append(157) # Portugal Segunda Liga
+        self.profitChoice2List.append(150) # Scottish Championship
         self.profitChoice2List.append(103) # champions League
         self.profitChoice2List.append(113) # Europa League
         self.profitChoice2List.append(84) # English League Cup
+        self.profitChoice2List.append(146) # England National League
+        self.profitChoice2List.append(235) # Russia League 1
+        self.profitChoice2List.append(138) # Belgium Second Division
+        self.profitChoice2List.append(140) # Mexico Primera Division
+        self.profitChoice2List.append(1) # Ireland Premier Division
+        self.profitChoice2List.append(308) # South Africa Premier League
+        self.profitChoice2List.append(321) # Morocco Pro 1
+        self.profitChoice2List.append(122) # Sweden Superettan
+        self.profitChoice2List.append(700) # Thai Premier League
+        self.profitChoice2List.append(766) # Vietnam
 
         self.profitChoice3List.append(5) # Belgian Pro League
         self.profitChoice3List.append(15) # Korea League
         self.profitChoice3List.append(137) # Czech First League
         self.profitChoice3List.append(284) # J-League Division 2
         self.profitChoice3List.append(358) # Brazil Serie B
+        self.profitChoice3List.append(221) # Poland League 1
 
     def FindOddsWithOffsetTime(self, game_data, bookie, lookbackTime):
         matchInSeq = collections.OrderedDict(sorted(game_data['odds'][bookie].items()))
@@ -180,7 +203,7 @@ class TrueOddsInplay(TrueOddsSuper):
             for bookie in self.filter_bookies:
                 try:
                     compareOdds = list(collections.OrderedDict(sorted(data['odds'][bookie].items())).values())[-1]
-                except (TypeError, KeyError, IndexError):
+                except (TypeError, KeyError):
                     compareOdds = {}
                     compareOdds['1'] = 1.0
                     compareOdds['x'] = 1.0
@@ -211,6 +234,7 @@ class TrueOddsInplay(TrueOddsSuper):
             localProfitMargin = self.profit_margin2
         if data['league_id'] in self.profitChoice3List:
             localProfitMargin = self.profit_margin3
+        print(local_list_home, local_list_draw, local_list_away, home, draw, away)
         home = home * (1 + localProfitMargin)
         draw = draw * (1 + localProfitMargin)
         away = away * (1 + localProfitMargin)
