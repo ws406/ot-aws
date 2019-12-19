@@ -322,6 +322,24 @@ class FBBetfair(Betfair):
         'CD Lugo': 'Lugo',
         'Extremadura': 'Extremadura UD',
 
+        # Spain
+        'SD Amorebieta': 'Amorebieta',
+        'Badajoz': 'CD Badajoz',
+        'Pena Azagresa': 'CD Pena Azagresa',
+        'Cultural Leonesa': 'Leonesa',
+        'Las Rozas': 'CD Las Rozas',
+        'SCR Pena Deportiva': 'Santa Eulalia',
+        'Haro Deportivo': 'Haro',
+        'SD Laredo': 'CD Laredo',
+        'UE Cornella': 'Cornella',
+        'Gimnastic Tarragona': 'Gimnastic',
+        'UE Olot': 'Olot',
+        'Merida AD': 'Merida',
+        'CF La Nucia': 'La Nucia',
+        'CD Becerril': 'Becerril',
+        'CD Linares Deportivo': 'Linares Deportivo',
+        'Lorca Deportiva FC': 'Lorca Deportiva CF',
+
         # POR 1 && 2
         'Vitoria Setubal': 'Setubal',
         'Boavista FC': 'Boavista',

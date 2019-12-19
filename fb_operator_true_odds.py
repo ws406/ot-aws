@@ -21,6 +21,8 @@ class FbOperatorTrueOdds (FbOperator):
         35,  # EFL2
         146, # English Nation League
         84,  # English League Cup
+        90, # England FA Cup
+        81, # Spanish Copa
         31,  # ES1
         33,  # ES2
         8,  # GE1

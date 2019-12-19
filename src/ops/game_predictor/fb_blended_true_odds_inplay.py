@@ -76,7 +76,6 @@ class TrueOddsInplay(TrueOddsSuper):
         self.leagueDivOne.append(273) # Australia A-League
         self.leagueDivOne.append(136) # Hungary NB I
         self.leagueDivOne.append(103) # champions League
-        self.leagueDivOne.append(113) # Europa League
         self.leagueDivOne.append(84) # English League Cup
         self.leagueDivOne.append(146) # English Nation League
         self.leagueDivOne.append(221) # Poland League 1
@@ -97,6 +96,7 @@ class TrueOddsInplay(TrueOddsSuper):
         self.leagueDivTwo.append(1) # Ireland Premier Division
         self.leagueDivTwo.append(140) # Mexico Primera Division
         self.leagueDivTwo.append(766) # Vietnam
+        self.leagueDivTwo.append(113) # Europa League
 
         self.profitChoice2List.append(12) # France Ligue 2
         self.profitChoice2List.append(29) # Scottish Premier League
@@ -130,8 +130,6 @@ class TrueOddsInplay(TrueOddsSuper):
         self.profitChoice2List.append(13) # Finland
         self.profitChoice2List.append(157) # Portugal Segunda Liga
         self.profitChoice2List.append(150) # Scottish Championship
-        self.profitChoice2List.append(103) # champions League
-        self.profitChoice2List.append(113) # Europa League
         self.profitChoice2List.append(84) # English League Cup
         self.profitChoice2List.append(146) # England National League
         self.profitChoice2List.append(235) # Russia League 1
@@ -150,6 +148,8 @@ class TrueOddsInplay(TrueOddsSuper):
         self.profitChoice3List.append(284) # J-League Division 2
         self.profitChoice3List.append(358) # Brazil Serie B
         self.profitChoice3List.append(221) # Poland League 1
+        self.profitChoice3List.append(113) # Europa League
+        self.profitChoice3List.append(103) # champions League
 
     def FindOddsWithOffsetTime(self, game_data, bookie, lookbackTime):
         matchInSeq = collections.OrderedDict(sorted(game_data['odds'][bookie].items()))
