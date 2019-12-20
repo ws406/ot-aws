@@ -81,6 +81,21 @@ class FBBetfair(Betfair):
         'Mansfield Town': 'Mansfield',
         'Scunthorpe United': 'Scunthorpe',
 
+        # England Nation League
+        'Yeovil Town': 'Yeovil',
+        'Aldershot Town': 'Aldershot',
+        'Stockport County': 'Stockport',
+        'Chorley FC': 'Chorley',
+        'Dover Athletic': 'Dover',
+        'Ebbsfleet United': 'Ebbsfleet Utd',
+        'Halifax Town': 'FC Halifax Town',
+        'Notts County': 'Notts Co',
+        'Hartlepool United': 'Hartlepool',
+        'Dagenham Redbridge': 'Dag and Red',
+        'Maidenhead United': 'Maidenhead',
+        'Sutton United': 'Sutton Utd',
+        'Torquay United': 'Torquay',
+
         # Scot 1 && 2
         'Saint Mirren': 'St Mirren',
         'Saint Johnstone': 'St Johnstone',

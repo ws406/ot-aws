@@ -36,6 +36,8 @@ class Main:
 
     league_ids = {
         1 : 'National Basketball Association', # NBA
+        #14: 'Australia NBL',
+        #22: 'Basketball Bundesliga',
     }
 
     league_id_to_year_month = {
@@ -47,7 +49,25 @@ class Main:
             '%year_to%_2',
             '%year_to%_3',
             '%year_to%_4',
-        ]
+        ],
+        14: [
+            '%year_from%_10',
+            '%year_from%_11',
+            '%year_from%_12',
+            '%year_to%_1',
+            '%year_to%_2',
+        ],
+        22: [
+            #'%year_from%_9',
+            '%year_from%_10',
+            '%year_from%_11',
+            '%year_from%_12',
+            '%year_to%_1',
+            '%year_to%_2',
+            '%year_to%_3',
+            '%year_to%_4',
+            '%year_to%_5',
+            ], # notice: Germany league, depends on season, may expand across different months each year
     }
 
     def __init__(self, logger: OtLogger):

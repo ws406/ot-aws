@@ -83,12 +83,12 @@ class HistGamesFetcher:
                 "\[([0-9]*),"                                         # Game Id
                 ".+?,"                                                # Don't care
                 "'(?:[0-9]{4}-[0-9]{2}-[0-9]{2} [0-9]{2}:[0-9]{2})'," # Game datetime played
-                "([0-9]{1,2}),"                                       # Home team ID
-                "([0-9]{1,2}),"                                       # Away team ID
-                "([0-9]{1,3}),"                                       # Home team score
-                "([0-9]{1,3}),"                                       # Away team score
-                "([0-9]{1,3}),"                                       # Home team ht ranking
-                "([0-9]{1,3}),"                                       # Away team ht ranking
+                "([0-9]*),"                                       # Home team ID
+                "([0-9]*),"                                       # Away team ID
+                "([0-9]*),"                                       # Home team score
+                "([0-9]*),"                                       # Away team score
+                "([0-9]*),"                                       # Home team ht ranking
+                "([0-9]*),"                                       # Away team ht ranking
                 ".+?\]",                                              # Don't care
                 all_games_string
             )

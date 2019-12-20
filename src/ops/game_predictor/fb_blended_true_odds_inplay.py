@@ -84,6 +84,8 @@ class TrueOddsInplay(TrueOddsSuper):
         self.leagueDivOne.append(321) # Morocco Pro 1
         self.leagueDivOne.append(122) # Sweden Superettan
         self.leagueDivOne.append(700) # Thai Premier League
+        self.leagueDivOne.append(90) # England FA Cup
+        self.leagueDivOne.append(81) # Spanish Copa
 
         self.leagueDivTwo.append(5) # Belgian Pro League
         self.leagueDivTwo.append(15) # Korea League
@@ -234,7 +236,7 @@ class TrueOddsInplay(TrueOddsSuper):
             localProfitMargin = self.profit_margin2
         if data['league_id'] in self.profitChoice3List:
             localProfitMargin = self.profit_margin3
-        print(local_list_home, local_list_draw, local_list_away, home, draw, away)
+        print(data['game_id'], local_list_home, local_list_draw, local_list_away, home, draw, away)
         home = home * (1 + localProfitMargin)
         draw = draw * (1 + localProfitMargin)
         away = away * (1 + localProfitMargin)
