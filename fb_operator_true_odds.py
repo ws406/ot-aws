@@ -75,6 +75,8 @@ class FbOperatorTrueOdds (FbOperator):
         122, # Sweden Superettan
         700, # Thai Premier League
         766, # Vietnam
+        308, # South Africa Premier League
+        321, # Morocco Pro 1
     ]
 
     def __init__(self, logger: OtLogger):
