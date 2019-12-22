@@ -483,6 +483,13 @@ class FBBetfair(Betfair):
         'Aris Thessaloniki': 'Aris',
         'Volos NFC': 'NFC Volos',
         'PAOK Saloniki': 'PAOK',
+
+        # Morocco
+        'Raja Casablanca Atlhletic': 'Raja Casablanca',
+        'Renaissance Zmamra': 'Club R Zemamra',
+        'IRT Itihad de Tanger': 'IRT Tanger',
+        'Hassania Agadir': 'HUSA Agadir',
+        'RCOZ Oued Zem': 'Rapide Club Oued Zem',
     }
 
     def place_match_odds_bet(self, game_data, betting_amount, debug_mode=False):
