@@ -495,6 +495,16 @@ class FBBetfair(Betfair):
 
         # Mexico
         'Club America': 'CF America',
+
+        # Northen Irish
+        'Institute FC': 'Institute',
+        'Warrenpoint Town': 'Warrenpoint',
+        'Glentoran FC': 'Glentoran',
+        'Linfield FC': 'Linfield',
+        'Ballymena United': 'Ballymena',
+        'Glenavon Lurgan': 'Glenavon',
+        'Dungannon Swifts': 'Dungannon',
+        'Larne FC': 'Larne',
     }
 
     def place_match_odds_bet(self, game_data, betting_amount, debug_mode=False):
