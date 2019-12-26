@@ -490,6 +490,11 @@ class FBBetfair(Betfair):
         'IRT Itihad de Tanger': 'IRT Tanger',
         'Hassania Agadir': 'HUSA Agadir',
         'RCOZ Oued Zem': 'Rapide Club Oued Zem',
+        'Raja de Beni Mellal': 'Raja Beni Mellal',
+        'MCO Mouloudia Oujda': 'Mouloudia dOujda',
+
+        # Mexico
+        'Club America': 'CF America',
     }
 
     def place_match_odds_bet(self, game_data, betting_amount, debug_mode=False):

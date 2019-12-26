@@ -1,4 +1,3 @@
-#from src.ops.game_predictor.fb_blended_true_odds_2_lowest_odds import TrueOddsLower2
 from src.ops.game_predictor.fb_blended_true_odds_inplay import TrueOddsInplay
 from src.ops.operator.fb_operator import FbOperator
 import time
@@ -77,6 +76,10 @@ class FbOperatorTrueOdds (FbOperator):
         766, # Vietnam
         308, # South Africa Premier League
         321, # Morocco Pro 1
+        89, # Copa Libertadores
+        192, # AFC Champions League
+        350, # AFC Cup
+        165, # Northern Ireland Premier League
     ]
 
     def __init__(self, logger: OtLogger):
