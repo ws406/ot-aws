@@ -54,10 +54,8 @@ class TrueOddsInplay(TrueOddsSuper):
         self.leagueDivOne.append(25) # J-League Division 1
         self.leagueDivOne.append(4) # Brazil A
         self.leagueDivOne.append(34) # Italian Serie A
-        #self.leagueDivOne.append(12) # France Ligue 2
         self.leagueDivOne.append(35) # England League 2
         self.leagueDivOne.append(39) # England League 1
-        self.leagueDivOne.append(30) # Turkish Super Liga
         self.leagueDivOne.append(36) # English Premier league
         self.leagueDivOne.append(8) # Germany 1
         self.leagueDivOne.append(13) # Finland
@@ -87,6 +85,8 @@ class TrueOddsInplay(TrueOddsSuper):
         self.leagueDivOne.append(15) # Korea League
         self.leagueDivOne.append(89) # Copa Libertadores
         self.leagueDivOne.append(165) # Northern Ireland Premier League
+        #self.leagueDivOne.append(12) # France Ligue 2
+        #self.leagueDivOne.append(30) # Turkish Super Liga
 
         self.leagueDivTwo.append(5) # Belgian Pro League
         self.leagueDivTwo.append(137) # Czech First League
@@ -102,7 +102,6 @@ class TrueOddsInplay(TrueOddsSuper):
         self.leagueDivTwo.append(40) # Italian Serie B
         self.leagueDivTwo.append(273) # Australia A-League
 
-        #self.profitChoice2List.append(12) # France Ligue 2
         self.profitChoice2List.append(29) # Scottish Premier League
         self.profitChoice2List.append(23) # Portugal Primera Liga
         self.profitChoice2List.append(37) # England Championship
@@ -112,7 +111,6 @@ class TrueOddsInplay(TrueOddsSuper):
         self.profitChoice2List.append(34) # Italian Serie A
         self.profitChoice2List.append(35) # England League 2
         self.profitChoice2List.append(39) # England League 1
-        self.profitChoice2List.append(30) # Turkish Super Liga
         self.profitChoice2List.append(136) # Hungary NB I
         self.profitChoice2List.append(8) # Germany 1
         self.profitChoice2List.append(60) #  Chinese Super League
@@ -144,6 +142,8 @@ class TrueOddsInplay(TrueOddsSuper):
         self.profitChoice2List.append(700) # Thai Premier League
         self.profitChoice2List.append(766) # Vietnam
         self.profitChoice2List.append(15) # Korea League
+        #self.profitChoice2List.append(12) # France Ligue 2
+        ##self.profitChoice2List.append(30) # Turkish Super Liga
 
         self.profitChoice3List.append(5) # Belgian Pro League
         self.profitChoice3List.append(137) # Czech First League

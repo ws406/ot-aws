@@ -28,7 +28,6 @@ class FbOperatorTrueOdds (FbOperator):
         9,  # GE2
         693,  # GE3
         11,  # FR1
-        12,  # FR2
         13, # FIN1
         16,  # HO1
         17,  # HO2
@@ -42,7 +41,6 @@ class FbOperatorTrueOdds (FbOperator):
         157,  # POTG2
         29,  # SCOT1
         150,  # SCOT2
-        30,  # TUR1
         5,  # BEL1
         22,  # NOR1
         10,  # RUS1
@@ -59,7 +57,6 @@ class FbOperatorTrueOdds (FbOperator):
         124, # Romanian Liga I
         136, # Hungary NB I
         32, # Greece
-        #67, # Euro Cup
         113, # Europa League
         103, # Champions League
         193, # Algeria
@@ -80,6 +77,9 @@ class FbOperatorTrueOdds (FbOperator):
         192, # AFC Champions League
         350, # AFC Cup
         165, # Northern Ireland Premier League
+        #12,  # FR2
+        #30,  # TUR1
+        #67, # Euro Cup
     ]
 
     def __init__(self, logger: OtLogger):

@@ -492,6 +492,8 @@ class FBBetfair(Betfair):
         'RCOZ Oued Zem': 'Rapide Club Oued Zem',
         'Raja de Beni Mellal': 'Raja Beni Mellal',
         'MCO Mouloudia Oujda': 'Mouloudia dOujda',
+        'DHJ Difaa Hassani Jadidi': 'DHJ El Jadida',
+        'Olympique de Safi': 'Olympic Safi',
 
         # Mexico
         'Club America': 'CF America',
