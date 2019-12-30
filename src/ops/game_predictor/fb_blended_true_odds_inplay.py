@@ -142,6 +142,9 @@ class TrueOddsInplay(TrueOddsSuper):
         self.profitChoice2List.append(700) # Thai Premier League
         self.profitChoice2List.append(766) # Vietnam
         self.profitChoice2List.append(15) # Korea League
+        self.profitChoice2List.append(36) # English Premier league
+        self.profitChoice2List.append(113) # Europa League
+        self.profitChoice2List.append(103) # champions League
         #self.profitChoice2List.append(12) # France Ligue 2
         ##self.profitChoice2List.append(30) # Turkish Super Liga
 
@@ -150,8 +153,6 @@ class TrueOddsInplay(TrueOddsSuper):
         self.profitChoice3List.append(284) # J-League Division 2
         self.profitChoice3List.append(358) # Brazil Serie B
         self.profitChoice3List.append(221) # Poland League 1
-        self.profitChoice3List.append(113) # Europa League
-        self.profitChoice3List.append(103) # champions League
         self.profitChoice3List.append(40) # Italian Serie B
 
     def FindOddsWithOffsetTime(self, game_data, bookie, lookbackTime):

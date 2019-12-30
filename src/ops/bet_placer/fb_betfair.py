@@ -494,6 +494,7 @@ class FBBetfair(Betfair):
         'MCO Mouloudia Oujda': 'Mouloudia dOujda',
         'DHJ Difaa Hassani Jadidi': 'DHJ El Jadida',
         'Olympique de Safi': 'Olympic Safi',
+        'Union Touarga Sport Rabat': 'FUS Rabat',
 
         # Mexico
         'Club America': 'CF America',
