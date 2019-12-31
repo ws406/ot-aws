@@ -5,7 +5,7 @@ from src.utils.logger import OtLogger
 class TrueOddsBetweenRange(TrueOddsSuper):
     strategy = 'to_odds_between_range'
     profit_margin = 0.02 # This is to ensure we win something.
-    max_odds = 3
+    max_odds = 2
     min_odds = 1.2
 
     def _calc_true_odds(self, data, localProfitMargin):

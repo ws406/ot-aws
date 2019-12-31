@@ -36,7 +36,8 @@ class Main:
 
     league_ids = {
         1 : 'National Basketball Association', # NBA
-        #14: 'Australia NBL',
+        # 14: 'Australia NBL',
+        # 5: 'CBA',
         #22: 'Basketball Bundesliga',
     }
 
@@ -83,7 +84,7 @@ class Main:
         # for lid in self.league_ids:
         num_of_seasons = 1
         start_season_offset = 0
-        replace = True
+        replace = False
         for lid, lname in self.league_ids.items():
         # for lid in [273]:
             print("Start extracting historical games from " + str(len(self.league_ids)) + " leagues and "
@@ -108,6 +109,5 @@ if __name__ == '__main__':
             num_games = Main(logger).execute()
         except Exception as e:
             raise e
-            print ('Exception happened.... Try again later.')
         print ("Next run at UTC: " + str (datetime.datetime.now () + datetime.timedelta (hours = wait_in_hours)))
         time.sleep (60 * 60 * wait_in_hours)

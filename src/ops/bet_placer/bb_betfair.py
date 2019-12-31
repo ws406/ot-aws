@@ -10,7 +10,10 @@ class BBBetfair (Betfair):
     market_type_code_match_odds = 'MATCH_ODDS'
     market_name = 'Moneyline'
 
-    team_names_mapping = {}
+    team_names_mapping = {
+        # Australian NBL
+        "New Zealand Breakers": "NZ Breakers",
+    }
 
     def place_match_odds_bet(self, game_data, betting_amount, debug_mode=False):
 
