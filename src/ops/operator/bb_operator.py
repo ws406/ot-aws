@@ -22,6 +22,12 @@ class BbOperator (abc.ABC):
         458: "SB",
         11: "5Dimes",
         6: "easybet",
+        83: "ladbroke",
+        231: "BetClick",
+        369: "10BET",
+        368: "Sportingbet",
+        317: "SNAI",
+        9: "NordicBet",
     }
 
     # Leave this for sub classes to set
