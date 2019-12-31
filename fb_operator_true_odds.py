@@ -77,6 +77,11 @@ class FbOperatorTrueOdds (FbOperator):
         192, # AFC Champions League
         350, # AFC Cup
         165, # Northern Ireland Premier League
+        1413, # Spanish Segunda Division B
+        142, # Italian C1
+        54, #French Cup
+        297, # England Conference North
+        298, # England Conference South
         #12,  # FR2
         #30,  # TUR1
         #67, # Euro Cup

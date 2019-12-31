@@ -7,14 +7,13 @@ from src.utils.true_odds_calculator import TrueOddsCalculator
 class TrueOddsInplay(TrueOddsSuper):
 
     strategy = 'to_inplay'
-    profit_margin = 0.01 # This is to ensure we win something.
+    profit_margin = 0.0 # This is to ensure we win something.
 
     def _calc_raw_true_odds(self, data, localProfitMargin):
         picked_bookie = list()
-        picked_bookie.append('pinnacle')
+        picked_bookie.append('bet365')
         picked_bookie.append('Expekt')
-        picked_bookie.append('easybet')
-        picked_bookie.append('SB')
+        picked_bookie.append('ladbroke')
         picked_bookie.append('vcbet')
 
         local_list_home = []
@@ -44,19 +43,28 @@ class TrueOddsInplay(TrueOddsSuper):
         raw_true_odds['1'], raw_true_odds['2'] = \
             true_odds_calculator.calculate_2_way_margin_prop(home, away)
 
-        raw_true_odds['1'] = raw_true_odds['1'] * (1+localProfitMargin)
-        raw_true_odds['2'] = raw_true_odds['2'] * (1+localProfitMargin)
+        raw_true_odds['1'] = raw_true_odds['1'] * (1+self.profit_margin)
+        raw_true_odds['2'] = raw_true_odds['2'] * (1+self.profit_margin)
 
         compareBestOdds = [0, 0]
         true_odds = dict()
         filter_bookies = []
-        filter_bookies.append('pinnacle')
         filter_bookies.append('bet365')
         filter_bookies.append('easybet')
         filter_bookies.append('5Dimes')
+        filter_bookies.append('BetClick')
+        filter_bookies.append('10BET')
+        filter_bookies.append('Sportingbet')
+        filter_bookies.append('SNAI')
+        filter_bookies.append('NordicBet')
+        kickoffTime = int(data['kickoff'])
         for bookie in filter_bookies:
             try:
-                compareOdds = list(collections.OrderedDict(sorted(data['odds'][bookie].items())).values())[-1]
+                lastUpdateTime = int(list(collections.OrderedDict(sorted(data['odds'][bookie].items())).keys())[-1])
+                if lastUpdateTime < kickoffTime - 10 * 60 - 3.0 * 60 * 60:
+                    continue
+                else:
+                    compareOdds = list(collections.OrderedDict(sorted(data['odds'][bookie].items())).values())[-1]
             except Exception as e:
                 self.logger.log('Exception - ' + str(e))
                 compareOdds = {}
