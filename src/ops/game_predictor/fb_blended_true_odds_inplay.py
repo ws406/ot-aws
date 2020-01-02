@@ -38,7 +38,6 @@ class TrueOddsInplay(TrueOddsSuper):
         self.filter_bookies.append('snai')
         self.filter_bookies.append('dafabet')
 
-        self.leagueDivOne.append(31) # Spain 1
         self.leagueDivOne.append(11) # France 1
         self.leagueDivOne.append(60) # Chinese Super League
         self.leagueDivOne.append(17) # Holland Jupiler League
@@ -51,13 +50,10 @@ class TrueOddsInplay(TrueOddsSuper):
         self.leagueDivOne.append(133) # Croatia Super League
         self.leagueDivOne.append(25) # J-League Division 1
         self.leagueDivOne.append(4) # Brazil A
-        self.leagueDivOne.append(36) # English Premier league
         self.leagueDivOne.append(8) # Germany 1
         self.leagueDivOne.append(16) # Holland Eredivisie
         self.leagueDivOne.append(26) # Sweden
-        self.leagueDivOne.append(124) # Romanian Liga I
         self.leagueDivOne.append(23) # Portugal Primera Liga
-        self.leagueDivOne.append(37) # England Championship
         self.leagueDivOne.append(22) # Norwegian Tippeligaen
         self.leagueDivOne.append(157) # Portugal Segunda Liga
         self.leagueDivOne.append(136) # Hungary NB I
@@ -67,7 +63,6 @@ class TrueOddsInplay(TrueOddsSuper):
         self.leagueDivOne.append(221) # Poland League 1
         self.leagueDivOne.append(121) # Swiss Challenge League
         self.leagueDivOne.append(308) # South Africa Premier League
-        self.leagueDivOne.append(321) # Morocco Pro 1
         self.leagueDivOne.append(122) # Sweden Superettan
         self.leagueDivOne.append(700) # Thai Premier League
         self.leagueDivOne.append(90) # England FA Cup
@@ -79,6 +74,9 @@ class TrueOddsInplay(TrueOddsSuper):
         #self.leagueDivOne.append(30) # Turkish Super Liga
         #self.leagueDivOne.append(34) # Italian Serie A
         #self.leagueDivOne.append(15) # Korea League
+        #self.leagueDivOne.append(36) # English Premier league
+        #self.leagueDivOne.append(37) # England Championship
+        #self.leagueDivOne.append(124) # Romanian Liga I
 
         self.leagueDivTwo.append(5) # Belgian Pro League
         self.leagueDivTwo.append(137) # Czech First League
@@ -96,6 +94,8 @@ class TrueOddsInplay(TrueOddsSuper):
         self.leagueDivTwo.append(6) # Poland Super League
         self.leagueDivTwo.append(32) # Greece Super League
         self.leagueDivTwo.append(33) # Spanish Segunda Division
+        self.leagueDivTwo.append(31) # Spain 1
+        self.leagueDivTwo.append(321) # Morocco Pro 1
 
         self.leagueDivThree.append(10) # Russia
         self.leagueDivThree.append(29) # Scottish Premier League
@@ -113,7 +113,6 @@ class TrueOddsInplay(TrueOddsSuper):
 
         self.profitChoice2List.append(29) # Scottish Premier League
         self.profitChoice2List.append(23) # Portugal Primera Liga
-        self.profitChoice2List.append(37) # England Championship
         self.profitChoice2List.append(32) # Greece Super League
         self.profitChoice2List.append(33) # Spanish Segunda Division
         self.profitChoice2List.append(22) # Norwegian Tippeligaen
@@ -145,11 +144,9 @@ class TrueOddsInplay(TrueOddsSuper):
         self.profitChoice2List.append(140) # Mexico Primera Division
         self.profitChoice2List.append(1) # Ireland Premier Division
         self.profitChoice2List.append(308) # South Africa Premier League
-        self.profitChoice2List.append(321) # Morocco Pro 1
         self.profitChoice2List.append(122) # Sweden Superettan
         self.profitChoice2List.append(700) # Thai Premier League
         self.profitChoice2List.append(766) # Vietnam
-        self.profitChoice2List.append(36) # English Premier league
         self.profitChoice2List.append(113) # Europa League
         self.profitChoice2List.append(103) # champions League
         self.profitChoice2List.append(21) # USA Major League Soccer
@@ -159,10 +156,14 @@ class TrueOddsInplay(TrueOddsSuper):
         self.profitChoice2List.append(297) #leagues.append('England Conference North-')
         self.profitChoice2List.append(298) #leagues.append('England Conference South-')
         self.profitChoice2List.append(192) # AFC Champions League
+        self.profitChoice2List.append(31) # Spain 1
+        self.profitChoice2List.append(321) # Morocco Pro 1
         #self.profitChoice2List.append(12) # France Ligue 2
         #self.profitChoice2List.append(30) # Turkish Super Liga
         #self.profitChoice2List.append(34) # Italian Serie A
         #self.profitChoice2List.append(15) # Korea League
+        #self.profitChoice2List.append(37) # England Championship
+        #self.profitChoice2List.append(36) # English Premier league
 
         self.profitChoice3List.append(5) # Belgian Pro League
         self.profitChoice3List.append(137) # Czech First League

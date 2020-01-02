@@ -12,10 +12,7 @@ class FbOperatorTrueOdds (FbOperator):
     # mins_before_kickoff = 15
 
     league_ids = [
-        34,  # IT1
         40,  # IT2
-        36,  # EPL
-        37,  # ENC
         39,  # EFL1
         35,  # EFL2
         146, # English Nation League
@@ -34,7 +31,6 @@ class FbOperatorTrueOdds (FbOperator):
         25,  # JAP1
         284,  # JAP2
         60,  # China
-        15, # Korea League
         4,  # BRA1
         358, # BRA2
         23,  # POTG1
@@ -54,7 +50,6 @@ class FbOperatorTrueOdds (FbOperator):
         27, # Swiss Super League
         137, # Czech First League
         3, # Austria Leagie 1
-        124, # Romanian Liga I
         136, # Hungary NB I
         32, # Greece
         113, # Europa League
@@ -67,12 +62,10 @@ class FbOperatorTrueOdds (FbOperator):
         1, # Ireland Premier Division
         140, # Mexico Primera Division
         308, # South Africa Premier League
-        321, # Morocco Pro 1
         122, # Sweden Superettan
         700, # Thai Premier League
         766, # Vietnam
         308, # South Africa Premier League
-        321, # Morocco Pro 1
         89, # Copa Libertadores
         192, # AFC Champions League
         350, # AFC Cup
@@ -82,9 +75,15 @@ class FbOperatorTrueOdds (FbOperator):
         54, #French Cup
         297, # England Conference North
         298, # England Conference South
+        321, # Morocco Pro 1
         #12,  # FR2
         #30,  # TUR1
         #67, # Euro Cup
+        #36,  # EPL
+        #37,  # ENC
+        #34,  # IT1
+        #15, # Korea League
+        #124, # Romanian Liga I
     ]
 
     def __init__(self, logger: OtLogger):

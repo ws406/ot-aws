@@ -518,6 +518,9 @@ class FBBetfair(Betfair):
         'DHJ Difaa Hassani Jadidi': 'DHJ El Jadida',
         'Olympique de Safi': 'Olympic Safi',
         'Union Touarga Sport Rabat': 'FUS Rabat',
+        'Maghrib Association Tetouan': 'Moghreb Athletic Tetouan',
+        'Renaissance Sportive de Berkane': 'RSB Berkane',
+        'OCK Olympique de Khouribga': 'Olympique Khouribga',
 
         # Mexico
         'Club America': 'CF America',
