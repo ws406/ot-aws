@@ -33,7 +33,6 @@ class FbOperatorTrueOdds (FbOperator):
         60,  # China
         4,  # BRA1
         358, # BRA2
-        23,  # POTG1
         157,  # POTG2
         29,  # SCOT1
         150,  # SCOT2
@@ -51,7 +50,6 @@ class FbOperatorTrueOdds (FbOperator):
         137, # Czech First League
         3, # Austria Leagie 1
         136, # Hungary NB I
-        32, # Greece
         113, # Europa League
         103, # Champions League
         193, # Algeria
@@ -72,10 +70,12 @@ class FbOperatorTrueOdds (FbOperator):
         165, # Northern Ireland Premier League
         1413, # Spanish Segunda Division B
         142, # Italian C1
-        54, #French Cup
         297, # England Conference North
         298, # England Conference South
         321, # Morocco Pro 1
+        #32, # Greece
+        #23,  # POTG1
+        #54, #French Cup
         #12,  # FR2
         #30,  # TUR1
         #67, # Euro Cup

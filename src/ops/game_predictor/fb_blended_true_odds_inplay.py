@@ -53,9 +53,7 @@ class TrueOddsInplay(TrueOddsSuper):
         self.leagueDivOne.append(8) # Germany 1
         self.leagueDivOne.append(16) # Holland Eredivisie
         self.leagueDivOne.append(26) # Sweden
-        self.leagueDivOne.append(23) # Portugal Primera Liga
         self.leagueDivOne.append(22) # Norwegian Tippeligaen
-        self.leagueDivOne.append(157) # Portugal Segunda Liga
         self.leagueDivOne.append(136) # Hungary NB I
         self.leagueDivOne.append(103) # champions League
         self.leagueDivOne.append(84) # English League Cup
@@ -69,7 +67,7 @@ class TrueOddsInplay(TrueOddsSuper):
         self.leagueDivOne.append(81) # Spanish Copa
         self.leagueDivOne.append(89) # Copa Libertadores
         self.leagueDivOne.append(165) # Northern Ireland Premier League
-        self.leagueDivOne.append(350) # AFC cup
+        self.leagueDivOne.append(350) # AFC Cup
         #self.leagueDivOne.append(12) # France Ligue 2
         #self.leagueDivOne.append(30) # Turkish Super Liga
         #self.leagueDivOne.append(34) # Italian Serie A
@@ -77,6 +75,7 @@ class TrueOddsInplay(TrueOddsSuper):
         #self.leagueDivOne.append(36) # English Premier league
         #self.leagueDivOne.append(37) # England Championship
         #self.leagueDivOne.append(124) # Romanian Liga I
+        #self.leagueDivOne.append(23) # Portugal Primera Liga
 
         self.leagueDivTwo.append(5) # Belgian Pro League
         self.leagueDivTwo.append(137) # Czech First League
@@ -92,10 +91,10 @@ class TrueOddsInplay(TrueOddsSuper):
         self.leagueDivTwo.append(40) # Italian Serie B
         self.leagueDivTwo.append(273) # Australia A-League
         self.leagueDivTwo.append(6) # Poland Super League
-        self.leagueDivTwo.append(32) # Greece Super League
         self.leagueDivTwo.append(33) # Spanish Segunda Division
         self.leagueDivTwo.append(31) # Spain 1
         self.leagueDivTwo.append(321) # Morocco Pro 1
+        #self.leagueDivTwo.append(32) # Greece Super League
 
         self.leagueDivThree.append(10) # Russia
         self.leagueDivThree.append(29) # Scottish Premier League
@@ -106,14 +105,13 @@ class TrueOddsInplay(TrueOddsSuper):
         self.leagueDivThree.append(13) # Finland
         self.leagueDivThree.append(1413) #leagues.append('Spanish Segunda Division B-')
         self.leagueDivThree.append(142) #leagues.append('Italian C1-')
-        self.leagueDivThree.append(54) #leagues.append('French Cup-')
         self.leagueDivThree.append(297) #leagues.append('England Conference North-')
         self.leagueDivThree.append(298) #leagues.append('England Conference South-')
         self.leagueDivThree.append(192) # AFC Champions League
+        self.leagueDivThree.append(157) # Portugal Segunda Liga
+        #self.leagueDivThree.append(54) #leagues.append('French Cup-')
 
         self.profitChoice2List.append(29) # Scottish Premier League
-        self.profitChoice2List.append(23) # Portugal Primera Liga
-        self.profitChoice2List.append(32) # Greece Super League
         self.profitChoice2List.append(33) # Spanish Segunda Division
         self.profitChoice2List.append(22) # Norwegian Tippeligaen
         self.profitChoice2List.append(35) # England League 2
@@ -152,18 +150,20 @@ class TrueOddsInplay(TrueOddsSuper):
         self.profitChoice2List.append(21) # USA Major League Soccer
         self.profitChoice2List.append(1413) #leagues.append('Spanish Segunda Division B-')
         self.profitChoice2List.append(142) #leagues.append('Italian C1-')
-        self.profitChoice2List.append(54) #leagues.append('French Cup-')
         self.profitChoice2List.append(297) #leagues.append('England Conference North-')
         self.profitChoice2List.append(298) #leagues.append('England Conference South-')
         self.profitChoice2List.append(192) # AFC Champions League
         self.profitChoice2List.append(31) # Spain 1
         self.profitChoice2List.append(321) # Morocco Pro 1
+        #self.profitChoice2List.append(32) # Greece Super League
+        #self.profitChoice2List.append(23) # Portugal Primera Liga
         #self.profitChoice2List.append(12) # France Ligue 2
         #self.profitChoice2List.append(30) # Turkish Super Liga
         #self.profitChoice2List.append(34) # Italian Serie A
         #self.profitChoice2List.append(15) # Korea League
         #self.profitChoice2List.append(37) # England Championship
         #self.profitChoice2List.append(36) # English Premier league
+        #self.profitChoice2List.append(54) #leagues.append('French Cup-')
 
         self.profitChoice3List.append(5) # Belgian Pro League
         self.profitChoice3List.append(137) # Czech First League
@@ -171,7 +171,7 @@ class TrueOddsInplay(TrueOddsSuper):
         self.profitChoice3List.append(358) # Brazil Serie B
         self.profitChoice3List.append(221) # Poland League 1
         self.profitChoice3List.append(40) # Italian Serie B
-        self.profitChoice3List.append(350) # AFC cup
+        self.profitChoice3List.append(350) # AFC Cup
 
     def FindOddsWithOffsetTime(self, game_data, bookie, lookbackTime):
         matchInSeq = collections.OrderedDict(sorted(game_data['odds'][bookie].items()))
