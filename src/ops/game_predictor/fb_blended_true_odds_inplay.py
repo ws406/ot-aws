@@ -63,11 +63,11 @@ class TrueOddsInplay(TrueOddsSuper):
         self.leagueDivOne.append(308) # South Africa Premier League
         self.leagueDivOne.append(122) # Sweden Superettan
         self.leagueDivOne.append(700) # Thai Premier League
-        self.leagueDivOne.append(90) # England FA Cup
         self.leagueDivOne.append(81) # Spanish Copa
         self.leagueDivOne.append(89) # Copa Libertadores
         self.leagueDivOne.append(165) # Northern Ireland Premier League
         self.leagueDivOne.append(350) # AFC Cup
+        self.leagueDivOne.append(1413) # Spanish Segunda Division B
         #self.leagueDivOne.append(12) # France Ligue 2
         #self.leagueDivOne.append(30) # Turkish Super Liga
         #self.leagueDivOne.append(34) # Italian Serie A
@@ -103,12 +103,12 @@ class TrueOddsInplay(TrueOddsSuper):
         self.leagueDivThree.append(35) # England League 2
         self.leagueDivThree.append(21) # USA Major League Soccer
         self.leagueDivThree.append(13) # Finland
-        self.leagueDivThree.append(1413) #leagues.append('Spanish Segunda Division B-')
         self.leagueDivThree.append(142) #leagues.append('Italian C1-')
         self.leagueDivThree.append(297) #leagues.append('England Conference North-')
         self.leagueDivThree.append(298) #leagues.append('England Conference South-')
         self.leagueDivThree.append(192) # AFC Champions League
         self.leagueDivThree.append(157) # Portugal Segunda Liga
+        self.leagueDivThree.append(90) # England FA Cup
         #self.leagueDivThree.append(54) #leagues.append('French Cup-')
 
         self.profitChoice2List.append(29) # Scottish Premier League

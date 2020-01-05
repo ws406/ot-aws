@@ -422,6 +422,7 @@ class FBBetfair(Betfair):
         'UD Marbella': 'Marbella',
         'C.D. San Fernando Isleno': 'San Fernando CD',
         'Badajoz': 'CD Badajoz',
+        'Real Sociedad B': 'Sociedad B',
 
         # POR 1 && 2
         'Vitoria Setubal': 'Setubal',
