@@ -39,6 +39,7 @@ class FbOperator (abc.ABC):
         482: "betway",
         808: "betcity",
         798: "dafabet",
+        255: "bwin",
     }
 
     # Leave this for sub classes to set

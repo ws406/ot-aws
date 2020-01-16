@@ -1,4 +1,5 @@
 from src.ops.game_predictor.fb_blended_true_odds_inplay import TrueOddsInplay
+from src.ops.game_predictor.fb_blended_true_odds_inplay2 import TrueOddsInplay2
 from src.ops.operator.fb_operator import FbOperator
 import time
 import datetime
@@ -12,78 +13,85 @@ class FbOperatorTrueOdds (FbOperator):
     # mins_before_kickoff = 15
 
     league_ids = [
-        40,  # IT2
-        39,  # EFL1
+        #40,  # IT2
+        #39,  # EFL1
         35,  # EFL2
         146, # English Nation League
         84,  # English League Cup
-        90, # England FA Cup
-        81, # Spanish Copa
+        #90, # England FA Cup
+        ##81, # Spanish Copa
         31,  # ES1
         33,  # ES2
         8,  # GE1
         9,  # GE2
         693,  # GE3
         11,  # FR1
+        #12,  # FR2
+        203, # France Ligue 3
         13, # FIN1
         16,  # HO1
         17,  # HO2
         25,  # JAP1
-        284,  # JAP2
+        #284,  # JAP2
         60,  # China
         4,  # BRA1
-        358, # BRA2
-        157,  # POTG2
-        29,  # SCOT1
-        150,  # SCOT2
-        5,  # BEL1
+        #358, # BRA2
+        #29,  # SCOT1
+        #150,  # SCOT2
+        #5,  # BEL1
         22,  # NOR1
-        10,  # RUS1
+        #10,  # RUS1
         21,  # USA1
         26,  # Sweden
-        133, # Croatia Super League
+        #133, # Croatia Super League
         273,  # AUS
-        7, # Denmark
-        6, # Poland1
+        #7, # Denmark
+        #6, # Poland 1
         119, # Ukrainian Premier League
         27, # Swiss Super League
         137, # Czech First League
-        3, # Austria Leagie 1
-        136, # Hungary NB I
+        #3, # Austria Leagie 1
+        #136, # Hungary NB I
         113, # Europa League
         103, # Champions League
         193, # Algeria
         221, # Poland League 1
         235, # Russia League 1
-        138, # Belgian Second Division
+        #138, # Belgian Second Division
         121, # Swiss Challenge League
         1, # Ireland Premier Division
-        140, # Mexico Primera Division
-        308, # South Africa Premier League
+        #140, # Mexico Primera Division
+        #308, # South Africa Premier League
         122, # Sweden Superettan
-        700, # Thai Premier League
-        766, # Vietnam
-        308, # South Africa Premier League
+        #700, # Thai Premier League
+        #766, # Vietnam
+        #308, # South Africa Premier League
         89, # Copa Libertadores
+        263, # Copa Sudamericana
         192, # AFC Champions League
         350, # AFC Cup
-        165, # Northern Ireland Premier League
+        #165, # Northern Ireland Premier League
         1413, # Spanish Segunda Division B
         142, # Italian C1
         297, # England Conference North
         298, # England Conference South
-        321, # Morocco Pro 1
+        36,  # EPL
         #32, # Greece
-        #23,  # POTG1
-        #54, #French Cup
-        #12,  # FR2
-        #30,  # TUR1
-        #67, # Euro Cup
-        #36,  # EPL
-        #37,  # ENC
-        #34,  # IT1
-        #15, # Korea League
-        #124, # Romanian Liga I
+        ##23,  # POTG1
+        157,  # POTG2
+        ##54, #French Cup
+        ##30,  # TUR1
+        ##67, # Euro Cup
+        ##37,  # ENC
+        ##34,  # IT1
+        15, # Korea League
+        124, # Romanian Liga I
+        ##321, # Morocco Pro 1
+        #1385,
+        #763,
+        #1367,
+        #41,
+        292, # Saudi Professional League
     ]
 
     def __init__(self, logger: OtLogger):
