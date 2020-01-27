@@ -6,7 +6,7 @@ from src.ops.game_predictor.fb_blended_true_odds import TrueOdds as TrueOddsSupe
 class TrueOddsInplay2(TrueOddsSuper):
 
     benchmark_bookie = 'pinnacle'
-    strategy = 'to_inplay'
+    strategy = 'to_inplay2'
     profit_margin = 0.05
     filter_bookies = list()
 
