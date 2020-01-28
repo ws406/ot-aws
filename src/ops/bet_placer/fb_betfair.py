@@ -2,7 +2,7 @@ from src.ops.bet_placer.betfair import Betfair
 from src.ops.game_predictor.fb_blended_true_odds_2_lowest_odds import TrueOddsLower2
 from src.ops.game_predictor.fb_blended_true_odds import TrueOdds
 from src.ops.game_predictor.fb_blended_true_odds_inplay import TrueOddsInplay
-
+from src.ops.game_predictor.fb_blended_true_odds_inplay2 import TrueOddsInplay2
 
 class FBBetfair(Betfair):
 
@@ -586,7 +586,7 @@ class FBBetfair(Betfair):
 
         strategy = game_data['strategy']
 
-        if strategy == TrueOddsInplay.strategy:
+        if strategy == TrueOddsInplay.strategy or strategy == TrueOddsInplay2.strategy:
             return self._place_bet_for_true_odds(game_data, betting_amount, self.persistence_persist, debug_mode)
         elif strategy == TrueOddsLower2.strategy or strategy == TrueOdds.strategy:
             return self._place_bet_for_true_odds(game_data, betting_amount, self.persistence_lapse, debug_mode)
