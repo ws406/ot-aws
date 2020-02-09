@@ -7,7 +7,7 @@ class TrueOddsInplay(TrueOddsSuper):
 
     benchmark_bookie = 'pinnacle'
     strategy = 'to_inplay'
-    profit_margin = 0.06
+    profit_margin = 0.02
     filter_bookies = list()
 
     def __init__(self, logger: OtLogger):

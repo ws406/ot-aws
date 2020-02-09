@@ -27,7 +27,7 @@ class FbOperatorTrueOdds (FbOperator):
         693,  # GE3
         11,  # FR1
         #12,  # FR2
-        203, # France Ligue 3
+        #203, # France Ligue 3
         13, # FIN1
         16,  # HO1
         17,  # HO2
@@ -38,17 +38,17 @@ class FbOperatorTrueOdds (FbOperator):
         #358, # BRA2
         #29,  # SCOT1
         #150,  # SCOT2
-        #5,  # BEL1
+        5,  # BEL1
         22,  # NOR1
         #10,  # RUS1
         21,  # USA1
         26,  # Sweden
         #133, # Croatia Super League
-        273,  # AUS
+        #273,  # AUS
         #7, # Denmark
         #6, # Poland 1
         119, # Ukrainian Premier League
-        27, # Swiss Super League
+        #27, # Swiss Super League
         137, # Czech First League
         #3, # Austria Leagie 1
         #136, # Hungary NB I
@@ -58,10 +58,10 @@ class FbOperatorTrueOdds (FbOperator):
         221, # Poland League 1
         235, # Russia League 1
         #138, # Belgian Second Division
-        121, # Swiss Challenge League
-        1, # Ireland Premier Division
+        #121, # Swiss Challenge League
+        #1, # Ireland Premier Division
         #140, # Mexico Primera Division
-        #308, # South Africa Premier League
+        308, # South Africa Premier League
         122, # Sweden Superettan
         #700, # Thai Premier League
         #766, # Vietnam
@@ -71,16 +71,16 @@ class FbOperatorTrueOdds (FbOperator):
         192, # AFC Champions League
         350, # AFC Cup
         #165, # Northern Ireland Premier League
-        1413, # Spanish Segunda Division B
-        142, # Italian C1
-        297, # England Conference North
-        298, # England Conference South
-        36,  # EPL
+        #1413, # Spanish Segunda Division B
+        #142, # Italian C1
+        #297, # England Conference North
+        #298, # England Conference South
+        #36,  # EPL
         #32, # Greece
         ##23,  # POTG1
-        157,  # POTG2
+        #157,  # POTG2
         ##54, #French Cup
-        ##30,  # TUR1
+        30,  # Turkey
         ##67, # Euro Cup
         ##37,  # ENC
         ##34,  # IT1

@@ -7,7 +7,7 @@ class TrueOddsInplay2(TrueOddsSuper):
 
     benchmark_bookie = 'pinnacle'
     strategy = 'to_inplay2'
-    profit_margin = 0.05
+    profit_margin = 0.02
     filter_bookies = list()
 
     def __init__(self, logger: OtLogger):
@@ -63,8 +63,8 @@ class TrueOddsInplay2(TrueOddsSuper):
     def _calc_true_odds(self, data, localProfitMargin):
         picked_bookie = list()
         picked_bookie.append('pinnacle')
-        picked_bookie.append('bet365')
-        picked_bookie.append('betvictor')
+        #picked_bookie.append('bet365')
+        #picked_bookie.append('betvictor')
         local_list_home = []
         local_list_draw = []
         local_list_away = []
@@ -85,7 +85,7 @@ class TrueOddsInplay2(TrueOddsSuper):
                 local_list_home.append(home)
                 local_list_draw.append(draw)
                 local_list_away.append(away)
-            if len(local_list_home) < 3:
+            if len(local_list_home) < len(picked_bookie):
                 return is_qualifed
             for bookie in self.filter_bookies:
                 try:
