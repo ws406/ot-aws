@@ -9,6 +9,7 @@ class TrueOddsInplay2(TrueOddsSuper):
     strategy = 'to_inplay2'
     profit_margin = 0.02
     filter_bookies = list()
+    filter_leagues = list()
 
     def __init__(self, logger: OtLogger):
         super().__init__(logger)
@@ -32,6 +33,29 @@ class TrueOddsInplay2(TrueOddsSuper):
         self.filter_bookies.append('eurobet')
         self.filter_bookies.append('betclick')
         self.filter_bookies.append('cashpoint')
+
+        self.filter_leagues.append(326)
+        self.filter_leagues.append(11)
+        self.filter_leagues.append(12)
+        self.filter_leagues.append(766)
+        self.filter_leagues.append(103)
+        self.filter_leagues.append(124)
+        self.filter_leagues.append(26)
+        self.filter_leagues.append(192)
+        self.filter_leagues.append(193)
+        self.filter_leagues.append(8)
+        self.filter_leagues.append(9)
+        self.filter_leagues.append(693)
+        self.filter_leagues.append(89)
+        self.filter_leagues.append(16)
+        self.filter_leagues.append(21)
+        self.filter_leagues.append(25)
+        self.filter_leagues.append(31)
+        self.filter_leagues.append(33)
+        self.filter_leagues.append(35)
+        self.filter_leagues.append(157)
+        self.filter_leagues.append(81)
+        self.filter_leagues.append(150)
 
     def FindOddsWithOffsetTime(self, game_data, bookie, lookbackTime, lookbackCheck, backTime = 12.0):
         kickoffTime = int(game_data['kickoff'])
@@ -63,13 +87,15 @@ class TrueOddsInplay2(TrueOddsSuper):
     def _calc_true_odds(self, data, localProfitMargin):
         picked_bookie = list()
         picked_bookie.append('pinnacle')
-        #picked_bookie.append('bet365')
-        #picked_bookie.append('betvictor')
+        picked_bookie.append('bet365')
+        picked_bookie.append('betvictor')
         local_list_home = []
         local_list_draw = []
         local_list_away = []
         compareBestOdds = [0, 0, 0]
         is_qualifed = False
+        if data['league_id'] not in self.filter_leagues:
+            return is_qualifed
         try:
             for bookie in picked_bookie:
                 benchmark_odds = None

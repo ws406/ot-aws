@@ -3,10 +3,10 @@ from src.utils.logger import OtLogger
 from src.ops.game_predictor.fb_blended_true_odds import TrueOdds as TrueOddsSuper
 
 # This game predictor provides true odds only
-class TrueOddsInplay(TrueOddsSuper):
+class TrueOddsInplay3(TrueOddsSuper):
 
     benchmark_bookie = 'pinnacle'
-    strategy = 'to_inplay'
+    strategy = 'to_inplay3'
     profit_margin = 0.02
     filter_bookies = list()
     filter_leagues = list()
@@ -33,18 +33,20 @@ class TrueOddsInplay(TrueOddsSuper):
         self.filter_bookies.append('eurobet')
         self.filter_bookies.append('betclick')
         self.filter_bookies.append('cashpoint')
-        self.filter_bookies.append('bet365')
 
+        self.filter_leagues.append(3)
         self.filter_leagues.append(766)
-        self.filter_leagues.append(11)
-        self.filter_leagues.append(12)
         self.filter_leagues.append(60)
-        self.filter_leagues.append(26)
-        self.filter_leagues.append(693)
-        self.filter_leagues.append(21)
+        self.filter_leagues.append(124)
+        self.filter_leagues.append(119)
+        self.filter_leagues.append(192)
+        self.filter_leagues.append(193)
+        self.filter_leagues.append(16)
+        self.filter_leagues.append(89)
+        self.filter_leagues.append(263)
         self.filter_leagues.append(25)
-        self.filter_leagues.append(81)
-        self.filter_leagues.append(150)
+        self.filter_leagues.append(31)
+        self.filter_leagues.append(273)
 
     def FindOddsWithOffsetTime(self, game_data, bookie, lookbackTime, lookbackCheck, backTime = 12.0):
         kickoffTime = int(game_data['kickoff'])
@@ -76,40 +78,29 @@ class TrueOddsInplay(TrueOddsSuper):
     def _calc_true_odds(self, data, localProfitMargin):
         picked_bookie = list()
         picked_bookie.append('pinnacle')
-        picked_bookie.append('bet365')
-        picked_bookie.append('betvictor')
-        picked_bookie.append('ladbroke')
-        picked_bookie.append('bwin')
-        picked_bookie.append('sb')
         local_list_home = []
         local_list_draw = []
         local_list_away = []
         compareBestOdds = [0, 0, 0]
         is_qualifed = False
-        valid_bookie = []
-        if data['league_id'] in self.filter_leagues:
+        if data['league_id'] not in self.filter_leagues:
             return is_qualifed
         try:
             for bookie in picked_bookie:
                 benchmark_odds = None
                 try:
-                    benchmark_odds = self.FindOddsWithOffsetTime(data, bookie, 0, True, 0.5)
-                    if bookie == 'bet365' or bookie == 'bwin':
-                        benchmark_odds = self.FindOddsWithOffsetTime(data, bookie, 0, True, 1.0)
+                    benchmark_odds = self.FindOddsWithOffsetTime(data, bookie, 0, False)
                 except (TypeError, KeyError):
                     continue
                 if benchmark_odds == None:
                     continue
-                valid_bookie.append(bookie)
                 home = float(benchmark_odds['1'])
                 draw = float(benchmark_odds['x'])
                 away = float(benchmark_odds['2'])
                 local_list_home.append(home)
                 local_list_draw.append(draw)
                 local_list_away.append(away)
-            if len(local_list_home) < 3:
-                return is_qualifed
-            if 'pinnacle' not in valid_bookie:
+            if len(local_list_home) < len(picked_bookie):
                 return is_qualifed
             for bookie in self.filter_bookies:
                 try:

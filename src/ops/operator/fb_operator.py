@@ -47,7 +47,7 @@ class FbOperator (abc.ABC):
 
     get_games_in_minutes = 15
 
-    amount = 20
+    amount = 10
     mins_before_kickoff = 0.5
     commission_rate = 0.02
 
