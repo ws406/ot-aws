@@ -33,6 +33,7 @@ class TrueOddsInplay2(TrueOddsSuper):
         self.filter_bookies.append('eurobet')
         self.filter_bookies.append('betclick')
         self.filter_bookies.append('cashpoint')
+        self.filter_bookies.append('bet365')
 
         self.filter_leagues.append(326)
         self.filter_leagues.append(11)
