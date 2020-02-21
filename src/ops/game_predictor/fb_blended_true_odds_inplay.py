@@ -15,18 +15,13 @@ class TrueOddsInplay(TrueOddsSuper):
         super().__init__(logger)
 
         # we choose the following liquid bookmakers odds as our filter
-        self.filter_bookies.append('easybet')
         self.filter_bookies.append('setantabet')
-        self.filter_bookies.append('championsbet')
         self.filter_bookies.append('tipico')
         self.filter_bookies.append('boylesports')
         self.filter_bookies.append('betway')
         self.filter_bookies.append('betcity')
-        self.filter_bookies.append('bodog')
         self.filter_bookies.append('betfred')
         self.filter_bookies.append('snai')
-        self.filter_bookies.append('dafabet')
-        self.filter_bookies.append('coral')
         self.filter_bookies.append('bovada')
         self.filter_bookies.append('bwin')
         self.filter_bookies.append('victory')
@@ -34,17 +29,33 @@ class TrueOddsInplay(TrueOddsSuper):
         self.filter_bookies.append('betclick')
         self.filter_bookies.append('cashpoint')
         self.filter_bookies.append('bet365')
+        self.filter_bookies.append('skybet')
+        self.filter_bookies.append('sbobet')
 
-        self.filter_leagues.append(766)
+        self.filter_leagues.append(31)
         self.filter_leagues.append(11)
-        self.filter_leagues.append(12)
-        self.filter_leagues.append(60)
-        self.filter_leagues.append(26)
+        self.filter_leagues.append(16)
         self.filter_leagues.append(693)
-        self.filter_leagues.append(21)
+        self.filter_leagues.append(193)
+        self.filter_leagues.append(157)
+        self.filter_leagues.append(124)
+        self.filter_leagues.append(103)
+        self.filter_leagues.append(3)
+        self.filter_leagues.append(35)
+        self.filter_leagues.append(119)
+        self.filter_leagues.append(146)
+        self.filter_leagues.append(27)
+        self.filter_leagues.append(235)
+        self.filter_leagues.append(36)
+        self.filter_leagues.append(30)
+        self.filter_leagues.append(6)
+        self.filter_leagues.append(136)
+        self.filter_leagues.append(26)
+        self.filter_leagues.append(122)
         self.filter_leagues.append(25)
-        self.filter_leagues.append(81)
-        self.filter_leagues.append(150)
+        self.filter_leagues.append(89)
+        self.filter_leagues.append(263)
+        self.filter_leagues.append(192)
 
     def FindOddsWithOffsetTime(self, game_data, bookie, lookbackTime, lookbackCheck, backTime = 12.0):
         kickoffTime = int(game_data['kickoff'])
@@ -87,7 +98,7 @@ class TrueOddsInplay(TrueOddsSuper):
         compareBestOdds = [0, 0, 0]
         is_qualifed = False
         valid_bookie = []
-        if data['league_id'] in self.filter_leagues:
+        if data['league_id'] not in self.filter_leagues:
             return is_qualifed
         try:
             for bookie in picked_bookie:
@@ -113,7 +124,7 @@ class TrueOddsInplay(TrueOddsSuper):
                 return is_qualifed
             for bookie in self.filter_bookies:
                 try:
-                    compareOdds = self.FindOddsWithOffsetTime(data, bookie, 0, True)
+                    compareOdds = self.FindOddsWithOffsetTime(data, bookie, 0, False)
                 except (TypeError, KeyError):
                     compareOdds = {}
                     compareOdds['1'] = 1.0
