@@ -15,7 +15,7 @@ class FbOperatorTrueOdds (FbOperator):
 
     league_ids = [
         #40,  # IT2
-        #39,  # EFL1
+        39,  # EFL1
         35,  # EFL2
         #146, # English Nation League
         84,  # English League Cup
@@ -32,7 +32,7 @@ class FbOperatorTrueOdds (FbOperator):
         #203, # France Ligue 3
         #13, # FIN1
         16,  # HO1
-        #17,  # HO2
+        17,  # HO2
         25,  # JAP1
         #284,  # JAP2
         60,  # China
@@ -40,7 +40,7 @@ class FbOperatorTrueOdds (FbOperator):
         #358, # BRA2
         #29,  # SCOT1
         150,  # SCOT2
-        #5,  # BEL1
+        5,  # BEL1
         #22,  # NOR1
         10,  # Russia premier
         21,  # USA1
@@ -48,19 +48,19 @@ class FbOperatorTrueOdds (FbOperator):
         #133, # Croatia Super League
         273,  # AUS
         #7, # Denmark
-        #6, # Poland 1
+        6, # Poland 1
         119, # Ukrainian Premier League
-        #27, # Swiss Super League
+        27, # Swiss Super League
         137, # Czech First League
         3, # Austria Leagie 1
         136, # Hungary NB I
         #113, # Europa League
         103, # Champions League
         193, # Algeria
-        #221, # Poland League 1
+        221, # Poland League 1
         235, # Russia League 1
-        #138, # Belgian Second Division
-        #121, # Swiss Challenge League
+        138, # Belgian Second Division
+        121, # Swiss Challenge League
         #1, # Ireland Premier Division
         #140, # Mexico Primera Division
         #308, # South Africa Premier League
@@ -76,7 +76,7 @@ class FbOperatorTrueOdds (FbOperator):
         #142, # Italian C1
         #297, # England Conference North
         #298, # England Conference South
-        #36,  # EPL
+        36,  # EPL
         #32, # Greece
         ##23,  # POTG1
         157,  # POTG2
@@ -87,7 +87,7 @@ class FbOperatorTrueOdds (FbOperator):
         ##34,  # IT1
         #15, # Korea League
         124, # Romanian Liga I
-        326, # Tunisia
+        #326, # Tunisia
         ##321, # Morocco Pro 1
         #1385,
         #763,
