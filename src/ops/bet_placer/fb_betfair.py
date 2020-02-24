@@ -571,6 +571,9 @@ class FBBetfair(Betfair):
 
         # Mexico
         'Club America': 'CF America',
+        'Atletico San Luis': 'San Luis',
+        'CDSyC Cruz Azul': 'Cruz Azul',
+        'Club Tijuana': 'Tijuana',
 
         # Northen Irish
         'Institute FC': 'Institute',
