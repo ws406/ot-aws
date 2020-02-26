@@ -574,6 +574,11 @@ class FBBetfair(Betfair):
         'Atletico San Luis': 'San Luis',
         'CDSyC Cruz Azul': 'Cruz Azul',
         'Club Tijuana': 'Tijuana',
+        'Tigres UANL': 'Tigres',
+        'Pumas U.N.A.M.': 'Pumas UNAM',
+        'Chivas Guadalajara': 'Guadalajara',
+        'Club Leon': 'Leon',
+        'Queretaro FC': 'Queretaro',
 
         # Northen Irish
         'Institute FC': 'Institute',
