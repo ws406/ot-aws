@@ -62,7 +62,7 @@ class FbOperatorTrueOdds (FbOperator):
         138, # Belgian Second Division
         121, # Swiss Challenge League
         #1, # Ireland Premier Division
-        #140, # Mexico Primera Division
+        140, # Mexico Primera Division
         #308, # South Africa Premier League
         122, # Sweden Superettan
         #700, # Thai Premier League

@@ -23,6 +23,7 @@ class TrueOddsInplay2(TrueOddsSuper):
         self.filter_bookies.append('bovada')
         self.filter_bookies.append('bwin')
         self.filter_bookies.append('cashpoint')
+        self.filter_bookies.append('betfair')
 
         self.filter_leagues.append(31)
         self.filter_leagues.append(11)
