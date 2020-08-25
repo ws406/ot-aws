@@ -119,12 +119,12 @@ class FbOperator (abc.ABC):
 
                     self.logger.log ("+++ Game " + str(game['game_id']) + " is qualified. +++")
                     self.logger.log(betting_details)
-                    result = self.gameBetPlacer.place_match_odds_bet(betting_details, self.amount, debug_mode)
-                    if debug_mode:
-                        self.logger.log('(debug_mode) - bet_placing_request_pay_load:')
-                        self.logger.log(result)
-                    else:
-                        self.logger.log(result)
+                    #result = self.gameBetPlacer.place_match_odds_bet(betting_details, self.amount, debug_mode)
+                    #if debug_mode:
+                        #self.logger.log('(debug_mode) - bet_placing_request_pay_load:')
+                        #self.logger.log(result)
+                    #else:
+                        #self.logger.log(result)
 
         return games_not_bet
 
