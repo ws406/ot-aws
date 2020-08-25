@@ -80,26 +80,14 @@ class TrueOdds(GamePredictorInterface):
         try:
             picked_bookie.append('pinnacle')
             feature1 = self._calc_prob(picked_bookie, data, 0)
-            feature4 = self._calc_prob(picked_bookie, data, 10 * 60)
-
-            picked_bookie = list()
             picked_bookie.append('bet365')
-            picked_bookie.append('pinnacle')
             picked_bookie.append('betvictor')
+            picked_bookie.append('ladbroke')
             feature2 = self._calc_prob(picked_bookie, data, 0)
 
-            picked_bookie = list()
-            picked_bookie.append('ladbroke')
-            picked_bookie.append('pinnacle')
-            picked_bookie.append('betvictor')
-            feature3 = self._calc_prob(picked_bookie, data, 0)
-
             localVec = []
-            if feature1 > 0 and feature2 > 0 and feature3 > 0 and feature4 > 0:
+            if feature1 > 0:
                 localVec.append(feature1)
-                localVec.append(feature2 - feature1)
-                localVec.append(feature3 - feature1)
-                localVec.append(feature4 - feature1)
         except Exception as e:
             self.logger.log('missing odds - ' + str(e))
             return is_qualifed
