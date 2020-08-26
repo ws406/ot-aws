@@ -614,24 +614,19 @@ class FBBetfair(Betfair):
         # self.logger.log(game_data)
 
         for key, bet_on_odds in game_data['true_odds'].items():
+            bet_type = self.back_bet
+            bet_on_team = home_team_name
             if key == '1':
-                bet_on_team = home_team_name
+                None
             elif key == '2':
-                bet_on_team = away_team_name
-            elif key == 'x':
-                bet_on_team = self.runner_name_draw
+                bet_type = self.lay_bet
+                betting_amount = betting_amount / (bet_on_odds - 1)
             else:
                 self.logger.exception('*** Wrong key! key = ' + key + ' ***')
                 continue
 
             # Add the BetFair commission and profit margin on top of the min_odds_to_bet_on
-            price = self._round_up_odds (
-                (bet_on_odds - 1)
-                /
-                (1-self.commission_rate)
-                +
-                1
-            )
+            price = self._round_up_odds (bet_on_odds)
             bet_placing_outcome[key] = self._place_bet (
                 home_team_name,
                 away_team_name,
@@ -640,7 +635,7 @@ class FBBetfair(Betfair):
                 betting_amount,
                 price,
                 debug_mode,
-                self.back_bet,
+                bet_type,
                 strategy,
                 persistence
             )

@@ -92,9 +92,9 @@ class TrueOdds(GamePredictorInterface):
             self.logger.log('missing odds - ' + str(e))
             return is_qualifed
 
-        if len(localVec) < 4:
-            self.logger.log('feature is not enough')
-            return is_qualifed
+        #if len(localVec) < 1:
+            #self.logger.log('feature is not enough')
+            #return is_qualifed
 
         vec.append(localVec)
         probability = self.rf.predict_proba(vec)
@@ -102,8 +102,9 @@ class TrueOdds(GamePredictorInterface):
         home_not_win_odds = 1 / probability[0,0]
         true_odds = {}
         true_odds['1'] = home_win_odds * (1+localProfitMargin)
-        true_odds['2'] = home_not_win_odds * (1+localProfitMargin)
-        print('True odds:', home_win_odds, home_not_win_odds, true_odds)
+        hnw_odds = home_not_win_odds * (1+localProfitMargin)
+        true_odds['2'] = 1.0 + 1.0 / (hnw_odds - 1.0)
+        print('True odds:', home_win_odds, home_not_win_odds, hnw_odds, true_odds)
 
         return true_odds
 
