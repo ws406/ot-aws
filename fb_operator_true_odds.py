@@ -33,6 +33,12 @@ class FbOperatorTrueOdds (FbOperator):
         358, # Brazil Serie B
         21,  # USA Major League Soccer
         700, # Thai Premier League
+        273,  # Australia A-League
+        136, # Hungary NB I
+        6, # Poland Super League
+        13, # Finland Veikkausliga
+        192, # AFC Champions League
+        350, # AFC Cup
         #40,  # IT2
         #39,  # EFL1
         #35,  # EFL2
@@ -43,20 +49,16 @@ class FbOperatorTrueOdds (FbOperator):
         #693,  # GE3
         #51, # German Cup
         #203, # France Ligue 3
-        #13, # FIN1
         #5,  # BEL1
         #22,  # NOR1
         #10,  # Russia premier
         #26,  # Sweden
         #133, # Croatia Super League
-        #273,  # AUS
         #7, # Denmark
-        #6, # Poland 1
         #119, # Ukrainian Premier League
         ##27, # Swiss Super League
         #137, # Czech First League
         #3, # Austria Leagie 1
-        #136, # Hungary NB I
         #113, # Europa League
         #103, # Champions League
         #193, # Algeria
@@ -71,8 +73,6 @@ class FbOperatorTrueOdds (FbOperator):
         #766, # Vietnam
         #89, # Copa Libertadores
         #263, # Copa Sudamericana
-        #192, # AFC Champions League
-        #350, # AFC Cup
         #165, # Northern Ireland Premier League
         #1413, # Spanish Segunda Division B
         #142, # Italian C1
