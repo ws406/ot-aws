@@ -121,6 +121,7 @@ if __name__ == '__main__':
             if len(games) > 0:
                 # Find out the earliest kickoff time of the next matches
                 earliest_game_kickoff = operator.find_next_run_time(games)
+                logger.log("Next kickoff at UTC: " + str (earliest_game_kickoff))
                 now = time.time()
                 # Start running the application "normal_interval_in_mins" before the earliest kickoff time
                 if earliest_game_kickoff < now:
@@ -133,6 +134,6 @@ if __name__ == '__main__':
         except Exception as e:
             logger.exception('Exception happened.... Try again later.')
             raise e
-        logger.log("Next kickoff at UTC: " + str (earliest_game_kickoff))
+
         logger.log("Next run at UTC: " + str (datetime.datetime.now () + datetime.timedelta (seconds = wait)))
         time.sleep (wait)
