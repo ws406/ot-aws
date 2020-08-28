@@ -616,17 +616,18 @@ class FBBetfair(Betfair):
         for key, bet_on_odds in game_data['true_odds'].items():
             bet_type = self.back_bet
             bet_on_team = home_team_name
+            price = self._round_up_odds (bet_on_odds)
+
             if key == '1':
                 None
             elif key == '2':
                 bet_type = self.lay_bet
                 betting_amount = betting_amount / (bet_on_odds - 1)
+                price = self._round_down_odds (bet_on_odds)
             else:
                 self.logger.exception('*** Wrong key! key = ' + key + ' ***')
                 continue
 
-            # Add the BetFair commission and profit margin on top of the min_odds_to_bet_on
-            price = self._round_up_odds (bet_on_odds)
             bet_placing_outcome[key] = self._place_bet (
                 home_team_name,
                 away_team_name,
