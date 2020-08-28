@@ -133,6 +133,6 @@ if __name__ == '__main__':
         except Exception as e:
             logger.exception('Exception happened.... Try again later.')
             raise e
-        logger.log("Next kickoff at UTC: " + str (earliest_game_kickoff)
+        logger.log("Next kickoff at UTC: " + str (earliest_game_kickoff))
         logger.log("Next run at UTC: " + str (datetime.datetime.now () + datetime.timedelta (seconds = wait)))
         time.sleep (wait)
