@@ -251,7 +251,7 @@ class FBBetfair(Betfair):
         # CHINA 1
         'Hebei HX Xingfu': 'Hebei CFFC',
         'Chongqing SWM Motors': 'Chongqing Lifan',
-        'Dalian Aerbin': 'Dalian Yifang',
+        'Dalian Pro': 'Dalian Yifang',
         'Henan Jianye': 'Henan',
         'Guangzhou Fuli FC': 'Guangzhou R&F',
         'Tianjin Tianhai': 'Tianjin Quanjian',
