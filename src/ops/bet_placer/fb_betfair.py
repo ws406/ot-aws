@@ -211,6 +211,7 @@ class FBBetfair(Betfair):
         'Sangju Sangmu Phoenix': 'Sangju Sangmu',
         'Gyeongnam FC': 'Gyeongnam',
         'Suwon Samsung Bluewings': 'Suwon Bluewings',
+        'Busan I Park': 'Busan IPark',
 
         # JAP 1 & 2
         'Ventforet Kofu': 'Kofu',
