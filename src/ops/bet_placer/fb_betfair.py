@@ -363,19 +363,12 @@ class FBBetfair(Betfair):
         'Extremadura': 'Extremadura UD',
 
         # Spain
-        'SD Amorebieta': 'Amorebieta',
-        'Badajoz': 'CD Badajoz',
+
         'Pena Azagresa': 'CD Pena Azagresa',
-        'Cultural Leonesa': 'Leonesa',
-        'Las Rozas': 'CD Las Rozas',
-        'SCR Pena Deportiva': 'Santa Eulalia',
-        'Haro Deportivo': 'Haro',
         'SD Laredo': 'CD Laredo',
         'UE Cornella': 'Cornella',
         'Gimnastic Tarragona': 'Gimnastic',
         'UE Olot': 'Olot',
-        'Merida AD': 'Merida',
-        'CF La Nucia': 'La Nucia',
         'CD Becerril': 'Becerril',
         'CD Linares Deportivo': 'Linares Deportivo',
         'Lorca Deportiva FC': 'Lorca Deportiva CF',
@@ -615,16 +608,17 @@ class FBBetfair(Betfair):
         # self.logger.log(game_data)
 
         for key, bet_on_odds in game_data['true_odds'].items():
-            bet_type = self.back_bet
-            bet_on_team = home_team_name
-            price = self._round_up_odds (bet_on_odds)
 
             if key == '1':
-                None
-            elif key == '2':
+                bet_type = self.back_bet
+                bet_on_team = home_team_name
+                price = self._round_up_odds (bet_on_odds)
+                amount = betting_amount
+            elif key == '-1':
                 bet_type = self.lay_bet
-                betting_amount = betting_amount / (bet_on_odds - 1)
+                bet_on_team = home_team_name
                 price = self._round_down_odds (bet_on_odds)
+                amount = self._round_up_amount(betting_amount / (bet_on_odds - 1))
             else:
                 self.logger.exception('*** Wrong key! key = ' + key + ' ***')
                 continue
@@ -634,7 +628,7 @@ class FBBetfair(Betfair):
                 away_team_name,
                 bet_on_team,
                 self.market_type_code_match_odds,
-                betting_amount,
+                amount,
                 price,
                 debug_mode,
                 bet_type,

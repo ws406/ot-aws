@@ -245,6 +245,10 @@ class Betfair (abc.ABC):
             return math.ceil(odds) + 1
 
     @staticmethod
+    def _round_up_amount(amount):
+        return round(amount, 2)
+
+    @staticmethod
     def _query_request_builder (endpoint, filters):
         return {
             "jsonrpc": "2.0",
