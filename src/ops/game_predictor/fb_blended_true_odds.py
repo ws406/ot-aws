@@ -103,8 +103,8 @@ class TrueOdds(GamePredictorInterface):
         true_odds = {}
         true_odds['1'] = home_win_odds * (1+localProfitMargin)
         hnw_odds = home_not_win_odds * (1+localProfitMargin)
-        true_odds['2'] = 1.0 + 1.0 / (hnw_odds - 1.0)
-        print('True odds:', home_win_odds, home_not_win_odds, hnw_odds, true_odds)
+        true_odds['-1'] = 1.0 + 1.0 / (hnw_odds - 1.0)
+        #print('True odds:', home_win_odds, home_not_win_odds, hnw_odds, true_odds)
 
         return true_odds
 
