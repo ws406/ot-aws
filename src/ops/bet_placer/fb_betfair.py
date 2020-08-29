@@ -538,6 +538,7 @@ class FBBetfair(Betfair):
         'Ilves Tampere': 'Ilves',
         'RoPS Rovaniemi': 'RoPS',
         'KuPs': 'KuPS',
+        'TPS Turku': 'TPS',
 
         # Greece
         'SKODA Xanthi': 'Xanthi',
