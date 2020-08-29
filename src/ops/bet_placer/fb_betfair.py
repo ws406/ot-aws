@@ -344,6 +344,7 @@ class FBBetfair(Betfair):
         # PO 1
         'FC Famalicao': 'Famalicao',
         'Legia Warszawa': 'Legia Warsaw',
+        'Jagiellonia Bialystok': 'Jagiellonia Bialystock',
 
         # ES 1
         'FC Barcelona': 'Barcelona',
