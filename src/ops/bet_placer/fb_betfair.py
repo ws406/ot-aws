@@ -212,6 +212,7 @@ class FBBetfair(Betfair):
         'Gyeongnam FC': 'Gyeongnam',
         'Suwon Samsung Bluewings': 'Suwon Bluewings',
         'Busan I Park': 'Busan IPark',
+        'Gwangju Football Club': 'Gwangju FC',
 
         # JAP 1 & 2
         'Ventforet Kofu': 'Kofu',
