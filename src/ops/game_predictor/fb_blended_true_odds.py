@@ -3,7 +3,7 @@ from src.ops.game_predictor.interface import GamePredictorInterface
 from src.win007.observers.true_odds.fb_qualification_check import QualificationCheck
 from src.utils.logger import OtLogger
 from src.utils.true_odds_calculator import TrueOddsCalculator
-from sklearn.externals import joblib
+import joblib
 
 # This game predictor provides true odds only
 class TrueOdds(GamePredictorInterface):
@@ -101,12 +101,14 @@ class TrueOdds(GamePredictorInterface):
         home_win_odds = 1 / probability[0,1]
         home_not_win_odds = 1 / probability[0,0]
         true_odds = {}
-        true_odds['1'] = home_win_odds * (1+localProfitMargin)
+        hw_odds = home_win_odds * (1+localProfitMargin)
         hnw_odds = home_not_win_odds * (1+localProfitMargin)
-        true_odds['-1'] = 1.0 + 1.0 / (hnw_odds - 1.0)
-        #print('True odds:', home_win_odds, home_not_win_odds, hnw_odds, true_odds)
-
-        return true_odds
+        if hw_odds > 8.6 or hnw_odds > 8.6:
+            return is_qualifed
+        else:
+            true_odds['1'] = hw_odds
+            true_odds['-1'] = 1.0 + 1.0 / (hnw_odds - 1.0)
+            return true_odds
 
     def _calc_true_odds(self, data, localProfitMargin):
         return self._calc_raw_true_odds(data, localProfitMargin)
