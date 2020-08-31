@@ -244,6 +244,7 @@ class Betfair (abc.ABC):
         else:
             return math.ceil(odds) - 1
 
+
     @staticmethod
     def _round_up_amount(amount):
         return round(amount, 2)
