@@ -4,6 +4,7 @@ from src.win007.observers.true_odds.fb_qualification_check import QualificationC
 from src.utils.logger import OtLogger
 from src.utils.true_odds_calculator import TrueOddsCalculator
 import joblib
+import math
 
 # This game predictor provides true odds only
 class TrueOdds(GamePredictorInterface):
