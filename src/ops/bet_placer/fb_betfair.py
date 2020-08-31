@@ -204,6 +204,8 @@ class FBBetfair(Betfair):
         'Colorado Rapids': 'Colorado',
         'New York City Football Club': 'New York City',
         'FC Kansas City': 'Kansas City',
+        'Nashville': 'Nashville SC',
+        'Club Internacional de Futbol Miami': 'Inter Miami CF'
 
         # KOR 1
         'Jeju United': 'Jeju Utd',
@@ -612,16 +614,14 @@ class FBBetfair(Betfair):
         # self.logger.log(game_data)
 
         for key, bet_on_odds in game_data['true_odds'].items():
-
+            price = bet_on_odds
             if key == '1':
                 bet_type = self.back_bet
                 bet_on_team = home_team_name
-                price = self._round_up_odds (bet_on_odds)
                 amount = betting_amount
             elif key == '-1':
                 bet_type = self.lay_bet
                 bet_on_team = home_team_name
-                price = self._round_down_odds (bet_on_odds)
                 amount = self._round_up_amount(betting_amount / (bet_on_odds - 1))
             else:
                 self.logger.exception('*** Wrong key! key = ' + key + ' ***')

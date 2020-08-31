@@ -224,25 +224,25 @@ class Betfair (abc.ABC):
     @staticmethod
     def _round_down_odds (odds):
         if odds < 2:
-            final_odds = math.ceil(odds * 100) / 100 + 0.01
+            final_odds = math.ceil(odds * 100) / 100 - 0.01
             return round(final_odds, 2)
         elif odds < 3:
-            final_odds = math.ceil(odds * 50) / 50 + 0.02
+            final_odds = math.ceil(odds * 50) / 50 - 0.02
             return round(final_odds, 2)
         elif odds < 4:
-            final_odds = math.ceil(odds * 20) / 20 + 0.05
+            final_odds = math.ceil(odds * 20) / 20 - 0.05
             return round(final_odds, 2)
         elif odds < 6:
-            final_odds = math.ceil(odds * 10) / 10 + 0.1
+            final_odds = math.ceil(odds * 10) / 10 - 0.1
             return round(final_odds, 1)
         elif odds < 10:
-            final_odds = math.ceil(odds * 5) / 5 + 0.2
+            final_odds = math.ceil(odds * 5) / 5 - 0.2
             return round(final_odds, 1)
         elif odds < 20:
-            final_odds = math.ceil(odds * 2) / 2 + 0.5
+            final_odds = math.ceil(odds * 2) / 2 - 0.5
             return round(final_odds, 1)
         else:
-            return math.ceil(odds) + 1
+            return math.ceil(odds) - 1
 
     @staticmethod
     def _round_up_amount(amount):
