@@ -37,7 +37,7 @@ class FbOperatorTrueOdds (FbOperator):
         192, # AFC Champions League
         350, # AFC Cup
         766, # Vietnam
-        15, # Korea League
+        #15, # Korea League
         #23,  # Portugal Primera Liga
         #4,  # Brazil Serie A
         #358, # Brazil Serie B

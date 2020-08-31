@@ -205,7 +205,7 @@ class FBBetfair(Betfair):
         'New York City Football Club': 'New York City',
         'FC Kansas City': 'Kansas City',
         'Nashville': 'Nashville SC',
-        'Club Internacional de Futbol Miami': 'Inter Miami CF'
+        'Club Internacional de Futbol Miami': 'Inter Miami CF',
 
         # KOR 1
         'Jeju United': 'Jeju Utd',
