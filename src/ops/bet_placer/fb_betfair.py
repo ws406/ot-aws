@@ -263,6 +263,7 @@ class FBBetfair(Betfair):
         'Shenzhen JiaZhaoye': 'Shenzhen FC',
         'Wuhan ZALL': 'Wuhan Zall',
         'Shanghai East Asia FC': 'Shanghai East Asia',
+        'Qingdao Huanghai F.C.': 'Qingdao Huanghai FC',
 
         # Australia
         'Sydney FC': 'Sydney',
@@ -631,7 +632,7 @@ class FBBetfair(Betfair):
                 self.logger.exception('*** Wrong key! key = ' + key + ' ***')
                 continue
 
-            #print(bet_on_team, bet_type, price, amount)
+            self.logger.log(bet_on_team + ' ' + bet_type + ' ' + str(price) + ' ' + str(amount))
             bet_placing_outcome[key] = self._place_bet (
                 home_team_name,
                 away_team_name,
