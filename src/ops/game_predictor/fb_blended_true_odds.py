@@ -108,7 +108,7 @@ class TrueOdds(GamePredictorInterface):
         else:
             true_odds = {}
             true_odds['1'] = hw_odds
-            true_odds['-1'] = 1.0 + 1.0 / (hnw_odds - 1.0)
+            true_odds['-1'] = hnw_odds
             return true_odds
 
     def _calc_true_odds(self, data, localProfitMargin):
