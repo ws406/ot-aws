@@ -50,50 +50,6 @@ class TrueOdds(GamePredictorInterface):
         else:
             return None
 
-    def _round_up_odds (self, odds):
-        if odds < 2:
-            final_odds = math.floor(odds * 100) / 100 + 0.01
-            return round(final_odds, 2)
-        elif odds < 3:
-            final_odds = math.floor(odds * 50) / 50 + 0.02
-            return round(final_odds, 2)
-        elif odds < 4:
-            final_odds = math.floor(odds * 20) / 20 + 0.05
-            return round(final_odds, 2)
-        elif odds < 6:
-            final_odds = math.floor(odds * 10) / 10 + 0.1
-            return round(final_odds, 1)
-        elif odds < 10:
-            final_odds = math.floor(odds * 5) / 5 + 0.2
-            return round(final_odds, 1)
-        elif odds < 20:
-            final_odds = math.floor(odds * 2) / 2 + 0.5
-            return round(final_odds, 1)
-        else:
-            return math.floor(odds) + 1
-
-    def _round_down_odds (self, odds):
-        if odds < 2:
-            final_odds = math.ceil(odds * 100) / 100 - 0.01
-            return round(final_odds, 2)
-        elif odds < 3:
-            final_odds = math.ceil(odds * 50) / 50 - 0.02
-            return round(final_odds, 2)
-        elif odds < 4:
-            final_odds = math.ceil(odds * 20) / 20 - 0.05
-            return round(final_odds, 2)
-        elif odds < 6:
-            final_odds = math.ceil(odds * 10) / 10 - 0.1
-            return round(final_odds, 1)
-        elif odds < 10:
-            final_odds = math.ceil(odds * 5) / 5 - 0.2
-            return round(final_odds, 1)
-        elif odds < 20:
-            final_odds = math.ceil(odds * 2) / 2 - 0.5
-            return round(final_odds, 1)
-        else:
-            return math.ceil(odds) - 1
-
     def _calc_prob(self, picked_bookie, data, lookbackTime):
         local_list_home = []
         local_list_draw = []
@@ -145,14 +101,14 @@ class TrueOdds(GamePredictorInterface):
         probability = self.rf.predict_proba(vec)
         home_win_odds = 1 / probability[0,1]
         home_not_win_odds = 1 / probability[0,0]
-        hw_odds = self._round_up_odds(home_win_odds * (1+localProfitMargin))
-        hnw_odds = self._round_up_odds(home_not_win_odds * (1+localProfitMargin))
+        hw_odds = home_win_odds * (1+localProfitMargin)
+        hnw_odds = home_not_win_odds * (1+localProfitMargin)
         if hw_odds > 8.6 or hnw_odds > 8:
             return is_qualifed
         else:
             true_odds = {}
             true_odds['1'] = hw_odds
-            true_odds['-1'] = self._round_down_odds(1.0 + 1.0 / (hnw_odds - 1.0))
+            true_odds['-1'] = 1.0 + 1.0 / (hnw_odds - 1.0)
             return true_odds
 
     def _calc_true_odds(self, data, localProfitMargin):

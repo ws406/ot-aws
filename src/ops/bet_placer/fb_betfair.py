@@ -544,6 +544,7 @@ class FBBetfair(Betfair):
         'RoPS Rovaniemi': 'RoPS',
         'KuPs': 'KuPS',
         'TPS Turku': 'TPS',
+        'FC Haka': 'Haka',
 
         # Greece
         'SKODA Xanthi': 'Xanthi',
@@ -614,19 +615,21 @@ class FBBetfair(Betfair):
         # self.logger.log(game_data)
 
         for key, bet_on_odds in game_data['true_odds'].items():
-            price = bet_on_odds
             if key == '1':
                 bet_type = self.back_bet
                 bet_on_team = home_team_name
                 amount = betting_amount
+                price = self._round_up_odds(bet_on_odds)
             elif key == '-1':
                 bet_type = self.lay_bet
                 bet_on_team = home_team_name
                 amount = self._round_up_amount(betting_amount / (bet_on_odds - 1))
+                price = self._round_down_odds(bet_on_odds)
             else:
                 self.logger.exception('*** Wrong key! key = ' + key + ' ***')
                 continue
 
+            #print(bet_on_team, bet_type, price, amount)
             bet_placing_outcome[key] = self._place_bet (
                 home_team_name,
                 away_team_name,
