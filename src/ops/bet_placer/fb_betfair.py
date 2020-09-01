@@ -263,6 +263,7 @@ class FBBetfair(Betfair):
         'Shenzhen JiaZhaoye': 'Shenzhen FC',
         'Wuhan ZALL': 'Wuhan Zall',
         'Shanghai East Asia FC': 'Shanghai East Asia',
+        'Qingdao Huanghai F.C.': 'Qingdao Huanghai FC',
 
         # Australia
         'Sydney FC': 'Sydney',
@@ -544,6 +545,7 @@ class FBBetfair(Betfair):
         'RoPS Rovaniemi': 'RoPS',
         'KuPs': 'KuPS',
         'TPS Turku': 'TPS',
+        'FC Haka': 'Haka',
 
         # Greece
         'SKODA Xanthi': 'Xanthi',
@@ -622,12 +624,15 @@ class FBBetfair(Betfair):
             elif key == '-1':
                 bet_type = self.lay_bet
                 bet_on_team = home_team_name
-                amount = self._round_up_amount(betting_amount / (bet_on_odds - 1))
-                price = self._round_down_odds(bet_on_odds)
+                odds = self._round_up_odds(bet_on_odds) # this is round up, away and draw double chance odds
+                lay_odds = 1.0 + 1.0 / (odds - 1.0) # convert it to lay odds
+                price = self._round_down_odds(lay_odds) # round lay odds to proper tick
+                amount = self._round_up_amount(betting_amount / (price - 1))
             else:
                 self.logger.exception('*** Wrong key! key = ' + key + ' ***')
                 continue
 
+            self.logger.log(bet_on_team + ' ' + bet_type + ' ' + str(price) + ' ' + str(amount))
             bet_placing_outcome[key] = self._place_bet (
                 home_team_name,
                 away_team_name,
