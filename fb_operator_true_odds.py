@@ -1,4 +1,5 @@
 from src.ops.game_predictor.fb_blended_true_odds import TrueOdds
+from src.ops.game_predictor.fb_blended_true_odds2 import BlendTrueOdds
 from src.ops.operator.fb_operator import FbOperator
 import time
 import datetime
@@ -37,6 +38,8 @@ class FbOperatorTrueOdds (FbOperator):
         192, # AFC Champions League
         350, # AFC Cup
         766, # Vietnam
+        5,  # Belgian Pro League
+        3, # Austria Leagie 1
         #15, # Korea League
         #23,  # Portugal Primera Liga
         #4,  # Brazil Serie A
@@ -51,7 +54,6 @@ class FbOperatorTrueOdds (FbOperator):
         #693,  # GE3
         #51, # German Cup
         #203, # France Ligue 3
-        #5,  # BEL1
         #22,  # NOR1
         #10,  # Russia premier
         #26,  # Sweden
@@ -60,7 +62,6 @@ class FbOperatorTrueOdds (FbOperator):
         #119, # Ukrainian Premier League
         ##27, # Swiss Super League
         #137, # Czech First League
-        #3, # Austria Leagie 1
         #113, # Europa League
         #103, # Champions League
         #193, # Algeria
@@ -95,7 +96,7 @@ class FbOperatorTrueOdds (FbOperator):
     ]
 
     def __init__(self, logger: OtLogger):
-        self.gamePredictors = [TrueOdds(logger)]
+        self.gamePredictors = [TrueOdds(logger), BlendTrueOdds(logger)]
         FbOperator.__init__(self, logger)
 
 

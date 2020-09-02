@@ -1,6 +1,7 @@
 from src.ops.bet_placer.betfair import Betfair
 from src.ops.game_predictor.fb_blended_true_odds_2_lowest_odds import TrueOddsLower2
 from src.ops.game_predictor.fb_blended_true_odds import TrueOdds
+from src.ops.game_predictor.fb_blended_true_odds2 import BlendTrueOdds
 from src.ops.game_predictor.fb_blended_true_odds_inplay import TrueOddsInplay
 from src.ops.game_predictor.fb_blended_true_odds_inplay2 import TrueOddsInplay2
 from src.ops.game_predictor.fb_blended_true_odds_inplay3 import TrueOddsInplay3
@@ -250,6 +251,8 @@ class FBBetfair(Betfair):
         'Nagoya Grampus': 'Nagoya',
         'Matsumoto Yamaga FC': 'Matsumoto',
         'Sagan Tosu': 'Tosu',
+        'Thespa Kusatsu': 'Thespakusatsu Gunma',
+        'Giravanz Kitakyushu': 'Kitakyushu',
 
         # CHINA 1
         'Hebei HX Xingfu': 'Hebei CFFC',
@@ -599,7 +602,7 @@ class FBBetfair(Betfair):
 
         if strategy == TrueOddsInplay.strategy or strategy == TrueOddsInplay2.strategy or strategy == TrueOddsInplay3.strategy:
             return self._place_bet_for_true_odds(game_data, betting_amount, self.persistence_persist, debug_mode)
-        elif strategy == TrueOddsLower2.strategy or strategy == TrueOdds.strategy:
+        elif strategy == TrueOddsLower2.strategy or strategy == TrueOdds.strategy or strategy == BlendTrueOdds.strategy:
             return self._place_bet_for_true_odds(game_data, betting_amount, self.persistence_lapse, debug_mode)
         else:
             # Add other strategies later
@@ -632,7 +635,7 @@ class FBBetfair(Betfair):
                 self.logger.exception('*** Wrong key! key = ' + key + ' ***')
                 continue
 
-            self.logger.log(bet_on_team + ' ' + bet_type + ' ' + str(price) + ' ' + str(amount))
+            #self.logger.log(bet_on_team + ' ' + bet_type + ' ' + str(price) + ' ' + str(amount))
             bet_placing_outcome[key] = self._place_bet (
                 home_team_name,
                 away_team_name,
