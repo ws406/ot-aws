@@ -28,7 +28,6 @@ class FbOperatorTrueOdds (FbOperator):
         150,  # Scottish Championship
         25,  # J-League Division 1
         284,  # J-League Division 2
-        60,  # Chinese Super League
         21,  # USA Major League Soccer
         700, # Thai Premier League
         273,  # Australia A-League
@@ -40,6 +39,7 @@ class FbOperatorTrueOdds (FbOperator):
         766, # Vietnam
         5,  # Belgian Pro League
         3, # Austria Leagie 1
+        #60,  # Chinese Super League
         #15, # Korea League
         #23,  # Portugal Primera Liga
         #4,  # Brazil Serie A
