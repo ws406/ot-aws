@@ -627,8 +627,7 @@ class FBBetfair(Betfair):
             elif key == '-1':
                 bet_type = self.lay_bet
                 bet_on_team = home_team_name
-                odds = self._round_up_odds(bet_on_odds) # this is round up, away and draw double chance odds
-                lay_odds = 1.0 + 1.0 / (odds - 1.0) # convert it to lay odds
+                lay_odds = 1.0 + 1.0 / (bet_on_odds - 1.0) # convert it to lay odds
                 price = self._round_down_odds(lay_odds) # round lay odds to proper tick
                 amount = self._round_up_amount(betting_amount / (price - 1))
             else:
