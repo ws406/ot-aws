@@ -309,7 +309,7 @@ class FBBetfair(Betfair):
         'Royal Antwerp': 'Antwerp',
         'Racing Genk': 'Genk',
 
-        # FR 1 & 2
+        # France
         'AJ Auxerre': 'Auxerre',
         'Troyes': 'ESTAC Troyes',
         'Ajaccio': 'AC Ajaccio',
@@ -320,6 +320,7 @@ class FBBetfair(Betfair):
         'Stade Brestois': 'Brest',
         'Saint Etienne': 'St Etienne',
         'Paris Saint Germain (PSG)': 'Paris St-G',
+        'Bastia Borgo': 'FC Bastia-Borgo',
 
         # Nor1
         'Sarpsborg 08': 'Sarpsborg',
