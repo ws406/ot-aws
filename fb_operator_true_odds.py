@@ -38,13 +38,21 @@ class FbOperatorTrueOdds (FbOperator):
         766, # Vietnam
         5,  # Belgian Pro League
         3, # Austria Leagie 1
-        #29,  # Scottish Premier League
-        #150,  # Scottish Championship
         #60,  # Chinese Super League
+        157,  # Portugal Liga 1
+        29,  # Scottish Premier League
+        150,  # Scottish Championship
+        358, # Brazil Serie B
+        34,  # Italian Serie A
+        10,  # Russia premier
+        1, # Ireland Premier Division
+        308, # South Africa Premier League
+        303, # Egyptian Premier League
+        133, # Croatia Super League
+        292, # Saudi Professional League
         #15, # Korea League
         #23,  # Portugal Primera Liga
         #4,  # Brazil Serie A
-        #358, # Brazil Serie B
         #40,  # IT2
         #39,  # EFL1
         #35,  # EFL2
@@ -55,9 +63,7 @@ class FbOperatorTrueOdds (FbOperator):
         #693,  # GE3
         #51, # German Cup
         #22,  # NOR1
-        #10,  # Russia premier
         #26,  # Sweden
-        #133, # Croatia Super League
         #7, # Denmark
         #119, # Ukrainian Premier League
         ##27, # Swiss Super League
@@ -69,9 +75,7 @@ class FbOperatorTrueOdds (FbOperator):
         #235, # Russia League 1
         #138, # Belgian Second Division
         #121, # Swiss Challenge League
-        #1, # Ireland Premier Division
         #140, # Mexico Primera Division
-        #308, # South Africa Premier League
         #122, # Sweden Superettan
         #89, # Copa Libertadores
         #263, # Copa Sudamericana
@@ -81,10 +85,8 @@ class FbOperatorTrueOdds (FbOperator):
         #297, # England Conference North
         #298, # England Conference South
         #32, # Greece
-        #157,  # POTG2
         ##54, #French Cup
         ##67, # Euro Cup
-        #34,  # IT1
         #124, # Romanian Liga I
         #326, # Tunisia
         ##321, # Morocco Pro 1
@@ -92,7 +94,6 @@ class FbOperatorTrueOdds (FbOperator):
         #763,
         #1367,
         #41,
-        #292, # Saudi Professional League
     ]
 
     def __init__(self, logger: OtLogger):

@@ -194,6 +194,9 @@ class FBBetfair(Betfair):
         'CRB AL': 'CRB',
         'Centro Sportivo Alagoano': 'CSA',
         'Gremio (RS)': 'Gremio',
+        'Vitoria BA': 'EC Vitoria Salvador',
+        'Sampaio Correa FC': 'Sampaio Correa',
+        'Nautico (PE)': 'Nautico PE',
 
         # USA
         'Atlanta United': 'Atlanta Utd',
@@ -300,7 +303,7 @@ class FBBetfair(Betfair):
         # Belgium 1
         'Mechelen': 'Yellow-Red Mechelen',
         'Standard Liege': 'Standard',
-        'Mouscron Peruwelz': 'Royal Mouscron-peruwelz',
+        'Mouscron Peruwelz': 'Royal Mouscron-Peruwelz',
         'Red Star Waasland': 'Waasland-Beveren',
         'Sint-Truidense': 'Sint Truiden',
         'Oostende': 'KV Oostende',
@@ -308,6 +311,8 @@ class FBBetfair(Betfair):
         'KAS Eupen': 'Eupen',
         'Royal Antwerp': 'Antwerp',
         'Racing Genk': 'Genk',
+        'Oud Heverlee': 'Oud-Heverlee Leuven',
+        'KFCO Wilrijk': 'KFCO Beerschot Wilrijk',
 
         # France
         'AJ Auxerre': 'Auxerre',
@@ -321,6 +326,8 @@ class FBBetfair(Betfair):
         'Saint Etienne': 'St Etienne',
         'Paris Saint Germain (PSG)': 'Paris St-G',
         'Bastia Borgo': 'FC Bastia-Borgo',
+        'USL Dunkerque': 'Dunkerque',
+        'Pau FC': 'Pau',
 
         # Nor1
         'Sarpsborg 08': 'Sarpsborg',
@@ -329,7 +336,7 @@ class FBBetfair(Betfair):
         'Mjondalen IF': 'Mjondalen',
         'Kristiansund BK': 'Kristiansund',
 
-        # HO 1
+        # Holland
         'AFC Ajax': 'Ajax',
         'Groningen': 'FC GRONINGEN',
         'FC Twente Enschede': 'FC Twente',
@@ -337,8 +344,6 @@ class FBBetfair(Betfair):
         'Heracles Almelo': 'Heracles',
         'SC Heerenveen': 'Heerenveen',
         'AZ Alkmaar': 'Az Alkmaar',
-
-        # HO 2
         'Dordrecht': 'FC Dordrecht',
         'SC Cambuur': 'Cambuur Leeuwarden',
         'Volendam': 'FC Volendam',
@@ -349,21 +354,13 @@ class FBBetfair(Betfair):
         'Excelsior SBV' : 'Excelsior',
         'Jong PSV Eindhoven (Youth)' : 'Jong PSV Eindhoven',
 
-        # PO 1
-        'FC Famalicao': 'Famalicao',
-        'Legia Warszawa': 'Legia Warsaw',
-        'Jagiellonia Bialystok': 'Jagiellonia Bialystock',
-        'Podbeskidzie Bielsko-Biala': 'Podbeskidzie BB',
-
-        # ES 1
+        # Spain
         'FC Barcelona': 'Barcelona',
         'Real Valladolid': 'Valladolid',
         'Real Betis': 'Betis',
         'RCD Espanyol': 'Espanyol',
         'Real Sociedad': 'Sociedad',
         'Granada CF': 'Granada',
-
-        # ES 2
         'Real Zaragoza': 'Zaragoza',
         'Deportivo La Coruna': 'Deportivo',
         'Real Oviedo': 'Oviedo',
@@ -371,9 +368,6 @@ class FBBetfair(Betfair):
         'SD Huesca': 'Huesca',
         'CD Lugo': 'Lugo',
         'Extremadura': 'Extremadura UD',
-
-        # Spain
-
         'Pena Azagresa': 'CD Pena Azagresa',
         'SD Laredo': 'CD Laredo',
         'UE Cornella': 'Cornella',
@@ -449,6 +443,7 @@ class FBBetfair(Betfair):
         'Academica Coimbra': 'Academica',
         'SC Covilha': 'Covilha',
         'SC Farense': 'Farense',
+        'FC Famalicao': 'Famalicao',
 
         # IT 1
         'Inter Milan': 'Inter',
@@ -527,6 +522,7 @@ class FBBetfair(Betfair):
         'Caykur Rizespor': 'Rizespor',
         'Gaziantep Buyuksehir Belediyesi': 'Gaziantep FK',
         'Istanbul Buyuksehir Belediyesi': 'Basaksehir',
+        'Karagumruk': 'Fatih Karagumruk Istanbu',
 
         # Romania
         'CS Universitatea Craiova': 'Universitatea Craiova',
@@ -595,6 +591,22 @@ class FBBetfair(Betfair):
         'Glenavon Lurgan': 'Glenavon',
         'Dungannon Swifts': 'Dungannon',
         'Larne FC': 'Larne',
+
+        # Egypt
+        'FC Masr': 'Masr Club',
+        'Al-Ittihad Alexandria': 'Al Ittihad (EGY)',
+        'Talaea EI-Gaish': 'El Geish',
+        'Misr Elmaqasah': 'Misr El Makasa',
+        'EL Ahly': 'Al Ahly Cairo',
+
+        # Poland
+        'Jagiellonia Bialystok': 'Jagiellonia Bialystock',
+        'Podbeskidzie Bielsko-Biala': 'Podbeskidzie B-B',
+        'Legia Warszawa': 'Legia Warsaw',
+
+        # Ireland
+        'Waterford United': 'Waterford',
+        'St. Patricks Athletic': 'St Patricks',
     }
 
     def place_match_odds_bet(self, game_data, betting_amount, debug_mode=False):

@@ -12,10 +12,33 @@ class BlendTrueOdds(GamePredictorInterface):
     benchmark_bookie = 'pinnacle'
     strategy = 'blend_true_odds'
     profit_margin = 0.05 # This is to ensure we win something.
+    special_leagues = []
 
     def __init__(self, logger: OtLogger):
         self.logger = logger
         self.rf = joblib.load("./football_model_blend_bookie.sav")
+        #157,  # Portugal Liga 1
+        #29,  # Scottish Premier League
+        #150,  # Scottish Championship
+        #358, # Brazil Serie B
+        #34,  # Italian Serie A
+        #10,  # Russia premier
+        #1, # Ireland Premier Division
+        #308, # South Africa Premier League
+        #303, # Egyptian Premier League
+        #133, # Croatia Super League
+        #292, # Saudi Professional League
+        self.special_leagues.append(1)
+        self.special_leagues.append(10)
+        self.special_leagues.append(29)
+        self.special_leagues.append(34)
+        self.special_leagues.append(157)
+        self.special_leagues.append(150)
+        self.special_leagues.append(358)
+        self.special_leagues.append(303)
+        self.special_leagues.append(308)
+        self.special_leagues.append(133)
+        self.special_leagues.append(292)
 
     def _get_average(self, localList):
         number = 0
@@ -103,13 +126,22 @@ class BlendTrueOdds(GamePredictorInterface):
         home_not_win_odds = 1 / probability[0,0]
         hw_odds = home_win_odds * (1+localProfitMargin)
         hnw_odds = home_not_win_odds * (1+localProfitMargin)
-        if hw_odds > 8.6 or hnw_odds > 8:
-            return is_qualifed
+        if data['league_id'] in self.special_leagues:
+            if hw_odds > 6 or hnw_odds > 4:
+                return is_qualifed
+            else:
+                true_odds = {}
+                true_odds['1'] = hw_odds
+                true_odds['-1'] = hnw_odds
+                return true_odds
         else:
-            true_odds = {}
-            true_odds['1'] = hw_odds
-            true_odds['-1'] = hnw_odds
-            return true_odds
+            if hw_odds > 8.6 or hnw_odds > 8:
+                return is_qualifed
+            else:
+                true_odds = {}
+                true_odds['1'] = hw_odds
+                true_odds['-1'] = hnw_odds
+                return true_odds
 
     def _calc_true_odds(self, data, localProfitMargin):
         return self._calc_raw_true_odds(data, localProfitMargin)
