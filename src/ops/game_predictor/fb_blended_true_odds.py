@@ -28,6 +28,7 @@ class TrueOdds(GamePredictorInterface):
         #303, # Egyptian Premier League
         #133, # Croatia Super League
         #292, # Saudi Professional League
+        #136, # Hungary NB I
         self.special_leagues.append(1)
         self.special_leagues.append(10)
         self.special_leagues.append(29)
@@ -39,6 +40,7 @@ class TrueOdds(GamePredictorInterface):
         self.special_leagues.append(308)
         self.special_leagues.append(133)
         self.special_leagues.append(292)
+        self.special_leagues.append(136)
 
     def _get_average(self, localList):
         number = 0

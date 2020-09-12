@@ -507,9 +507,12 @@ class FBBetfair(Betfair):
         'Budapest Honved': 'Honved',
         'Paksi SE Honlapja': 'Paks',
         'Mezokovesd Zsory': 'Mezokovesd-Zsory',
-        'Videoton Puskas Akademia': 'PUSKAS AKADEMIA',
+        'Videoton Puskas Akademia': 'Puskas Akademia',
         'Fehervar Videoton': 'MOL Vidi',
         'Varda SE': 'Kisvarda',
+        'Dafuji cloth MTE': 'Budafoki',
+        'Ujpesti': 'Ujpest',
+        'MTK Hungaria': 'MTK Budapest',
 
         # Croatia
         'ZNK Osijek': 'Osijek',
