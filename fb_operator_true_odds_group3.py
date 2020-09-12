@@ -15,13 +15,13 @@ class FbOperatorTrueOdds (FbOperator):
     league_ids = [
         29,  # Scottish Premier League
         203, # France Ligue 3
-        13, # Finland Veikkausliga
         350, # AFC Cup
         766, # Vietnam
         5,  # Belgian Pro League
         3, # Austria Leagie 1
         157,  # Portugal Liga 1
         34,  # Italian Serie A
+        358, # Brazil Serie B
     ]
 
     def __init__(self, logger: OtLogger):

@@ -15,8 +15,8 @@ class FbOperatorTrueOdds (FbOperator):
     league_ids = [
         150,  # Scottish Championship
         31,  # Spanish La Liga
+        13, # Finland Veikkausliga
         192, # AFC Champions League
-        358, # Brazil Serie B
         10,  # Russia premier
         1, # Ireland Premier Division
         308, # South Africa Premier League
