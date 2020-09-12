@@ -328,6 +328,8 @@ class FBBetfair(Betfair):
         'Bastia Borgo': 'FC Bastia-Borgo',
         'USL Dunkerque': 'Dunkerque',
         'Pau FC': 'Pau',
+        'Quevilly': 'Quevilly Rouen',
+        'Sete FC': 'Sete',
 
         # Nor1
         'Sarpsborg 08': 'Sarpsborg',
@@ -607,6 +609,12 @@ class FBBetfair(Betfair):
         # Ireland
         'Waterford United': 'Waterford',
         'St. Patricks Athletic': 'St Patricks',
+
+        # Croatia
+        'ZNK Osijek': 'Osijek',
+        'Istra 1961 Pula': 'NK Istra',
+        'NK Varteks Varazdin': 'Varazdin',
+        'NK Lokomotiva Zagreb': 'Lokomotiva',
     }
 
     def place_match_odds_bet(self, game_data, betting_amount, debug_mode=False):

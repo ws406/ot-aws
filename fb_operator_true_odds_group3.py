@@ -13,87 +13,15 @@ class FbOperatorTrueOdds (FbOperator):
     # mins_before_kickoff = 15
 
     league_ids = [
-        36,  # English Premier League
-        37,  # England Championship
-        8,  # German Bundesliga
-        9,  # German Bundesliga 2
-        11,  # France Ligue 1
-        12,  # France Ligue 2
+        29,  # Scottish Premier League
         203, # France Ligue 3
-        31,  # Spanish La Liga
-        33,  # Spanish Segunda Division
-        16,  # Holland Eredivisie
-        17,  # Holland Jupiler League
-        30,  # Turkish Super Liga
-        25,  # J-League Division 1
-        284,  # J-League Division 2
-        21,  # USA Major League Soccer
-        700, # Thai Premier League
-        273,  # Australia A-League
-        136, # Hungary NB I
-        6, # Poland Super League
         13, # Finland Veikkausliga
-        192, # AFC Champions League
         350, # AFC Cup
         766, # Vietnam
         5,  # Belgian Pro League
         3, # Austria Leagie 1
-        #60,  # Chinese Super League
         157,  # Portugal Liga 1
-        29,  # Scottish Premier League
-        150,  # Scottish Championship
-        358, # Brazil Serie B
         34,  # Italian Serie A
-        10,  # Russia premier
-        1, # Ireland Premier Division
-        308, # South Africa Premier League
-        303, # Egyptian Premier League
-        133, # Croatia Super League
-        292, # Saudi Professional League
-        #15, # Korea League
-        #23,  # Portugal Primera Liga
-        #4,  # Brazil Serie A
-        #40,  # IT2
-        #39,  # EFL1
-        #35,  # EFL2
-        #146, # English Nation League
-        #84,  # English League Cup
-        #90, # England FA Cup
-        #81, # Spanish Copa
-        #693,  # GE3
-        #51, # German Cup
-        #22,  # NOR1
-        #26,  # Sweden
-        #7, # Denmark
-        #119, # Ukrainian Premier League
-        ##27, # Swiss Super League
-        #137, # Czech First League
-        #113, # Europa League
-        #103, # Champions League
-        #193, # Algeria
-        #221, # Poland League 1
-        #235, # Russia League 1
-        #138, # Belgian Second Division
-        #121, # Swiss Challenge League
-        #140, # Mexico Primera Division
-        #122, # Sweden Superettan
-        #89, # Copa Libertadores
-        #263, # Copa Sudamericana
-        #165, # Northern Ireland Premier League
-        #1413, # Spanish Segunda Division B
-        #142, # Italian C1
-        #297, # England Conference North
-        #298, # England Conference South
-        #32, # Greece
-        ##54, #French Cup
-        ##67, # Euro Cup
-        #124, # Romanian Liga I
-        #326, # Tunisia
-        ##321, # Morocco Pro 1
-        #1385,
-        #763,
-        #1367,
-        #41,
     ]
 
     def __init__(self, logger: OtLogger):
@@ -103,7 +31,7 @@ class FbOperatorTrueOdds (FbOperator):
 
 if __name__ == '__main__':
     normal_interval_in_mins = 1
-    logger = OtLogger('./logs/ops_true_odds.log')
+    logger = OtLogger('./logs/ops_true_odds_3.log')
     operator = FbOperatorTrueOdds(logger)
     wait = operator.get_games_in_minutes * 60
 
