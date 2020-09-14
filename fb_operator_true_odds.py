@@ -25,19 +25,18 @@ class FbOperatorTrueOdds (FbOperator):
         16,  # Holland Eredivisie
         17,  # Holland Jupiler League
         30,  # Turkish Super Liga
-        25,  # J-League Division 1
         284,  # J-League Division 2
         21,  # USA Major League Soccer
         273,  # Australia A-League
         136, # Hungary NB I
         6, # Poland Super League
         13, # Finland Veikkausliga
-        192, # AFC Champions League
-        350, # AFC Cup
+        #192, # AFC Champions League
+        #350, # AFC Cup
         766, # Vietnam
         5,  # Belgian Pro League
         3, # Austria Leagie 1
-        #60,  # Chinese Super League
+        60,  # Chinese Super League
         157,  # Portugal Liga 1
         29,  # Scottish Premier League
         150,  # Scottish Championship
@@ -49,6 +48,7 @@ class FbOperatorTrueOdds (FbOperator):
         303, # Egyptian Premier League
         133, # Croatia Super League
         292, # Saudi Professional League
+        #25,  # J-League Division 1
         #15, # Korea League
         #23,  # Portugal Primera Liga
         #4,  # Brazil Serie A

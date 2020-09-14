@@ -340,7 +340,7 @@ class FBBetfair(Betfair):
 
         # Holland
         'AFC Ajax': 'Ajax',
-        'Groningen': 'FC GRONINGEN',
+        'Groningen': 'FC Groningen',
         'FC Twente Enschede': 'FC Twente',
         'PSV Eindhoven': 'PSV',
         'Heracles Almelo': 'Heracles',
@@ -603,6 +603,9 @@ class FBBetfair(Betfair):
         'Talaea EI-Gaish': 'El Geish',
         'Misr Elmaqasah': 'Misr El Makasa',
         'EL Ahly': 'Al Ahly Cairo',
+        'Aswan': 'Aswan FC',
+        'Haras El Hedoud': 'Haras El Hodood',
+        'EL Masry': 'Al-Masry',
 
         # Poland
         'Jagiellonia Bialystok': 'Jagiellonia Bialystock',
