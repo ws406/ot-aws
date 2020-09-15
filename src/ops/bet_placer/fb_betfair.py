@@ -197,6 +197,7 @@ class FBBetfair(Betfair):
         'Vitoria BA': 'EC Vitoria Salvador',
         'Sampaio Correa FC': 'Sampaio Correa',
         'Nautico (PE)': 'Nautico PE',
+        'Confianca SE': 'Confianca',
 
         # USA
         'Atlanta United': 'Atlanta Utd',
@@ -606,6 +607,7 @@ class FBBetfair(Betfair):
         'Aswan': 'Aswan FC',
         'Haras El Hedoud': 'Haras El Hodood',
         'EL Masry': 'Al-Masry',
+        'El Mokawloon El Arab': 'Al Mokawloon',
 
         # Poland
         'Jagiellonia Bialystok': 'Jagiellonia Bialystock',

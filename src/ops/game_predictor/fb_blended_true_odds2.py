@@ -27,20 +27,32 @@ class BlendTrueOdds(GamePredictorInterface):
         #308, # South Africa Premier League
         #303, # Egyptian Premier League
         #133, # Croatia Super League
-        #292, # Saudi Professional League
         #136, # Hungary NB I
+        #16,  # Holland Eredivisie
+        #36,  # English Premier League
+        #11,  # France Ligue 1
+        #12,  # France Ligue 2
+        #203, # France Ligue 3
+        #273,  # Australia A-League
+        #3, # Austria Leagie 1
         self.special_leagues.append(1)
+        self.special_leagues.append(3)
         self.special_leagues.append(10)
+        self.special_leagues.append(11)
+        self.special_leagues.append(12)
+        self.special_leagues.append(16)
         self.special_leagues.append(29)
         self.special_leagues.append(34)
+        self.special_leagues.append(36)
         self.special_leagues.append(157)
         self.special_leagues.append(150)
         self.special_leagues.append(358)
         self.special_leagues.append(303)
         self.special_leagues.append(308)
         self.special_leagues.append(133)
-        self.special_leagues.append(292)
         self.special_leagues.append(136)
+        self.special_leagues.append(203)
+        self.special_leagues.append(273)
 
     def _get_average(self, localList):
         number = 0
