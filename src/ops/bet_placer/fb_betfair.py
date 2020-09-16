@@ -608,6 +608,9 @@ class FBBetfair(Betfair):
         'Haras El Hedoud': 'Haras El Hodood',
         'EL Masry': 'Al-Masry',
         'El Mokawloon El Arab': 'Al Mokawloon',
+        'Smouha SC' : 'Smouha',
+        'Wadi Degla SC': 'Wadi Degla',
+        'Pyramids FC': 'Pyramids',
 
         # Poland
         'Jagiellonia Bialystok': 'Jagiellonia Bialystock',
