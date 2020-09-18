@@ -300,6 +300,7 @@ class FBBetfair(Betfair):
         'Ural Sverdlovsk Oblast': 'Ural',
         'Dynamo Moscow': 'Dinamo Moscow',
         'Terek Grozny': 'Akhmat Grozny',
+        'Khimki': 'FC Khimki',
 
         # Belgium 1
         'Mechelen': 'Yellow-Red Mechelen',
@@ -331,6 +332,9 @@ class FBBetfair(Betfair):
         'Pau FC': 'Pau',
         'Quevilly': 'Quevilly Rouen',
         'Sete FC': 'Sete',
+        'Bourg Peronnas': 'Bourg-en-Bresse',
+        'Cholet So': 'Cholet SO',
+        'Villefranche': 'Villefranche Beaujolais',
 
         # Nor1
         'Sarpsborg 08': 'Sarpsborg',
@@ -609,8 +613,9 @@ class FBBetfair(Betfair):
         'EL Masry': 'Al-Masry',
         'El Mokawloon El Arab': 'Al Mokawloon',
         'Smouha SC' : 'Smouha',
-        'Wadi Degla SC': 'Wadi Degla',
+        'Wadi Degla SC': 'Wadi degla',
         'Pyramids FC': 'Pyramids',
+        'Enppi': 'ENPPI',
 
         # Poland
         'Jagiellonia Bialystok': 'Jagiellonia Bialystock',
