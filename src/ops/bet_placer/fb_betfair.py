@@ -626,11 +626,6 @@ class FBBetfair(Betfair):
         'Waterford United': 'Waterford',
         'St. Patricks Athletic': 'St Patricks',
 
-        # Croatia
-        'ZNK Osijek': 'Osijek',
-        'Istra 1961 Pula': 'NK Istra',
-        'NK Varteks Varazdin': 'Varazdin',
-        'NK Lokomotiva Zagreb': 'Lokomotiva',
     }
 
     def place_match_odds_bet(self, game_data, betting_amount, debug_mode=False):
