@@ -36,22 +36,22 @@ class FbOperatorTrueOdds (FbOperator):
         766, # Vietnam
         5,  # Belgian Pro League
         3, # Austria Leagie 1
-        #60,  # Chinese Super League
+        60,  # Chinese Super League
         157,  # Portugal Liga 1
         29,  # Scottish Premier League
         150,  # Scottish Championship
         358, # Brazil Serie B
         34,  # Italian Serie A
         10,  # Russia premier
-        1, # Ireland Premier Division
         308, # South Africa Premier League
         303, # Egyptian Premier League
         133, # Croatia Super League
+        700, # Thai Premier League
+        #1, # Ireland Premier Division
         #25,  # J-League Division 1
         #15, # Korea League
         #23,  # Portugal Primera Liga
         #4,  # Brazil Serie A
-        #700, # Thai Premier League
         #292, # Saudi Professional League
         #40,  # IT2
         #39,  # EFL1
