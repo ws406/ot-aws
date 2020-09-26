@@ -626,6 +626,17 @@ class FBBetfair(Betfair):
         'Waterford United': 'Waterford',
         'St. Patricks Athletic': 'St Patricks',
 
+        # VietNam
+        'The Cong': 'Viettel FC',
+        'Sai Gon FC': 'Sai Gon',
+        'SHB Da Nang': 'Shb Da Nang',
+        'XM Hai Phong FC': 'Hai Phong',
+        'Than Quang Ninh': 'Quang Ninh',
+        'Becamex Binh Duong': 'Binh Duong',
+        'Ratchaburi FC': 'Ratchaburi',
+        'Muang Thong United': 'Muangthong Utd',
+        'Chonburi Shark FC': 'Chonburi',
+        'BEC Tero Sasana': 'Police Tero',
     }
 
     def place_match_odds_bet(self, game_data, betting_amount, debug_mode=False):
