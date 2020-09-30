@@ -12,47 +12,35 @@ class BlendTrueOdds(GamePredictorInterface):
     benchmark_bookie = 'pinnacle'
     strategy = 'blend_true_odds'
     profit_margin = 0.05 # This is to ensure we win something.
-    special_leagues = []
+    special_leagues_1 = []
+    special_leagues_2 = []
 
     def __init__(self, logger: OtLogger):
         self.logger = logger
         self.rf = joblib.load("./football_model_blend_bookie.sav")
-        #157,  # Portugal Liga 1
-        #29,  # Scottish Premier League
-        #150,  # Scottish Championship
-        #358, # Brazil Serie B
-        #34,  # Italian Serie A
-        #10,  # Russia premier
-        #1, # Ireland Premier Division
-        #308, # South Africa Premier League
-        #303, # Egyptian Premier League
-        #133, # Croatia Super League
-        #136, # Hungary NB I
-        #16,  # Holland Eredivisie
-        #36,  # English Premier League
-        #11,  # France Ligue 1
-        #12,  # France Ligue 2
-        #203, # France Ligue 3
-        #273,  # Australia A-League
-        #3, # Austria Leagie 1
-        #self.special_leagues.append(1)
-        #self.special_leagues.append(3)
-        #self.special_leagues.append(10)
-        #self.special_leagues.append(11)
-        #self.special_leagues.append(12)
-        #self.special_leagues.append(16)
-        #self.special_leagues.append(29)
-        #self.special_leagues.append(34)
-        #self.special_leagues.append(36)
-        #self.special_leagues.append(157)
-        #self.special_leagues.append(150)
-        #self.special_leagues.append(358)
-        #self.special_leagues.append(303)
-        #self.special_leagues.append(308)
-        #self.special_leagues.append(133)
-        #self.special_leagues.append(136)
-        #self.special_leagues.append(203)
-        #self.special_leagues.append(273)
+        self.special_leagues_1.append(3)
+        self.special_leagues_1.append(6)
+        self.special_leagues_1.append(8)
+        self.special_leagues_1.append(10)
+        self.special_leagues_1.append(11)
+        self.special_leagues_1.append(13)
+        self.special_leagues_1.append(16)
+        self.special_leagues_1.append(17)
+        self.special_leagues_1.append(30)
+        self.special_leagues_1.append(31)
+        self.special_leagues_1.append(33)
+        self.special_leagues_1.append(37)
+
+        self.special_leagues_2.append(34)
+        self.special_leagues_2.append(25)
+        self.special_leagues_2.append(284)
+        self.special_leagues_2.append(60)
+        self.special_leagues_2.append(133)
+        self.special_leagues_2.append(23)
+        self.special_leagues_2.append(27)
+        self.special_leagues_2.append(26)
+        self.special_leagues_2.append(21)
+        self.special_leagues_2.append(7)
 
     def _get_average(self, localList):
         number = 0
@@ -108,6 +96,7 @@ class BlendTrueOdds(GamePredictorInterface):
         raw_true_odds = {}
         raw_true_odds['1'], raw_true_odds['2'], raw_true_odds['x'] = \
             true_odds_calculator.calculate_3_way_margin_prop(home, away, draw)
+        self.logger.log(str(local_list_home) + ',' + str(local_list_draw) + ',' + str(local_list_away) + ',' + str(home) + ',' + str(draw) + ',' + str(away) + ',' + str(raw_true_odds) + ',' + str(1 / raw_true_odds['1']))
         return 1 / raw_true_odds['1']
 
     def _calc_raw_true_odds(self, data, localProfitMargin):
@@ -121,7 +110,7 @@ class BlendTrueOdds(GamePredictorInterface):
             picked_bookie.append('ladbroke')
             feature1 = self._calc_prob(picked_bookie, data, 0)
             picked_bookie.append('bet365')
-            feature2 = self._calc_prob(picked_bookie, data, 0)
+            #feature2 = self._calc_prob(picked_bookie, data, 0)
 
             localVec = []
             if feature1 > 0:
@@ -138,15 +127,31 @@ class BlendTrueOdds(GamePredictorInterface):
         probability = self.rf.predict_proba(vec)
         home_win_odds = 1 / probability[0,1]
         home_not_win_odds = 1 / probability[0,0]
+        if data['league_id'] in self.special_leagues_2:
+            localProfitMargin = 0.03
         hw_odds = home_win_odds * (1+localProfitMargin)
         hnw_odds = home_not_win_odds * (1+localProfitMargin)
-        if hw_odds > 6 or hnw_odds > 4:
-            return is_qualifed
-        else:
-            true_odds = {}
-            true_odds['1'] = hw_odds
-            true_odds['-1'] = hnw_odds
+        self.logger.log(str(probability) + ',' + str(home_win_odds) + ',' + str(home_not_win_odds) + ',' + str(hw_odds) + ',' + str(hnw_odds) + ',' + str(localProfitMargin))
+        true_odds = {}
+        if data['league_id'] in self.special_leagues_1:
+            if hw_odds <= 6 and  hw_odds > 3:
+                true_odds['1'] = hw_odds
+            if hnw_odds <= 4 and hnw_odds > 3:
+                true_odds['-1'] = hnw_odds
             return true_odds
+        elif data['league_id'] in self.special_leagues_2:
+            if hw_odds <= 4:
+                true_odds['1'] = hw_odds
+            if hnw_odds <= 3:
+                true_odds['-1'] = hnw_odds
+            return true_odds
+        else:
+            if hw_odds > 6 or hnw_odds > 4:
+                return is_qualifed
+            else:
+                true_odds['1'] = hw_odds
+                true_odds['-1'] = hnw_odds
+                return true_odds
 
     def _calc_true_odds(self, data, localProfitMargin):
         return self._calc_raw_true_odds(data, localProfitMargin)

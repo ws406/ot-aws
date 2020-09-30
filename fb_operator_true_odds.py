@@ -35,23 +35,27 @@ class FbOperatorTrueOdds (FbOperator):
         #350, # AFC Cup
         766, # Vietnam
         5,  # Belgian Pro League
+        7, # Denmark
         3, # Austria Leagie 1
         60,  # Chinese Super League
         157,  # Portugal Liga 1
-        29,  # Scottish Premier League
-        150,  # Scottish Championship
-        358, # Brazil Serie B
         34,  # Italian Serie A
         10,  # Russia premier
-        308, # South Africa Premier League
         303, # Egyptian Premier League
         133, # Croatia Super League
         700, # Thai Premier League
-        #1, # Ireland Premier Division
-        #25,  # J-League Division 1
+        124, # Romanian Liga I
+        #29,  # Scottish Premier League
+        150,  # Scottish Championship
+        25,  # J-League Division 1
+        23,  # Portugal Primera Liga
+        26,  # Sweden
+        27, # Swiss Super League
+        1, # Ireland Premier Division
         #15, # Korea League
-        #23,  # Portugal Primera Liga
         #4,  # Brazil Serie A
+        358, # Brazil Serie B
+        #308, # South Africa Premier League
         #292, # Saudi Professional League
         #40,  # IT2
         #39,  # EFL1
@@ -63,10 +67,7 @@ class FbOperatorTrueOdds (FbOperator):
         #693,  # GE3
         #51, # German Cup
         #22,  # NOR1
-        #26,  # Sweden
-        #7, # Denmark
         #119, # Ukrainian Premier League
-        ##27, # Swiss Super League
         #137, # Czech First League
         #113, # Europa League
         #103, # Champions League
@@ -87,7 +88,6 @@ class FbOperatorTrueOdds (FbOperator):
         #32, # Greece
         ##54, #French Cup
         ##67, # Euro Cup
-        #124, # Romanian Liga I
         #326, # Tunisia
         ##321, # Morocco Pro 1
         #1385,
@@ -102,7 +102,7 @@ class FbOperatorTrueOdds (FbOperator):
 
 
 if __name__ == '__main__':
-    normal_interval_in_mins = 1.5
+    normal_interval_in_mins = 1
     logger = OtLogger('./logs/ops_true_odds.log')
     operator = FbOperatorTrueOdds(logger)
     wait = operator.get_games_in_minutes * 60
