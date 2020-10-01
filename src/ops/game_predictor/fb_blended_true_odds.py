@@ -135,13 +135,19 @@ class TrueOdds(GamePredictorInterface):
                 true_odds['1'] = hw_odds
             if hnw_odds <= 4 and hnw_odds > 3:
                 true_odds['-1'] = hnw_odds
-            return true_odds
+            if len(true_odds) == 0:
+                return is_qualifed
+            else:
+                return true_odds
         elif data['league_id'] in self.special_leagues_2:
             if hw_odds <= 4:
                 true_odds['1'] = hw_odds
             if hnw_odds <= 3:
                 true_odds['-1'] = hnw_odds
-            return true_odds
+            if len(true_odds) == 0:
+                return is_qualifed
+            else:
+                return true_odds
         else:
             if hw_odds > 6 or hnw_odds > 4:
                 return is_qualifed
