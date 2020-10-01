@@ -45,7 +45,7 @@ class FbOperatorTrueOdds (FbOperator):
         133, # Croatia Super League
         700, # Thai Premier League
         124, # Romanian Liga I
-        #29,  # Scottish Premier League
+        29,  # Scottish Premier League
         150,  # Scottish Championship
         25,  # J-League Division 1
         23,  # Portugal Primera Liga
@@ -55,6 +55,9 @@ class FbOperatorTrueOdds (FbOperator):
         #15, # Korea League
         #4,  # Brazil Serie A
         358, # Brazil Serie B
+        235, # Russia League 1
+        121, # Swiss Challenge League
+        122, # Sweden Superettan
         #308, # South Africa Premier League
         #292, # Saudi Professional League
         #40,  # IT2
@@ -73,11 +76,8 @@ class FbOperatorTrueOdds (FbOperator):
         #103, # Champions League
         #193, # Algeria
         #221, # Poland League 1
-        #235, # Russia League 1
         #138, # Belgian Second Division
-        #121, # Swiss Challenge League
         #140, # Mexico Primera Division
-        #122, # Sweden Superettan
         #89, # Copa Libertadores
         #263, # Copa Sudamericana
         #165, # Northern Ireland Premier League

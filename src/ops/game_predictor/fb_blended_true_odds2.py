@@ -26,6 +26,7 @@ class BlendTrueOdds(GamePredictorInterface):
         self.special_leagues_1.append(13)
         self.special_leagues_1.append(16)
         self.special_leagues_1.append(17)
+        self.special_leagues_1.append(29)
         self.special_leagues_1.append(30)
         self.special_leagues_1.append(31)
         self.special_leagues_1.append(33)
@@ -131,10 +132,10 @@ class BlendTrueOdds(GamePredictorInterface):
             localProfitMargin = 0.03
         hw_odds = home_win_odds * (1+localProfitMargin)
         hnw_odds = home_not_win_odds * (1+localProfitMargin)
-        self.logger.log(str(probability) + ',' + str(home_win_odds) + ',' + str(home_not_win_odds) + ',' + str(hw_odds) + ',' + str(hnw_odds) + ',' + str(localProfitMargin))
+        self.logger.log('Key data,' + str(probability) + ',' + str(home_win_odds) + ',' + str(home_not_win_odds) + ',' + str(hw_odds) + ',' + str(hnw_odds) + ',' + str(localProfitMargin))
         true_odds = {}
         if data['league_id'] in self.special_leagues_1:
-            if hw_odds <= 6 and  hw_odds > 3:
+            if hw_odds <= 6 and hw_odds > 3:
                 true_odds['1'] = hw_odds
             if hnw_odds <= 4 and hnw_odds > 3:
                 true_odds['-1'] = hnw_odds
