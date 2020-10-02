@@ -2,6 +2,7 @@ from src.ops.bet_placer.betfair import Betfair
 from src.ops.game_predictor.fb_blended_true_odds_2_lowest_odds import TrueOddsLower2
 from src.ops.game_predictor.fb_blended_true_odds import TrueOdds
 from src.ops.game_predictor.fb_blended_true_odds2 import BlendTrueOdds
+from src.ops.game_predictor.fb_blended_true_odds_away import BlendTrueAwayOdds
 from src.ops.game_predictor.fb_blended_true_odds_inplay import TrueOddsInplay
 from src.ops.game_predictor.fb_blended_true_odds_inplay2 import TrueOddsInplay2
 from src.ops.game_predictor.fb_blended_true_odds_inplay3 import TrueOddsInplay3
@@ -651,13 +652,15 @@ class FBBetfair(Betfair):
             return self._place_bet_for_true_odds(game_data, betting_amount, self.persistence_persist, debug_mode)
         elif strategy == TrueOddsLower2.strategy or strategy == TrueOdds.strategy or strategy == BlendTrueOdds.strategy:
             return self._place_bet_for_true_odds(game_data, betting_amount, self.persistence_lapse, debug_mode)
+        elif strategy == BlendTrueAwayOdds.strategy:
+            return self._place_bet_for_true_odds(game_data, betting_amount, self.persistence_lapse, debug_mode, False)
         else:
             # Add other strategies later
             # bet_on_team = home_team_name if game_data['preferred_team'] == 'home' else away_team_name
             self.logger.exception('*** No strategy is found. Skip placing bets. ***')
             pass
 
-    def _place_bet_for_true_odds(self, game_data, betting_amount, persistence, debug_mode):
+    def _place_bet_for_true_odds(self, game_data, betting_amount, persistence, debug_mode, betOnHome = True):
         home_team_name = self._unify_team_name(game_data['home_team_name'])
         away_team_name = self._unify_team_name(game_data['away_team_name'])
         strategy = game_data['strategy']
@@ -668,12 +671,18 @@ class FBBetfair(Betfair):
         for key, bet_on_odds in game_data['true_odds'].items():
             if key == '1':
                 bet_type = self.back_bet
-                bet_on_team = home_team_name
+                if betOnHome:
+                    bet_on_team = home_team_name
+                else:
+                    bet_on_team = away_team_name
                 amount = betting_amount
                 price = self._round_up_odds(bet_on_odds)
             elif key == '-1':
                 bet_type = self.lay_bet
-                bet_on_team = home_team_name
+                if betOnHome:
+                    bet_on_team = home_team_name
+                else:
+                    bet_on_team = away_team_name
                 lay_odds = 1.0 + 1.0 / (bet_on_odds - 1.0) # convert it to lay odds
                 price = self._round_down_odds(lay_odds) # round lay odds to proper tick
                 amount = self._round_up_amount(betting_amount / (price - 1))
