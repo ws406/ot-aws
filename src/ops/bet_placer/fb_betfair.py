@@ -617,6 +617,7 @@ class FBBetfair(Betfair):
         'Wadi Degla SC': 'Wadi degla',
         'Pyramids FC': 'Pyramids',
         'Enppi': 'ENPPI',
+        'El Entag Al Harby': 'El Entag El Harby',
 
         # Poland
         'Jagiellonia Bialystok': 'Jagiellonia Bialystock',
