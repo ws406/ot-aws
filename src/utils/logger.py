@@ -1,6 +1,5 @@
 import logging
 import psutil
-import os
 
 
 class OtLogger:

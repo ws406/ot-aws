@@ -196,7 +196,7 @@ class FBBetfair(Betfair):
         'Centro Sportivo Alagoano': 'CSA',
         'Gremio (RS)': 'Gremio',
         'Vitoria BA': 'EC Vitoria Salvador',
-        'Sampaio Correa FC': 'Sampaio Correa',
+        'Sampaio Correa': 'Sampaio Correa FC',
         'Nautico (PE)': 'Nautico PE',
         'Confianca SE': 'Confianca',
 
@@ -452,6 +452,7 @@ class FBBetfair(Betfair):
         'SC Covilha': 'Covilha',
         'SC Farense': 'Farense',
         'FC Famalicao': 'Famalicao',
+        'FC Arouca': 'Arouca',
 
         # IT 1
         'Inter Milan': 'Inter',
@@ -533,7 +534,7 @@ class FBBetfair(Betfair):
         'Caykur Rizespor': 'Rizespor',
         'Gaziantep Buyuksehir Belediyesi': 'Gaziantep FK',
         'Istanbul Buyuksehir Belediyesi': 'Basaksehir',
-        'Karagumruk': 'Fatih Karagumruk Istanbu',
+        'Karagumruk': 'Faith Karagumruk Istanbu',
 
         # Romania
         'CS Universitatea Craiova': 'Universitatea Craiova',
@@ -546,6 +547,7 @@ class FBBetfair(Betfair):
         'Politehnica Iasi': 'CSMS Iasi',
         'Steaua Bucuresti': 'FCSB',
         'FC Clinceni': 'Academica Clinceni',
+        'SCM Argesul Pitesti': 'Arges Pitesti',
 
         # Finland
         'Vaasa VPS': 'VPS',
@@ -643,6 +645,9 @@ class FBBetfair(Betfair):
         'Chonburi Shark FC': 'Chonburi',
         'BEC Tero Sasana': 'Police Tero',
         'Trat FC': 'Trat',
+        'Chiangrai United': 'Chiangrai Utd',
+        'Buriram United': 'Buriram Utd',
+        'Suphanburi FC': 'Suphanburi',
     }
 
     def place_match_odds_bet(self, game_data, betting_amount, debug_mode=False):

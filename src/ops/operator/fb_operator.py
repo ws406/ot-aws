@@ -15,32 +15,33 @@ class FbOperator (abc.ABC):
         281: "bet365",  # Bet365
         177: "pinnacle",  # Pinnacle
         81:  "betvictor",  # Bet Victor
-        80: "macau_slot",  # Macao Slot
-        90: "easybet",  # EasyBet
-        545: "sb",
         82: "ladbroke",
-        474: "sbobet",
-        115: "will_hill",  # WH
-        432: "hkjc",  # HKJC
+
+        # 80: "macau_slot",  # Macao Slot
+        # 90: "easybet",  # EasyBet
+        # 545: "sb",
+        # 474: "sbobet",
+        # 115: "will_hill",  # WH
+        # 432: "hkjc",  # HKJC
         # 104: "interwetten"  # Interwetten
-        156: "betfred",
-        110: "snai",
-        463: "betclick",
-        167: "skybet",
-        88: "coral",
-        936: "setantabet",
-        961: "championsbet",
-        527: "tipico",
-        136: "bodog",
-        874: "bovada",
-        695: "cashpoint",
-        354: "boylesports",
-        315: "victory",
-        482: "betway",
-        808: "betcity",
-        798: "dafabet",
-        255: "bwin",
-        2: "betfair",
+        # 156: "betfred",
+        # 110: "snai",
+        # 463: "betclick",
+        # 167: "skybet",
+        # 88: "coral",
+        # 936: "setantabet",
+        # 961: "championsbet",
+        # 527: "tipico",
+        # 136: "bodog",
+        # 874: "bovada",
+        # 695: "cashpoint",
+        # 354: "boylesports",
+        # 315: "victory",
+        # 482: "betway",
+        # 808: "betcity",
+        # 798: "dafabet",
+        # 255: "bwin",
+        # 2: "betfair",
     }
 
     # Leave this for sub classes to set
@@ -49,7 +50,7 @@ class FbOperator (abc.ABC):
     get_games_in_minutes = 15
 
     amount = 10
-    mins_before_kickoff = 1
+    mins_before_kickoff = 2
     commission_rate = 0.02
 
     gameDetector = None
