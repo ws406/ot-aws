@@ -290,6 +290,7 @@ class FBBetfair(Betfair):
         'Helsingborg': 'Helsingborgs',
         'Kalmar': 'Kalmar FF',
         'Osters IF': 'Osters',
+        'Varbergs BoIS FC': 'Varbergs BoIS',
 
         # Russian Super League
         'Spartak Tambov': 'FK Tambov',
