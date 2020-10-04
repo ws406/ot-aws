@@ -302,6 +302,17 @@ class FBBetfair(Betfair):
         'Dynamo Moscow': 'Dinamo Moscow',
         'Terek Grozny': 'Akhmat Grozny',
         'Khimki': 'FC Khimki',
+        'Krylya Sovetov': 'Kryliya Sovetov',
+        'Akron Togliatti': 'Akron-L Togliatti',
+        'Chertanovo Moscow': 'FK Chertanovo',
+        'Baltika Kaliningrad': 'Baltika',
+        'Veles': 'FK Veles Moscow',
+        'Gazovik Orenburg': 'FC Orenburg',
+        'Dinamo Briansk': 'Dinamo Bryansk',
+        'FK Krasnodar II': 'Krasnodar II',
+        'FK Nizhny Novgorod': 'FC Olimpiyets NN',
+        'Torpedo moskva': 'FK Torpedo Moskva',
+        'Tom Tomsk': 'Tomsk',
 
         # Belgium 1
         'Mechelen': 'Yellow-Red Mechelen',
@@ -477,6 +488,8 @@ class FBBetfair(Betfair):
         'St. Gallen': 'St Gallen',
         'Basel': 'FC Basel',
         'FC Sion': 'Sion',
+        'Vaduz': 'FC Vaduz',
+        'Stade Ouchy': 'Stade Lausanne-Ouchy',
 
         # Austria
         'Austria Wien': 'Austria Vienna',
@@ -548,6 +561,7 @@ class FBBetfair(Betfair):
         'Steaua Bucuresti': 'FCSB',
         'FC Clinceni': 'Academica Clinceni',
         'SCM Argesul Pitesti': 'Arges Pitesti',
+        'FC UT Arad': 'UTA Arad',
 
         # Finland
         'Vaasa VPS': 'VPS',
