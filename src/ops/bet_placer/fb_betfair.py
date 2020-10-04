@@ -289,6 +289,7 @@ class FBBetfair(Betfair):
         'IFK Norrkoping FK': 'Norrkoping',
         'Helsingborg': 'Helsingborgs',
         'Kalmar': 'Kalmar FF',
+        'Osters IF': 'Osters',
 
         # Russian Super League
         'Spartak Tambov': 'FK Tambov',
@@ -307,7 +308,6 @@ class FBBetfair(Betfair):
         'Chertanovo Moscow': 'FK Chertanovo',
         'Baltika Kaliningrad': 'Baltika',
         'Veles': 'FK Veles Moscow',
-        'Gazovik Orenburg': 'FC Orenburg',
         'Dinamo Briansk': 'Dinamo Bryansk',
         'FK Krasnodar II': 'Krasnodar II',
         'FK Nizhny Novgorod': 'FC Olimpiyets NN',
@@ -662,6 +662,8 @@ class FBBetfair(Betfair):
         'Chiangrai United': 'Chiangrai Utd',
         'Buriram United': 'Buriram Utd',
         'Suphanburi FC': 'Suphanburi',
+        'Bangkok United FC': 'Bangkok Utd',
+        'Prachuap Khiri Khan': 'Prachuap',
     }
 
     def place_match_odds_bet(self, game_data, betting_amount, debug_mode=False):
