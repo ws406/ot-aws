@@ -11,37 +11,50 @@ class TrueOdds(GamePredictorInterface):
 
     benchmark_bookie = 'pinnacle'
     strategy = 'true_odds'
-    profit_margin = 0.05 # This is to ensure we win something.
+    profit_margin_1 = 0.05
+    profit_margin_2 = 0.03
     special_leagues_1 = []
     special_leagues_2 = []
+    special_leagues_3 = []
+    special_leagues_4 = []
+    special_leagues_5 = []
 
     def __init__(self, logger: OtLogger):
         self.logger = logger
         self.rf = joblib.load("./football_model.sav")
-        self.special_leagues_1.append(3)
-        self.special_leagues_1.append(6)
-        self.special_leagues_1.append(8)
-        self.special_leagues_1.append(10)
-        self.special_leagues_1.append(11)
-        self.special_leagues_1.append(13)
-        self.special_leagues_1.append(16)
-        self.special_leagues_1.append(17)
-        self.special_leagues_1.append(29)
-        self.special_leagues_1.append(30)
-        self.special_leagues_1.append(31)
-        self.special_leagues_1.append(33)
-        self.special_leagues_1.append(37)
-
-        self.special_leagues_2.append(34)
-        self.special_leagues_2.append(25)
-        self.special_leagues_2.append(284)
-        self.special_leagues_2.append(60)
-        self.special_leagues_2.append(133)
-        self.special_leagues_2.append(23)
-        self.special_leagues_2.append(27)
-        self.special_leagues_2.append(26)
-        self.special_leagues_2.append(21)
-        self.special_leagues_2.append(7)
+        self.special_leagues_1.append(36) # English Premier League
+        self.special_leagues_1.append(12) # France Ligue 2
+        self.special_leagues_1.append(8) # German Bundesliga
+        self.special_leagues_1.append(9) # German Bundesliga 2
+        self.special_leagues_1.append(3) # Austria Leagie 1-
+        self.special_leagues_1.append(5) # Belgian Pro League-
+        self.special_leagues_1.append(273) # Australia A-League-
+        self.special_leagues_1.append(136) # Hungary NB I-
+        self.special_leagues_1.append(124) # Romanian Liga I
+        self.special_leagues_1.append(700) # Thai Premier League-
+        self.special_leagues_1.append(13) # Finland Veikkausliga
+        self.special_leagues_2.append(303) # Egyptian Premier League
+        self.special_leagues_2.append(34) # Italian Serie A
+        self.special_leagues_2.append(133) # Croatia Super League
+        self.special_leagues_2.append(27) # Swiss Super League
+        self.special_leagues_2.append(7) # Denmark Super League
+        self.special_leagues_2.append(25) # J-League Division 1
+        self.special_leagues_2.append(284) # J-League Division 2
+        self.special_leagues_2.append(26) # Swedish Allsvenskan
+        self.special_leagues_2.append(21) # USA Major League Soccer
+        self.special_leagues_2.append(23) # Portugal Primera Liga
+        self.special_leagues_3.append(157) # Portugal Liga 1
+        self.special_leagues_3.append(235) # Russia League 1
+        self.special_leagues_3.append(10) # Russia Premier League
+        self.special_leagues_3.append(30) # Turkish Super Liga
+        self.special_leagues_3.append(17) # Holland Jupiler League
+        self.special_leagues_4.append(11) # France Ligue 1
+        self.special_leagues_4.append(37) # England Championship
+        self.special_leagues_4.append(16) # Holland Eredivisie
+        self.special_leagues_4.append(6) # Poland Super League
+        self.special_leagues_5.append(60) # Chinese Super League
+        self.special_leagues_5.append(4) # Brazil Serie A
+        self.special_leagues_5.append(358) # Brazil Serie B
 
     def _get_average(self, localList):
         number = 0
@@ -124,22 +137,22 @@ class TrueOdds(GamePredictorInterface):
         probability = self.rf.predict_proba(vec)
         home_win_odds = 1 / probability[0,1]
         home_not_win_odds = 1 / probability[0,0]
-        if data['league_id'] in self.special_leagues_2:
-            localProfitMargin = 0.03
+        if data['league_id'] in self.special_leagues_1 or data['league_id'] in self.special_leagues_2:
+            localProfitMargin = self.profit_margin_2
         hw_odds = home_win_odds * (1+localProfitMargin)
         hnw_odds = home_not_win_odds * (1+localProfitMargin)
         self.logger.log('Key data,' + str(probability) + ',' + str(home_win_odds) + ',' + str(home_not_win_odds) + ',' + str(hw_odds) + ',' + str(hnw_odds) + ',' + str(localProfitMargin))
         true_odds = {}
-        if data['league_id'] in self.special_leagues_1:
-            if hw_odds <= 6 and hw_odds > 3:
+        if data['league_id'] in self.special_leagues_1 or data['league_id'] in self.special_leagues_3:
+            if hw_odds <= 6.3:
                 true_odds['1'] = hw_odds
-            if hnw_odds <= 4 and hnw_odds > 3:
+            if hnw_odds <= 4:
                 true_odds['-1'] = hnw_odds
             if len(true_odds) == 0:
                 return is_qualifed
             else:
                 return true_odds
-        elif data['league_id'] in self.special_leagues_2:
+        elif data['league_id'] in self.special_leagues_2 or data['league_id'] in self.special_leagues_5:
             if hw_odds <= 4:
                 true_odds['1'] = hw_odds
             if hnw_odds <= 3:
@@ -148,13 +161,17 @@ class TrueOdds(GamePredictorInterface):
                 return is_qualifed
             else:
                 return true_odds
-        else:
-            if hw_odds > 6 or hnw_odds > 4:
+        elif data['league_id'] in self.special_leagues_4:
+            if hw_odds <= 6.3 and hw_odds > 3:
+                true_odds['1'] = hw_odds
+            if hnw_odds <= 4 and hnw_odds > 3:
+                true_odds['-1'] = hnw_odds
+            if len(true_odds) == 0:
                 return is_qualifed
             else:
-                true_odds['1'] = hw_odds
-                true_odds['-1'] = hnw_odds
                 return true_odds
+        else:
+            return is_qualifed
 
     def _calc_true_odds(self, data, localProfitMargin):
         return self._calc_raw_true_odds(data, localProfitMargin)
@@ -165,7 +182,7 @@ class TrueOdds(GamePredictorInterface):
         if not is_qualified:
             return False
         else:
-            local_profit_margin = profit_margin if profit_margin is not None else self.profit_margin
+            local_profit_margin = profit_margin if profit_margin is not None else self.profit_margin_1
             true_odds = self._calc_true_odds(data, local_profit_margin)
             if true_odds is not False:
                 return_data = dict()
