@@ -314,6 +314,12 @@ class FBBetfair(Betfair):
         'FK Nizhny Novgorod': 'FC Olimpiyets NN',
         'Torpedo moskva': 'FK Torpedo Moskva',
         'Tom Tomsk': 'Tomsk',
+        'Tekstilshchik Ivanovo': 'Tekstilshchik',
+        'SKA Khabarovsk': 'SKA-Khabarovsk',
+        'Irtysh 1946 Omsk': 'FK Irtysh Omsk',
+        'FK Chayka K-SR': 'FC Chayka',
+        'Shinnik Yaroslavl': 'Shinnik',
+        'Neftekhimik Nizhnekamsk': 'Neftekhimik',
 
         # Belgium 1
         'Mechelen': 'Yellow-Red Mechelen',
