@@ -651,7 +651,7 @@ class FBBetfair(Betfair):
         'Waterford United': 'Waterford',
         'St. Patricks Athletic': 'St Patricks',
 
-        # VietNam & Thiland
+        # VietNam & Thailand
         'The Cong': 'Viettel FC',
         'Sai Gon FC': 'Sai Gon',
         'SHB Da Nang': 'Shb Da Nang',
@@ -671,6 +671,7 @@ class FBBetfair(Betfair):
         'Suphanburi FC': 'Suphanburi',
         'Bangkok United FC': 'Bangkok Utd',
         'Prachuap Khiri Khan': 'Prachuap',
+        'Bangkok Glass': 'BG Pathumthani United',
     }
 
     def place_match_odds_bet(self, game_data, betting_amount, debug_mode=False):
