@@ -672,6 +672,7 @@ class FBBetfair(Betfair):
         'Bangkok United FC': 'Bangkok Utd',
         'Prachuap Khiri Khan': 'Prachuap',
         'Bangkok Glass': 'BG Pathumthani United',
+        'Samut Prakan City': 'Samut Prakan',
     }
 
     def place_match_odds_bet(self, game_data, betting_amount, debug_mode=False):
