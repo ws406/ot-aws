@@ -28,14 +28,12 @@ class FbOperatorTrueOdds (FbOperator):
         284,  # J-League Division 2
         21,  # USA Major League Soccer
         273,  # Australia A-League
-        136, # Hungary NB I
         6, # Poland Super League
         13, # Finland Veikkausliga
         #192, # AFC Champions League
         #350, # AFC Cup
         5,  # Belgian Pro League
         7, # Denmark
-        3, # Austria Leagie 1
         60,  # Chinese Super League
         157,  # Portugal Liga 1
         34,  # Italian Serie A
@@ -44,16 +42,18 @@ class FbOperatorTrueOdds (FbOperator):
         303, # Egyptian Premier League
         133, # Croatia Super League
         700, # Thai Premier League
-        124, # Romanian Liga I
         25,  # J-League Division 1
         23,  # Portugal Primera Liga
-        26,  # Sweden
         27, # Swiss Super League
-        4,  # Brazil Serie A
-        358, # Brazil Serie B
+        766, # Vietnam
+        #4,  # Brazil Serie A
+        #358, # Brazil Serie B
         235, # Russia League 1
+        #136, # Hungary NB I
+        #3, # Austria Leagie 1
+        #124, # Romanian Liga I
+        #26,  # Sweden
         #203, # France Ligue 3
-        #766, # Vietnam
         #29,  # Scottish Premier League
         #150,  # Scottish Championship
         #1, # Ireland Premier Division
@@ -103,7 +103,7 @@ class FbOperatorTrueOdds (FbOperator):
 
 
 if __name__ == '__main__':
-    normal_interval_in_mins = 1
+    normal_interval_in_mins = 0.5
     logger = OtLogger('./logs/ops_true_odds.log')
     operator = FbOperatorTrueOdds(logger)
     wait = operator.get_games_in_minutes * 60

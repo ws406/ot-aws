@@ -589,6 +589,7 @@ class FBBetfair(Betfair):
         'Aris Thessaloniki': 'Aris',
         'Volos NFC': 'NFC Volos',
         'PAOK Saloniki': 'PAOK',
+        'Pas Giannina': 'PAS Giannina',
 
         # Morocco
         'Raja Casablanca Atlhletic': 'Raja Casablanca',
