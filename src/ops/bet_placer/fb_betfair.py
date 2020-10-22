@@ -674,15 +674,21 @@ class FBBetfair(Betfair):
         'Prachuap Khiri Khan': 'Prachuap',
         'Bangkok Glass': 'BG Pathumthani United',
         'Samut Prakan City': 'Samut Prakan',
+
+         # Europe
+        'Omonia Nicosia FC': 'Omonia',
+        'Ludogorets Razgrad': 'Ludogorets',
+        'Qarabag': 'Qarabag FK',
+        'LASK Linz': 'Lask Linz',
     }
 
     def place_match_odds_bet(self, game_data, betting_amount, debug_mode=False):
 
         strategy = game_data['strategy']
 
-        if strategy == TrueOddsInplay.strategy or strategy == TrueOddsInplay2.strategy or strategy == TrueOddsInplay3.strategy:
+        if strategy == TrueOddsInplay.strategy:
             return self._place_bet_for_true_odds(game_data, betting_amount, self.persistence_persist, debug_mode)
-        elif strategy == TrueOddsLower2.strategy or strategy == TrueOdds.strategy or strategy == BlendTrueOdds.strategy:
+        elif strategy == TrueOddsLower2.strategy or strategy == TrueOdds.strategy or strategy == BlendTrueOdds.strategy or strategy == TrueOddsInplay2.strategy or strategy == TrueOddsInplay3.strategy:
             return self._place_bet_for_true_odds(game_data, betting_amount, self.persistence_lapse, debug_mode)
         elif strategy == BlendTrueAwayOdds.strategy:
             return self._place_bet_for_true_odds(game_data, betting_amount, self.persistence_lapse, debug_mode, False)
@@ -718,6 +724,16 @@ class FBBetfair(Betfair):
                 lay_odds = 1.0 + 1.0 / (bet_on_odds - 1.0) # convert it to lay odds
                 price = self._round_down_odds(lay_odds) # round lay odds to proper tick
                 amount = self._round_up_amount(betting_amount / (price - 1))
+            elif key == '2':
+                bet_type = self.back_bet
+                amount = betting_amount
+                price = self._round_up_odds(bet_on_odds)
+                bet_on_team = away_team_name
+            elif key == 'x':
+                bet_type = self.back_bet
+                amount = betting_amount
+                price = self._round_up_odds(bet_on_odds)
+                bet_on_team = self.runner_name_draw
             else:
                 self.logger.exception('*** Wrong key! key = ' + key + ' ***')
                 continue

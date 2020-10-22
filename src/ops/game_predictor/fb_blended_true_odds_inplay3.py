@@ -13,42 +13,16 @@ class TrueOddsInplay3(TrueOddsSuper):
 
     def __init__(self, logger: OtLogger):
         super().__init__(logger)
-
-        # we choose the following liquid bookmakers odds as our filter
-        self.filter_bookies.append('setantabet')
-        self.filter_bookies.append('tipico')
-        self.filter_bookies.append('betway')
-        self.filter_bookies.append('betfred')
-        self.filter_bookies.append('snai')
-        self.filter_bookies.append('bovada')
-        self.filter_bookies.append('bwin')
-        self.filter_bookies.append('cashpoint')
-        self.filter_bookies.append('betfair')
-
-        self.filter_leagues.append(31)
-        self.filter_leagues.append(11)
-        self.filter_leagues.append(16)
-        self.filter_leagues.append(25)
-        self.filter_leagues.append(3)
-        self.filter_leagues.append(157)
-        self.filter_leagues.append(124)
-        self.filter_leagues.append(192)
-        self.filter_leagues.append(193)
-        self.filter_leagues.append(119)
-        self.filter_leagues.append(27)
-        self.filter_leagues.append(235)
+        self.filter_leagues.append(5)
+        self.filter_leagues.append(6)
         self.filter_leagues.append(30)
-        self.filter_leagues.append(136)
-        self.filter_leagues.append(35)
-        self.filter_leagues.append(8)
-        self.filter_leagues.append(273)
-        self.filter_leagues.append(140)
+        self.filter_leagues.append(150)
+        self.filter_leagues.append(31)
+        self.filter_leagues.append(137)
         self.filter_leagues.append(26)
-        self.filter_leagues.append(122)
-        self.filter_leagues.append(263)
-        self.filter_leagues.append(103)
-        self.filter_leagues.append(766)
-        self.filter_leagues.append(21)
+        self.filter_leagues.append(12)
+        self.filter_leagues.append(29)
+        self.filter_leagues.append(113)
 
     def FindOddsWithOffsetTime(self, game_data, bookie, lookbackTime, lookbackCheck, backTime = 12.0):
         kickoffTime = int(game_data['kickoff'])
@@ -83,7 +57,6 @@ class TrueOddsInplay3(TrueOddsSuper):
         local_list_home = []
         local_list_draw = []
         local_list_away = []
-        compareBestOdds = [0, 0, 0]
         is_qualifed = False
         if data['league_id'] not in self.filter_leagues:
             return is_qualifed
@@ -104,25 +77,6 @@ class TrueOddsInplay3(TrueOddsSuper):
                 local_list_away.append(away)
             if len(local_list_home) < len(picked_bookie):
                 return is_qualifed
-            for bookie in self.filter_bookies:
-                try:
-                    compareOdds = self.FindOddsWithOffsetTime(data, bookie, 0, False)
-                except (TypeError, KeyError):
-                    compareOdds = {}
-                    compareOdds['1'] = 1.0
-                    compareOdds['x'] = 1.0
-                    compareOdds['2'] = 1.0
-                if compareOdds == None:
-                    compareOdds = {}
-                    compareOdds['1'] = 1.0
-                    compareOdds['x'] = 1.0
-                    compareOdds['2'] = 1.0
-                if float(compareOdds['1']) > compareBestOdds[0]:
-                    compareBestOdds[0] = float(compareOdds['1'])
-                if float(compareOdds['x']) > compareBestOdds[1]:
-                    compareBestOdds[1] = float(compareOdds['x'])
-                if float(compareOdds['2']) > compareBestOdds[2]:
-                    compareBestOdds[2] = float(compareOdds['2'])
         except Exception as e:
            self.logger.log('Why is the game disqualified? - ' + str(e))
            return is_qualifed
@@ -143,17 +97,14 @@ class TrueOddsInplay3(TrueOddsSuper):
         draw = draw * (1 + localProfitMargin)
         away = away * (1 + localProfitMargin)
 
-        # we only bet at calc true odds, when benchmark bookmaker odds is better than our calc ones
-        # the reason we want to do this, is try to avoid adverse selection
-        self.logger.log('CompareBestOdds: ' + str(compareBestOdds))
         self.logger.log('Calculated odds: home: ' + str(home) + ', draw: ' + str(draw) + ',  away: '+ str(away))
-        if compareBestOdds[0] >= home:
+        if home <= 6:
             true_odds['1'] = home
             is_qualifed = True
-        if compareBestOdds[1] >= draw:
+        if draw <= 6:
             true_odds['x'] = draw
             is_qualifed = True
-        if compareBestOdds[2] >= away:
+        if away <= 6:
             true_odds['2'] = away
             is_qualifed = True
 

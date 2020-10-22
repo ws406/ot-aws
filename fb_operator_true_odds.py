@@ -1,6 +1,8 @@
 from src.ops.game_predictor.fb_blended_true_odds import TrueOdds
 from src.ops.game_predictor.fb_blended_true_odds2 import BlendTrueOdds
 from src.ops.game_predictor.fb_blended_true_odds_away import BlendTrueAwayOdds
+from src.ops.game_predictor.fb_blended_true_odds_inplay2 import TrueOddsInplay2
+from src.ops.game_predictor.fb_blended_true_odds_inplay3 import TrueOddsInplay3
 from src.ops.operator.fb_operator import FbOperator
 import time
 import datetime
@@ -21,7 +23,7 @@ class FbOperatorTrueOdds (FbOperator):
         11,  # France Ligue 1
         12,  # France Ligue 2
         31,  # Spanish La Liga
-        33,  # Spanish Segunda Division
+        #33,  # Spanish Segunda Division
         16,  # Holland Eredivisie
         17,  # Holland Jupiler League
         30,  # Turkish Super Liga
@@ -49,13 +51,18 @@ class FbOperatorTrueOdds (FbOperator):
         #4,  # Brazil Serie A
         #358, # Brazil Serie B
         235, # Russia League 1
+        35,  # EFL2
+        146, # English Nation League
+        113, # Europa League
+        3, # Austria Leagie 1
+        119, # Ukrainian Premier League
+        137, # Czech First League
+        26,  # Sweden
+        29,  # Scottish Premier League
+        150,  # Scottish Championship
         #136, # Hungary NB I
-        #3, # Austria Leagie 1
         #124, # Romanian Liga I
-        #26,  # Sweden
         #203, # France Ligue 3
-        #29,  # Scottish Premier League
-        #150,  # Scottish Championship
         #1, # Ireland Premier Division
         #15, # Korea League
         #121, # Swiss Challenge League
@@ -63,17 +70,12 @@ class FbOperatorTrueOdds (FbOperator):
         #308, # South Africa Premier League
         #292, # Saudi Professional League
         #39,  # EFL1
-        #35,  # EFL2
-        #146, # English Nation League
         #84,  # English League Cup
         #90, # England FA Cup
         #81, # Spanish Copa
         #693,  # GE3
         #51, # German Cup
         #22,  # NOR1
-        #119, # Ukrainian Premier League
-        #137, # Czech First League
-        #113, # Europa League
         #103, # Champions League
         #193, # Algeria
         #221, # Poland League 1
@@ -98,7 +100,7 @@ class FbOperatorTrueOdds (FbOperator):
     ]
 
     def __init__(self, logger: OtLogger):
-        self.gamePredictors = [TrueOdds(logger), BlendTrueOdds(logger), BlendTrueAwayOdds(logger)]
+        self.gamePredictors = [TrueOdds(logger), BlendTrueOdds(logger), BlendTrueAwayOdds(logger), TrueOddsInplay2(logger), TrueOddsInplay3(logger)]
         FbOperator.__init__(self, logger)
 
 

@@ -28,6 +28,7 @@ class BlendTrueOdds(GamePredictorInterface):
         self.special_leagues_1.append(273) # Australia A-League-
         self.special_leagues_1.append(700) # Thai Premier League-
         self.special_leagues_1.append(13) # Finland Veikkausliga
+        self.special_leagues_1.append(35) # England League 2
         self.special_leagues_2.append(303) # Egyptian Premier League
         self.special_leagues_2.append(34) # Italian Serie A
         self.special_leagues_2.append(133) # Croatia Super League
@@ -35,6 +36,7 @@ class BlendTrueOdds(GamePredictorInterface):
         self.special_leagues_2.append(7) # Denmark Super League
         self.special_leagues_2.append(25) # J-League Division 1
         self.special_leagues_2.append(21) # USA Major League Soccer
+        self.special_leagues_3.append(146) # England National League
         self.special_leagues_3.append(8) # German Bundesliga
         self.special_leagues_3.append(9) # German Bundesliga 2
         self.special_leagues_3.append(157) # Portugal Liga 1
