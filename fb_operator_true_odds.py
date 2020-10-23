@@ -140,5 +140,9 @@ if __name__ == '__main__':
             logger.exception('Exception happened.... Try again later.')
             raise e
 
-        logger.log("Next run at UTC: " + str (datetime.datetime.now () + datetime.timedelta (seconds = wait)))
-        time.sleep (wait)
+        if wait <= 0:
+            logger.exception('Something is wrong with setting the wait time!')
+            wait = 20 # set wait to 20 seconds in case it needs to run soon
+        else:
+            logger.log("Next run at UTC: " + str (datetime.datetime.now () + datetime.timedelta (seconds = wait)))
+            time.sleep (wait)

@@ -117,6 +117,7 @@ class FbOperator (abc.ABC):
 
             self.logger.log("Too early to place bet for game " + ' ' + game['home_team_name'] + ' vs ' +
                    game['away_team_name'])
+            return game
 
         else:
 
@@ -135,8 +136,6 @@ class FbOperator (abc.ABC):
                     self.logger.log(result)
                 else:
                     self.logger.log(result)
-
-        return game
 
     @staticmethod
     def find_next_run_time(games):
