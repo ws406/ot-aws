@@ -8,7 +8,6 @@ RUN pip3 install --upgrade pip
 
 # Math libs
 RUN pip3 install --upgrade numpy \
-		scipy \
 		pandas \
 		bs4 \
 		lxml \
@@ -17,12 +16,9 @@ RUN pip3 install --upgrade numpy \
 		requests \
 		sklearn \
 		pytz \
-		pprint \
 		psutil \
-		kafka-python \
-		sendgrid \
-		matplotlib \
-		pylab
+		logger \
+		joblib
 
 # Install Kafka
 ENV KAFKA_HOME /usr/local/kafka
