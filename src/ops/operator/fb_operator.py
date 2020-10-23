@@ -7,6 +7,9 @@ import sys
 import abc
 from src.utils.logger import OtLogger
 import time
+from multiprocessing import Pool
+import multiprocessing
+from functools import partial
 
 
 class FbOperator (abc.ABC):
@@ -91,43 +94,49 @@ class FbOperator (abc.ABC):
             time.sleep (2)
             return False
 
-        games_not_bet = []
-        for game in games:
-            actual_kickoff = datetime.datetime.fromtimestamp (game ['kickoff'])
-
-            # Handle MLS
-            # if betting_details['league_id'] == 21:
-            #     # Kickoff is always 10 mins after the official kickoff time in game.
-            #     actual_kickoff = datetime.datetime.fromtimestamp(betting_details['kickoff']) + datetime.timedelta(minutes = 10)
-
-            # If actual_kickoff is more than mins_before_kickoff mins away, do not place bet
-            if actual_kickoff - datetime.datetime.now() > datetime.timedelta(minutes = self.mins_before_kickoff):
-
-                self.logger.log("Too early to place bet for game " + ' ' + game['home_team_name'] + ' vs ' +
-                       game['away_team_name'])
-
-                # Append this game to the list, so that it can be used to determine next runtime.
-                games_not_bet.append(game)
-                continue
-            else:
-
-                for game_predictor in self.gamePredictors:
-                    self.logger.log("Game predictor:" + str(game_predictor))
-                    betting_details = game_predictor.get_prediction(game)
-                    if betting_details is False:
-                        self.logger.log ("--- Game " + str(game['game_id']) + " is not qualified. ---")
-                        continue
-
-                    self.logger.log ("+++ Game " + str(game['game_id']) + " is qualified. +++")
-                    self.logger.log(betting_details)
-                    result = self.gameBetPlacer.place_match_odds_bet(betting_details, self.amount, debug_mode)
-                    if debug_mode:
-                        self.logger.log('(debug_mode) - bet_placing_request_pay_load:')
-                        self.logger.log(result)
-                    else:
-                        self.logger.log(result)
-
+        self.logger.log(str(len(games)) + " games to place odds on BF using multi-processing")
+        start_time_m = datetime.datetime.now()
+        with Pool(multiprocessing.cpu_count()) as p:
+            place_bet_func = partial(self._place_bets, debug_mode=debug_mode)
+            games_not_bet = p.map(place_bet_func, games)
+        end_time_m = datetime.datetime.now()
+        time_taken_m = end_time_m - start_time_m
+        self.logger.log("Multi - Time taken to place bets for " + str(len(games)) + " games is " + str(time_taken_m))
         return games_not_bet
+
+    def _place_bets(self, game, debug_mode):
+        actual_kickoff = datetime.datetime.fromtimestamp (game ['kickoff'])
+
+        # Handle MLS
+        # if betting_details['league_id'] == 21:
+        #     # Kickoff is always 10 mins after the official kickoff time in game.
+        #     actual_kickoff = datetime.datetime.fromtimestamp(betting_details['kickoff']) + datetime.timedelta(minutes = 10)
+
+        # If actual_kickoff is more than mins_before_kickoff mins away, do not place bet
+        if actual_kickoff - datetime.datetime.now() > datetime.timedelta(minutes = self.mins_before_kickoff):
+
+            self.logger.log("Too early to place bet for game " + ' ' + game['home_team_name'] + ' vs ' +
+                   game['away_team_name'])
+
+        else:
+
+            for game_predictor in self.gamePredictors:
+                self.logger.log("Game predictor:" + str(game_predictor))
+                betting_details = game_predictor.get_prediction(game)
+                if betting_details is False:
+                    self.logger.log ("--- Game " + str(game['game_id']) + " is not qualified. ---")
+                    continue
+
+                self.logger.log ("+++ Game " + str(game['game_id']) + " is qualified. +++")
+                self.logger.log(betting_details)
+                result = self.gameBetPlacer.place_match_odds_bet(betting_details, self.amount, debug_mode)
+                if debug_mode:
+                    self.logger.log('(debug_mode) - bet_placing_request_pay_load:')
+                    self.logger.log(result)
+                else:
+                    self.logger.log(result)
+
+        return game
 
     @staticmethod
     def find_next_run_time(games):
