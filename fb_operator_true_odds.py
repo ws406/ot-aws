@@ -81,8 +81,8 @@ class FbOperatorTrueOdds (FbOperator):
         #221, # Poland League 1
         #138, # Belgian Second Division
         #140, # Mexico Primera Division
-        #89, # Copa Libertadores
-        #263, # Copa Sudamericana
+        89, # Copa Libertadores
+        263, # Copa Sudamericana
         #165, # Northern Ireland Premier League
         #1413, # Spanish Segunda Division B
         #142, # Italian C1

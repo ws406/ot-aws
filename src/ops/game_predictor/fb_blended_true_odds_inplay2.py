@@ -23,6 +23,8 @@ class TrueOddsInplay2(TrueOddsSuper):
         self.filter_leagues.append(12)
         self.filter_leagues.append(29)
         self.filter_leagues.append(113)
+        self.filter_leagues.append(89)
+        self.filter_leagues.append(263)
 
     def FindOddsWithOffsetTime(self, game_data, bookie, lookbackTime, lookbackCheck, backTime = 12.0):
         kickoffTime = int(game_data['kickoff'])

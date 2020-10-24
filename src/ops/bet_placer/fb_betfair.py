@@ -547,6 +547,7 @@ class FBBetfair(Betfair):
         'Istra 1961 Pula': 'NK Istra',
         'NK Lokomotiva Zagreb': 'Lokomotiva',
         'Slaven Koprivnica': 'Slaven Belupo',
+        'HNK Sibenik': 'Sibenik',
 
         # Turkey
         'Besiktas JK': 'Besiktas',
