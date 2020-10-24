@@ -102,6 +102,11 @@ class FbOperator (abc.ABC):
         end_time_m = datetime.datetime.now()
         time_taken_m = end_time_m - start_time_m
         self.logger.log("Multi - Time taken to place bets for " + str(len(games)) + " games is " + str(time_taken_m))
+
+        # p.map returns None when it is not right time to place bet for a game yet. Thus we end up having a list
+        # of None, e.g. [None, None, None]. This causes issue down the line. This is to remove Nones from the list
+        games_not_bet = [x for x in games_not_bet if x is not None]
+
         return games_not_bet
 
     def _place_bets(self, game, debug_mode):
