@@ -7,7 +7,7 @@ class TrueOddsInplay2(TrueOddsSuper):
 
     benchmark_bookie = 'pinnacle'
     strategy = 'to_inplay2'
-    profit_margin = 0.02
+    profit_margin = 0.04
     filter_bookies = list()
     filter_leagues = list()
 
@@ -16,14 +16,11 @@ class TrueOddsInplay2(TrueOddsSuper):
         self.filter_leagues.append(3)
         self.filter_leagues.append(119)
         self.filter_leagues.append(16)
-        self.filter_leagues.append(35)
         self.filter_leagues.append(146)
         self.filter_leagues.append(137)
-        self.filter_leagues.append(26)
         self.filter_leagues.append(12)
         self.filter_leagues.append(29)
         self.filter_leagues.append(113)
-        self.filter_leagues.append(89)
         self.filter_leagues.append(263)
 
     def FindOddsWithOffsetTime(self, game_data, bookie, lookbackTime, lookbackCheck, backTime = 12.0):

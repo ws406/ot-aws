@@ -7,23 +7,15 @@ class TrueOddsInplay3(TrueOddsSuper):
 
     benchmark_bookie = 'pinnacle'
     strategy = 'to_inplay3'
-    profit_margin = 0.02
+    profit_margin = 0.04
     filter_bookies = list()
     filter_leagues = list()
 
     def __init__(self, logger: OtLogger):
         super().__init__(logger)
-        self.filter_leagues.append(5)
-        self.filter_leagues.append(6)
-        self.filter_leagues.append(30)
         self.filter_leagues.append(150)
-        self.filter_leagues.append(31)
-        self.filter_leagues.append(137)
-        self.filter_leagues.append(26)
-        self.filter_leagues.append(12)
         self.filter_leagues.append(29)
         self.filter_leagues.append(113)
-        self.filter_leagues.append(89)
         self.filter_leagues.append(263)
 
     def FindOddsWithOffsetTime(self, game_data, bookie, lookbackTime, lookbackCheck, backTime = 12.0):
