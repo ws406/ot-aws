@@ -681,6 +681,9 @@ class FBBetfair(Betfair):
         'Ludogorets Razgrad': 'Ludogorets',
         'Qarabag': 'Qarabag FK',
         'LASK Linz': 'Lask Linz',
+
+        'Liverpool URU': 'Liverpool Montevideo',
+        'Deportes Tolima': 'Tolima',
     }
 
     def place_match_odds_bet(self, game_data, betting_amount, debug_mode=False):
