@@ -684,6 +684,10 @@ class FBBetfair(Betfair):
 
         'Liverpool URU': 'Liverpool Montevideo',
         'Deportes Tolima': 'Tolima',
+        'CA River Plate': 'River Plate (Uru)',
+        'Defensa Y Justicia': 'Defensa y Justicia',
+        'Estudiantes Merida FC': 'Estudiantes de Merida',
+        'FBC Melgar': 'Melgar',
     }
 
     def place_match_odds_bet(self, game_data, betting_amount, debug_mode=False):
