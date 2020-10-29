@@ -688,6 +688,13 @@ class FBBetfair(Betfair):
         'Defensa Y Justicia': 'Defensa y Justicia',
         'Estudiantes Merida FC': 'Estudiantes de Merida',
         'FBC Melgar': 'Melgar',
+        'Caracas FC': 'Caracas',
+        'CA Penarol': 'Penarol',
+        'Sol de America': 'Sol de America (Par)',
+        'Univ Catolica': 'Univ Catolica (Chile)',
+        'Club Sport Emelec': 'Emelec',
+        'Independiente': 'CA Independiente',
+        'Atletico Junior Barranquilla': 'CD Junior',
     }
 
     def place_match_odds_bet(self, game_data, betting_amount, debug_mode=False):
