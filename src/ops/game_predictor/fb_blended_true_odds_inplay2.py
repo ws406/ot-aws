@@ -7,13 +7,14 @@ class TrueOddsInplay2(TrueOddsSuper):
 
     benchmark_bookie = 'pinnacle'
     strategy = 'to_inplay2'
-    profit_margin = 0.04
+    profit_margin = 0.02
     filter_bookies = list()
     filter_leagues = list()
 
     def __init__(self, logger: OtLogger):
         super().__init__(logger)
         self.filter_leagues.append(3)
+        self.filter_leagues.append(10)
         self.filter_leagues.append(119)
         self.filter_leagues.append(16)
         self.filter_leagues.append(146)
@@ -21,7 +22,6 @@ class TrueOddsInplay2(TrueOddsSuper):
         self.filter_leagues.append(12)
         self.filter_leagues.append(29)
         self.filter_leagues.append(113)
-        self.filter_leagues.append(263)
 
     def FindOddsWithOffsetTime(self, game_data, bookie, lookbackTime, lookbackCheck, backTime = 12.0):
         kickoffTime = int(game_data['kickoff'])
@@ -99,13 +99,13 @@ class TrueOddsInplay2(TrueOddsSuper):
         away = away * (1 + localProfitMargin)
 
         self.logger.log('Calculated odds: home: ' + str(home) + ', draw: ' + str(draw) + ',  away: '+ str(away))
-        if home <= 6:
+        if home <= 7:
             true_odds['1'] = home
             is_qualifed = True
-        if draw <= 6:
+        if draw <= 7:
             true_odds['x'] = draw
             is_qualifed = True
-        if away <= 6:
+        if away <= 7:
             true_odds['2'] = away
             is_qualifed = True
 

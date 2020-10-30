@@ -100,7 +100,7 @@ class FbOperatorTrueOdds (FbOperator):
     ]
 
     def __init__(self, logger: OtLogger):
-        self.gamePredictors = [TrueOdds(logger), BlendTrueOdds(logger), BlendTrueAwayOdds(logger), TrueOddsInplay2(logger), TrueOddsInplay3(logger)]
+        self.gamePredictors = [TrueOdds(logger), BlendTrueOdds(logger), BlendTrueAwayOdds(logger)]
         FbOperator.__init__(self, logger)
 
 
