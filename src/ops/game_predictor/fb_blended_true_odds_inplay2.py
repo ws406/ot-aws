@@ -13,14 +13,14 @@ class TrueOddsInplay2(TrueOddsSuper):
 
     def __init__(self, logger: OtLogger):
         super().__init__(logger)
-        self.filter_leagues.append(3)
+        #self.filter_leagues.append(3)
         self.filter_leagues.append(10)
         self.filter_leagues.append(119)
         self.filter_leagues.append(16)
         self.filter_leagues.append(146)
         self.filter_leagues.append(137)
         self.filter_leagues.append(12)
-        self.filter_leagues.append(29)
+        #self.filter_leagues.append(29)
         self.filter_leagues.append(113)
 
     def FindOddsWithOffsetTime(self, game_data, bookie, lookbackTime, lookbackCheck, backTime = 12.0):
