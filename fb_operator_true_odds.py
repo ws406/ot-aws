@@ -62,14 +62,14 @@ class FbOperatorTrueOdds (FbOperator):
         #32, # Greece
         #26,  # Sweden
         #31,  # Spanish La Liga
-        #33,  # Spanish Segunda Division
-        #136, # Hungary NB I
+        33,  # Spanish Segunda Division
+        136, # Hungary NB I
         #124, # Romanian Liga I
-        #203, # France Ligue 3
+        203, # France Ligue 3
         #1, # Ireland Premier Division
         #15, # Korea League
         #121, # Swiss Challenge League
-        #122, # Sweden Superettan
+        122, # Sweden Superettan
         #308, # South Africa Premier League
         #292, # Saudi Professional League
         #39,  # EFL1

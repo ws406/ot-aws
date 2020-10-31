@@ -28,6 +28,7 @@ class TrueOdds(GamePredictorInterface):
         self.special_leagues_1.append(273) # Australia A-League-
         self.special_leagues_1.append(13) # Finland Veikkausliga
         self.special_leagues_1.append(35) # England League 2
+        self.special_leagues_1.append(136) # Hungary NB I
         self.special_leagues_2.append(303) # Egyptian Premier League
         self.special_leagues_2.append(34) # Italian Serie A
         self.special_leagues_2.append(766) # Vietnam
@@ -43,9 +44,11 @@ class TrueOdds(GamePredictorInterface):
         self.special_leagues_3.append(235) # Russia League 1
         self.special_leagues_3.append(10) # Russia Premier League
         self.special_leagues_3.append(30) # Turkish Super Liga
+        self.special_leagues_3.append(17) # Holland Jupiler League
         self.special_leagues_4.append(157) # Portugal Liga 1
         self.special_leagues_4.append(11) # France Ligue 1
         self.special_leagues_4.append(37) # England Championship
+        self.special_leagues_4.append(31) # Spanish La Liga
         self.special_leagues_4.append(16) # Holland Eredivisie
         self.special_leagues_4.append(6) # Poland Super League
         self.special_leagues_4.append(700) # Thai Premier League-
@@ -138,7 +141,7 @@ class TrueOdds(GamePredictorInterface):
         self.logger.log('Key data,' + str(probability) + ',' + str(home_win_odds) + ',' + str(home_not_win_odds) + ',' + str(hw_odds) + ',' + str(hnw_odds) + ',' + str(localProfitMargin))
         true_odds = {}
         if data['league_id'] in self.special_leagues_1 or data['league_id'] in self.special_leagues_3:
-            if hw_odds <= 6.3:
+            if hw_odds <= 6.5:
                 true_odds['1'] = hw_odds
             if hnw_odds <= 4:
                 true_odds['-1'] = hnw_odds
@@ -156,7 +159,7 @@ class TrueOdds(GamePredictorInterface):
             else:
                 return true_odds
         elif data['league_id'] in self.special_leagues_4:
-            if hw_odds <= 6.3 and hw_odds > 3:
+            if hw_odds <= 6.5 and hw_odds > 3:
                 true_odds['1'] = hw_odds
             if hnw_odds <= 4 and hnw_odds > 3:
                 true_odds['-1'] = hnw_odds

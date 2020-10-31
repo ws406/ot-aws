@@ -28,6 +28,7 @@ class BlendTrueOdds(GamePredictorInterface):
         self.special_leagues_1.append(273) # Australia A-League-
         self.special_leagues_1.append(13) # Finland Veikkausliga
         self.special_leagues_1.append(35) # England League 2
+        self.special_leagues_2.append(113) # "Europa League"
         self.special_leagues_2.append(303) # Egyptian Premier League
         self.special_leagues_2.append(34) # Italian Serie A
         self.special_leagues_2.append(133) # Croatia Super League
@@ -35,6 +36,8 @@ class BlendTrueOdds(GamePredictorInterface):
         self.special_leagues_2.append(7) # Denmark Super League
         self.special_leagues_2.append(25) # J-League Division 1
         self.special_leagues_2.append(21) # USA Major League Soccer
+        self.special_leagues_2.append(122) # Sweden Superettan
+        self.special_leagues_2.append(33) # Spanish Segunda Division
         self.special_leagues_3.append(146) # England National League
         self.special_leagues_3.append(8) # German Bundesliga
         self.special_leagues_3.append(9) # German Bundesliga 2
@@ -42,11 +45,13 @@ class BlendTrueOdds(GamePredictorInterface):
         self.special_leagues_3.append(10) # Russia Premier League
         self.special_leagues_3.append(30) # Turkish Super Liga
         self.special_leagues_3.append(17) # Holland Jupiler League
+        self.special_leagues_3.append(150) # Scottish Championship
+        self.special_leagues_3.append(203) # France Ligue 3
         self.special_leagues_4.append(157) # Portugal Liga 1
-        self.special_leagues_4.append(11) # France Ligue 1
         self.special_leagues_4.append(37) # England Championship
         self.special_leagues_4.append(16) # Holland Eredivisie
         self.special_leagues_4.append(6) # Poland Super League
+        self.special_leagues_4.append(11) # France Ligue 1
         self.special_leagues_4.append(700) # Thai Premier League-
         self.special_leagues_5.append(284) # J-League Division 2
 
@@ -138,7 +143,7 @@ class BlendTrueOdds(GamePredictorInterface):
         self.logger.log('Key data,' + str(probability) + ',' + str(home_win_odds) + ',' + str(home_not_win_odds) + ',' + str(hw_odds) + ',' + str(hnw_odds) + ',' + str(localProfitMargin))
         true_odds = {}
         if data['league_id'] in self.special_leagues_1 or data['league_id'] in self.special_leagues_3:
-            if hw_odds <= 6.3:
+            if hw_odds <= 6.5:
                 true_odds['1'] = hw_odds
             if hnw_odds <= 4:
                 true_odds['-1'] = hnw_odds
@@ -156,7 +161,7 @@ class BlendTrueOdds(GamePredictorInterface):
             else:
                 return true_odds
         elif data['league_id'] in self.special_leagues_4:
-            if hw_odds <= 6.3 and hw_odds > 3:
+            if hw_odds <= 6.5 and hw_odds > 3:
                 true_odds['1'] = hw_odds
             if hnw_odds <= 4 and hnw_odds > 3:
                 true_odds['-1'] = hnw_odds
