@@ -17,10 +17,17 @@ class BlendTrueAwayOdds(GamePredictorInterface):
     def __init__(self, logger: OtLogger):
         self.logger = logger
         self.rf = joblib.load("./football_model_blend_bookie_away.sav")
-        self.special_leagues_1.append(8)
-        self.special_leagues_1.append(40)
-        self.special_leagues_1.append(12)
-        self.special_leagues_1.append(26)
+        self.special_leagues_1.append(8) # German Bundesliga
+        self.special_leagues_1.append(40) # Italian Serie B
+        self.special_leagues_1.append(12) # France Ligue 2
+        self.special_leagues_1.append(26) # Sweden
+        self.special_leagues_1.append(27) # Swiss Super League
+        self.special_leagues_1.append(34) # Italian Serie A
+        self.special_leagues_1.append(10) # Russia Premier League
+        self.special_leagues_1.append(30) # Turkish Super Liga
+        self.special_leagues_1.append(39) # England League 1
+        self.special_leagues_1.append(119) # Ukrainian Premier League
+        self.special_leagues_1.append(103) # Champions League
 
     def _get_average(self, localList):
         number = 0

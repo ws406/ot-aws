@@ -25,7 +25,7 @@ class BlendTrueOdds(GamePredictorInterface):
         self.special_leagues_1.append(36) # English Premier League
         self.special_leagues_1.append(12) # France Ligue 2
         self.special_leagues_1.append(5) # Belgian Pro League-
-        self.special_leagues_1.append(273) # Australia A-League-
+        self.special_leagues_1.append(273) # Australia A-League
         self.special_leagues_1.append(13) # Finland Veikkausliga
         self.special_leagues_1.append(35) # England League 2
         self.special_leagues_2.append(113) # "Europa League"
@@ -41,19 +41,18 @@ class BlendTrueOdds(GamePredictorInterface):
         self.special_leagues_3.append(146) # England National League
         self.special_leagues_3.append(8) # German Bundesliga
         self.special_leagues_3.append(9) # German Bundesliga 2
-        self.special_leagues_3.append(235) # Russia League 1
         self.special_leagues_3.append(10) # Russia Premier League
         self.special_leagues_3.append(30) # Turkish Super Liga
         self.special_leagues_3.append(17) # Holland Jupiler League
         self.special_leagues_3.append(150) # Scottish Championship
         self.special_leagues_3.append(203) # France Ligue 3
         self.special_leagues_4.append(157) # Portugal Liga 1
-        self.special_leagues_4.append(37) # England Championship
         self.special_leagues_4.append(16) # Holland Eredivisie
         self.special_leagues_4.append(6) # Poland Super League
         self.special_leagues_4.append(11) # France Ligue 1
-        self.special_leagues_4.append(700) # Thai Premier League-
+        self.special_leagues_4.append(700) # Thai Premier League
         self.special_leagues_5.append(284) # J-League Division 2
+        self.special_leagues_5.append(235) # Russia League 1
 
     def _get_average(self, localList):
         number = 0

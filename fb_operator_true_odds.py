@@ -17,7 +17,7 @@ class FbOperatorTrueOdds (FbOperator):
 
     league_ids = [
         36,  # English Premier League
-        37,  # England Championship
+        #37,  # England Championship
         8,  # German Bundesliga
         9,  # German Bundesliga 2
         11,  # France Ligue 1
@@ -60,7 +60,7 @@ class FbOperatorTrueOdds (FbOperator):
         89, # Copa Libertadores
         263, # Copa Sudamericana
         #32, # Greece
-        #26,  # Sweden
+        26,  # Sweden
         #31,  # Spanish La Liga
         33,  # Spanish Segunda Division
         136, # Hungary NB I
@@ -68,18 +68,18 @@ class FbOperatorTrueOdds (FbOperator):
         203, # France Ligue 3
         #1, # Ireland Premier Division
         #15, # Korea League
-        #121, # Swiss Challenge League
+        121, # Swiss Challenge League
         122, # Sweden Superettan
         #308, # South Africa Premier League
         #292, # Saudi Professional League
-        #39,  # EFL1
+        39,  # EFL1
         #84,  # English League Cup
         #90, # England FA Cup
         #81, # Spanish Copa
         #693,  # GE3
         #51, # German Cup
         #22,  # NOR1
-        #103, # Champions League
+        103, # Champions League
         #193, # Algeria
         #221, # Poland League 1
         #138, # Belgian Second Division
