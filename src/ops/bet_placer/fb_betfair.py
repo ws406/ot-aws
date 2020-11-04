@@ -3,6 +3,7 @@ from src.ops.game_predictor.fb_blended_true_odds_2_lowest_odds import TrueOddsLo
 from src.ops.game_predictor.fb_blended_true_odds import TrueOdds
 from src.ops.game_predictor.fb_blended_true_odds2 import BlendTrueOdds
 from src.ops.game_predictor.fb_blended_true_odds_away import BlendTrueAwayOdds
+from src.ops.game_predictor.fb_blended_true_odds_home import BlendTrueHomeOdds
 from src.ops.game_predictor.fb_blended_true_odds_inplay import TrueOddsInplay
 from src.ops.game_predictor.fb_blended_true_odds_inplay2 import TrueOddsInplay2
 from src.ops.game_predictor.fb_blended_true_odds_inplay3 import TrueOddsInplay3
@@ -703,7 +704,7 @@ class FBBetfair(Betfair):
 
         if strategy == TrueOddsInplay.strategy:
             return self._place_bet_for_true_odds(game_data, betting_amount, self.persistence_persist, debug_mode)
-        elif strategy == TrueOddsLower2.strategy or strategy == TrueOdds.strategy or strategy == BlendTrueOdds.strategy or strategy == TrueOddsInplay2.strategy or strategy == TrueOddsInplay3.strategy:
+        elif strategy == TrueOddsLower2.strategy or strategy == TrueOdds.strategy or strategy == BlendTrueOdds.strategy or strategy == TrueOddsInplay2.strategy or strategy == TrueOddsInplay3.strategy or strategy == BlendTrueHomeOdds.strategy:
             return self._place_bet_for_true_odds(game_data, betting_amount, self.persistence_lapse, debug_mode)
         elif strategy == BlendTrueAwayOdds.strategy:
             return self._place_bet_for_true_odds(game_data, betting_amount, self.persistence_lapse, debug_mode, False)
