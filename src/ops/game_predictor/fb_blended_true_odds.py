@@ -18,39 +18,38 @@ class TrueOdds(GamePredictorInterface):
     special_leagues_3 = []
     special_leagues_4 = []
     special_leagues_5 = []
+    special_leagues_6 = []
 
     def __init__(self, logger: OtLogger):
         self.logger = logger
         self.rf = joblib.load("./football_model.sav")
-        self.special_leagues_1.append(36) # English Premier League
         self.special_leagues_1.append(12) # France Ligue 2
-        self.special_leagues_1.append(5) # Belgian Pro League-
-        self.special_leagues_1.append(273) # Australia A-League
-        self.special_leagues_1.append(13) # Finland Veikkausliga
-        self.special_leagues_1.append(35) # England League 2
-        self.special_leagues_1.append(136) # Hungary NB I
         self.special_leagues_2.append(303) # Egyptian Premier League
         self.special_leagues_2.append(34) # Italian Serie A
-        self.special_leagues_2.append(766) # Vietnam
-        self.special_leagues_2.append(60) # Chinese Super League
-        self.special_leagues_2.append(133) # Croatia Super League
-        self.special_leagues_2.append(27) # Swiss Super League
-        self.special_leagues_2.append(7) # Denmark Super League
-        self.special_leagues_2.append(25) # J-League Division 1
-        self.special_leagues_2.append(21) # USA Major League Soccer
-        self.special_leagues_2.append(23) # Portugal Primera Liga
-        self.special_leagues_3.append(146) # England National League
+        self.special_leagues_2.append(35) # England League 2
         self.special_leagues_3.append(9) # German Bundesliga 2
-        self.special_leagues_3.append(10) # Russia Premier League
         self.special_leagues_3.append(30) # Turkish Super Liga
-        self.special_leagues_3.append(17) # Holland Jupiler League
-        self.special_leagues_4.append(157) # Portugal Liga 1
-        self.special_leagues_4.append(11) # France Ligue 1
-        self.special_leagues_4.append(31) # Spanish La Liga
-        self.special_leagues_4.append(16) # Holland Eredivisie
-        self.special_leagues_4.append(6) # Poland Super League
-        self.special_leagues_4.append(700) # Thai Premier League
-        self.special_leagues_5.append(235) # Russia League 1
+        self.special_leagues_3.append(10) # Russia Premier League
+        self.special_leagues_3.append(11) # France Ligue 1
+        self.special_leagues_4.append(235) # Russia League 1
+        self.special_leagues_5.append(157) # Portugal Liga 1
+        self.special_leagues_5.append(33) # Spanish Segunda Division
+        self.special_leagues_6.append(36) # English Premier League
+        self.special_leagues_6.append(37) # England Championship
+        self.special_leagues_6.append(146) # England National League
+        self.special_leagues_6.append(5) # Belgian Pro League
+        self.special_leagues_6.append(8) # German Bundesliga
+        self.special_leagues_6.append(31) # Spanish La Liga
+        self.special_leagues_6.append(6) # Poland Super League
+        self.special_leagues_6.append(16) # Holland Eredivisie
+        self.special_leagues_5.append(192) # AFC Champions League
+        self.special_leagues_1.append(700) # Thai Premier League
+        self.special_leagues_2.append(25) # J-League Division 1    
+        self.special_leagues_1.append(136) # Hungary NB I    
+        self.special_leagues_2.append(23) # Portugal Primera Liga    
+        self.special_leagues_3.append(150) # Scottish Championship    
+        self.special_leagues_4.append(60) # Chinese Super League    
+        self.special_leagues_2.append(766) # Vietnamese
 
     def _get_average(self, localList):
         number = 0
@@ -133,7 +132,7 @@ class TrueOdds(GamePredictorInterface):
         probability = self.rf.predict_proba(vec)
         home_win_odds = 1 / probability[0,1]
         home_not_win_odds = 1 / probability[0,0]
-        if data['league_id'] in self.special_leagues_1 or data['league_id'] in self.special_leagues_2:
+        if data['league_id'] in self.special_leagues_1 or data['league_id'] in self.special_leagues_2 or data['league_id'] in self.special_leagues_6:
             localProfitMargin = self.profit_margin_2
         hw_odds = home_win_odds * (1+localProfitMargin)
         hnw_odds = home_not_win_odds * (1+localProfitMargin)
@@ -148,7 +147,7 @@ class TrueOdds(GamePredictorInterface):
                 return is_qualifed
             else:
                 return true_odds
-        elif data['league_id'] in self.special_leagues_2 or data['league_id'] in self.special_leagues_5:
+        elif data['league_id'] in self.special_leagues_2 or data['league_id'] in self.special_leagues_4:
             if hw_odds <= 4:
                 true_odds['1'] = hw_odds
             if hnw_odds <= 3:
@@ -157,10 +156,10 @@ class TrueOdds(GamePredictorInterface):
                 return is_qualifed
             else:
                 return true_odds
-        elif data['league_id'] in self.special_leagues_4:
-            if hw_odds <= 6.5 and hw_odds > 3:
+        elif data['league_id'] in self.special_leagues_5 or data['league_id'] in self.special_leagues_6:
+            if hw_odds <= 8 and hw_odds >= 3:
                 true_odds['1'] = hw_odds
-            if hnw_odds <= 4 and hnw_odds > 3:
+            if hnw_odds <= 8 and hnw_odds >= 3:
                 true_odds['-1'] = hnw_odds
             if len(true_odds) == 0:
                 return is_qualifed
