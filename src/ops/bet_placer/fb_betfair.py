@@ -455,7 +455,6 @@ class FBBetfair(Betfair):
         'Boavista FC': 'Boavista',
         'Sporting Braga': 'Braga',
         'FC Porto': 'Porto',
-        'Rio Ave': 'Aves',
         'Vitoria Guimaraes': 'Guimaraes',
         'Pacos de Ferreira': 'Pacos Ferreira',
         'CD Tondela': 'Tondela',
