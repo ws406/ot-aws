@@ -556,7 +556,7 @@ class FBBetfair(Betfair):
         'Caykur Rizespor': 'Rizespor',
         'Gaziantep Buyuksehir Belediyesi': 'Gaziantep FK',
         'Istanbul Buyuksehir Belediyesi': 'Basaksehir',
-        'Karagumruk': 'Faith Karagumruk Istanbu',
+        'Karagumruk': 'Fatih Karagumruk Istanbul',
 
         # Romania
         'CS Universitatea Craiova': 'Universitatea Craiova',
