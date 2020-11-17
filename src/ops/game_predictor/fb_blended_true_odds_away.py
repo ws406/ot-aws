@@ -120,7 +120,7 @@ class BlendTrueAwayOdds(GamePredictorInterface):
         away_win_odds = 1 / probability[0,1]
         away_not_win_odds = 1 / probability[0,0]
         if data['league_id'] in self.special_leagues_2:
-            localProfitMargin = profit_margin2
+            localProfitMargin = self.profit_margin2
         aw_odds = away_win_odds * (1+localProfitMargin)
         anw_odds = away_not_win_odds * (1+localProfitMargin)
         self.logger.log('Key data,' + str(probability) + ',' + str(away_win_odds) + ',' + str(away_not_win_odds) + ',' + str(aw_odds) + ',' + str(anw_odds) + ',' + str(localProfitMargin))
