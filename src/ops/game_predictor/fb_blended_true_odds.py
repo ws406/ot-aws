@@ -23,32 +23,28 @@ class TrueOdds(GamePredictorInterface):
     def __init__(self, logger: OtLogger):
         self.logger = logger
         self.rf = joblib.load("./football_model.sav")
-        self.special_leagues_1.append(12) # France Ligue 2
+        self.special_leagues_6.append(12) # France Ligue 2
         self.special_leagues_2.append(303) # Egyptian Premier League
         self.special_leagues_2.append(34) # Italian Serie A
         self.special_leagues_2.append(35) # England League 2
-        self.special_leagues_3.append(9) # German Bundesliga 2
+        self.special_leagues_5.append(9) # German Bundesliga 2
         self.special_leagues_3.append(30) # Turkish Super Liga
         self.special_leagues_3.append(10) # Russia Premier League
         self.special_leagues_3.append(11) # France Ligue 1
-        self.special_leagues_4.append(235) # Russia League 1
+        self.special_leagues_2.append(235) # Russia League 1
         self.special_leagues_5.append(157) # Portugal Liga 1
         self.special_leagues_5.append(33) # Spanish Segunda Division
-        self.special_leagues_6.append(36) # English Premier League
-        self.special_leagues_6.append(37) # England Championship
+        self.special_leagues_5.append(36) # English Premier League
         self.special_leagues_6.append(146) # England National League
-        self.special_leagues_6.append(5) # Belgian Pro League
-        self.special_leagues_6.append(8) # German Bundesliga
-        self.special_leagues_6.append(31) # Spanish La Liga
+        self.special_leagues_1.append(5) # Belgian Pro League
+        self.special_leagues_5.append(31) # Spanish La Liga
         self.special_leagues_6.append(6) # Poland Super League
-        self.special_leagues_6.append(16) # Holland Eredivisie
+        self.special_leagues_1.append(16) # Holland Eredivisie
         self.special_leagues_5.append(192) # AFC Champions League
-        self.special_leagues_1.append(700) # Thai Premier League
-        self.special_leagues_2.append(25) # J-League Division 1    
-        self.special_leagues_1.append(136) # Hungary NB I    
-        self.special_leagues_2.append(23) # Portugal Primera Liga    
-        self.special_leagues_3.append(150) # Scottish Championship    
-        self.special_leagues_4.append(60) # Chinese Super League    
+        self.special_leagues_3.append(700) # Thai Premier League
+        self.special_leagues_2.append(25) # J-League Division 1
+        self.special_leagues_3.append(150) # Scottish Championship 
+        self.special_leagues_4.append(60) # Chinese Super League
         self.special_leagues_2.append(766) # Vietnamese
 
     def _get_average(self, localList):

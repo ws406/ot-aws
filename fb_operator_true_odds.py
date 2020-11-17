@@ -31,7 +31,7 @@ class FbOperatorTrueOdds (FbOperator):
         273,  # Australia A-League
         6, # Poland Super League
         13, # Finland Veikkausliga
-        192, # AFC Champions League
+        #192, # AFC Champions League
         #350, # AFC Cup
         5,  # Belgian Pro League
         #7, # Denmark
@@ -47,7 +47,7 @@ class FbOperatorTrueOdds (FbOperator):
         23,  # Portugal Primera Liga
         27, # Swiss Super League
         766, # Vietnam
-        4,  # Brazil Serie A
+        #4,  # Brazil Serie A
         #358, # Brazil Serie B
         235, # Russia League 1
         35,  # EFL2
@@ -65,7 +65,7 @@ class FbOperatorTrueOdds (FbOperator):
         31,  # Spanish La Liga
         33,  # Spanish Segunda Division
         136, # Hungary NB I
-        ##124, # Romanian Liga I
+        124, # Romanian Liga I
         203, # France Ligue 3
         #1, # Ireland Premier Division
         #15, # Korea League

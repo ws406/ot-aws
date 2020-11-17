@@ -11,14 +11,12 @@ class BlendTrueHomeOdds(GamePredictorInterface):
 
     benchmark_bookie = 'pinnacle'
     strategy = 'blend_true_home_odds'
-    profit_margin = 0.03 # This is to ensure we win something.
+    profit_margin = 0.05 # This is to ensure we win something.
     special_leagues_1 = []
 
     def __init__(self, logger: OtLogger):
         self.logger = logger
         self.rf = joblib.load("./football_model_blend_bookie_away.sav")
-        self.special_leagues_1.append(34) # Italian Serie A
-        self.special_leagues_1.append(33) # Spanish Segunda Division
         self.special_leagues_1.append(133) # Croatia
         self.special_leagues_1.append(7) # Denmark
         self.special_leagues_1.append(60) # Chinese Super League
@@ -26,11 +24,11 @@ class BlendTrueHomeOdds(GamePredictorInterface):
         self.special_leagues_1.append(303) # Egyptian Premier League
         self.special_leagues_1.append(16) # Holland Eredivisie
         self.special_leagues_1.append(122) # Sweden Superettan
-        self.special_leagues_1.append(25) # J-League Division 1
-        self.special_leagues_1.append(766) # Vietnamese professional league
         self.special_leagues_1.append(273) # Australia A-League
         self.special_leagues_1.append(113) # UEFA Europa League
-        self.special_leagues_1.append(89) # Copa Libertadores
+        self.special_leagues_1.append(35) # England League 2
+        self.special_leagues_1.append(21) # USA Major League Soccer
+        self.special_leagues_1.append(136) # Hungary NB I
 
     def _get_average(self, localList):
         number = 0

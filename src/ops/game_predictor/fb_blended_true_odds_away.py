@@ -12,7 +12,9 @@ class BlendTrueAwayOdds(GamePredictorInterface):
     benchmark_bookie = 'pinnacle'
     strategy = 'blend_true_away_odds'
     profit_margin = 0.03 # This is to ensure we win something.
+    profit_margin2 = 0.05
     special_leagues_1 = []
+    special_leagues_2 = []
 
     def __init__(self, logger: OtLogger):
         self.logger = logger
@@ -20,14 +22,21 @@ class BlendTrueAwayOdds(GamePredictorInterface):
         self.special_leagues_1.append(8) # German Bundesliga
         self.special_leagues_1.append(40) # Italian Serie B
         self.special_leagues_1.append(12) # France Ligue 2
-        self.special_leagues_1.append(26) # Sweden
         self.special_leagues_1.append(27) # Swiss Super League
         self.special_leagues_1.append(34) # Italian Serie A
         self.special_leagues_1.append(10) # Russia Premier League
         self.special_leagues_1.append(30) # Turkish Super Liga
-        self.special_leagues_1.append(39) # England League 1
         self.special_leagues_1.append(119) # Ukrainian Premier League
         self.special_leagues_1.append(103) # Champions League
+        self.special_leagues_1.append(124) # Romanian Liga I
+        self.special_leagues_1.append(89) # Copa Libertadores
+        self.special_leagues_1.append(263) # Copa Sudamericana
+        self.special_leagues_2.append(39) # England League 1
+        self.special_leagues_2.append(35) # England League 2
+        self.special_leagues_2.append(146) # England National League
+        self.special_leagues_2.append(6) # Poland Super League
+        self.special_leagues_2.append(136) # Hungary NB I
+        self.special_leagues_2.append(22) # Norwegian Tippeligaen
 
     def _get_average(self, localList):
         number = 0
@@ -110,11 +119,13 @@ class BlendTrueAwayOdds(GamePredictorInterface):
         probability = self.rf.predict_proba(vec)
         away_win_odds = 1 / probability[0,1]
         away_not_win_odds = 1 / probability[0,0]
+        if data['league_id'] in self.special_leagues_2:
+            localProfitMargin = profit_margin2
         aw_odds = away_win_odds * (1+localProfitMargin)
         anw_odds = away_not_win_odds * (1+localProfitMargin)
         self.logger.log('Key data,' + str(probability) + ',' + str(away_win_odds) + ',' + str(away_not_win_odds) + ',' + str(aw_odds) + ',' + str(anw_odds) + ',' + str(localProfitMargin))
         true_odds = {}
-        if data['league_id'] in self.special_leagues_1:
+        if data['league_id'] in self.special_leagues_1 or data['league_id'] in self.special_leagues_2:
             if aw_odds <= 3:
                 true_odds['1'] = aw_odds
             if anw_odds <= 3:
