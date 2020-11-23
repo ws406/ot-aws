@@ -27,7 +27,7 @@ class FbOperatorTrueOdds (FbOperator):
         17,  # Holland Jupiler League
         30,  # Turkish Super Liga
         284,  # J-League Division 2
-        21,  # USA Major League Soccer
+        #21,  # USA Major League Soccer
         273,  # Australia A-League
         6, # Poland Super League
         13, # Finland Veikkausliga
@@ -42,7 +42,7 @@ class FbOperatorTrueOdds (FbOperator):
         10,  # Russia premier
         303, # Egyptian Premier League
         133, # Croatia Super League
-        700, # Thai Premier League
+        #700, # Thai Premier League
         25,  # J-League Division 1
         23,  # Portugal Primera Liga
         27, # Swiss Super League
