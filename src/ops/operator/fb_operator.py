@@ -50,7 +50,7 @@ class FbOperator (abc.ABC):
     # Leave this for sub classes to set
     league_ids = {}
 
-    get_games_in_minutes = 15
+    get_games_in_minutes = 160
 
     amount = 10
     mins_before_kickoff = 1
