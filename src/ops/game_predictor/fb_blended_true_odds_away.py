@@ -24,7 +24,7 @@ class BlendTrueAwayOdds(GamePredictorInterface):
         self.special_leagues_1.append(12) # France Ligue 2
         self.special_leagues_1.append(27) # Swiss Super League
         self.special_leagues_1.append(34) # Italian Serie A
-        self.special_leagues_1.append(10) # Russia Premier League
+        #self.special_leagues_1.append(10) # Russia Premier League
         self.special_leagues_1.append(30) # Turkish Super Liga
         self.special_leagues_1.append(119) # Ukrainian Premier League
         self.special_leagues_1.append(103) # Champions League
@@ -35,7 +35,7 @@ class BlendTrueAwayOdds(GamePredictorInterface):
         self.special_leagues_2.append(35) # England League 2
         self.special_leagues_2.append(146) # England National League
         self.special_leagues_2.append(6) # Poland Super League
-        self.special_leagues_2.append(136) # Hungary NB I
+        #self.special_leagues_2.append(136) # Hungary NB I
         self.special_leagues_2.append(22) # Norwegian Tippeligaen
 
     def _get_average(self, localList):

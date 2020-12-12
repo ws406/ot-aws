@@ -58,8 +58,8 @@ class FbOperatorTrueOdds (FbOperator):
         137, # Czech First League
         29,  # Scottish Premier League
         150,  # Scottish Championship
-        89, # Copa Libertadores
-        263, # Copa Sudamericana
+        #89, # Copa Libertadores
+        #263, # Copa Sudamericana
         #32, # Greece
         26,  # Sweden
         31,  # Spanish La Liga
