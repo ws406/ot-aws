@@ -18,8 +18,8 @@ class FBBetfair(Betfair):
     team_names_mapping = {
         # EPL & EC
         'Tottenham Hotspur': 'Tottenham',
-        'West Ham United' : 'West Ham',
-        'Brighton   Hove Albion': 'Brighton',
+        'West Ham United': 'West Ham',
+        'Brighton Hove Albion': 'Brighton',
         'Leicester City': 'Leicester',
         'Norwich City': 'Norwich',
         'Crystal Palace': 'Crystal Palace',
