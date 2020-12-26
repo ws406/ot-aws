@@ -20,12 +20,12 @@ class BlendTrueAwayOdds(GamePredictorInterface):
         self.logger = logger
         self.rf = joblib.load("./football_model_blend_bookie_away.sav")
         self.special_leagues_1.append(8) # German Bundesliga
-        self.special_leagues_1.append(40) # Italian Serie B
+        #self.special_leagues_1.append(40) # Italian Serie B
         self.special_leagues_1.append(12) # France Ligue 2
         self.special_leagues_1.append(27) # Swiss Super League
         self.special_leagues_1.append(34) # Italian Serie A
         #self.special_leagues_1.append(10) # Russia Premier League
-        self.special_leagues_1.append(30) # Turkish Super Liga
+        #self.special_leagues_1.append(30) # Turkish Super Liga
         self.special_leagues_1.append(119) # Ukrainian Premier League
         self.special_leagues_1.append(103) # Champions League
         self.special_leagues_1.append(124) # Romanian Liga I

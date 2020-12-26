@@ -26,9 +26,9 @@ class BlendTrueHomeOdds(GamePredictorInterface):
         self.special_leagues_1.append(122) # Sweden Superettan
         self.special_leagues_1.append(273) # Australia A-League
         self.special_leagues_1.append(113) # UEFA Europa League
-        self.special_leagues_1.append(35) # England League 2
+        #self.special_leagues_1.append(35) # England League 2
         self.special_leagues_1.append(21) # USA Major League Soccer
-        self.special_leagues_1.append(136) # Hungary NB I
+        #self.special_leagues_1.append(136) # Hungary NB I
 
     def _get_average(self, localList):
         number = 0

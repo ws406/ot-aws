@@ -17,8 +17,8 @@ class TrueOddsInplay2(TrueOddsSuper):
         self.filter_leagues.append(10) # Russia Premier League
         self.filter_leagues.append(119) # Ukrainian
         self.filter_leagues.append(16) # Holland Eredivisie
-        self.filter_leagues.append(146) # England National League
-        self.filter_leagues.append(137) # Czech First League
+        #self.filter_leagues.append(146) # England National League
+        #self.filter_leagues.append(137) # Czech First League
         self.filter_leagues.append(12) # France Ligue 2
         self.filter_leagues.append(35) # England League 2
         self.filter_leagues.append(89) # Copa Libertadores

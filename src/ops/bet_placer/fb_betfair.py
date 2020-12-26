@@ -643,6 +643,7 @@ class FBBetfair(Betfair):
         'Pyramids FC': 'Pyramids',
         'Enppi': 'ENPPI',
         'El Entag Al Harby': 'El Entag El Harby',
+        'Serameka': 'Ceramica Cleopatra',
 
         # Poland
         'Jagiellonia Bialystok': 'Jagiellonia Bialystock',
