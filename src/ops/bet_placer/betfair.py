@@ -102,9 +102,9 @@ class Betfair (abc.ABC):
                     "limitOrder": {
                         "size": size,
                         "price": price,
-                        "persistenceType": persistence, # "PERSIST" or "LAPSE"
-                        "timeInForce": "FILL_OR_KILL",
-                        "minFillSize": size/2.0
+                        "persistenceType": persistence # "PERSIST" or "LAPSE"
+                        #"timeInForce": "FILL_OR_KILL",
+                        #"minFillSize": size/2.0
                     }
                 }
             ]

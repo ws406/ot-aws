@@ -279,6 +279,7 @@ class FBBetfair(Betfair):
         'Adelaide United FC': 'Adelaide United',
         'Western Sydney': 'Western Sydney Wanderers',
         'Western United FC': 'Western United',
+        'FC Macarthur': 'Macarthur FC',
 
         # Swedish Super League
         'VfL Osnabruck': 'VFL Osnabruck',
@@ -639,11 +640,12 @@ class FBBetfair(Betfair):
         'EL Masry': 'Al-Masry',
         'El Mokawloon El Arab': 'Al Mokawloon',
         'Smouha SC' : 'Smouha',
-        'Wadi Degla SC': 'Wadi degla',
+        'Wadi Degla SC': 'Wadi Degla',
         'Pyramids FC': 'Pyramids',
         'Enppi': 'ENPPI',
         'El Entag Al Harby': 'El Entag El Harby',
-        'Serameka': 'Ceramica Cleopatra',
+        'Ceramica Cleopatra FC': 'Ceramica Cleopatra',
+        'NBE SC': 'National Bank',
 
         # Poland
         'Jagiellonia Bialystok': 'Jagiellonia Bialystock',
