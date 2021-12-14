@@ -8,9 +8,12 @@ from src.utils.logger import OtLogger
 
 
 class HistGamesFetcher:
-    url_season_ids = 'http://info.nowgoal.com/jsData/LeagueSeason/sea%league_id%.js'
+    url_season_ids = 'http://info.nowgoal3.com/jsData/LeagueSeason/sea%league_id%.js'
+    #url_season_ids = 'https://info.goaloous.net/jsData/LeagueSeason/sea%league_id%.js'
     # url_league_info = 'http://zq.win007.com/jsData/matchResult/%season_id%/s%league_id%.js'
-    url_league_info = 'http://info.nowgoal.com/jsData/matchResult/%season_id%/s%league_id%.js'
+    url_league_info = 'http://info.nowgoal3.com/jsData/matchResult/%season_id%/s%league_id%.js'
+    #url_league_info = 'https://info.goaloous.net/jsData/matchResult/%season_id%/s%league_id%.js'
+    #url_league_info = 'http://info.nowgoal3.com/jsData/matchResult/%season_id%/c%league_id%.js'
     odds_fetcher = None
 
     def __init__(self, odds_fetcher: AbstractOddsFetcher, logger: OtLogger):
@@ -63,6 +66,7 @@ class HistGamesFetcher:
         shared_game_info["season"] = season_id
 
         league_name_segment = re.findall('arrLeague = \[(.+?)\];', content)[0]
+        #league_name_segment = re.findall('arrCup = \[(.+?)\];', content)[0]
         shared_game_info["league_name"] = re.findall('\'(.+?)\',', league_name_segment)[2]
 
         league_size_segment = re.findall('arrTeam = \[(.+?)\];', content)[0]
@@ -72,6 +76,9 @@ class HistGamesFetcher:
         # 2: get individual game details from games page
         # Please do not try to understand it!!!
         rounds_segment = re.findall('jh\["R_(\d+)"\] =\[(.+?)\];', content)
+        #rounds_segment = re.findall('jh\["R_(\d+)"\] = \[(.+?)\];', content)
+        #rounds_segment = re.findall('jh\["G(\d+)"\] = \[(.+?)\];', content)
+        #rounds_segment = re.findall('jh\["G(\d+[A-Z])"\] = \[(.+?)\];', content)
         for round_info in rounds_segment:
             rounds = round_info[0]
             self.logger.log("\t\tRound - " + str(rounds))
@@ -80,12 +87,23 @@ class HistGamesFetcher:
             round_games_list = round_info[1].split('],[')
             num_games_before_this_round = len(games)
             for tmp in round_games_list:
-                game_details = re.findall(
-                    "([0-9]*),.+?,(-1|0|-14|2),.+?,.+?,.+?,'(.+?)','(.+?)'", tmp)[0]
+                #print(tmp)
+                try:
+                    game_details = re.findall(
+                        "([0-9]*),.+?,(-1|0|-14|2),.+?,.+?,.+?,'(.+?)','(.+?)'", tmp)[0]
+                except IndexError:
+                    continue
 
                 # (?:([0-9]+)-([0-9]+))?
 
                 game_id = int(game_details[0])
+
+                data = tmp
+                if game_id < 50000:
+                    data = tmp.split(',[')[1]
+                    game_details = re.findall(
+                        "([0-9]*),.+?,(-1|0|-14|2),.+?,.+?,.+?,'(.+?)','(.+?)'", data)[0]
+                    game_id = int(game_details[0])
 
                 # Skip games that have already exist in data file
                 if game_id in existing_games_ids:
@@ -95,13 +113,19 @@ class HistGamesFetcher:
 
                 game = dict()
                 game['game_id'] = game_id
-                game['is_played'] = 1 if re.findall(",(-1|0|-14|2),", tmp)[0] == '-1' else 0
+                #print(game_id, data, re.findall(",(-1|0|-14|2),", data)[0])
+                game['is_played'] = 1 if re.findall(",(-1|0|-14|2),", data)[0] == '-1' else 0
                 if game['is_played'] == 0:
                     self.logger.log('\t\t\tGame has not been played yet.')
                     continue
                 if game['is_played'] == 1:
-                    full_time_scores = re.findall("([0-9]+)-([0-9]+)", game_details[2])[0]
-                    half_time_scores = re.findall("([0-9]+)-([0-9]+)", game_details[3])[0]
+                    #print(game_details[2])
+                    #print(game_details[3])
+                    try:
+                        full_time_scores = re.findall("([0-9]+)-([0-9]+)", game_details[2])[0]
+                        half_time_scores = re.findall("([0-9]+)-([0-9]+)", game_details[3])[0]
+                    except IndexError:
+                        continue
                     game['home_score'] = int(full_time_scores[0])
                     game['away_score'] = int(full_time_scores[1])
                     game['home_half_score'] = int(half_time_scores[0])
@@ -151,7 +175,7 @@ class HistGamesFetcher:
         season_ids = self._get_season_ids(league_id, num_of_seasons, start_season_offset)
         for season_id in season_ids:
             self.logger.log("\tSeason - " + str(season_id))
-            file_name = '../data/football_all_odds_data/' + league_name + '-' + season_id + '.json'
+            file_name = './data/football_all_odds_data/' + league_name + '-' + season_id + '.json'
             existing_games = []
             # 'replace' is False, load existing data first
             if replace is False:

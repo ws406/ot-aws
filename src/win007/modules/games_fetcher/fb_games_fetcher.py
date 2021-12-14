@@ -12,7 +12,7 @@ from src.win007.modules.games_fetcher.football_odds_fetcher.game_info_and_all_od
 
 class GamesFetcher:
     url_games_list = 'http://op1.win007.com/index.aspx'
-    # url_games_list = 'http://op1.win007.com/nextodds/cn/20181023.html'
+    #url_games_list = 'http://op1.win007.com/Company.aspx?id=80'
 
     odds_fetcher = None
 
@@ -56,25 +56,25 @@ class GamesFetcher:
 
             games_rows_to_get_details.append(game)
 
-        self.logger.log(str(len(games_rows_to_get_details)) + " games to get odds for using multi-processing")
-        start_time_m = datetime.datetime.now()
-        with Pool(multiprocessing.cpu_count()) as p:
-            # games = p.map(get_details_func, games_rows_to_get_details)
-            games = p.map(self._get_details, games_rows_to_get_details)
-        end_time_m = datetime.datetime.now()
-        time_taken_m = end_time_m - start_time_m
-        self.logger.log("Multi - Time taken to process " + str(len(games_rows_to_get_details)) + " games is " + str(time_taken_m))
+        #self.logger.log(str(len(games_rows_to_get_details)) + " games to get odds for using multi-processing")
+        #start_time_m = datetime.datetime.now()
+        #with Pool(multiprocessing.cpu_count()) as p:
+            ## games = p.map(get_details_func, games_rows_to_get_details)
+            #games = p.map(self._get_details, games_rows_to_get_details)
+        #end_time_m = datetime.datetime.now()
+        #time_taken_m = end_time_m - start_time_m
+        #self.logger.log("Multi - Time taken to process " + str(len(games_rows_to_get_details)) + " games is " + str(time_taken_m))
 
         # Keep the single-process code in case issues with multi-processes
-        # self.logger.log(str(len(games_rows_to_get_details)) + " games to get odds for using single-processing")
-        # start_time_s = datetime.datetime.now()
-        # games = []
-        # for game in games_rows_to_get_details:
-        #     games.append(self._get_details(game))
-        #
-        # end_time_s = datetime.datetime.now()
-        # time_taken_s = end_time_s - start_time_s
-        # self.logger.log("Single - Time taken to process " + str(len(games_rows_to_get_details)) + " games is " + str(time_taken_s))
+        self.logger.log(str(len(games_rows_to_get_details)) + " games to get odds for using single-processing")
+        start_time_s = datetime.datetime.now()
+        games = []
+        for game in games_rows_to_get_details:
+            games.append(self._get_details(game))
+        
+        end_time_s = datetime.datetime.now()
+        time_taken_s = end_time_s - start_time_s
+        self.logger.log("Single - Time taken to process " + str(len(games_rows_to_get_details)) + " games is " + str(time_taken_s))
 
         return games
 
@@ -156,6 +156,8 @@ if __name__ == '__main__':
         177: "pinnacle",  # Pinnacle
         81:  "betvictor",  # Bet Victor
         82: "ladbroke",
+        167: "skybet",
+        88: "coral",
 
         # 80: "macau_slot",  # Macao Slot
         # 90: "easybet",  # EasyBet
@@ -167,8 +169,6 @@ if __name__ == '__main__':
         # 156: "betfred",
         # 110: "snai",
         # 463: "betclick",
-        # 167: "skybet",
-        # 88: "coral",
         # 936: "setantabet",
         # 961: "championsbet",
         # 527: "tipico",

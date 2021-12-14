@@ -1,9 +1,7 @@
+#from src.ops.game_predictor.fb_blended_true_odds_inplay import TrueOddsInplay
 from src.ops.game_predictor.fb_blended_true_odds import TrueOdds
-from src.ops.game_predictor.fb_blended_true_odds2 import BlendTrueOdds
-from src.ops.game_predictor.fb_blended_true_odds_away import BlendTrueAwayOdds
-from src.ops.game_predictor.fb_blended_true_odds_home import BlendTrueHomeOdds
-from src.ops.game_predictor.fb_blended_true_odds_inplay2 import TrueOddsInplay2
-from src.ops.game_predictor.fb_blended_true_odds_inplay3 import TrueOddsInplay3
+#from src.ops.game_predictor.fb_blended_true_odds_inplay2 import TrueOddsInplay2
+#from src.ops.game_predictor.fb_blended_true_odds_inplay3 import TrueOddsInplay3
 from src.ops.operator.fb_operator import FbOperator
 import time
 import datetime
@@ -17,96 +15,100 @@ class FbOperatorTrueOdds (FbOperator):
     # mins_before_kickoff = 15
 
     league_ids = [
-        36,  # English Premier League
-        37,  # England Championship
-        8,  # German Bundesliga
-        9,  # German Bundesliga 2
-        11,  # France Ligue 1
-        12,  # France Ligue 2
-        16,  # Holland Eredivisie
-        17,  # Holland Jupiler League
-        30,  # Turkish Super Liga
-        284,  # J-League Division 2
-        #21,  # USA Major League Soccer
-        273,  # Australia A-League
-        6, # Poland Super League
-        13, # Finland Veikkausliga
-        #192, # AFC Champions League
-        #350, # AFC Cup
-        5,  # Belgian Pro League
-        #7, # Denmark
-        60,  # Chinese Super League
-        157,  # Portugal Liga 1
-        34,  # Italian Serie A
-        40,  # Italian Serie B
-        10,  # Russia premier
-        303, # Egyptian Premier League
-        133, # Croatia Super League
-        #700, # Thai Premier League
-        25,  # J-League Division 1
-        23,  # Portugal Primera Liga
-        27, # Swiss Super League
-        766, # Vietnam
-        #4,  # Brazil Serie A
-        #358, # Brazil Serie B
-        235, # Russia League 1
+        36,  # EPL
+        39,  # EFL1
         35,  # EFL2
         146, # English Nation League
-        113, # Europa League
-        3, # Austria Leagie 1
+        297, # England Conference North
+        298, # England Conference South
+        31,  # ES1
+        33,  # ES2
+        1413, # Spanish Segunda Division B
+        2254, # Spanish Primera Division
+        ##84,  # English League Cup
+        90, # England FA Cup
+        ##81, # Spanish Copa
+        8,  # GE1
+        ##9,  # GE2
+        693,  # GE3
+        ##51, # German Cup
+        11,  # FR1
+        12,  # FR2
+        203, # France Ligue 3
+        ##13, # FIN1
+        16,  # HO1
+        17,  # HO2
+        25,  # JAP1
+        284,  # JAP2
+        1346,  # JAP3
+        60,  # China
+        4,  # BRA1
+        358, # BRA2
+        #29,  # SCOT1
+        #150,  # SCOT2
+        5,  # BEL1
+        22,  # NOR1
+        ##10,  # Russia premier
+        21,  # USA1
+        26,  # Sweden
+        122, # Sweden Superettan
+        133, # Croatia Super League
+        7, # Denmark
+        273,  # AUS
+        6, # Poland super league
         119, # Ukrainian Premier League
         137, # Czech First League
-        29,  # Scottish Premier League
-        150,  # Scottish Championship
-        #89, # Copa Libertadores
-        #263, # Copa Sudamericana
-        #32, # Greece
-        26,  # Sweden
-        31,  # Spanish La Liga
-        33,  # Spanish Segunda Division
+        3, # Austria Leagie 1
         136, # Hungary NB I
-        124, # Romanian Liga I
-        203, # France Ligue 3
-        #1, # Ireland Premier Division
-        #15, # Korea League
-        121, # Swiss Challenge League
-        122, # Sweden Superettan
-        #308, # South Africa Premier League
-        #292, # Saudi Professional League
-        39,  # EFL1
-        #84,  # English League Cup
-        #90, # England FA Cup
-        #81, # Spanish Copa
-        #693,  # GE3
-        #51, # German Cup
-        22,  # NOR1
+        #113, # Europa League
         103, # Champions League
-        #193, # Algeria
-        #221, # Poland League 1
-        #138, # Belgian Second Division
-        #140, # Mexico Primera Division
-        #165, # Northern Ireland Premier League
-        #1413, # Spanish Segunda Division B
-        #142, # Italian C1
-        #297, # England Conference North
-        #298, # England Conference South
-        ##54, #French Cup
-        ##67, # Euro Cup
+        ##193, # Algeria
+        ##221, # Poland League 1
+        235, # Russia League 1
+        ##138, # Belgian Second Division
+        ###27, # Swiss Super League
+        #121, # Swiss Challenge League
+        1, # Ireland Premier Division
+        140, # Mexico Primera Division
+        ##308, # South Africa Premier League
+        ##700, # Thai Premier League
+        766, # Vietnam
+        ##89, # Copa Libertadores
+        ##263, # Copa Sudamericana
+        192, # AFC Champions League
+        #350, # AFC Cup
+        165, # Northern Ireland Premier League
+        135, # Welsh Premier
+        ##142, # Italian C1
+        34,  # Italy A
+        40,  # Italy B
+        #32, # Greece
+        #23,  # POTG1
+        157,  # POTG2
+        #30,  # Turkey
+        130, # Turkey 2
+        ###54, #French Cup
+        ###67, # Euro Cup
+        ##37,  # ENC
+        124, # Romanian Liga I
+        15, # Korea League
+        #194, #Singapore
         #326, # Tunisia
         ##321, # Morocco Pro 1
         #1385,
         #763,
         #1367,
         #41,
+        #292, # Saudi Professional League
     ]
 
     def __init__(self, logger: OtLogger):
-        self.gamePredictors = [TrueOdds(logger), BlendTrueOdds(logger), BlendTrueAwayOdds(logger), BlendTrueHomeOdds(logger), TrueOddsInplay2(logger)]
+        self.gamePredictors = [TrueOdds(logger)]
         FbOperator.__init__(self, logger)
 
 
 if __name__ == '__main__':
-    normal_interval_in_mins = 1
+    normal_interval_in_mins = 1.5
     logger = OtLogger('./logs/ops_true_odds.log')
     operator = FbOperatorTrueOdds(logger)
     wait = operator.get_games_in_minutes * 60
@@ -127,7 +129,6 @@ if __name__ == '__main__':
             if len(games) > 0:
                 # Find out the earliest kickoff time of the next matches
                 earliest_game_kickoff = operator.find_next_run_time(games)
-                logger.log("Next kickoff at UTC: " + str (earliest_game_kickoff))
                 now = time.time()
                 # Start running the application "normal_interval_in_mins" before the earliest kickoff time
                 if earliest_game_kickoff < now:
@@ -141,9 +142,5 @@ if __name__ == '__main__':
             logger.exception('Exception happened.... Try again later.')
             raise e
 
-        if wait <= 0:
-            logger.exception('Something is wrong with setting the wait time!')
-            wait = 20 # set wait to 20 seconds in case it needs to run soon
-        else:
-            logger.log("Next run at UTC: " + str (datetime.datetime.now () + datetime.timedelta (seconds = wait)))
-            time.sleep (wait)
+        logger.log("Next run at UTC: " + str (datetime.datetime.now () + datetime.timedelta (seconds = wait)))
+        time.sleep (wait)
