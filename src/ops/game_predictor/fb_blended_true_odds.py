@@ -9,6 +9,7 @@ from src.utils.true_odds_calculator import TrueOddsCalculator
 class TrueOdds(GamePredictorInterface):
 
     review_bookie = 'pinnacle'
+    multiply = 1
     chosen_bet_bookie = dict()
     benchmark_bookie = list()
     benchmark_bookie.append('eurobet')
@@ -55,6 +56,8 @@ class TrueOdds(GamePredictorInterface):
     league_grp2.append(358) # Brazil Serie B
     league_grp2.append(15) # Korea League
     league_grp2.append(140) # Mexico Primera Division
+    league_grp2.append(133) # Croatia Super League
+    league_grp2.append(119) # Ukrainian Premier League
 
     strategy = 'true_odds'
     profit_margin = 0.03
@@ -144,6 +147,7 @@ class TrueOdds(GamePredictorInterface):
         result = {}
         betHome = 0
         betAway = 0
+        self.multiply = 1
         true_odds = self._calc_raw_true_odds(data, localProfitMargin)
         if true_odds:
             pinnacleOddsDict = collections.OrderedDict(sorted(data['odds']['pinnacle'].items(), reverse=True))
@@ -202,6 +206,7 @@ class TrueOdds(GamePredictorInterface):
                         else:
                             self.chosen_bet_bookie['1'] = list()
                             self.chosen_bet_bookie['1'].append(bookie)
+                        self.multiply = len(self.chosen_bet_bookie['1'])
                     if away > true_away:
                         self.logger.log(str(data['game_id']) + ', ' + bookie + ', away, ' + str(true_odds['2']) + ', ' + str(latestOdds['2']))
                         betAway = betAway + 1
@@ -226,6 +231,7 @@ class TrueOdds(GamePredictorInterface):
                         else:
                             self.chosen_bet_bookie['2'] = list()
                             self.chosen_bet_bookie['2'].append(bookie)
+                        self.multiply = len(self.chosen_bet_bookie['2'])
                 if (betHome == 0 and betAway > 1) or (betAway == 0 and betHome > 1):
                     return result
         return False
@@ -247,6 +253,7 @@ class TrueOdds(GamePredictorInterface):
                 elif '2' in true_odds:
                     bet_odds['2'] = 1.01
                 return_data['true_odds'] = bet_odds
+                return_data['multiply'] = self.multiply
                 return_data['gid'] = data ['game_id']
                 return_data['league_id'] = data ['league_id']
                 return_data['league_name'] = data ['league_name']

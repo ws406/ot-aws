@@ -335,7 +335,9 @@ class FBBetfair(Betfair):
         'Royal Antwerp': 'Antwerp',
         'Racing Genk': 'Genk',
         'Oud Heverlee': 'Oud-Heverlee Leuven',
-        'KFCO Wilrijk': 'KFCO Beerschot Wilrijk',
+        'Beerschot Wilrijk': 'KFCO Beerschot Wilrijk',
+        'Saint Gilloise': 'Union St Gilloise',
+        'Seraing United': 'Seraing Utd',
 
         # France
         'AJ Auxerre': 'Auxerre',
@@ -557,6 +559,7 @@ class FBBetfair(Betfair):
         'Gaziantep Buyuksehir Belediyesi': 'Gaziantep FK',
         'Istanbul Buyuksehir Belediyesi': 'Basaksehir',
         'Karagumruk': 'Fatih Karagumruk Istanbul',
+        'Menemen Belediye Spor': 'Menemen Belediyespor',
 
         # Romania
         'CS Universitatea Craiova': 'Universitatea Craiova',

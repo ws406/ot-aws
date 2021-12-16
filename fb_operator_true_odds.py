@@ -54,6 +54,7 @@ class FbOperatorTrueOdds (FbOperator):
         122, # Sweden Superettan
         133, # Croatia Super League
         7, # Denmark
+        127, # Denmark League 1
         273,  # AUS
         6, # Poland super league
         119, # Ukrainian Premier League
@@ -63,11 +64,11 @@ class FbOperatorTrueOdds (FbOperator):
         #113, # Europa League
         103, # Champions League
         ##193, # Algeria
-        ##221, # Poland League 1
+        221, # Poland League 1
         235, # Russia League 1
         ##138, # Belgian Second Division
         ###27, # Swiss Super League
-        #121, # Swiss Challenge League
+        121, # Swiss Challenge League
         1, # Ireland Premier Division
         140, # Mexico Primera Division
         ##308, # South Africa Premier League

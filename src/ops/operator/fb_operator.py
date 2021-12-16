@@ -54,6 +54,13 @@ class FbOperator (abc.ABC):
         173: "bet-at-home",
         1129: "china",
         422: "Sportingbet",
+        613: "sportsbet",
+        841: "smarkets",
+        352: "matchbook",
+        54: "betdaq",
+        571: "jetbull",
+        706: "sportsbet.au",
+        70: "expekt",
     }
 
     # Leave this for sub classes to set
@@ -132,7 +139,7 @@ class FbOperator (abc.ABC):
 
                     self.logger.log ("+++ Game " + str(game['game_id']) + " is qualified. +++")
                     self.logger.log(betting_details)
-                    result = self.gameBetPlacer.place_match_odds_bet(betting_details, len(betting_details['bookie']) * self.amount, debug_mode)
+                    result = self.gameBetPlacer.place_match_odds_bet(betting_details, betting_details['multiply'] * self.amount, debug_mode)
                     if debug_mode:
                        self.logger.log('(debug_mode) - bet_placing_request_pay_load:')
                        self.logger.log(result)
