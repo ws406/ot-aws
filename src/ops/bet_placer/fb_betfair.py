@@ -169,6 +169,11 @@ class FBBetfair(Betfair):
         'SG Sonnenhof Grossaspach': 'SG Sonnenhof',
         'Viktoria koln': 'Viktoria Koln',
         'Bayern Munchen (Youth)': 'Bayern Munich II',
+        'Borussia Dortmund (Youth)': 'Dortmund II',
+        'SC Verl' : 'Verl',
+        'Te Cu Kukuh Atta Seip': 'SV Turkgucu-Ataspor',
+        'Havelse': 'TSV Havelse',
+        'SC Freiburg (Youth)': 'Freiburg II',
 
         # BR 1 & 2
         'Parana PR': 'Parana',
@@ -261,18 +266,20 @@ class FBBetfair(Betfair):
         'Giravanz Kitakyushu': 'Kitakyushu',
 
         # CHINA 1
-        'Hebei HX Xingfu': 'Hebei CFFC',
-        'Chongqing SWM Motors': 'Chongqing Lifan',
+        'Hebei FC': 'Hebei CFFC',
+        'Chongqing Liangjiang Athletic': 'Chongqing Lifan',
         'Dalian Pro': 'Dalian Yifang',
-        'Henan Jianye': 'Henan',
+        'Henan Songshan Longmen': 'Henan',
         'Guangzhou Fuli FC': 'Guangzhou R&F',
-        'Tianjin Tianhai': 'Tianjin Quanjian',
+        'Tianjin Tigers': 'Tianjin Teda',
         'Guangzhou Evergrande Taobao FC': 'Guangzhou FC',
         'Jiangsu Suning FC': 'Jiangsu Suning',
         'Shenzhen JiaZhaoye': 'Shenzhen FC',
-        'Wuhan ZALL': 'Wuhan Zall',
-        'Shanghai East Asia FC': 'Shanghai East Asia',
-        'Qingdao Huanghai F.C.': 'Qingdao Huanghai FC',
+        'Wuhan FC': 'Wuhan Zall',
+        'Shanghai Port': 'Shanghai East Asia',
+        'Shandong Taishan': 'Shandong Luneng',
+        'Qingdao FC': 'Qingdao Huanghai FC',
+        'Cangzhou Mighty Lions': 'Shijiazhuang Yongchang FC',
 
         # Australia
         'Sydney FC': 'Sydney',
@@ -474,6 +481,7 @@ class FBBetfair(Betfair):
         'SC Farense': 'Farense',
         'FC Famalicao': 'Famalicao',
         'FC Arouca': 'Arouca',
+        'Clube Desportivo Trofense': 'CD Trofense',
 
         # IT 1
         'Inter Milan': 'Inter',
@@ -530,7 +538,7 @@ class FBBetfair(Betfair):
         'Marila Pribram': 'Pribram',
 
         # Hungary:
-        'Debrecin VSC': 'Debrecen',
+        'Debrecin VSC': 'DEBRECENI VSC',
         'Ferencvarosi TC': 'Ferencvaros',
         'ZalaegerzsegTE': 'Zalaegerszeg',
         'Diosgyor VTK': 'Diosgyori',
@@ -543,6 +551,7 @@ class FBBetfair(Betfair):
         'Dafuji cloth MTE': 'Budafoki',
         'Ujpesti': 'Ujpest',
         'MTK Hungaria': 'MTK Budapest',
+        'Gyirmot SE': 'Gyirmot',
 
         # Croatia
         'ZNK Osijek': 'Osijek',
@@ -560,9 +569,11 @@ class FBBetfair(Betfair):
         'Istanbul Buyuksehir Belediyesi': 'Basaksehir',
         'Karagumruk': 'Fatih Karagumruk Istanbul',
         'Menemen Belediye Spor': 'Menemen Belediyespor',
+        'Manisa BB Spor': 'Manisa FK',
 
         # Romania
         'CS Universitatea Craiova': 'Universitatea Craiova',
+        'Universitatea Craiova': 'FC U Craiova 1948',
         'Sepsi': 'ACS Sepsi OSK',
         'AFC Hermannstadt': 'Hermannstadt',
         'Dinamo Bucuresti': 'Dinamo Bucharest',
