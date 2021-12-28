@@ -1,5 +1,6 @@
 #from src.ops.game_predictor.fb_blended_true_odds_inplay import TrueOddsInplay
 from src.ops.game_predictor.fb_blended_true_odds import TrueOdds
+from src.ops.game_predictor.fb_blended_true_odds_strong_team import TrueOddsStrongTeam
 #from src.ops.game_predictor.fb_blended_true_odds_inplay2 import TrueOddsInplay2
 #from src.ops.game_predictor.fb_blended_true_odds_inplay3 import TrueOddsInplay3
 from src.ops.operator.fb_operator import FbOperator
@@ -104,7 +105,8 @@ class FbOperatorTrueOdds (FbOperator):
     ]
 
     def __init__(self, logger: OtLogger):
-        self.gamePredictors = [TrueOdds(logger)]
+        self.gamePredictors = [TrueOdds(logger), TrueOddsStrongTeam(logger)]
+        #self.gamePredictors = [TrueOddsStrongTeam(logger)]
         FbOperator.__init__(self, logger)
 
 

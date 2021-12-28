@@ -7,6 +7,7 @@ from src.ops.game_predictor.fb_blended_true_odds_home import BlendTrueHomeOdds
 from src.ops.game_predictor.fb_blended_true_odds_inplay import TrueOddsInplay
 from src.ops.game_predictor.fb_blended_true_odds_inplay2 import TrueOddsInplay2
 from src.ops.game_predictor.fb_blended_true_odds_inplay3 import TrueOddsInplay3
+from src.ops.game_predictor.fb_blended_true_odds_strong_team import TrueOddsStrongTeam
 
 class FBBetfair(Betfair):
 
@@ -14,7 +15,6 @@ class FBBetfair(Betfair):
     market_type_code_match_odds = 'MATCH_ODDS'
     market_name = 'Match Odds'
     runner_name_draw = 'The Draw'
-
     team_names_mapping = {
         # EPL & EC
         'Tottenham Hotspur': 'Tottenham',
@@ -718,7 +718,7 @@ class FBBetfair(Betfair):
 
         strategy = game_data['strategy']
 
-        if strategy == TrueOddsInplay.strategy:
+        if strategy == TrueOddsInplay.strategy or strategy == TrueOddsStrongTeam.strategy:
             return self._place_bet_for_true_odds(game_data, betting_amount, self.persistence_persist, debug_mode)
         elif strategy == TrueOddsLower2.strategy or strategy == TrueOdds.strategy or strategy == BlendTrueOdds.strategy or strategy == TrueOddsInplay2.strategy or strategy == TrueOddsInplay3.strategy or strategy == BlendTrueHomeOdds.strategy:
             return self._place_bet_for_true_odds(game_data, betting_amount, self.persistence_lapse, debug_mode)
@@ -740,13 +740,18 @@ class FBBetfair(Betfair):
 
         for key, bet_on_odds in game_data['true_odds'].items():
             if key == '1':
-                bet_type = self.back_bet
+                if game_data['side'] == "BACK":
+                    bet_type = self.back_bet
+                    amount = betting_amount
+                    price = self._round_up_odds(bet_on_odds)
+                elif game_data['side'] == "LAY":
+                    bet_type = self.lay_bet
+                    amount = self._round_up_amount(betting_amount / (float(list(game_data['odds'].values())[0]) - 1))
+                    price = self._round_down_odds(bet_on_odds)
                 if betOnHome:
                     bet_on_team = home_team_name
                 else:
                     bet_on_team = away_team_name
-                amount = betting_amount
-                price = self._round_up_odds(bet_on_odds)
             elif key == '-1':
                 bet_type = self.lay_bet
                 if betOnHome:
@@ -757,9 +762,14 @@ class FBBetfair(Betfair):
                 price = self._round_down_odds(lay_odds) # round lay odds to proper tick
                 amount = self._round_up_amount(betting_amount / (price - 1))
             elif key == '2':
-                bet_type = self.back_bet
-                amount = betting_amount
-                price = self._round_up_odds(bet_on_odds)
+                if game_data['side'] == "BACK":
+                    bet_type = self.back_bet
+                    amount = betting_amount
+                    price = self._round_up_odds(bet_on_odds)
+                elif game_data['side'] == "LAY":
+                    bet_type = self.lay_bet
+                    amount = self._round_up_amount(betting_amount / (float(list(game_data['odds'].values())[0]) - 1))
+                    price = self._round_down_odds(bet_on_odds)
                 bet_on_team = away_team_name
             elif key == 'x':
                 bet_type = self.back_bet
