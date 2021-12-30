@@ -49,7 +49,7 @@ class TrueOddsStrongTeam(GamePredictorInterface):
 
     def __init__(self, logger: OtLogger):
         self.logger = logger
-        self.model = joblib.load("./football_model_16-21.6.v1.sav")
+        self.model = joblib.load("./football_model_16-21.6.v2.sav")
 
     def _get_average(self, localList):
         number = 0
