@@ -38,6 +38,10 @@ class TrueOddsStrongTeam(GamePredictorInterface):
     benchmark_bookie.append('efbet')
     benchmark_bookie.append("interwetten")
 
+    filter_league = list()
+    filter_league.append(89) # Copa Libertadores
+    filter_league.append(193) # Algeria
+
     strategy = 'true_odds2'
     profit_margin = 0.05
     side = '0'
@@ -113,6 +117,8 @@ class TrueOddsStrongTeam(GamePredictorInterface):
         return raw_true_odds
 
     def _calc_true_odds(self, data, localProfitMargin):
+        if data['league_id'] in self.filter_league:
+            return False
         result = {}
         picked_bookie = list()
         picked_bookie.append('pinnacle')
@@ -127,6 +133,8 @@ class TrueOddsStrongTeam(GamePredictorInterface):
         self.side = '0'
         self.choice = '0'
         if true_odds:
+            latestPinnacleOddsDict = collections.OrderedDict(sorted(data['odds']['pinnacle'].items(), reverse=True))
+            latestPinnacleOdds = latestPinnacleOddsDict[list(latestPinnacleOddsDict)[0]]
             self.side = '1' if latestPinnacleOdds['1'] < latestPinnacleOdds['2'] else '2'
             localVec = []
             localVec.append(0 if self.side == '1' else 1)
@@ -143,8 +151,6 @@ class TrueOddsStrongTeam(GamePredictorInterface):
             picked_bookie.append('betvictor')
             true_odds_betvictor = self._calc_raw_true_odds(data, localProfitMargin, picked_bookie)
             localVec.append(1 / float(true_odds_betvictor[self.side]) - 1 / float(true_odds[self.side]))
-            latestPinnacleOddsDict = collections.OrderedDict(sorted(data['odds']['pinnacle'].items(), reverse=True))
-            latestPinnacleOdds = latestPinnacleOddsDict[list(latestPinnacleOddsDict)[0]]
             localVec.append(float(latestPinnacleOdds[self.side]))
             vec = []
             vec.append(localVec)
@@ -178,7 +184,7 @@ class TrueOddsStrongTeam(GamePredictorInterface):
                         self.chosen_bet_bookie['strong'] = list()
                         self.chosen_bet_bookie['strong'].append(bookie)
                     self.multiply = len(self.chosen_bet_bookie['strong'])
-                if bookie_strong_team_not_win_odds > strong_team_not_win_odds:
+                if bookie_strong_team_not_win_odds > strong_team_not_win_odds and bookie_strong_team_win_odds > 1.35:
                     self.logger.log(str(data['game_id']) + ', ' + bookie + ', weak, ' + str(strong_team_not_win_odds) + ', ' + str(bookie_strong_team_not_win_odds))
                     self.choice = 'lay'
                     if 'weak' in self.chosen_bet_bookie:
@@ -188,7 +194,7 @@ class TrueOddsStrongTeam(GamePredictorInterface):
                         self.chosen_bet_bookie['weak'].append(bookie)
                     self.multiply = len(self.chosen_bet_bookie['weak'])
             if len(self.chosen_bet_bookie):
-                result[self.side] = strong_team_win_odds
+                result[self.side] = true_strong_team_win_odds
                 return result
         return False
 
@@ -207,7 +213,7 @@ class TrueOddsStrongTeam(GamePredictorInterface):
                 if self.choice == 'back':
                     bet_odds[self.side] = 1.01
                 else:
-                    bet_odds[self.side] = 10.0
+                    bet_odds[self.side] = 11.0
                 return_data['true_odds'] = bet_odds
                 return_data['multiply'] = self.multiply
                 return_data['gid'] = data ['game_id']

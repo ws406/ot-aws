@@ -52,12 +52,14 @@ class TrueOdds(GamePredictorInterface):
     league_grp2.append(12) # France Ligue 2
     league_grp2.append(203) # France Ligue 3
     league_grp2.append(284) # J-League Division 2
-    league_grp2.append(23) # Portugal Primera Liga
-    league_grp2.append(358) # Brazil Serie B
-    league_grp2.append(15) # Korea League
     league_grp2.append(140) # Mexico Primera Division
     league_grp2.append(133) # Croatia Super League
     league_grp2.append(119) # Ukrainian Premier League
+
+    filter_league = list()
+    filter_league.append(27) # Swiss Super League
+    filter_league.append(30) # Turkish Super Liga
+    filter_league.append(37) # England Championship
 
     strategy = 'true_odds'
     profit_margin = 0.03
@@ -144,96 +146,93 @@ class TrueOdds(GamePredictorInterface):
         return raw_true_odds
 
     def _calc_true_odds(self, data, localProfitMargin):
+        if data['league_id'] in self.filter_league:
+            return False
         result = {}
         betHome = 0
         betAway = 0
         self.multiply = 1
         true_odds = self._calc_raw_true_odds(data, localProfitMargin)
         if true_odds:
-            pinnacleOddsDict = collections.OrderedDict(sorted(data['odds']['pinnacle'].items(), reverse=True))
-            home = float(pinnacleOddsDict[list(pinnacleOddsDict)[0]]['1'])
-            draw = float(pinnacleOddsDict[list(pinnacleOddsDict)[0]]['x'])
-            away = float(pinnacleOddsDict[list(pinnacleOddsDict)[0]]['2'])
-            if home <= 8.5 and draw <= 8.5 and away <= 8.5:
-                self.chosen_bet_bookie.clear()
-                for bookie in self.benchmark_bookie:
-                    latestOdds = {}
-                    try:
-                        latestOddsDict = collections.OrderedDict(sorted(data['odds'][bookie].items(), reverse=True))
-                        latestOdds = latestOddsDict[list(latestOddsDict)[0]]
-                        home = float(latestOdds['1'])
-                        draw = float(latestOdds['x'])
-                        away = float(latestOdds['2'])
-                    except Exception as e:
-                        self.logger.log('missing bench odds - ' + str(e))
-                        latestOdds['1'] = 1.0
-                        latestOdds['x'] = 1.0
-                        latestOdds['2'] = 1.0
-                        home = 0
-                        draw = 0
-                        away = 0
-                    localProfitMargin = self.profit_margin
-                    if data['league_id'] in self.league_grp2:
-                        localProfitMargin = self.profit_margin_2
-                    true_home = float(true_odds['1'])
-                    true_draw = float(true_odds['x'])
-                    true_away = float(true_odds['2'])
-                    true_home = true_home * (1.0 + localProfitMargin)
-                    true_draw = true_draw * (1.0 + localProfitMargin)
-                    true_away = true_away * (1.0 + localProfitMargin)
-                    self.logger.log(str(data['game_id']) + ', ' + bookie + ', ' + str(localProfitMargin) + ', ' + str(true_home) + ', ' + str(true_draw) + ', ' + str(true_away) + ', ' + str(home) + ', ' + str(draw) + ', ' + str(away))
-                    if home > true_home:
-                        self.logger.log(str(data['game_id']) + ', ' + bookie + ', home, ' + str(true_odds['1']) + ', ' + str(latestOdds['1']))
-                        betHome = betHome + 1
-                        value1 = self._round_up_odds(true_home / 0.98)
-                        value2 = self._round_up_odds(home / 0.98)
-                        if '1' in result:
-                            if true_home not in result['1']:
-                                result['1'].append(true_home)
-                            if value1 not in result['1']:
-                                result['1'].append(value1)
-                            if value2 not in result['1']:
-                                result['1'].append(value2)
-                        else:
-                            result['1'] = []
+            self.chosen_bet_bookie.clear()
+            for bookie in self.benchmark_bookie:
+                latestOdds = {}
+                try:
+                    latestOddsDict = collections.OrderedDict(sorted(data['odds'][bookie].items(), reverse=True))
+                    latestOdds = latestOddsDict[list(latestOddsDict)[0]]
+                    home = float(latestOdds['1'])
+                    draw = float(latestOdds['x'])
+                    away = float(latestOdds['2'])
+                except Exception as e:
+                    self.logger.log('missing bench odds - ' + str(e))
+                    latestOdds['1'] = 1.0
+                    latestOdds['x'] = 1.0
+                    latestOdds['2'] = 1.0
+                    home = 0
+                    draw = 0
+                    away = 0
+                localProfitMargin = self.profit_margin
+                if data['league_id'] in self.league_grp2:
+                    localProfitMargin = self.profit_margin_2
+                true_home = float(true_odds['1'])
+                true_draw = float(true_odds['x'])
+                true_away = float(true_odds['2'])
+                true_home = true_home * (1.0 + localProfitMargin)
+                true_draw = true_draw * (1.0 + localProfitMargin)
+                true_away = true_away * (1.0 + localProfitMargin)
+                self.logger.log(str(data['game_id']) + ', ' + bookie + ', ' + str(localProfitMargin) + ', ' + str(true_home) + ', ' + str(true_draw) + ', ' + str(true_away) + ', ' + str(home) + ', ' + str(draw) + ', ' + str(away))
+                if home > true_home and away > 1.35:
+                    self.logger.log(str(data['game_id']) + ', ' + bookie + ', home, ' + str(true_odds['1']) + ', ' + str(latestOdds['1']))
+                    betHome = betHome + 1
+                    value1 = self._round_up_odds(true_home / 0.98)
+                    value2 = self._round_up_odds(home / 0.98)
+                    if '1' in result:
+                        if true_home not in result['1']:
                             result['1'].append(true_home)
-                            if value1 not in result['1']:
-                                result['1'].append(value1)
-                            if value2 not in result['1']:
-                                result['1'].append(value2)
-                        if '1' in self.chosen_bet_bookie:
-                            self.chosen_bet_bookie['1'].append(bookie)
-                        else:
-                            self.chosen_bet_bookie['1'] = list()
-                            self.chosen_bet_bookie['1'].append(bookie)
-                        self.multiply = len(self.chosen_bet_bookie['1'])
-                    if away > true_away:
-                        self.logger.log(str(data['game_id']) + ', ' + bookie + ', away, ' + str(true_odds['2']) + ', ' + str(latestOdds['2']))
-                        betAway = betAway + 1
-                        value1 = self._round_up_odds(true_away / 0.98)
-                        value2 = self._round_up_odds(away / 0.98)
-                        if '2' in result:
-                            if true_away not in result['2']:
-                                result['2'].append(true_away)
-                            if value1 not in result['2']:
-                                result['2'].append(value1)
-                            if value2 not in result['2']:
-                                result['2'].append(value2)
-                        else:
-                            result['2'] = []
+                        if value1 not in result['1']:
+                            result['1'].append(value1)
+                        if value2 not in result['1']:
+                            result['1'].append(value2)
+                    else:
+                        result['1'] = []
+                        result['1'].append(true_home)
+                        if value1 not in result['1']:
+                            result['1'].append(value1)
+                        if value2 not in result['1']:
+                            result['1'].append(value2)
+                    if '1' in self.chosen_bet_bookie:
+                        self.chosen_bet_bookie['1'].append(bookie)
+                    else:
+                        self.chosen_bet_bookie['1'] = list()
+                        self.chosen_bet_bookie['1'].append(bookie)
+                    self.multiply = len(self.chosen_bet_bookie['1'])
+                if away > true_away and home > 1.35:
+                    self.logger.log(str(data['game_id']) + ', ' + bookie + ', away, ' + str(true_odds['2']) + ', ' + str(latestOdds['2']))
+                    betAway = betAway + 1
+                    value1 = self._round_up_odds(true_away / 0.98)
+                    value2 = self._round_up_odds(away / 0.98)
+                    if '2' in result:
+                        if true_away not in result['2']:
                             result['2'].append(true_away)
-                            if value1 not in result['2']:
-                                result['2'].append(value1)
-                            if value2 not in result['2']:
-                                result['2'].append(value2)
-                        if '2' in self.chosen_bet_bookie:
-                            self.chosen_bet_bookie['2'].append(bookie)
-                        else:
-                            self.chosen_bet_bookie['2'] = list()
-                            self.chosen_bet_bookie['2'].append(bookie)
-                        self.multiply = len(self.chosen_bet_bookie['2'])
-                if (betHome == 0 and betAway > 1) or (betAway == 0 and betHome > 1):
-                    return result
+                        if value1 not in result['2']:
+                            result['2'].append(value1)
+                        if value2 not in result['2']:
+                            result['2'].append(value2)
+                    else:
+                        result['2'] = []
+                        result['2'].append(true_away)
+                        if value1 not in result['2']:
+                            result['2'].append(value1)
+                        if value2 not in result['2']:
+                            result['2'].append(value2)
+                    if '2' in self.chosen_bet_bookie:
+                        self.chosen_bet_bookie['2'].append(bookie)
+                    else:
+                        self.chosen_bet_bookie['2'] = list()
+                        self.chosen_bet_bookie['2'].append(bookie)
+                    self.multiply = len(self.chosen_bet_bookie['2'])
+            if (betHome == 0 and betAway > 1) or (betAway == 0 and betHome > 1):
+                return result
         return False
 
     def get_prediction(self, data, profit_margin = None):

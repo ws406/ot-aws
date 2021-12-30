@@ -17,6 +17,7 @@ class FbOperatorTrueOdds (FbOperator):
 
     league_ids = [
         36,  # EPL
+        37,  # England Championship
         39,  # EFL1
         35,  # EFL2
         146, # English Nation League
@@ -24,8 +25,8 @@ class FbOperatorTrueOdds (FbOperator):
         298, # England Conference South
         31,  # ES1
         33,  # ES2
-        1413, # Spanish Segunda Division B
         2254, # Spanish Primera Division
+        1413, # Spanish Segunda Division B
         ##84,  # English League Cup
         90, # England FA Cup
         ##81, # Spanish Copa
@@ -44,7 +45,7 @@ class FbOperatorTrueOdds (FbOperator):
         1346,  # JAP3
         60,  # China
         4,  # BRA1
-        358, # BRA2
+        #358, # BRA2
         #29,  # SCOT1
         #150,  # SCOT2
         5,  # BEL1
@@ -54,47 +55,48 @@ class FbOperatorTrueOdds (FbOperator):
         26,  # Sweden
         122, # Sweden Superettan
         133, # Croatia Super League
-        7, # Denmark
+        7, # Denmark Super League
         127, # Denmark League 1
         273,  # AUS
         6, # Poland super league
+        221, # Poland League 1
         119, # Ukrainian Premier League
         137, # Czech First League
         3, # Austria Leagie 1
         136, # Hungary NB I
-        #113, # Europa League
         103, # Champions League
-        ##193, # Algeria
-        221, # Poland League 1
+        #113, # Europa League
+        2187, # Europa Conference League
+        193, # Algeria
         235, # Russia League 1
         ##138, # Belgian Second Division
-        ###27, # Swiss Super League
+        27, # Swiss Super League
         121, # Swiss Challenge League
         1, # Ireland Premier Division
         140, # Mexico Primera Division
         ##308, # South Africa Premier League
         ##700, # Thai Premier League
         766, # Vietnam
-        ##89, # Copa Libertadores
-        ##263, # Copa Sudamericana
+        89, # Copa Libertadores
+        263, # Copa Sudamericana
         192, # AFC Champions League
-        #350, # AFC Cup
+        350, # AFC Cup
         165, # Northern Ireland Premier League
         135, # Welsh Premier
-        ##142, # Italian C1
         34,  # Italy A
         40,  # Italy B
+        142, # Italian C1
         #32, # Greece
         #23,  # POTG1
         157,  # POTG2
-        #30,  # Turkey
+        30,  # Turkish Super Liga
         130, # Turkey 2
         ###54, #French Cup
         ###67, # Euro Cup
-        ##37,  # ENC
         124, # Romanian Liga I
-        15, # Korea League
-        #194, #Singapore
+        118, # Israel Premier League
+        #15, # Korea League
+        #194, # Singapore
         #326, # Tunisia
         ##321, # Morocco Pro 1
         #1385,

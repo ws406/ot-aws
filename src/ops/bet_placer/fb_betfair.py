@@ -95,7 +95,7 @@ class FBBetfair(Betfair):
         'Halifax Town': 'FC Halifax Town',
         'Notts County': 'Notts Co',
         'Hartlepool United': 'Hartlepool',
-        'Dagenham Redbridge': 'Dag and Red',
+        'Dagenham   Redbridge': 'Dag and Red',
         'Maidenhead United': 'Maidenhead',
         'Sutton United': 'Sutton Utd',
         'Torquay United': 'Torquay',
