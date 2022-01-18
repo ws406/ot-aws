@@ -60,6 +60,7 @@ class TrueOdds(GamePredictorInterface):
     filter_league.append(27) # Swiss Super League
     filter_league.append(30) # Turkish Super Liga
     filter_league.append(37) # England Championship
+    filter_league.append(140) # Mexico
 
     strategy = 'true_odds'
     profit_margin = 0.03

@@ -396,7 +396,6 @@ class FBBetfair(Betfair):
         'Real Valladolid': 'Valladolid',
         'Real Betis': 'Betis',
         'RCD Espanyol': 'Espanyol',
-        'Real Sociedad': 'Sociedad',
         'Granada CF': 'Granada',
         'Real Zaragoza': 'Zaragoza',
         'Deportivo La Coruna': 'Deportivo',
@@ -631,7 +630,7 @@ class FBBetfair(Betfair):
         'Pumas U.N.A.M.': 'Pumas UNAM',
         'Chivas Guadalajara': 'Guadalajara',
         'Club Leon': 'Leon',
-        'Queretaro FC': 'Queretaro',
+        'Queretaro FC': 'Querétaro',
 
         # Northen Irish
         'Institute FC': 'Institute',
@@ -698,6 +697,11 @@ class FBBetfair(Betfair):
         'Ludogorets Razgrad': 'Ludogorets',
         'Qarabag': 'Qarabag FK',
         'LASK Linz': 'Lask Linz',
+        'Maccabi Petah Tikva FC': 'Maccabi Petach Tikva',
+        'Hapoel Hadera': 'Hapoel Eran Hadera',
+        'Ashdod MS': 'FC Ashdod',
+        'Hapoel Natzrat Illit': 'Hapoel Nof HaGalil',
+        'Hapoel Bnei Sakhnin FC': 'Bnei Sakhnin',
 
         'Liverpool URU': 'Liverpool Montevideo',
         'Deportes Tolima': 'Tolima',

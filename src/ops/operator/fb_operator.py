@@ -121,9 +121,10 @@ class FbOperator (abc.ABC):
 
             # If actual_kickoff is more than mins_before_kickoff mins away, do not place bet
             if actual_kickoff - datetime.datetime.now() > datetime.timedelta(minutes = self.mins_before_kickoff):
-
-                self.logger.log("Too early to place bet for game " + ' ' + game['home_team_name'] + ' vs ' +
-                       game['away_team_name'])
+                try:
+                    self.logger.log("Too early to place bet for game " + ' ' + game['home_team_name'] + ' vs ' + game['away_team_name'])
+                except IndexError as ie:
+                    None
 
                 # Append this game to the list, so that it can be used to determine next runtime.
                 games_not_bet.append(game)
