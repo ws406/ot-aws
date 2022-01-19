@@ -9,6 +9,7 @@ from src.utils.logger import OtLogger
 
 class Betfair (abc.ABC):
     base_url = "https://api.betfair.com/exchange/betting/json-rpc/v1"
+    base_url_2 = "https://api.betfair.com/exchange/account/json-rpc/v1"
     market_name = ''
     event_type_id = ''
     commission_rate = 0
@@ -155,6 +156,9 @@ class Betfair (abc.ABC):
 
         return None
 
+    def get_account_info (self):
+        return self._call_exchange_api (json.dumps (self._get_account_builder ()), True)
+
     def _get_market_catalogue (self, home_team_name, away_team_name, market_types):
 
         filters = {
@@ -189,9 +193,10 @@ class Betfair (abc.ABC):
         except IndexError as ie:
             return False
 
-    def _call_exchange_api (self, jsonrpc_req):
+    def _call_exchange_api (self, jsonrpc_req, isAccount = False):
         try:
-            req = urllib.request.Request (self.base_url, jsonrpc_req.encode ('utf-8'), self.request_headers)
+            url = self.base_url_2 if isAccount else self.base_url
+            req = urllib.request.Request (url, jsonrpc_req.encode ('utf-8'), self.request_headers)
             response = urllib.request.urlopen (req)
             jsonResponse = response.read ()
             return jsonResponse.decode ('utf-8')
@@ -261,6 +266,14 @@ class Betfair (abc.ABC):
                 "maxResults": 1,
                 "marketProjection": ["RUNNER_METADATA"]
             },
+            "id": 1
+        }
+
+    @staticmethod
+    def _get_account_builder () :
+        return {
+            "jsonrpc": "2.0",
+            "method": "AccountAPING/v1.0/getAccountFunds",
             "id": 1
         }
 

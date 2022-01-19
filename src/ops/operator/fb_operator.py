@@ -95,6 +95,10 @@ class FbOperator (abc.ABC):
 
         self.gameBetPlacer = FBBetfair (app_key, session_token, self.commission_rate, self.logger)
 
+    def get_account_info(self):
+        result = self.gameBetPlacer.get_account_info()
+        self.logger.log(result)
+
     def execute (self, debug_mode):
 
         # Get required data from process

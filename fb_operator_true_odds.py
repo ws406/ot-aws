@@ -120,6 +120,7 @@ if __name__ == '__main__':
 
     while (True):
         try:
+            operator.get_account_info()
             games = operator.execute(debug_mode=False)
             # Test data
             # games = [
